@@ -3,7 +3,7 @@ Displays a ranked bar chart wth city names and metrics superimposed on the bars.
 
 City ranking : City name : Value
 
-A value greater than 1.0 means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 1.0 means the opposite, and a value equal to 1.0 means the activity did not change. 
+A value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change. 
 #### City size
 Since all cities in the study were included because they were the largest cities in Canada and the United States, 'large' in this case refers to the largest 20 cities in the study. All other cities are considered 'medium'. 
 
