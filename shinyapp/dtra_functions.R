@@ -74,19 +74,13 @@ recovery_rankings_plot <- function(df) {
                                  "Pacific" = "#984ea3",
                                  "Southeast" = "#ff7f00",
                                  "Southwest" = "#e6ab02"))
-  girafe(ggobj = g1, width_svg = 8, height_svg = 6,
-         options = list(
-           opts_hover_inv(css = "opacity:0.1;"),
-           opts_hover(css = "stroke-width:2;"),
-           opts_sizing(rescale = TRUE, width = .8)
-         ))
+  ggplotly(g1, tooltip = "text")
 }
 
-recovery_patterns_df <- function(selected_metric, cities, rolling_window) {
+recovery_patterns_df <- function(selected_metric, rolling_window) {
   
   na.omit(all_weekly_metrics %>%
-    dplyr::filter((metric == selected_metric) &
-                    (display_title %in% cities)) %>%
+    dplyr::filter(metric == selected_metric) %>%
     arrange(week) %>%
     group_by(city) %>%
     mutate(rolling_avg = rollmean(
@@ -100,7 +94,7 @@ recovery_patterns_df <- function(selected_metric, cities, rolling_window) {
   
 }
 
-recovery_patterns_plot <- function(df, n) {
+recovery_patterns_plot <- function(df, metric, n) {
   starting_lqs <- df %>%
     dplyr::filter(week == min(week)) %>%
     dplyr::select(city, region, week, rolling_avg) %>%
@@ -117,53 +111,57 @@ recovery_patterns_plot <- function(df, n) {
   total_cities <- length(unique(df$city))
   total_weeks <- length(unique(df$week))
   
-  ggplot(df) + aes(
+  g1 <- ggplot(df) + aes(
     x = week,
     y = rolling_avg,
     group = city,
     color = region,
-    label = city
+    label = city,
+    text =
+      paste0(
+        "<b>City:<b> ", city, "<br>",
+        n, "<b>week rolling average:<br> ", percent(round(rolling_avg, 2), 1), "<br>"
+      ) 
   ) + geom_line(size = 1) +
-    geom_label_repel(
-      data = starting_lqs,
-      size = 5,
-      direction = "y",
-      hjust = "right",
-      force = 1,
-      na.rm  = TRUE,
-      min.segment.length = 0,
-      segment.curvature = 1e-20,
-      segment.angle = 20,
-      # this was determined to be a decent offset based on the commented out line below
-      # leaving it in as future reference 
-      nudge_x = rep(-35, times = total_cities),
-      show.legend = FALSE
-      #nudge_x = rep(-total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
-    ) +
-    geom_label_repel(
-      data = ending_lqs,
-      size = 5,
-      direction = "y",
-      hjust = "left",
-      force = 1,
-      na.rm = TRUE,
-      min.segment.length = 0,
-      segment.curvature =  1e-20,
-      segment.angle = 20,
-      # this was determined to be a decent offset based on the commented out line below
-      # leaving it in as future reference 
-      nudge_x = rep(35, times = total_cities),
-      show.legend = FALSE
-      #nudge_x = rep(total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
-    ) +
-    labs(title = paste(names(named_metrics[named_metrics == unique(df$metric)[1]])),
-         subtitle = paste(n, "week rolling average"),
+    # geom_label(
+    #   data = starting_lqs,
+    #   size = 5,
+    #   direction = "y",
+    #   hjust = "right",
+    #   force = 1,
+    #   na.rm  = TRUE,
+    #   min.segment.length = 0,
+    #   segment.curvature = 1e-20,
+    #   segment.angle = 20,
+    #   # this was determined to be a decent offset based on the commented out line below
+    #   # leaving it in as future reference 
+    #   nudge_x = rep(-35, times = total_cities),
+    #   show.legend = FALSE
+    #   #nudge_x = rep(-total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+    # ) +
+    # geom_label(
+    #   data = ending_lqs,
+    #   size = 5,
+    #   direction = "y",
+    #   hjust = "left",
+    #   force = 1,
+    #   na.rm = TRUE,
+    #   min.segment.length = 0,
+    #   segment.curvature =  1e-20,
+    #   segment.angle = 20,
+    #   # this was determined to be a decent offset based on the commented out line below
+    #   # leaving it in as future reference 
+    #   nudge_x = rep(35, times = total_cities),
+    #   show.legend = FALSE
+    #   #nudge_x = rep(total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+    # ) +
+    labs(title = paste(names(named_metrics[named_metrics == metric])),
+         subtitle = paste(n, " week rolling average"),
          color = "Region",
          y = "Metric",
          x = "Month"
     ) +
     theme(
-      #legend.position = "none",
       axis.text.x = element_text(size = 10, angle = 45, vjust = 1, hjust = 1),
       axis.title = element_text(size = 12, hjust = .5),
       plot.title = element_text(size = 16, hjust = .5),
@@ -181,13 +179,14 @@ recovery_patterns_plot <- function(df, n) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
+  ggplotly(g1, tooltip = "text")
 }
 
-explanatory_plot <- function(selected_metric, cities, x_var, y_var) {
+explanatory_plot <- function(selected_metric, x_var, y_var) {
   y <- all_seasonal_metrics %>%
     dplyr::filter((metric == selected_metric) &
                     (Season == y_var)) %>%
-    dplyr::select(city, display_title, Season, seasonal_average)
+    dplyr::select(city, display_title, Season, seasonal_average, metric)
   
   X <- explanatory_vars %>%
     dplyr::filter(Season == y_var) %>%
@@ -195,15 +194,16 @@ explanatory_plot <- function(selected_metric, cities, x_var, y_var) {
   
   colnames(X) <- c("city", "region", "x")
   
-  colnames(y) <- c("city", "display_title", "Season", "y")
+  colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   plot_df <- unique(y %>%
-           inner_join(X, by = "city") %>%
-           mutate(key_study_case = display_title %in% cities))
+           inner_join(X, by = "city") #%>%
+           #mutate(key_study_case = display_title %in% cities)
+           )
   
-  key_study_cases_df <- plot_df %>%
-    filter(key_study_case == TRUE) 
-  leftover_cities <- plot_df %>%
-    filter(key_study_case == FALSE)
+  # key_study_cases_df <- plot_df %>%
+  #   filter(key_study_case == TRUE) 
+  # leftover_cities <- plot_df %>%
+  #   filter(key_study_case == FALSE)
   model.formula <- paste0("y~x") %>% as.formula()
   model.ols <- lm(model.formula, plot_df)
   coeffs <- coef(model.ols)
@@ -211,74 +211,73 @@ explanatory_plot <- function(selected_metric, cities, x_var, y_var) {
   
   ### get equation and r-squared as string ###
   ### adapted from: https://groups.google.com/forum/#!topic/ggplot2/1TgH-kG5XMA ###
-  eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
-                                 list(a = format(unname(coeffs[1]), digits = 2),
-                                      b = format(unname(coeffs[2]), digits = 2))))
+  # eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
+  #                                list(a = format(unname(coeffs[1]), digits = 2),
+  #                                     b = format(unname(coeffs[2]), digits = 2))))
+  # 
+  # r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
+  #                                       list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
   
-  r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
-                                        list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
-  
-  g1 <- ggplot(plot_df, aes(x = x, y = y)) +
-    geom_point(
-      data = leftover_cities,
-      alpha = .1,
-      na.rm = TRUE,
-      fill = "gray85",
-      size = 3,
-      show.legend = FALSE
-    ) +
-    geom_smooth(
-      data = plot_df,
-      method = "lm",
-      formula = "y~x",
-      alpha = 0.3,
-      linetype = 0,
-      na.rm = TRUE,
-      fullrange = TRUE
-    ) +
-    stat_smooth(
-      geom = "line",
-      data = plot_df,
-      method = "lm",
-      formula = "y~x",
-      alpha = .75,
-      linetype = "dashed",
-      na.rm = TRUE,
-      fullrange = TRUE
-    ) +
-    geom_point(data = key_study_cases_df,
+  g1 <- ggplot(plot_df, aes(x = x,
+                            y = y,
+                            text = paste0("<b>City:</b> ", city, "<br>",
+                                          "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
+                                          "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
+                                          )
+                            )
+               ) +
+    geom_point(data = plot_df,
                aes(color = region),
                size = 5) +
-    xlim(min(key_study_cases_df$x), max(key_study_cases_df$x)) +
+    # geom_smooth(
+    #   data = plot_df,
+    #   method = "lm",
+    #   formula = "y~x",
+    #   alpha = 0.3,
+    #   linetype = 0,
+    #   na.rm = TRUE,
+    #   fullrange = TRUE
+    # ) +
+    # stat_smooth(
+    #   geom = "line",
+    #   data = plot_df,
+    #   method = "lm",
+    #   formula = "y~x",
+    #   alpha = .75,
+    #   linetype = "dashed",
+    #   na.rm = TRUE,
+    #   fullrange = TRUE
+    # ) +
+    xlim(min(plot_df$x), max(plot_df$x)) +
     
-    geom_text_repel(
-      data = key_study_cases_df,
-      aes(color = region),
-      label = key_study_cases_df$city,
-      size = 6,
-      point.size = 8,
-      min.segment.length = 0,
-      segment.curvature = -1,
-      segment.ncp = 3,
-      segment.angle = 20,
-      show.legend = FALSE
-    ) +
+    # geom_text_repel(
+    #   data = key_study_cases_df,
+    #   aes(color = region),
+    #   label = key_study_cases_df$city,
+    #   size = 6,
+    #   point.size = 8,
+    #   min.segment.length = 0,
+    #   segment.curvature = -1,
+    #   segment.ncp = 3,
+    #   segment.angle = 20,
+    #   show.legend = FALSE
+    # ) +
     theme(plot.title = element_text(size = 16, hjust = .5),
           axis.title = element_text(size = 12),
           plot.subtitle = element_text(size = 14, hjust = .5)) +
     labs(x = names(named_factors[named_factors == x_var]),
          y = names(named_periods[named_periods == y_var]),
-         title = eq,
-         subtitle = r_squared,
+         #title = eq,
+         #subtitle = r_squared,
          color = "Region") +
-    scale_y_continuous(labels = scales::percent, limits = c(min(key_study_cases_df$y), max(key_study_cases_df$y))) +
+    scale_y_continuous(labels = scales::percent, limits = c(min(plot_df$y), max(plot_df$y))) +
     scale_color_manual(values = c("Canada" = "#e41a1c",
                                   "Midwest" = "#377eb8",
                                   "Northeast" = "#4daf4a",
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  g1
+  ggplotly(g1, tooltip = "text")
   
   
 }

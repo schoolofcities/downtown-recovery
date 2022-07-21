@@ -33,10 +33,6 @@ library(spdep)
 library(plotly)
 library(geojsonio)
 
-
-# no longer necessary, commented out observeEvent lines use this
-# url1 <- url2 <- ""
-
 explanatory_vars <- read.csv("input_data/explanatory_vars.csv")
 
 # 2022-07-15: updates: anything pertaining to single city map tab has been removed
@@ -60,8 +56,7 @@ all_seasonal_metrics <- all_seasonal_metrics %>%
   )
 
 # 2022/07/15: remove outlier cities 
-outlier_cities <- c("Dallas" #"Hamilton", "Mississauga", "Orlando", "Oklahoma City"
-                    )
+outlier_cities <- c("Dallas", "Hamilton", "Mississauga", "Orlando", "Oklahoma City")
 
 all_seasonal_metrics <- all_seasonal_metrics %>%
   dplyr::filter(!(city %in% outlier_cities))
@@ -285,12 +280,12 @@ card <- function(.img, .title, .text, .tab) {
   )
 }
 
-all_shapefile <- st_read("shp/study_area_all.shp")
-
-all_shapefile <-
-  st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
-colnames(all_shapefile) <- c("postal_code", "geometry")
+# all_shapefile <- st_read("shp/study_area_all.shp")
+# 
+# all_shapefile <-
+#   st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
+# colnames(all_shapefile) <- c("postal_code", "geometry")
 
 all_city_index <- read.csv("input_data/all_city_index.csv")
 
-all_shapefile <- inner_join(all_shapefile, all_city_index, by = "postal_code")
+#all_shapefile <- inner_join(all_shapefile, all_city_index, by = "postal_code")

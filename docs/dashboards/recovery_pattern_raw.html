@@ -111,12 +111,37 @@
         </div>
 
         <div class="col-10">
-          <div class="plot-container" id = "recovery-plot">
-            <iframe src="../widgets/raw_recovery_pattern.html"></iframe>
-          </div>
+          <ul class="nav nav-tabs" id="mapTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
+                aria-controls="all-detail" aria-selected="true">All</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-detail" role="tab"
+                aria-controls="about-detail" aria-selected="false">Documentation</a>
+            </li>
+          </ul>
+       
+          
+         <div class="tab-content">
+            <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
+              data-src="../widgets/raw_recovery_pattern.html">
+              <div class="map-container">
+                <iframe src="../widgets/raw_recovery_pattern.html"></iframe>
+              </div>
+           </div>
+
+           <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
+              data-src="../text_pages/pattern_README.html">
+              <div class="map-container">
+                <iframe src="../text_pages/pattern_README.html"></iframe>
+              </div>
+            </div>
+          </div> 
+        
         </div>
       </div>
-    </div>
   </main>
 
 
