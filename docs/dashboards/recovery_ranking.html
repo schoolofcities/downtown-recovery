@@ -109,7 +109,33 @@
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <strong>This is the second item's accordion body.</strong>
+                  <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                      <div class="col-12">
+                        <span class="image fit">
+                          <ul class="actions fit" id='rankings buttons'>
+                            <li title="Downtown recovery quotient"><a href="../widgets/recovery_rankings_downtown.html" target="rankingframe" class="button primary fit">Downtown</a></li>
+                            <li title="City recovery quotient"><a href="../widgets/recovery_rankings_city.html" target="rankingframe" class="button fit">City</a></li>
+                            <li title="Location quotient"><a href="../widgets/recovery_rankings_relative.html" target="rankingframe" class="button fit">Relative</a></li>
+                          </ul>
+                        </span>
+                        <!-- Script to toggle buttons -->
+                        <script>
+                          var header = document.getElementById("rankings buttons");
+                          var btns = header.getElementsByClassName("button fit");
+                          for (var i = 0; i < btns.length; i++) {
+                            btns[i].addEventListener("click", function() {
+                            var current = document.getElementsByClassName("primary");
+                          if (current.length > 0) {
+                              current[0].className = current[0].className.replace(" primary", "");
+                            }
+                            this.className += " primary";
+                            });
+                          }
+                        </script>
+                        </div>
+                        </div>
+                        </div>
                 </div>
               </div>
             </div>
@@ -132,9 +158,9 @@
           
          <div class="tab-content">
             <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/recovery_rankings.html">
+              data-src="../widgets/recovery_rankings_downtown.html">
               <div class="map-container">
-                <iframe src="../widgets/recovery_rankings.html"></iframe>
+                <iframe src="../widgets/recovery_rankings_downtown.html" name = "rankingframe"></iframe>
               </div>
            </div>
 

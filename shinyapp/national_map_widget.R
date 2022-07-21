@@ -1,7 +1,7 @@
 source("load_data.R")
 
 create_national_map <-
-  function(selected_metric = "downtown") {
+  function(selected_metric) {
     plot_metrics <- all_seasonal_metrics %>%
       dplyr::filter(metric == selected_metric) %>%
       mutate(popup =  str_c(
@@ -27,9 +27,9 @@ create_national_map <-
         pal = lq_pal,
         values = lq_spectrum,
         position = "bottomleft",
-        group = "Average metric over period",
+        group = "Average metric over season",
         labFormat = labelFormat(suffix = "%"),
-        title = "Average metric over period"
+        title = "Average metric over season"
       ) %>%
       addCircleMarkers(
         data = plot_metrics,
@@ -47,5 +47,6 @@ create_national_map <-
               lat = 41.1164,
               zoom = 5)
   }
-
-htmlwidgets::saveWidget(create_national_map(), "test_widgets/national_map.html", selfcontained = FALSE)
+for (selected_metric in c("downtown", "city", "relative")) {
+htmlwidgets::saveWidget(create_national_map(selected_metric), paste0("../docs/widgets/national_map_", selected_metric, ".html"), selfcontained = FALSE)
+}

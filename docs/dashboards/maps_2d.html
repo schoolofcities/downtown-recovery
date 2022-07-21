@@ -120,11 +120,46 @@
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                 You can specify which metric to view using [TBD: map layers to toggle within single widget or buttons to toggle between 3 separate widgets displayed in iframe] 
+                  <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                      <div class="col-12">
+                        <span class="image fit">
+                          <ul class="actions fit" id='map buttons'>
+                            <li title="Downtown recovery quotient"><a href="../widgets/national_map_downtown.html" target="mapframe" class="button primary fit">Downtown</a></li>
+                            <li title="City recovery quotient"><a href="../widgets/national_map_city.html" target="mapframe" class="button fit">City</a></li>
+                            <li title="Location quotient"><a href="../widgets/national_map_relative.html" target="mapframe" class="button fit">Relative</a></li>
+                          </ul>
+                        </span>
+                        <!-- Script to toggle buttons -->
+                        <script>
+                          var header = document.getElementById("map buttons");
+                          var btns = header.getElementsByClassName("button fit");
+                          for (var i = 0; i < btns.length; i++) {
+                            btns[i].addEventListener("click", function() {
+                            var current = document.getElementsByClassName("primary");
+                          if (current.length > 0) {
+                              current[0].className = current[0].className.replace(" primary", "");
+                            }
+                            this.className += " primary";
+                            });
+                          }
+                        </script>
+                        </div>
+                        </div>
+                        </div>
                 </div>
               </div>
             </div>
           </div>
+          
+
+
+
+
+
+
+
+
         </div>
 
         <div class="col-10">
@@ -145,7 +180,7 @@
             <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
               data-src="../widgets/can_us_map.html">
               <div class="map-container">
-                <iframe src="../widgets/national_map.html"></iframe>
+                <iframe src="../widgets/national_map_downtown.html" name = "mapframe"></iframe>
               </div>
            </div>
 

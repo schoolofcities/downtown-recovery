@@ -19,7 +19,31 @@ library(plotly)
 library(geojsonio)
 
 # expects source("load_data.R") has been run and its variables are in the environment
-#source("load_data.R")
+
+create_buttons <- function(df, var_names, axis_type) {
+  # axis_type should be either 'x' or 'y'
+  lapply(
+    var_names,
+    FUN = function(var_name, df) {
+      button <- list(
+        method = 'restyle',
+        args = list(paste0(axis_type), list(df[, var_name])),
+        label = sprintf('Show %s', var_name)
+      )
+    },
+    df
+  )
+}
+
+
+
+
+
+
+
+
+
+
 recovery_rankings_df <- function(selected_metric) {
   unique(all_seasonal_metrics %>%
                          dplyr::filter(metric == selected_metric) %>%
@@ -119,8 +143,9 @@ recovery_patterns_plot <- function(df, metric, n) {
     label = city,
     text =
       paste0(
-        "<b>City:<b> ", city, "<br>",
-        n, "<b>week rolling average:<br> ", percent(round(rolling_avg, 2), 1), "<br>"
+        "<b>City:</b> ", city, "<br>",
+        "<b>Week:</b> ", week, "<br>",
+        n, " <b>week rolling average:</b> ", percent(round(rolling_avg, 2), 1), "<br>"
       ) 
   ) + geom_line(size = 1) +
     # geom_label(
@@ -229,25 +254,25 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
     geom_point(data = plot_df,
                aes(color = region),
                size = 5) +
-    # geom_smooth(
-    #   data = plot_df,
-    #   method = "lm",
-    #   formula = "y~x",
-    #   alpha = 0.3,
-    #   linetype = 0,
-    #   na.rm = TRUE,
-    #   fullrange = TRUE
-    # ) +
-    # stat_smooth(
-    #   geom = "line",
-    #   data = plot_df,
-    #   method = "lm",
-    #   formula = "y~x",
-    #   alpha = .75,
-    #   linetype = "dashed",
-    #   na.rm = TRUE,
-    #   fullrange = TRUE
-    # ) +
+      geom_smooth(
+        data = plot_df,
+        method = "lm",
+        formula = "y~x",
+        alpha = 0.75,
+        linetype = 0,
+        na.rm = TRUE,
+        fullrange = TRUE
+      ) +
+     # stat_smooth(
+     #   geom = "line",
+     #   data = plot_df,
+     #   method = "lm",
+     #   formula = "y~x",
+     #   alpha = .75,
+     #   linetype = "dashed",
+     #   na.rm = TRUE,
+     #   fullrange = TRUE
+     # ) +
     xlim(min(plot_df$x), max(plot_df$x)) +
     
     # geom_text_repel(
