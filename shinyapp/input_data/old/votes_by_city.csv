@@ -1,0 +1,67 @@
+city,state,pct_Dem,pct_Rep,pct_OtherUSA,pct_Liberal,pct_Conservative,pct_NDP,pct_OtherCanada,country
+Vancouver,British Columbia,0.00%,0.00%,0.00%,44.08%,21.85%,28.11%,5.96%,CAN
+Montreal,Quebec,0.00%,0.00%,0.00%,47.02%,11.88%,24.51%,16.60%,CAN
+Calgary,Alberta,0.00%,0.00%,0.00%,33.07%,56.32%,7.06%,3.55%,CAN
+Halifax,Nova Scotia,0.00%,0.00%,0.00%,51.73%,8.61%,36.13%,3.54%,CAN
+London,Ontario,0.00%,0.00%,0.00%,40.35%,35.63%,20.07%,3.94%,CAN
+Edmonton,Alberta,0.00%,0.00%,0.00%,28.29%,45.45%,20.59%,5.67%,CAN
+Mississauga,Ontario,0.00%,0.00%,0.00%,51.87%,36.48%,9.36%,2.28%,CAN
+Ottawa,Ontario,0.00%,0.00%,0.00%,52.99%,30.35%,13.34%,3.32%,CAN
+Winnipeg,Manitoba,0.00%,0.00%,0.00%,52.89%,29.99%,14.25%,2.88%,CAN
+Toronto,Ontario,0.00%,0.00%,0.00%,52.21%,26.02%,18.65%,3.12%,CAN
+Quebec,Quebec,0.00%,0.00%,0.00%,26.76%,34.79%,21.08%,17.37%,CAN
+Columbus,Ohio,61.70%,36.69%,1.61%,0.00%,0.00%,0.00%,0.00%,USA
+Indianapolis,Indiana,57.60%,40.40%,2.00%,0.00%,0.00%,0.00%,0.00%,USA
+Charlotte,North Carolina,66.68%,31.60%,1.72%,0.00%,0.00%,0.00%,0.00%,USA
+San Francisco,California,85.27%,12.72%,2.00%,0.00%,0.00%,0.00%,0.00%,USA
+Seattle,Washington,74.95%,22.24%,2.81%,0.00%,0.00%,0.00%,0.00%,USA
+Denver,Colorado,64.76%,32.62%,2.62%,0.00%,0.00%,0.00%,0.00%,USA
+Washington DC,District of Columbia,93.67%,4.14%,2.20%,0.00%,0.00%,0.00%,0.00%,USA
+Cleveland,Ohio,66.52%,32.40%,1.09%,0.00%,0.00%,0.00%,0.00%,USA
+Honolulu,Hawaii,62.51%,35.66%,1.83%,0.00%,0.00%,0.00%,0.00%,USA
+Cincinnati,Ohio,51.78%,46.63%,1.59%,0.00%,0.00%,0.00%,0.00%,USA
+Pittsburgh,Pennsylvania,59.43%,39.03%,1.54%,0.00%,0.00%,0.00%,0.00%,USA
+Salt Lake City,Utah,53.57%,42.53%,3.90%,0.00%,0.00%,0.00%,0.00%,USA
+St Louis,Missouri,65.38%,32.96%,1.66%,0.00%,0.00%,0.00%,0.00%,USA
+Orlando,Florida,53.92%,44.96%,1.12%,0.00%,0.00%,0.00%,0.00%,USA
+San Antonio,Texas,55.17%,43.29%,1.54%,0.00%,0.00%,0.00%,0.00%,USA
+San Diego,California,60.23%,37.47%,2.31%,0.00%,0.00%,0.00%,0.00%,USA
+Dallas,Texas,58.67%,39.57%,1.76%,0.00%,0.00%,0.00%,0.00%,USA
+San Jose,California,72.66%,25.23%,2.11%,0.00%,0.00%,0.00%,0.00%,USA
+Austin,Texas,63.35%,34.56%,2.09%,0.00%,0.00%,0.00%,0.00%,USA
+Jacksonville,Florida,47.26%,51.49%,1.24%,0.00%,0.00%,0.00%,0.00%,USA
+Fort Worth,Texas,49.31%,49.09%,1.60%,0.00%,0.00%,0.00%,0.00%,USA
+Sacramento,California,61.37%,36.11%,2.52%,0.00%,0.00%,0.00%,0.00%,USA
+Kansas City,Missouri,55.41%,42.57%,2.02%,0.00%,0.00%,0.00%,0.00%,USA
+Atlanta,Georgia,76.95%,21.87%,1.18%,0.00%,0.00%,0.00%,0.00%,USA
+Omaha,Nebraska,51.39%,45.91%,2.69%,0.00%,0.00%,0.00%,0.00%,USA
+Colorado Springs,Colorado,42.75%,53.54%,3.72%,0.00%,0.00%,0.00%,0.00%,USA
+Raleigh,North Carolina,62.25%,35.80%,1.95%,0.00%,0.00%,0.00%,0.00%,USA
+Miami,Florida,53.41%,46.06%,0.53%,0.00%,0.00%,0.00%,0.00%,USA
+Oakland,California,80.23%,17.71%,2.06%,0.00%,0.00%,0.00%,0.00%,USA
+Minneapolis,Minnesota,65.51%,32.15%,2.35%,0.00%,0.00%,0.00%,0.00%,USA
+Tulsa,Oklahoma,38.89%,58.51%,2.61%,0.00%,0.00%,0.00%,0.00%,USA
+Bakersfield,California,43.69%,53.89%,2.42%,0.00%,0.00%,0.00%,0.00%,USA
+Wichita,Kansas,42.53%,55.09%,2.38%,0.00%,0.00%,0.00%,0.00%,USA
+Tampa,Florida,52.86%,45.98%,1.17%,0.00%,0.00%,0.00%,0.00%,USA
+New Orleans,Louisiana,62.53%,35.69%,1.78%,0.00%,0.00%,0.00%,0.00%,USA
+Memphis,Tennessee,64.42%,33.98%,1.61%,0.00%,0.00%,0.00%,0.00%,USA
+Louisville,Kentucky,59.06%,38.96%,1.97%,0.00%,0.00%,0.00%,0.00%,USA
+Baltimore,Maryland,66.37%,31.12%,2.51%,0.00%,0.00%,0.00%,0.00%,USA
+Milwaukee,Wisconsin,69.13%,29.27%,1.60%,0.00%,0.00%,0.00%,0.00%,USA
+Albuquerque,New Mexico,61.01%,36.57%,2.42%,0.00%,0.00%,0.00%,0.00%,USA
+Tucson,Arizona,58.57%,39.90%,1.54%,0.00%,0.00%,0.00%,0.00%,USA
+Fresno,California,52.91%,45.08%,2.01%,0.00%,0.00%,0.00%,0.00%,USA
+Nashville,Tennessee,64.49%,32.36%,3.14%,0.00%,0.00%,0.00%,0.00%,USA
+Oklahoma City,Oklahoma,46.21%,51.08%,2.71%,0.00%,0.00%,0.00%,0.00%,USA
+El Paso,Texas,66.66%,31.56%,1.78%,0.00%,0.00%,0.00%,0.00%,USA
+Boston,Massachusetts,82.61%,15.46%,1.92%,0.00%,0.00%,0.00%,0.00%,USA
+Portland,Oregon,68.76%,28.09%,3.15%,0.00%,0.00%,0.00%,0.00%,USA
+Las Vegas,Nevada,53.66%,44.31%,2.03%,0.00%,0.00%,0.00%,0.00%,USA
+Detroit,Michigan,68.45%,30.32%,1.23%,0.00%,0.00%,0.00%,0.00%,USA
+New York,New York,76.39%,22.76%,0.85%,0.00%,0.00%,0.00%,0.00%,USA
+Los Angeles,California,71.04%,26.87%,2.09%,0.00%,0.00%,0.00%,0.00%,USA
+Chicago,Illinois,74.35%,24.05%,1.60%,0.00%,0.00%,0.00%,0.00%,USA
+Houston,Texas,55.73%,42.95%,1.31%,0.00%,0.00%,0.00%,0.00%,USA
+Phoenix,Arizona,50.29%,48.11%,1.60%,0.00%,0.00%,0.00%,0.00%,USA
+Philadelphia,Pennsylvania,75.69%,23.47%,0.83%,0.00%,0.00%,0.00%,0.00%,USA

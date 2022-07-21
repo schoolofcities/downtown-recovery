@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Dashboard</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Custom styles for this template -->
+  <link href="../dashboards/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="../index.html">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarMenu">
+              <ul class="navbar-nav me-auto">
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings</a>
+                          <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
+                          <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
+                      </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Methodology</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="../text_pages/methods.html">Methods</a>
+                        <a class="dropdown-item" href="../text_pages/sources.html">Sources</a>
+                        <a class="dropdown-item" href="../text_pages/documentation.html">Documentation</a>
+                    </div>
+                </li>
+              </ul>
+        </div>
+      </div>
+  </nav>
+
+  </header>
+
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-2">
+          <div class="accordion" id="accordionContainer">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  About
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  <strong>This is the first item's accordion body.</strong>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Navigation
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  <strong>This is the second item's accordion body.</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10">
+          <div class="plot-container" id = "recovery-plot">
+            <iframe src="../widgets/raw_recovery_pattern.html"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+ 
+
+  <script src="../dashboards/dashboard.js"></script>
+</body>
+
+</html>

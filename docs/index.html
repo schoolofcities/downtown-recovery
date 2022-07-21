@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Home</title>
+
+  <!-- Begin Bootstrap things -->
+  <!-- Canonical link -->
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+
+  <!-- Core CSS -->
+  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    
+  </style>
+  <!-- End Bootstrap things
+  this was inside of <style>#content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0px;
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    } -->
+
+</head>
+
+<body>
+  
+  <header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarMenu">
+              <ul class="navbar-nav me-auto">
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="dashboards/recovery_ranking.html">Rankings</a>
+                          <a class="dropdown-item" href="dashboards/recovery_pattern_raw.html">Patterns</a>
+                          <a class="dropdown-item" href="dashboards/explanatory_variables.html">Explanatory Variables</a>
+                      </div>
+                  </li>
+                  
+                  <li class="nav-item">
+                      <a class="nav-link" href="dashboards/maps_2d.html">Comparative Map</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Methodology</a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="text_pages/methods.html">Methods</a>
+                          <a class="dropdown-item" href="#">Sources</a>
+                          <a class="dropdown-item" href="text_pages/documentation.html">Documentation</a>
+                      </div>
+                  </li>
+                  
+              </ul>
+        </div>
+      </div>
+  </nav>
+
+  </header>
+
+  <!--<main>
+     <div class="row">
+    <div id="content">
+
+      <iframe src="https://hmoore.shinyapps.io/multi_city_covid19_analysis/#"
+        style="border: none; width: 100%; height: 100%;" frameborder="0"> </iframe>-->
+
+
+   
+  <main>
+
+    <section class="py-5 text-center container-fluid">
+      <div class="row py-sm-3">
+        <div class="col-sm-6 col-sm-8 mx-auto">
+          <h1 class="fw-dark">Death of Downtown?</h1>
+          <p class="lead text-muted"><i>Pandemic Recovery Trajectories across 66 North American Cities</i></p>
+          <p>
+            <a href="death_of_downtown_policy_brief.pdf" class="btn btn-primary my-2">Read policy brief</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-dark">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="card-img-top bg-img" width="100%" height="225" src="images/recovery_rankings.png"
+                   role="img" aria-label="Recovery ranking: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"/>
+              <div class="card-body">
+                <h5 class="card-title">Recovery ranking</h5>
+                <p class="card-text">Comparison of overall recovery in activity levels in our downtown and urban areas.<br></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <a href="dashboards/recovery_ranking.html" class="btn btn-primary data-page-btn">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="card-img-top bg-img" width="100%" height="225" src="images/raw_recovery_pattern.png"
+                   role="img" aria-label="Raw recovery pattern: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"/>
+              <div class="card-body">
+                <h5 class="card-title">Recovery pattern</h5>
+                <p class="card-text">Explore weekly activity levels during different phases of the pandemic.</p>
+                <div class="d-flex align-items-start">
+                  <a href="dashboards/recovery_pattern_raw.html"  class="btn btn-primary data-page-btn">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="card-img-top bg-img" width="100%" height="225" src="images/explanatory_variables.png"
+                   role="img" aria-label="Explanatory variables: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"/>
+              <div class="card-body">
+                <h5 class="card-title">Explanatory variables</h5>
+                <p class="card-text">Experiment with downtown recovery correlations with employment, land use, and socioeconomic data.</p>
+                <div class="d-flex justify-content-left align-items-center">
+                  <a href="dashboards/explanatory_variables.html" class="btn btn-primary data-page-btn">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="card-img-top bg-img" width="100%" height="225" src="images/can_us_map.png"
+                role="img" aria-label="Leaflet: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"/>
+              <div class="card-body">
+                <h5 class="card-title">Comparative Map</h5>
+                <p class="card-text">Visualize our urban recovery comparatively across the United States and Canada.</p>
+                <div class="d-flex align-items-start">
+                  <a href="dashboards/maps_2d.html" class="btn btn-primary data-page-btn">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                   role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Roadmap</title>
+                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Roadmap</text>
+              </svg>
+              <div class="card-body">
+                <h5 class="card-title">Roadmap</h5>
+                <p class="card-text">Predicting and classifying recovery, regression, clustering, and website updates</p>
+                <div class="d-flex flex-column justify-content-between">
+                  <div class="d-flex align-items-start flex-column">
+                    <a href="dashboards/future.html" class="btn btn-primary data-page-btn">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-sm">
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Methodology</title>
+                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Methodology</text>
+              </svg>
+              <div class="card-body">
+                <h5 class="card-title">Methodology</h5>
+                <p class="card-text">
+                  Methodology, sources, and documentation.
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-start flex-column">
+                    <a href="text_pages/methods.html" class="btn btn-primary data-page-btn">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+  
+  <footer class="text-muted py-5">
+
+    <!--<div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Constructed from Album example; &copy; Bootstrap</p>
+    </div>-->
+
+  </footer>
+
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

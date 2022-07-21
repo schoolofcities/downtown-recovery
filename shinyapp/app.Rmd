@@ -1,0 +1,1356 @@
+```{r}
+## includes code adapted from the following sources:
+# https://github.com/rstudio/shiny-examples/blob/master/087-crandash/
+# https://github.com/eparker12/nCoV_tracker
+# https://rviews.rstudio.com/2019/10/09/building-interactive-world-maps-in-shiny/
+# https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
+
+library(ggplot2)
+library(thematic)
+library(markdown)
+library(readxl)
+library(stringr)
+library(ggrepel)
+library(ggpmisc)
+library(shiny.router)
+library(shinyLP)
+library(shinyBS)
+library(zoo)
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(leaflet)
+library(scales)
+library(shiny)
+library(shinyWidgets)
+library(shinythemes)
+library(sf)
+library(sp)
+library(geojsonio)
+
+
+testing = TRUE
+# no longer necessary, commented out observeEvent lines use this
+# url1 <- url2 <- ""
+if (testing) {
+  city_attributes <- read.csv("input_data/master_factors_display.csv")
+  all_city_index <- read.csv("input_data/all_city_index.csv")
+  all_shapefile <- st_read("shp/study_area_all.shp")
+  all_shapefile <-
+    st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
+  
+  ### 2022.04.07 updated metrics appended together and pivoted to longform for time series plotting  ###
+  all_weekly_lqs <- read.csv("input_data/all_weekly_lqs.csv")
+  all_city_coords_lqs <-
+    read.csv("input_data/all_city_coords_lqs.csv")
+  metrics_df <- read.csv("input_data/metrics_df.csv")
+  city_population <- read.csv("input_data/total_population_city.csv")
+  
+  all_dc <- read.csv("aggregates/rq4_by_postal_code.csv")
+  ## concurrent variables - tbd how to incorporate these bc the geographies do not match study geographies 100%
+  covid_cases_all <- read.csv("input_data/covid_cases_all.csv")
+  unemployment_rates_all <-
+    read.csv("input_data/unemployment_rates_all.csv")
+  weekly_concurrent_vars <-
+    read.csv("input_data/weekly_concurrent_vars.csv")
+  monthly_concurrent_vars <-
+    read.csv("input_data/monthly_concurrent_vars.csv")
+  
+} else {
+  path <-
+    "E:\\jup/multi_city_covid19_recovery_analysis_website/shinyapp/"
+  weekly_concurrent_vars <-
+    read.csv(paste0(path, "input_data/weekly_concurrent_vars.csv"))
+  monthly_concurrent_vars <-
+    read.csv(paste0(path, "input_data/monthly_concurrent_vars.csv"))
+  city_attributes <-
+    read.csv(paste0(path, "input_data/master_factors_display.csv"))
+  study_das <-
+    read.csv(paste0(path, "input_data/study_area_canada.csv"))
+  study_postal_codes <-
+    read.csv(paste0(path, "input_data/study_area_us.csv"))
+  all_shapefile <-  st_read(paste0(path, "shp/study_area_all.shp"))
+  all_shapefile <-
+    st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
+  
+  ### 2022.04.07 updated metrics appened together and pivoted to longform for time series plotting  ###
+  all_weekly_lqs <-
+    read.csv(paste0(path, "input_data/all_weekly_lqs.csv"))
+  all_city_coords_lqs <-
+    read.csv(paste0(path, "input_data/all_city_coords_lqs.csv"))
+  metrics_df <- read.csv(paste0(path, "input_data/metrics_df.csv"))
+  city_population <- read.csv(paste0(path, "input_data/total_population_city.csv"))
+  
+  all_dc <-
+    read.csv(paste0(path, "aggregates/rq4_by_postal_code.csv"))
+  
+  ## concurrent variables - tbd how to incorporate these bc the geographies do not match study geographies 100%
+  covid_cases_all <-
+    read.csv(paste0(path, "input_data/covid_cases_all.csv"))
+  unemployment_rates_all <-
+    read.csv(paste0(path, "input_data/unemployment_rates_all.csv"))
+}
+# to automatically apply the shinytheme to all ggplots for consistency's sake
+thematic_shiny()
+
+# because of esri naming conventions
+colnames(all_shapefile) <- c("postal_code", "geometry")
+metrics_df <- metrics_df %>%
+  dplyr::select(
+    city,
+    state,
+    display_title,
+    metric,
+    starts_with("period"),
+    rate_of_recovery,
+    omicron_resilience,
+    popup
+  )
+# omit all references to outlier cities
+outlier_cities <-
+  c("Dallas", "Mississauga", "Orlando", "Oklahoma City")
+city_attributes <- city_attributes %>%
+  dplyr::filter(!(city %in% outlier_cities))
+all_weekly_lqs <- all_weekly_lqs %>%
+  dplyr::filter(!(city %in% outlier_cities))
+all_city_coords_lqs <- all_city_coords_lqs %>%
+  dplyr::filter(!(city %in% outlier_cities))
+city_population <- city_population %>%
+  dplyr::filter(!(city %in% outlier_cities))
+
+model_df <- inner_join(city_attributes, metrics_df, by = c("city", "state", "display_title"))
+all_weekly_lqs$week <-
+  as.Date(all_weekly_lqs$week, format = "%m/%d/%Y")
+
+
+
+named_factors <- c("Total Jobs in Downtown" = "total_jobs",
+                           "Employment Density in Downtown" = "employment_density",
+                           "Employment Entropy in Downtown" = "employment_entropy",
+                           "Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting" = "pct_jobs_agriculture_forestry_fishing_hunting",
+                           "Percentage of Jobs in Mining, Quarrying, Oil, and Gas" = "pct_jobs_mining_quarrying_oil_gas",
+                           "Percentage of Jobs in Utilities" = "pct_jobs_utilities",
+                           "Percentage of Jobs in Construction" = "pct_jobs_construction",
+                           "Percentage of Jobs in Manufacturing" = "pct_jobs_manufacturing",
+                           "Percentage of Jobs in Wholesale Trade" = "pct_jobs_wholesale_trade",
+                           "Percentage of Jobs in Retail Trade" = "pct_jobs_retail_trade",
+                           "Percentage of Jobs in Transportation and Warehousing" = "pct_jobs_transport_warehouse",
+                           "Percentage of Jobs in Information" = "pct_jobs_information",
+                           "Percentage of Jobs in Finance & Insurance" = "pct_jobs_finance_insurance",
+                           "Percentage of Jobs in Real Estate" = "pct_jobs_real_estate",
+                           "Percentage of Jobs in Professional, Scientific, and Management" = "pct_jobs_professional_science_techical",
+                           "Percentage of Jobs in Management" = "pct_jobs_management_of_companies_enterprises",
+                           "Percentage of Jobs in Administrative Support & Waste Management" = "pct_jobs_administrative_support_waste",
+                           "Percentage of Jobs in Educational Services" = "pct_jobs_educational_services",
+                           "Percentage of Jobs in Healthcare & Social Assistance" = "pct_jobs_healthcare_social_assistance",
+                           "Percentage of Jobs in Arts, Entertainment, and Recreation" = "pct_jobs_arts_entertainment_recreation",
+                           "Percentage of Jobs in Accommodation & Food Services" = "pct_jobs_accomodation_food_services",
+                           "Percentage of Jobs in Public Administration" = "pct_jobs_public_administration",
+                           "Percentage of Jobs in Other Categories" = "pct_jobs_other",
+                           "Total Population Downtown" = "total_pop",
+                           "Population Density Downtown" = "population_density",
+                           "Total Housing Stock Downtown" = "housing_units",
+                           "Housing Density Downtown" = "housing_density",
+                           "Percentage of Rented-Occupied Units in Downtown" = "pct_renter",
+                           "Percentage of Single-Family Homes in Downtown" = "pct_singlefam",
+                           "Median Age of Downtown Residents" = "median_age",
+                           "Percentage of Downtown Residents with a Bachelor’s Degree or Higher" = "bachelor_plus",
+                           "Percentage of Vacant Housing Units in Downtown" = "pct_vacant",
+                           "Median Rent of Downtown Housing Units" = "median_rent",
+                           "Median Household Income of Downtown Residents" = "median_hhinc",
+                           "Percentage of White Residents in Downtown" = "pct_nhwhite",
+                           "Percentage of Black Residents in Downtown" = "pct_nhblack",
+                           "Percentage of Hispanic Residents in Downtown" = "pct_hisp",
+                           "Percentage of Asian Residents in Downtown" = "pct_nhasian",
+                           "Percentage of Residents with Other Races in Downtown" = "pct_others",
+                           "Percentage of Residents who Commute to Work by Car" = "pct_commute_auto",
+                           "Percentage of Residents who Commute to Work by Public Transit" = "pct_commute_public_transit",
+                           "Percentage of Residents who Commute to Work by Bicycle" = "pct_commute_bicycle",
+                           "Percentage of Residents who Commute to Work by Walking" = "pct_commute_walk",
+                           "Percentage of Residents who Commute to Work by Other Modes" = "pct_commute_others"
+)
+named_periods <- c(
+  "Period 1: Mar 2020 - Aug 2020" = "period_1",
+  "Period 2: Sep 2020 - Feb 2021" = "period_2",
+  "Period 3: Mar 2021 - Aug 2021" = "period_3",
+  "Period 4: Sep 2021 - Feb 2022" = "period_4",
+  "Rate of Recovery: Period 4 / Period 1" = "rate_of_recovery",
+  "Omicron Resilience: (Jan - Feb 2022) / (Sep - Dec 2022)" = "omicron_resilience"
+)
+
+named_metrics <- c(
+  "Recovery Quotient (RQ) Downtown" = "downtown",
+  "Recovery Quotient (RQ) City" = "city",
+  "Location Quotient (LQ)" = "relative"
+)
+
+
+
+data_df <- inner_join(model_df, unique(
+  all_city_coords_lqs %>%
+    dplyr::select(display_title, lat, long)
+), by = "display_title")
+# the 26th most populous city is denver, that is the cutoff point for large/medium
+n = 26
+largest_n_cities <- city_population %>%
+  dplyr::arrange(-population) %>%
+  mutate(pop_rank = rank(-population)) %>%
+  dplyr::filter(pop_rank <= n) %>%
+  dplyr::select(city)
+
+regions_df <- unique(inner_join(city_attributes %>%
+                       dplyr::select(city, display_title, region, state),
+                       city_population %>% 
+                         dplyr::select(city, population), by = "city") %>%
+                       dplyr::arrange(city))
+
+# selects the top 3 of each region to plot by default
+explanatory_cities <- regions_df %>%
+  group_by(region) %>%
+  dplyr::arrange(-population) %>%
+  dplyr::slice_head(n = 3)
+
+patterns_cities <- regions_df %>%
+  group_by(region) %>%
+  dplyr::arrange(-population) %>%
+  dplyr::slice_head(n = 1)
+
+ranking_cities <- regions_df %>%
+  group_by(region) %>%
+  dplyr::arrange(-population) %>%
+  dplyr::slice_head(n = 5)
+
+# get random subset of those cities to initialize city select plots
+regions_choices <- lapply(split(regions_df$display_title, regions_df$region), as.list)
+
+selected_regions <- unlist(lapply(regions_choices, sample, 5))
+
+
+card <- function(.img, .title, .text, .tab) {
+  # creates a card with the provided background image, title, text, and tab that it should link to
+  HTML(
+    paste0(
+      '
+       <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <img class="bg-img card-img-top" width="100%" height="100%" src="', .img, '" role="img"aria-label="Recovery ranking: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"/>
+              <div class="card-body">
+                <h5 class="card-title">', .title, '</h5>
+                <p class="card-text">', .text, '</p>
+                <div class="d-flex align-items-start">
+                  <div class="btn btn-primary data-page-btn" onclick="fakeClick(\'', .tab,'\')">View</div>
+                </div>
+              </div>
+            </div>
+      </div>'
+    )
+  )
+}
+
+data_df$metric <- str_replace(data_df$metric, "metro", "city")
+all_weekly_lqs$metric <- str_replace(all_weekly_lqs$metric, "metro", "city")
+model_df$metric <- str_replace(model_df$metric, "metro", "city")
+
+### SHINY UI ###
+ui <- bootstrapPage(
+  navbarPage(
+    theme = bslib::bs_theme(version = 4, bootswatch = "darkly"),
+    collapsible = TRUE,
+    HTML(
+      '<a style="text-decoration:none;cursor:default;color:#FFFFFF;" class="active" href="#"></a>'
+    ),
+    id = "main_navbar",
+    windowTitle = "Downtown Recovery",
+    
+    tabPanel(
+      value = "home",
+      "Home (Beta launch version)",
+      tags$head(includeCSS("www/styles.css"),
+                tags$script(HTML('
+        var fakeClick = function(tabName) {
+          var dropdownList = document.getElementsByTagName("a");
+          for (var i = 0; i < dropdownList.length; i++) {
+            var link = dropdownList[i];
+            if(link.getAttribute("data-value") == tabName) {
+              link.click();
+            };
+          }
+        };
+      '))),
+      
+      uiOutput("home_cards")
+    ),
+    tabPanel(value = "recovery_rankings", "Recovery Rankings",
+             fillRow(
+               sidebarLayout(
+                 sidebarPanel(
+                   pickerInput(
+                     "rankings_metro_size",
+                     span(tags$i(
+                       h6(
+                         "Select which city size to include in ranking. Selecting both options will rank all cities together."
+                       )
+                     )),
+                     choices = c("Large"= "large",
+                                 "Medium" = "medium"),
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = c("large", "medium"),
+                     multiple = TRUE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   pickerInput(
+                     "rankings_regions",
+                     span(tags$i(
+                       h6(
+                         "Select which cities to include in ranking. Multiple cities can be selected at a time."
+                       )
+                     )),
+                     choices = regions_choices,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     multiple = TRUE,
+                     selected = selected_regions,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   
+                   pickerInput(
+                     "recovery_rankings_metric",
+                     span(tags$i(
+                       h6(
+                         "Select which metric to use in the ranking. Only one metric can be selected at a time."
+                       )
+                     )),
+                     choices = named_metrics,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = "downtown",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   pickerInput(
+                     "recovery_rankings_period",
+                     span(tags$i(
+                       h6(
+                         "Select the comparison period. Only one period can be selected at a time."
+                       )
+                     )),
+                     choices = named_periods,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = named_periods[4],
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   
+                 
+
+                   sliderInput("top_n_recovery_rankings",
+                               span(tags$i(
+                                 h6(
+                                   "Choose the top number of cities to view in the ranking."
+                                 )
+                               )),
+                               min = 10,
+                               max = length(selected_regions),
+                               value = 15,
+                               step = 1
+                   )
+                 ),
+                 mainPanel(
+                    tags$style(
+                      type = "text/css",
+                      "#recovery_ranking {height: calc(100vh) !important;}"
+                    ),
+                   tabsetPanel(
+                   tabPanel(value = "ranking", "Recovery Rankings",
+                            plotOutput("recovery_ranking")),
+                   tabPanel(value = "animations", "Weekly Rankings (WIP)",
+                            fluidPage(uiOutput("bar_chart_race"))
+                   ),
+                   tabPanel("About this tool",
+                            includeMarkdown("text_files/ranking_README.md")),
+                   
+                 )
+                 )
+               )
+             )
+    ),
+    tabPanel(value = "recovery_patterns", "Recovery Patterns",
+             fillRow(
+               sidebarLayout(
+                 sidebarPanel(
+                   pickerInput(
+                     "recovery_patterns_cities",
+                     span(tags$i(
+                       h6(
+                         "Select cities to include in the plot. Multiple cities can be selected at a time."
+                       )
+                     )),
+                     choices = regions_choices,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = patterns_cities$display_title,
+                     multiple = TRUE,
+                     pickerOptions(mobile = TRUE)
+                     
+                   ),
+                   pickerInput(
+                     "recovery_patterns_metric",
+                     span(tags$i(
+                       h6(
+                         "Select which metric to use in the ranking. Only one metric can be selected at a time."
+                       )
+                     )),
+                     choices = named_metrics,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = "downtown",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+
+                   sliderInput(
+                     "rolling_window",
+                     span(tags$i(
+                       h6(
+                         "Selecting rolling average window to smooth weekly variation."
+                       )
+                     )),
+                     min = 3,
+                     max = 25,
+                     value = 15,
+                     step = 2
+                   )
+                 ),
+                 mainPanel(
+                   tags$style(
+                     type = "text/css",
+                     "#raw_recovery_plot {height: calc(100vh - 125px) !important;}"
+                   ),
+                   tabsetPanel(
+                   tabPanel(
+                     value = "weekly_pattern",
+                     "Raw recovery pattern",
+                     plotOutput("raw_recovery_plot")
+                   ),
+                   tabPanel("About this tool",
+                            includeMarkdown("text_files/pattern_README.md"))
+                   )
+                 )
+               )
+             )
+    ),
+    
+    tabPanel(value = "explanatory_variables", "Explanatory Variables",
+             fillRow(
+               sidebarLayout(
+                 sidebarPanel(
+                   pickerInput(
+                     "slr_metric",
+                     span(tags$i(
+                       h6(
+                         "Select which metric to plot. Only one metric can be selected at a time."
+                       )
+                     )),
+                     choices = named_metrics,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = "downtown",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+
+                   pickerInput(
+                     "x",
+                     span(tags$i(
+                       h6(
+                         "Select independent variable. Only one variable can be selected at a time."
+                       )
+                     )),
+                     choices = named_factors,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = "pct_jobs_information",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                  
+                   pickerInput(
+                     "y",
+                     span(tags$i(
+                       h6(
+                         "Select dependent variable. Only one variable can be selected at a time."
+                       )
+                     )),
+                     choices = named_periods,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = "period_4",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   
+                   pickerInput(
+                     "slr_cities",
+                     span(tags$i(
+                       h6(
+                         "Select which cities to highlight in the plot. Multiple cities can be selected at a time."
+                       )
+                     )),
+                     choices = regions_choices,
+                     options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                     selected = explanatory_cities$display_title,
+                     multiple = TRUE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   verbatimTextOutput("subset_points"),
+                   withMathJax(verbatimTextOutput("slr_summary"))
+                 ),
+                 mainPanel(tabsetPanel(
+                   tabPanel(
+                     "Single variable plot",
+                     tags$style(
+                       type = "text/css",
+                       "#explanatory_plot {height: calc(100vh - 140px) !important;}"
+                     ),
+                     plotOutput(
+                       "explanatory_plot",
+                       dblclick = "plot_dblclick",
+                       brush = brushOpts(id = "plot_brush",
+                                         resetOnNew = TRUE),
+                       click = clickOpts(id = "plot_click")
+                     ),
+                     uiOutput("click_info")
+                   ),
+                   # tabPanel("Table of coefficients",
+                   #          verbatimTextOutput("slr_coeffs")
+                   #),
+                   tabPanel("About this tool",
+                            includeMarkdown("text_files/explanatory_README.md"))
+                 )))
+             )),
+    tabPanel(value = "comparative_map", "Comparative Map",
+             tabsetPanel(
+               tabPanel(
+                 value = "north_america_map",
+                 "All",
+                 div(
+                   class = "outer",
+                   tags$head(includeCSS("www/styles.css")),
+                   leafletOutput("can_us_map", width =
+                                   "100%", height = "100%"),
+                   absolutePanel(
+                     id = "controls",
+                     class = "panel panel-default",
+                     bottom = 5,
+                     right = 5,
+                     width = 350,
+                     fixed = TRUE,
+                     draggable = TRUE,
+                     height = "auto",
+                     
+                     span(tags$i(
+                       h6(
+                         "Location Quotient (LQ): Measures the proportion of POI visits in downtown vs. the rest of the city in post-COVID period vs. pre-COVID period."
+                       )
+                     ), style = "color:#045a8d"),
+                     span(tags$i(
+                       h6(
+                         "Recovery Quotient (RQ): Measures the number of raw POI visits (scaled by state sampling rate) in post-COVID period vs. pre-COVID period."
+                       )
+                     ), style = "color:#045a8d"),
+                     
+                     pickerInput(
+                       "map_metric",
+                       label = span(tags$i(h5("Select metric:")), style = "color:#045a8d"),
+                       choices = named_metrics,
+                       selected = "downtown",
+                       multiple = FALSE,
+                       pickerOptions(mobile = TRUE)
+                     ),
+                     
+                     radioButtons(
+                       "map_period",
+                       label = span(tags$i(h5("Select period:")), style = "color:#045a8d"),
+                       choiceNames = list(
+                         tags$span(style = "color:#045a8d", "Period 1: Mar 2020 - Aug 2020"),
+                         tags$span(style =
+                                     "color:#045a8d", "Period 2: Sep 2020 - Feb 2021"),
+                         tags$span(style =
+                                     "color:#045a8d", "Period 3: Mar 2021 - Aug 2021"),
+                         tags$span(style =
+                                     "color:#045a8d", "Period 4: Sep 2021 - Feb 2022"),
+                         tags$span(style =
+                                     "color:#045a8d", "Rate of Recovery: Period 4 / Period 1"),
+                         tags$span(style =
+                                     "color:#045a8d", "Omicron Resilience: (Jan - Feb 2022) / (Sep - Dec 2022)")
+                       ),
+                       choiceValues = c(
+                         "period_1",
+                         "period_2",
+                         "period_3",
+                         "period_4",
+                         "rate_of_recovery",
+                         "omicron_resilience"
+                       ),
+                       selected = "period_4"
+                     )
+                   )
+                 )
+               ),
+
+               tabPanel(
+                 value = "single_city_map",
+                 "Single city",
+                 div(
+                   class = "outer",
+                   tags$head(includeCSS("www/styles.css")),
+                   leafletOutput("city_map", width = "100%", height =
+                                   "100%"),
+                   absolutePanel(
+                     id = "controls",
+                     class = "panel panel-default",
+                     bottom = 5,
+                     right = 5,
+                     width = 350,
+                     fixed = TRUE,
+                     draggable = TRUE,
+                     height = "auto",
+                     pickerInput(
+                       "city_map_select",
+                       "City:",
+                       choices = regions_choices,
+                       options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                       selected = "San Francisco, CA",
+                       multiple = FALSE,
+                       pickerOptions(mobile = TRUE)
+                     )
+                   )
+                 )
+               ),
+               tabPanel("About this tool",
+                        includeMarkdown("text_files/maps_README.md"))
+             )
+  ),
+  
+           tabPanel(value = "kepler_maps", "Raw Device Counts",
+                    fluidPage(fluidRow(
+                      sidebarLayout(
+                        sidebarPanel(
+                          pickerInput(
+                            "kepler_city",
+                            "City:",
+                            choices = c("Toronto"),
+                            options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+                            selected = c("Toronto"),
+                            multiple = FALSE,
+                            pickerOptions(mobile = TRUE)
+                          )
+                        ),
+                        mainPanel(
+                          imageOutput("image1", height = 400, width = 400),
+                          imageOutput("image2", height = 400, width = 400),
+                          imageOutput("image3", height = 400, width = 400)
+                        )
+                      )
+                    ))),
+  
+  
+ 
+  tabPanel(value = "future", "Predicting & Classifying Recovery",
+           includeMarkdown("text_files/predicting_classifying_README.md")
+  ),
+  tabPanel(value = "contact", "Contact",
+           includeMarkdown("text_files/contact_info_future.md")
+           ),
+  tabPanel(value = "methods", "Methodology & Sources",
+           includeMarkdown("text_files/methods.md")
+  )
+           
+  )
+)
+
+
+
+### SHINY SERVER ###
+
+server = function(input, output, session) {
+  # reactive helper 'get' functions that respond to user selections
+  # access user inputs by using input$name_of_ui_element[1]
+  # data_df is the 'master' df created in global environment
+  # use reactive functions to filter/select/mutate this dataframe
+  
+  # commented out because a better way was found, but in the event a direct page link to a tab is ever
+  # needed again, leaving it in
+  # observeEvent(input$viewer, {
+  #   updateNavbarPage(session, inputId = "main_navbar", selected = "Tab 3")
+  # }, priority = 2)
+  
+  # observeEvent(getQueryString(session)$page, {
+  #   currentQueryString <-
+  #     parseQueryString(session$clientData$url_search)$page # alternative:
+  #   if (is.null(input$main_navbar) ||
+  #       !is.null(currentQueryString) &&
+  #       currentQueryString != input$main_navbar) {
+  #     freezeReactiveValue(input, "main_navbar")
+  #     updateNavbarPage(session, "main_navbar", selected = currentQueryString)
+  #   }
+  # }, priority = 1)
+  # 
+  # observeEvent(input$main_navbar, {
+  #   currentQueryString <-
+  #     parseQueryString(session$clientData$url_search)$page # alternative: parseQueryString(session$clientData$url_search)$page
+  #   pushQueryString <- paste0("?page=", input$main_navbar)
+  #   if (is.null(currentQueryString) ||
+  #       currentQueryString != input$main_navbar) {
+  #     freezeReactiveValue(input, "main_navbar")
+  #     updateQueryString(pushQueryString, mode = "push", session)
+  #   }
+  # }, priority = 0)
+  
+  
+  
+  
+  
+  
+  getRegressionDF <- reactive({
+    # getRegressionDF is meant to be used with linear regression.
+    # allows multi-city selection, but only one x or y can be selected at a time
+    # filters on user selected metric as well as multi-city choice
+    
+    regression_df <- model_df %>%
+      dplyr::filter((metric == input$slr_metric)) %>%
+      mutate(key_study_case = display_title %in% input$slr_cities) %>%
+      dplyr::select(display_title, city, region, input$x[1], key_study_case, input$y[1])
+    regression_df
+  })
+  
+  getRawRecoveryDF <- reactive({
+    # getRawRecoveryDF is meant to be used with raw recovery plots
+    # allows multi-city selection
+    # filters on user selected metric as well as multi-city choice
+
+  
+    
+    patterns_regions <- regions_df %>%
+      dplyr::filter(display_title %in% input$recovery_patterns_cities) %>%
+      dplyr::select(display_title, city, region)
+    patterns_df <- inner_join(all_weekly_lqs, patterns_regions, by = "city")
+    patterns_df %>%
+      dplyr::filter(metric == input$recovery_patterns_metric[1]) %>%
+      group_by(city) %>%
+      mutate(rolling_avg = rollmean(
+        weekly_lq,
+        as.numeric(input$rolling_window[1]),
+        na.pad = TRUE,
+        align = "center"
+      )) %>%
+      ungroup()
+  })
+  
+  getRawRankingDF <- reactive({
+    
+    ranking_df <- data_df %>%
+      mutate(metro_size = case_when(
+        city %in% largest_n_cities$city ~ "large",
+        !(city %in% largest_n_cities$city) ~ "medium"
+      )) 
+    
+    
+    ranking_df <- ranking_df %>%
+      dplyr::filter((metric == input$recovery_rankings_metric[1]) &
+                      ((metro_size %in% input$rankings_metro_size) |
+                      (display_title %in% input$rankings_regions))) %>%
+      dplyr::select(display_title,
+                    metro_size,
+                    input$recovery_rankings_period[1],
+                    region,
+                    metric,
+                    city)
+    colnames(ranking_df) <-
+      c("display_title",
+        "metro_size",
+        "recovery_rankings_period",
+        "region",
+        "metric",
+        "city")
+    ranking_df
+  })
+  
+  getConcurrentDF <- reactive({
+    # getConcurrentDF is meant to be used with raw recovery plots
+    # allows multi-city selection, but not all cities are available
+    # filter on user selected metric as well as multi-city choice
+    
+  })
+  
+  
+  points_df <- reactiveValues(df_data = NULL)
+  
+  # When a double-click happens, check if there's a brush on the plot.
+  # If so, print the df rows in the brush bounds; if not do nothing
+  observeEvent(input$plot_dblclick, {
+    brush <- input$plot_brush
+    if (!is.null(brush)) {
+      points_df$df_data <-
+        brushedPoints(getRegressionDF(),
+                      brush,
+                      xvar = input$x[1],
+                      yvar = input$y[1])
+    } else {
+      points_df$df_data <- NULL
+    }
+  })
+  
+  output$home_cards <- renderUI({
+    img_srcs <- c(
+      "recovery_rankings.png",
+      "raw_recovery_pattern.png",
+      "explanatory_variables.png",
+      "can_us_map.png",
+      "kepler_toronto_2019_01_12.png",
+      "clustering.png"
+    )
+    
+    card_titles <- c(
+      "Recovery Rankings",
+      "Recovery Patterns",
+      "Explanatory Variables",
+      "Comparative Map",
+      "Raw Device Counts",
+      "Predicting & Classifying Recovery"
+    )
+    
+    card_text <-
+      c(
+        "Comparison of overall recovery in activity levels in our downtown and urban areas.",
+        "Explore weekly activity levels during different phases of the pandemic.",
+        "Experiment with downtown recovery correlations with employment, land use, and socioeconomic data from cities.",
+        "Visualize our urban recovery comparatively across the United States and Canada.",
+        "Visualize mobile phone data agglomerated by dissemination areas in select metropolitan areas.",
+        "Coming soon"
+      )
+    
+    card_tabs <- c(
+      "recovery_rankings",
+      "recovery_patterns",
+      "explanatory_variables",
+      "comparative_map",
+      "kepler_maps",
+      "future"
+    )
+    
+    cards_df <-
+      as.data.frame(list(img_srcs, card_titles, card_text, card_tabs))
+    colnames(cards_df) <- c("imgs", "titles", "text", "tabs")
+    
+    
+    
+    
+    args <- lapply(1:6, function(x)
+      card(cards_df[x, "imgs"],
+           cards_df[x, "titles"],
+           cards_df[x, "text"],
+           cards_df[x, "tabs"]))
+    
+    args$cellArgs <- list(style = "
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        ")
+    
+    HTML(
+      paste0(
+        '
+     <section class="py-1 text-center container-fluid">
+      <div class="row py-sm-1">
+        <div class="col-sm-6 col-sm-8 mx-auto">
+          <h2 class="fw-dark">Death of Downtown?</h2>
+          <h3 class = "fw-normal">Pandemic Recovery Trajectories across 66 North American Cities</h3>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Read policy brief</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  <div class= "album py-5 bg-dark">
+    <div class="container">',
+        do.call(shiny::fluidRow, args),
+    '</div> 
+  </div>'
+      )
+    )
+    
+  })
+  
+  output$explanatory_plot <- renderPlot({
+    plot_df <- getRegressionDF()
+    
+    key_study_cases_df <- plot_df %>%
+      filter(key_study_case == TRUE)
+    leftover_cities <- plot_df %>%
+      filter(key_study_case == FALSE)
+    model.formula <- paste0(input$y[1], "~", input$x[1]) %>% as.formula()
+    model.ols <- lm(model.formula, plot_df)
+    coeffs <- coef(model.ols)
+    
+    ### get equation and r-squared as string ###
+    ### adapted from: https://groups.google.com/forum/#!topic/ggplot2/1TgH-kG5XMA ###
+    eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
+                                   list(a = format(unname(coeffs[1]), digits = 2),
+                                        b = format(unname(coeffs[2]), digits = 2))))
+    
+    r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
+                                          list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
+    
+    ggplot(plot_df, aes_string(x = input$x[1], y = input$y[1])) +
+      geom_point(
+        data = leftover_cities,
+        alpha = .5,
+        na.rm = TRUE,
+        color = "gray70",
+        size = 3,
+        show.legend = FALSE
+      ) +
+      geom_smooth(
+        data = plot_df,
+        method = "lm",
+        formula = "y~x",
+        alpha = 0.3,
+        linetype = 0,
+        na.rm = TRUE,
+        fullrange = TRUE
+      ) +
+       stat_smooth(
+         geom = "line",
+         data = plot_df,
+         method = "lm",
+         formula = "y~x",
+         alpha = .3,
+         linetype = "dashed",
+         na.rm = TRUE,
+         colour = "black",
+         fullrange = TRUE
+       ) +
+      geom_point(data = key_study_cases_df,
+                 aes(color = region),
+                 size = 5) +
+      xlim(min(key_study_cases_df[,input$x[1]]), max(key_study_cases_df[,input$x[1]])) +
+      ylim(min(key_study_cases_df[,input$y[1]]), max(key_study_cases_df[,input$y[1]])) +
+      geom_text_repel(
+        data = key_study_cases_df,
+        aes(color = region),
+        label = key_study_cases_df$city,
+        size = 6,
+        point.size = 8,
+        min.segment.length = 0,
+        segment.curvature = -1,
+        segment.ncp = 3,
+        segment.angle = 20,
+        show.legend = FALSE
+      ) +
+      theme(#legend.position = "none",
+            plot.title = element_text(size = 16, hjust = .5),
+            #axis.title.x = element_text(colour = "white"),
+            #axis.title.y = element_text(colour = "white"),
+            plot.subtitle = element_text(size = 14, hjust = .5)) +
+      labs(x = names(named_factors[named_factors == input$x[1]]),
+           y = names(named_periods[named_periods == input$y[1]]),
+           title = eq,
+           subtitle = r_squared,
+           color = "Region") +
+      scale_color_manual(values = c("Canada" = "#e41a1c",
+                                    "Midwest" = "#377eb8",
+                                    "Northeast" = "#4daf4a",
+                                    "Pacific" = "#984ea3",
+                                    "Southeast" = "#ff7f00",
+                                    "Southwest" = "#e6ab02"))
+  })
+  
+  output$subset_points <- renderPrint({
+    if (!is.null(points_df$df_data)) {
+      data_df <- points_df$df_data %>%
+        dplyr::filter(key_study_case == TRUE)
+      print(data_df %>%
+              dplyr::select(c("city", input$x[1], input$y[1])))
+    }
+  })
+  
+  output$click_info <- renderUI({
+    plot_df <- getRegressionDF()
+    click <- input$plot_click
+    point <-
+      nearPoints(
+        plot_df,
+        click,
+        threshold = 5,
+        maxpoints = 1,
+        addDist = TRUE
+      )
+    if (nrow(point) == 0)
+      return(NULL)
+    
+    # calculate point position INSIDE the image as percent of total dimensions
+    # from left (horizontal) and from top (vertical)
+    left_pct <-
+      (click$x - click$domain$left) / (click$domain$right - click$domain$left)
+    top_pct <-
+      (click$domain$top - click$y) / (click$domain$top - click$domain$bottom)
+    
+    # calculate distance from left and bottom side of the picture in pixels
+    left_px <-
+      click$range$left + left_pct * (click$range$right - click$range$left)
+    top_px <-
+      click$range$top + top_pct * (click$range$bottom - click$range$top)
+    
+    # create style property for tooltip
+    # background color is set so tooltip is a bit transparent
+    # z-index is set so we are sure are tooltip will be on top
+    style <-
+      paste0(
+        "position:absolute; z-index:100; background-color: rgba(5, 5, 5, 0.85); ",
+        "left:",
+        left_px - 2,
+        "px; top:",
+        top_px - 2,
+        "px;"
+      )
+    
+    # actual tooltip created as wellPanel
+    wellPanel(style = style,
+              p(HTML(
+                paste0(
+                  "<b> City: </b>",
+                  point$city,
+                  "<br/>",
+                  "<b>",
+                  names(named_factors[named_factors == input$x[1]]),
+                  ": </b>",
+                  round(point[,input$x[1]], 2),
+                  "<br/>",
+                  "<b>",
+                  names(named_periods[named_periods == input$y[1]]),
+                  ": </b>",
+                  round(point[,input$y[1]], 2),
+                  "<br/>"
+                )
+              )))
+  })
+  
+  output$slr_summary <- renderPrint({
+    plot_df <- getRegressionDF()
+    
+    key_study_cases_df <- plot_df %>%
+      filter(key_study_case == TRUE)
+    leftover_cities <- plot_df %>%
+      filter(key_study_case == FALSE)
+    model.formula <- as.formula(paste0(input$y[1], "~", input$x[1]))
+    model.ols <- lm(model.formula, plot_df)
+    print(summary(model.ols))
+  })
+  
+  output$can_us_map <- renderLeaflet({
+    
+    plot_metrics <- data_df %>%
+      dplyr::filter(metric == input$map_metric[1]) %>%
+      dplyr::select(lat, long, city, popup, input$map_period[1])
+    
+    all_metrics <- data_df %>%
+      dplyr::filter(metric == input$map_metric[1])
+    lq_spectrum <- unique(unlist(c(all_metrics$period_1,
+                                   all_metrics$period_2,
+                                   all_metrics$period_3,
+                                   all_metrics$period_4,
+                                   all_metrics$rate_of_recovery,
+                                   all_metrics$omicron_resilience)))
+    
+    lq_pal <- colorBin("RdYlGn", domain = lq_spectrum,
+                       bins = c(0, .5, 1, 1.5, 2.0), na.color = "#006837")
+    
+    can_us_map <- leaflet(plot_metrics) %>%
+      addTiles() %>%
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addLegend(
+        pal = lq_pal,
+        values = lq_spectrum,
+        position = "bottomleft",
+        group = "Device count activity metric",
+        title = "Device count activity metric"
+      ) %>%
+      addCircleMarkers(
+        data = plot_metrics,
+        lat = ~ lat,
+        lng = ~ long,
+        weight = 1,
+        group = "Device count activity metric",
+        label = ~ city,
+        fillOpacity = .8,
+        color = ~ lq_pal(plot_metrics[, input$map_period[1]]),
+        popup = ~ popup,
+        popupOptions = popupOptions(maxHeight = 215, closeOnClick = TRUE)
+      ) %>%
+      setView(lng = -95.35,
+              lat = 41.1164,
+              zoom = 5)
+  })
+  
+  
+  output$city_map <- renderLeaflet({
+    ## recovery ranking - city map
+    ## filter city and omit outlier ZIP codes/DAs
+    
+    all_dc <- inner_join(all_dc, regions_df, by = "city")
+    
+    
+    valid_domain <- all_dc %>%
+      dplyr::filter(avg_weekly_lq <= 2)
+    plot_map <- all_dc %>%
+      dplyr::filter((display_title == input$city_map_select[1]) &
+                      (avg_weekly_lq < 10))
+
+      
+    plot_map <- plot_map %>%
+      mutate(popup = str_c('<b>Region: </b>', postal_code,'<br>',
+                           '<b>RQ 4: </b>', round(avg_weekly_lq, 2)))
+    
+    
+    
+    rq4_pal <- colorBin("RdYlGn", domain = valid_domain$avg_weekly_lq,
+                        bins = c(0, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2.0), na.color = "#006837")
+    downtown_pal <-
+      colorFactor("yellow", domain = TRUE, na.color = "transparent")
+    plot_map_sf = inner_join(all_shapefile, plot_map, by = "postal_code")
+    
+    city_map <- leaflet(plot_map_sf) %>%
+      addMapPane(name = "polygons", zIndex = 410) %>%
+      addMapPane(name = "maplabels", zIndex = 420) %>% # higher zIndex rendered on top
+      addProviderTiles("CartoDB.PositronNoLabels") %>%
+      addProviderTiles(
+        "CartoDB.PositronOnlyLabels",
+        options = leafletOptions(pane = "maplabels"),
+        group = "map labels"
+      ) %>% # see: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
+      addEasyButton(easyButton(
+        icon = "fa-crosshairs",
+        title = "My Location",
+        onClick = JS("function(btn, map){ map.locate({setView: true}); }")
+      )) %>%
+      addLegend(
+        pal = rq4_pal,
+        values = ~ avg_weekly_lq,
+        title = "Individual RQ4",
+        position = "bottomleft"
+      ) %>%
+      addPolygons(
+        data = plot_map_sf,
+        fillOpacity = .7,
+        fillColor = ~ rq4_pal(avg_weekly_lq),
+        color = ~ downtown_pal(is_downtown),
+        opacity = ~ as.numeric(is_downtown),
+        weight = 1,
+        stroke = TRUE,
+        highlightOptions = highlightOptions(
+          color = "#ff4a4a",
+          weight = 5,
+          bringToFront = TRUE,
+          opacity = 1
+        ),
+        popup = ~popup,
+        popupOptions = popupOptions(maxHeight = 215, closeOnClick = TRUE)
+      ) %>%
+      addLegend(color = "yellow",
+                labels = "Downtown area",
+                "bottomleft")
+  })
+  
+  # raw recovery patterns plot
+  output$raw_recovery_plot <- renderPlot({
+    df <- na.omit(getRawRecoveryDF())
+    starting_lqs <- df %>%
+      dplyr::filter(week == min(week)) %>%
+      dplyr::select(city, region, week, rolling_avg) %>%
+      dplyr::arrange(desc(rolling_avg))
+    
+    ending_lqs <- df %>%
+      dplyr::filter(week == max(week)) %>%
+      dplyr::select(city, region, week, rolling_avg) %>%
+      dplyr::arrange(desc(rolling_avg))
+    
+    total_cities <- length(unique(df$city))
+    total_weeks <- length(unique(df$week))
+    
+    concurrent_df <- getConcurrentDF()
+    
+    ggplot(df) + aes(
+      x = week,
+      y = rolling_avg,
+      group = city,
+      color = region,
+      label = city
+    ) + geom_line(size = 1) +
+      geom_label_repel(
+        data = starting_lqs,
+        size = 5,
+        direction = "y",
+        hjust = "right",
+        force = 1,
+        na.rm  = TRUE,
+        min.segment.length = 0,
+        segment.curvature = 1e-20,
+        segment.angle = 20,
+        nudge_x = rep(-35, times = total_cities),
+        show.legend = FALSE
+        #nudge_x = rep(-total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+      ) +
+      geom_label_repel(
+        data = ending_lqs,
+        size = 5,
+        direction = "y",
+        hjust = "left",
+        force = 1,
+        na.rm = TRUE,
+        min.segment.length = 0,
+        segment.curvature =  1e-20,
+        segment.angle = 20,
+        nudge_x = rep(35, times = total_cities),
+        show.legend = FALSE
+        #nudge_x = rep(total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+      ) +
+      labs(title = paste(str_to_title(df$metric[1]), "activity recovery"),
+           subtitle = paste(input$rolling_window[1], "week rolling average"),
+           color = "Region",
+           y = "Metric",
+           x = "Week"
+      ) +
+      theme(
+        #legend.position = "none",
+        axis.text = element_text(size = 10, angle = 45, vjust = 1, hjust = 1),
+        plot.title = element_text(size = 16, hjust = .5),
+        plot.subtitle = element_text(size = 12, hjust = .5)
+      ) +
+      scale_x_date(
+        breaks = "4 weeks",
+        date_labels = "%Y.%m",
+        expand = expansion(mult = .15)
+      ) +
+      scale_color_manual(values = c("Canada" = "#e41a1c",
+                                    "Midwest" = "#377eb8",
+                                    "Northeast" = "#4daf4a",
+                                    "Pacific" = "#984ea3",
+                                    "Southeast" = "#ff7f00",
+                                    "Southwest" = "#e6ab02"))
+  })
+  
+  # recovery ranking plot
+  output$recovery_ranking <- renderPlot({
+    df <- na.omit(getRawRankingDF()) %>%
+      dplyr::filter(!is.na(recovery_rankings_period)) %>%
+      dplyr::arrange(-recovery_rankings_period) %>%
+      mutate(lq_rank = rank(-recovery_rankings_period, ties.method = "first")) %>%
+      dplyr::filter(lq_rank <= input$top_n_recovery_rankings[1]) %>%
+      ungroup()
+    g1 <-
+      ggplot(df) + aes(lq_rank,
+                       group = display_title,
+                       fill = region,
+                       color = metro_size,
+                       linetype = metro_size) +
+      geom_tile(
+        aes(y = recovery_rankings_period / 2, height = recovery_rankings_period, width = .8), alpha = .8) +
+      
+      geom_text(
+        aes(y = 0, label = paste("", lq_rank, ":", display_title,  ":", round(recovery_rankings_period, 2))),
+        hjust = "inward",
+        size = 5
+      ) +
+      coord_flip(clip = "off", expand = FALSE) +
+      labs(title = paste(names(named_metrics[named_metrics == input$recovery_rankings_metric[1]]), "Recovery Rankings"),
+           subtitle = names(named_periods[named_periods == input$recovery_rankings_period[1]]),
+           color = "City size", fill = "Region", linetype = "City size") +
+      scale_y_continuous("", labels = scales::comma) +
+      scale_x_reverse("") +
+      theme(panel.grid = element_blank(),
+            axis.text.y = element_blank(),
+            axis.title = element_blank(),
+            axis.title.y = element_blank(),
+            plot.title = element_text(size = 20, hjust = .5),
+            plot.subtitle = element_text(size = 14, hjust = .5)
+            #plot.margin = unit(c(1, 1, 1, 3), "cm")
+            ) +
+      scale_fill_manual(values = c("Canada" = "#e41a1c",
+                                    "Midwest" = "#377eb8",
+                                    "Northeast" = "#4daf4a",
+                                    "Pacific" = "#984ea3",
+                                    "Southeast" = "#ff7f00",
+                                    "Southwest" = "#e6ab02")) +
+      scale_colour_manual(values = c("large" = "#000000", 
+                                   "medium" = "#ffffff"))
+    g1
+  }, height = function(){540 + 12 * input$top_n_recovery_rankings[1]})
+  
+  output$image1 <- renderImage({
+    return(list(
+      src = paste(
+        "media/kepler",
+        tolower(input$kepler_city[1]),
+        "2019_01_12.png",
+        sep = "_"
+      ),
+      contentType = "image/png"
+    ))
+  }, deleteFile = FALSE)
+  
+  output$image2 <- renderImage({
+    return(list(
+      src = paste(
+        "media/kepler",
+        tolower(input$kepler_city[1]),
+        "2020_03_08.png",
+        sep = "_"
+      ),
+      contentType = "image/png"
+    ))
+  }, deleteFile = FALSE)
+  
+  output$image3 <- renderImage({
+    return(list(
+      src = paste(
+        "media/kepler",
+        tolower(input$kepler_city[1]),
+        "2021_03_04.png",
+        sep = "_"
+      ),
+      contentType = "image/png"
+    ))
+  }, deleteFile = FALSE)
+  
+  output$bar_chart_race <- renderUI({
+    tags$video(
+      src = paste0(input$recovery_rankings_metric[1], ".mov"),
+      type = "video/mov",
+      controls = "controls",
+      autoplay = NA
+    )
+  })
+  
+  output$slr_coeffs <- renderPrint({
+    models <- data.frame(matrix(ncol = 5, nrow = 0))
+    temp_model_df <- model_df %>%
+      dplyr::filter(metric == input$slr_metric[1])
+
+    for (x in named_factors) {
+      model.formula <- as.formula(paste(input$y[1], "~", x, sep = " "))
+      model.ols <- lm(model.formula, temp_model_df)
+      models <-
+        do.call(rbind, list(models, tidy(summary(model.ols))))
+    }
+    print(models %>%
+            dplyr::filter(term != "(Intercept)"), n = Inf)
+  })
+  
+  observe({
+    val <- dim(getRawRankingDF())[1]
+    updateSliderInput(session, "top_n_recovery_rankings", value = floor(val / 2),
+                      min = 1, max = val, step = 1)
+  })
+  
+}
+
+
+
+shinyApp(ui = ui, server = server)
+
+```
+
