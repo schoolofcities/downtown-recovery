@@ -11,5 +11,7 @@ source("dtra_functions.R")
 
 #htmlwidgets::saveWidget(plot_obj, "../docs/widgets/raw_recovery_pattern.html", selfcontained = FALSE)
 for (selected_metric in c("downtown", "city", "relative")) {
-  htmlwidgets::saveWidget(recovery_patterns_plot(recovery_patterns_df(selected_metric, 11), selected_metric, 11), paste0("../docs/widgets/raw_recovery_pattern_", selected_metric, ".html"), selfcontained = FALSE)
-}
+   widget2save <- recovery_patterns_plot(recovery_patterns_df(selected_metric, 11), selected_metric, 11)
+   widget2save$sizingPolicy$padding <- 0
+   htmlwidgets::saveWidget(widget2save, paste0("../docs/widgets/raw_recovery_pattern_", selected_metric, ".html"), selfcontained = FALSE)
+ }

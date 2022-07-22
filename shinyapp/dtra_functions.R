@@ -79,7 +79,7 @@ recovery_rankings_plot <- function(df) {
        aes(y = 0, label = paste("", city,  ":", percent(round(seasonal_average, 2), 1))),
        color = "white",
        hjust = "inward",
-       size = 2
+       size = 4
     ) +
     coord_flip(clip = "off", expand = FALSE) +
     labs(title = paste(names(named_metrics[named_metrics == unique(df$metric)[1]]), "Recovery Rankings"),
@@ -103,9 +103,10 @@ recovery_rankings_plot <- function(df) {
                                  "Southwest" = "#e6ab02"))
   interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
                              options = list(
+                               opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),
                                opts_hover(css = "stroke-width:2;"),
-                               opts_sizing(rescale = TRUE, width = .8)
+                               opts_sizing(rescale = TRUE, width = 1)
                              ))
   interactive_plot
 }
@@ -150,13 +151,15 @@ recovery_patterns_plot <- function(df, metric, n) {
     group = city,
     color = region,
     label = city,
-    text =
-      paste0(
-        "<b>City:</b> ", city, "<br>",
-        "<b>Week:</b> ", week, "<br>",
-        n, " <b>week rolling average:</b> ", percent(round(rolling_avg, 2), 1), "<br>"
-      ) 
+    
   ) + geom_line(size = 1) +
+    geom_point_interactive(aes(tooltip =
+                                 paste0(
+                                   "<b>City:</b> ", city, "<br>",
+                                   "<b>Week:</b> ", week, "<br>",
+                                   n, " <b>week rolling average:</b> ", percent(round(rolling_avg, 2), 1), "<br>"
+                                 ),
+                               data_id = city), size = 1, alpha = .1) +
     # geom_label(
     #   data = starting_lqs,
     #   size = 5,
@@ -213,7 +216,15 @@ recovery_patterns_plot <- function(df, metric, n) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  ggplotly(g1, tooltip = "text")
+  
+  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+                             options = list(
+                               opts_tooltip(use_fill = TRUE),
+                               opts_hover_inv(css = "opacity:0.1;"),
+                               opts_hover(css = "stroke-width:2;"),
+                               opts_sizing(rescale = TRUE, width = 1)
+                             ))
+  interactive_plot
 }
 
 explanatory_plot <- function(selected_metric, x_var, y_var) {
@@ -259,7 +270,7 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                     "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
                                     "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
                    ),
-                   data_id = city),
+                   data_id = region),
                
                alpha = .25,
                size = 5) +
@@ -322,9 +333,10 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                   "Southwest" = "#e6ab02"))
   interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
                              options = list(
+                               opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),
                                opts_hover(css = "stroke-width:2;"),
-                               opts_sizing(rescale = TRUE, width = .8)
+                               opts_sizing(rescale = TRUE, width = 1)
                              ))
   interactive_plot
   
