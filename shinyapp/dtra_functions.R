@@ -91,8 +91,8 @@ recovery_rankings_plot <- function(df) {
           axis.text.y = element_blank(),
           axis.title = element_blank(),
           axis.title.y = element_blank(),
-          plot.title = element_text(size = 20, hjust = .5),
-          plot.subtitle = element_text(size = 14, hjust = .5),
+          plot.title = element_text(size = 12, hjust = .5),
+          plot.subtitle = element_text(size = 10, hjust = .5),
           plot.margin = unit(c(1, 1, 1, 3), "cm")
     ) +
     scale_fill_manual(values = c("Canada" = "#e41a1c",
@@ -153,7 +153,7 @@ recovery_patterns_plot <- function(df, metric, n) {
     color = region,
     label = city,
     
-  ) + geom_line(size = 1) +
+  ) + geom_line_interactive(aes(data_id = city), size = 1) +
     geom_point_interactive(aes(tooltip =
                                  paste0(
                                    "<b>City:</b> ", city, "<br>",
@@ -163,7 +163,7 @@ recovery_patterns_plot <- function(df, metric, n) {
                                data_id = city), size = 1, alpha = .1) +
      geom_label_repel_interactive(
        data = starting_lqs,
-       size = 5,
+       size = 4,
        direction = "y",
        hjust = "right",
        force = 1,
@@ -179,7 +179,7 @@ recovery_patterns_plot <- function(df, metric, n) {
      ) +
     geom_label_repel_interactive(
        data = ending_lqs,
-       size = 5,
+       size = 4,
        direction = "y",
        hjust = "left",
        force = 1,
@@ -201,9 +201,9 @@ recovery_patterns_plot <- function(df, metric, n) {
     ) +
     theme(
       axis.text.x = element_text(size = 10, angle = 45, vjust = 1, hjust = 1),
-      axis.title = element_text(size = 12, hjust = .5),
-      plot.title = element_text(size = 16, hjust = .5),
-      plot.subtitle = element_text(size = 12, hjust = .5)
+      axis.title = element_text(size = 10, hjust = .5),
+      plot.title = element_text(size = 12, hjust = .5),
+      plot.subtitle = element_text(size = 10, hjust = .5)
     ) +
     scale_x_date(
       breaks = "4 weeks",
@@ -218,7 +218,7 @@ recovery_patterns_plot <- function(df, metric, n) {
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
   
-  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 6,
+  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
                              options = list(
                                opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),
@@ -274,13 +274,13 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                    data_id = region),
                
                alpha = .25,
-               size = 5) +
+               size = 4) +
     geom_text_repel(
       data = key_study_cases_df,
       aes(color = region),
       label = key_study_cases_df$city,
-      size = 6,
-      point.size = 8,
+      size = 4,
+      point.size = 4,
       min.segment.length = 0,
       segment.curvature = -1,
       segment.ncp = 3,
@@ -293,7 +293,7 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                                                            "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
                                                           ),
                                                           data_id = city),
-                           size = 5) + 
+                           size = 4) + 
       geom_smooth(
         data = plot_df,
         method = "lm",
@@ -317,9 +317,9 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
     
     
     
-    theme(plot.title = element_text(size = 16, hjust = .5),
-          axis.title = element_text(size = 12),
-          plot.subtitle = element_text(size = 14, hjust = .5)) +
+    theme(plot.title = element_text(size = 12, hjust = .5),
+          axis.title = element_text(size = 10),
+          plot.subtitle = element_text(size = 10, hjust = .5)) +
     labs(x = names(named_factors[named_factors == x_var]),
          y = names(named_periods[named_periods == y_var]),
          title = eq,
@@ -332,7 +332,7 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  interactive_plot <- girafe(ggobj = g1, width_svg = 8, height_svg = 8,
+  interactive_plot <- girafe(ggobj = g1, width_svg = 10, height_svg = 10,
                              options = list(
                                opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),

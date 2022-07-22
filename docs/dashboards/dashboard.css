@@ -65,26 +65,29 @@ div.map-container iframe{
 
  div.plot-container#recovery-plot {
   position: absolute;
-  overflow:hidden;
-  display:inline;
-  height:90%;
+  overflow: auto;
+  display: inline;
+  padding-right:25px;
+  height:85%;
   width:80%;
   border: none;
 }
 
 div.plot-container#recovery-plot iframe{
   position: absolute;
-  overflow:hidden;
-  display:inline;
-  height:85%;
-  width:80%;
+  overflow: auto;
+  display: inline;
+  padding-bottom:25px;
+  padding-right:25px;
+  height:100%;
+  width:100%;
   border: none;
 }
 
 
 div.plot-container#rankings-plot{
   position: absolute;
-  overflow:hidden;
+  overflow:auto;
   display:inline;
   height:85%;
   width:85%;
@@ -93,27 +96,27 @@ div.plot-container#rankings-plot{
 
 div.plot-container#rankings-plot iframe{
   position: absolute;
-  overflow:hidden;
+  overflow:auto;
   display:inline;
-  height:90%;
-  width:70%;
+  height:400px;
+  width:100%;
   border: none;
 }
 
 div.plot-container#explanatory-plot{
   position: absolute;
-  overflow:hidden;
+  overflow:auto;
   display:inline;
-  height:95%;
+  height:85%;
   width:80%;
   border: none;
 }
 
 div.plot-container#explanatory-plot iframe{
   position: absolute;
-  overflow:hidden;
+  overflow:auto;
   display:inline;
-  height:90%;
-  width:80%;
+  height:100%;
+  width:85%;
   border: none;
 }
