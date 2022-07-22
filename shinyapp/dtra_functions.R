@@ -111,10 +111,11 @@ recovery_rankings_plot <- function(df) {
   interactive_plot
 }
 
-recovery_patterns_df <- function(selected_metric, rolling_window) {
+recovery_patterns_df <- function(selected_metric, selected_cities, rolling_window) {
   
   na.omit(all_weekly_metrics %>%
-    dplyr::filter(metric == selected_metric) %>%
+    dplyr::filter((metric == selected_metric) &
+                  (display_title %in% selected_cities))%>%
     arrange(week) %>%
     group_by(city) %>%
     mutate(rolling_avg = rollmean(
@@ -160,38 +161,38 @@ recovery_patterns_plot <- function(df, metric, n) {
                                    n, " <b>week rolling average:</b> ", percent(round(rolling_avg, 2), 1), "<br>"
                                  ),
                                data_id = city), size = 1, alpha = .1) +
-    # geom_label(
-    #   data = starting_lqs,
-    #   size = 5,
-    #   direction = "y",
-    #   hjust = "right",
-    #   force = 1,
-    #   na.rm  = TRUE,
-    #   min.segment.length = 0,
-    #   segment.curvature = 1e-20,
-    #   segment.angle = 20,
-    #   # this was determined to be a decent offset based on the commented out line below
-    #   # leaving it in as future reference 
-    #   nudge_x = rep(-35, times = total_cities),
-    #   show.legend = FALSE
-    #   #nudge_x = rep(-total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
-    # ) +
-    # geom_label(
-    #   data = ending_lqs,
-    #   size = 5,
-    #   direction = "y",
-    #   hjust = "left",
-    #   force = 1,
-    #   na.rm = TRUE,
-    #   min.segment.length = 0,
-    #   segment.curvature =  1e-20,
-    #   segment.angle = 20,
-    #   # this was determined to be a decent offset based on the commented out line below
-    #   # leaving it in as future reference 
-    #   nudge_x = rep(35, times = total_cities),
-    #   show.legend = FALSE
-    #   #nudge_x = rep(total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
-    # ) +
+     geom_label_repel_interactive(
+       data = starting_lqs,
+       size = 5,
+       direction = "y",
+       hjust = "right",
+       force = 1,
+       na.rm  = TRUE,
+       min.segment.length = 0,
+       segment.curvature = 1e-20,
+       segment.angle = 20,
+       # this was determined to be a decent offset based on the commented out line below
+       # leaving it in as future reference 
+       nudge_x = rep(-35, times = total_cities),
+       show.legend = FALSE
+       #nudge_x = rep(-total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+     ) +
+    geom_label_repel_interactive(
+       data = ending_lqs,
+       size = 5,
+       direction = "y",
+       hjust = "left",
+       force = 1,
+       na.rm = TRUE,
+       min.segment.length = 0,
+       segment.curvature =  1e-20,
+       segment.angle = 20,
+       # this was determined to be a decent offset based on the commented out line below
+       # leaving it in as future reference 
+       nudge_x = rep(35, times = total_cities),
+       show.legend = FALSE
+       #nudge_x = rep(total_weeks / as.numeric(input$rolling_window[1]), times = total_cities),
+     ) +
     labs(title = paste(names(named_metrics[named_metrics == metric])),
          subtitle = paste(n, " week rolling average"),
          color = "Region",
