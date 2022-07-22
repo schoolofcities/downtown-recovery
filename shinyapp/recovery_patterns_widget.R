@@ -11,7 +11,7 @@ source("dtra_functions.R")
 
 #htmlwidgets::saveWidget(plot_obj, "../docs/widgets/raw_recovery_pattern.html", selfcontained = FALSE)
 
-plot_cities <- c("Washington DC", "Seattle, WA", "New York, NY", 
+plot_cities <- c("Washington DC", "Seattle, WA", "New York, NY","San Francisco, CA",
                  "Sacramento, CA", "Los Angeles, CA", "San Diego, CA", "Portland, OR",
                  "Boston, MA", "Chicago, IL", "Vancouver, BC", "Toronto, ON")
 
