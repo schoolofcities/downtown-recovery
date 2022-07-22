@@ -1,9 +1,10 @@
+
+
+
+
 #### Recovery Patterns
 
 This chart displays a rolling weekly average of the selected metric. The mobile device count for a given week during the pandemic is divided by the mobile device count for the corresponding week pre-pandemic. Safegraph reports weekly data every Monday. Each reporting date is converted to the [ISO week number](https://en.wikipedia.org/wiki/ISO_week_date) that it belongs to. Weeks are considered to correspond with one another if their ISO week number matches.
-
-#### Select cities 
-Select which cities to include in the plot. They are sorted by total population and a random selection of the top 20 largest cities are chosen by default.
 
 #### Select Metric
 Recovery Quotient (RQ) Downtown: divides the sum of downtown area's device counts of the week by the corresponding week in 2019

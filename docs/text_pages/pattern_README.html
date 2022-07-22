@@ -173,25 +173,12 @@ pre code {
 
 <div id="recovery-patterns" class="section level1">
 <h1>Recovery Patterns</h1>
-<p>This chart displays a rolling weekly average of the selected metric. The normalized visits by state scaling for a given week during the pandemic is divided by the normalzied visits by state scaling for the corresponding week pre-pandemic. Weeks are considered to correspond with one another if their ISO week number matches.</p>
-<div id="city" class="section level2">
-<h2>City</h2>
-<p>Select which cities to include in the plot. They are sorted by total population and a random selection of 7 of the top 20 most populated cities are chosen by default.</p>
-</div>
+<p>This chart displays a rolling weekly average of the selected metric. The normalized visits by total visits for a given week during the pandemic is divided by the normalized visits by total visits for the corresponding week pre-pandemic. Weeks are considered to correspond with one another if their ISO week number matches.</p>
 <div id="select-metric" class="section level2">
 <h2>Select metric</h2>
 <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
 <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
 <p>LQ: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
-</div>
-<div id="weekly-rolling-average-window" class="section level2">
-<h2>Weekly rolling average window</h2>
-<p>A window to average the weekly observations. The fluctuations between weeks can obscure overall trends</p>
-</div>
-<div id="limitations" class="section level2">
-<h2>Limitations</h2>
-<p>The option to select all cities does exist, but should be used with caution as the resulting plot will very likely be incomprehensible. The plot was generated using the ggrepel library, which attempts to ‘smartly’ repel text on a plot from other text to make for better readability. In some cases, this can cause the final labels on the plots to end up far from where the actual line on the plot ends, particularly when too many cities end with the same weekly metric.</p>
-<p>For the sake of color coherence, 7 cities is a good upper limit.</p>
 </div>
 <div id="relevant-libraries" class="section level2">
 <h2>Relevant libraries</h2>

@@ -83,11 +83,20 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <p>Plots the relationship of a selected socioeconomic factor and selected recovery metric. 
-                    This plots all cities, but city name and value can be viewed while hovering over plotted points. The points are colored according to region.</p>
+                  <div id="explanatory-variables" class="section level1">
+                    <h4>Explanatory Variables</h4>
+                    <p>Plots the relationship of socioeconomic factors and selected recovery metric.</p>
+                    <div id="select-metric" class="section level2">
+                    <h4>Navigation</h4>
+                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
+                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
+                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                    </div>
+                    </div>
+                    </div>
                 </div>
               </div>
-            </div>
+           
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -132,7 +141,7 @@
         </div>
 
         <div class="col-10">
-          <ul class="nav nav-tabs" id="mapTabs" role="tablist">
+          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
                 aria-controls="all-detail" aria-selected="true">All</a>
@@ -147,18 +156,18 @@
           
          <div class="tab-content">
             <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/explanatory_variables_downtown.html">
+              data-src="../widgets/explanatory_variables_downtown.html">-->
               <div class="plot-container" id = "explanatory-plot">
                 <iframe src="../widgets/explanatory_variables_downtown.html" name = "explanatoryframe"></iframe>
               </div>
-           </div>
+           <!--</div>
 
            <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
               data-src="../text_pages/explanatory_README.html">
               <div class="map-container">
                 <iframe src="../text_pages/explanatory_README.html"></iframe>
               </div>
-            </div>
+            </div>-->
           </div> 
         
         </div>

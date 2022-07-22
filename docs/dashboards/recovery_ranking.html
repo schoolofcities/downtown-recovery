@@ -84,13 +84,22 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <p>Displays a ranked bar chart wth city names and metrics superimposed on the bars.
-                    The bars are filled according to which region they belong to (Canada, US Midwest, US Northeast, US Pacific, US Southeast, US Southwest) 
-                    and the text is colored according to city size. 
-                    The text on the bars is as follows: 
-                    City ranking : City name : Value
-                    A value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change.
-                  </p>
+                  <div id="recovery-rankings" class="section level3">
+                    <h4>Recovery Rankings</h4>
+                    <div id="about-ranking" class="section level4">
+                      <p>Displays a ranked bar chart wth city names and metrics superimposed on the bars.</p>
+                      <p>The bars are filled according to which region they belong to (Canada, US Midwest, US Northeast, US Pacific, US Southeast, US Southwest) and the text is colored according to city size. </p>
+                      <p> The text on the bars is as follows: </p>
+                      <p> City name : Value</p>
+                      <p>A value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change.</p>
+                    </div>
+                    <div id="select-metric" class="section level4">
+                    <h4>Navigation</h4>
+                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
+                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
+                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,7 +147,7 @@
         </div>
 
         <div class="col-10">
-          <ul class="nav nav-tabs" id="mapTabs" role="tablist">
+          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
                 aria-controls="all-detail" aria-selected="true">All</a>
@@ -153,18 +162,18 @@
           
          <div class="tab-content">
             <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/recovery_rankings_downtown.html">
+              data-src="../widgets/recovery_rankings_downtown.html">-->
               <div class="map-container">
                 <iframe src="../widgets/recovery_rankings_downtown.html" name = "rankingframe"></iframe>
               </div>
            </div>
 
-           <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
+           <!--<div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
               data-src="../text_pages/ranking_README.html">
               <div class="map-container">
                 <iframe src="../text_pages/ranking_README.html"></iframe>
               </div>
-            </div>
+            </div>-->
           </div> 
         
         </div>

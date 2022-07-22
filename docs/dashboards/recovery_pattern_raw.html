@@ -84,13 +84,24 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <p>This chart displays a rolling weekly average of the selected metric. 
-                    The mobile device count for a given week during the pandemic is divided by the mobile device count for the corresponding week pre-pandemic. 
-                    Safegraph reports weekly data every Monday.
-                    Each reporting date is converted to the [ISO week number](https://en.wikipedia.org/wiki/ISO_week_date) that it belongs to. 
-                    Weeks are considered to correspond with one another if their ISO week number matches.
-                    The weekly averages are smoothed in 11-week intervals to demonstrate overall trends.
-                  </p>
+                  
+                    <div id="recovery-patterns" class="section level1">
+                      <h4>Recovery Patterns</h4>
+                      <p>This chart displays a rolling weekly average of the selected metric. 
+                        The normalized visits by total visits for a given week during the pandemic is divided by the normalized visits by total visits for the corresponding
+                         week pre-pandemic. Weeks are considered to correspond with one another if their ISO week number matches.</p>
+                      <div id="select-metric" class="section level2">
+                      <h4>Navigation</h4>
+                      <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
+                      <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
+                      <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                      </div>
+                      <div id="relevant-libraries" class="section level2">
+                      <h4>Relevant libraries</h4>
+                      <p>ggplot, ggrepel <a href="#">Back to top</a></p>
+                      </div>
+                      </div>
+                  
                 </div>
               </div>
             </div>
@@ -136,9 +147,9 @@
             </div>
           </div>
         </div>
-
+      
         <div class="col-10">
-          <ul class="nav nav-tabs" id="mapTabs" role="tablist">
+          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
                 aria-controls="all-detail" aria-selected="true">All</a>
@@ -153,22 +164,22 @@
           
          <div class="tab-content">
             <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/raw_recovery_pattern_downtown.html">
+              data-src="../widgets/raw_recovery_pattern_downtown.html">-->
               <div class="plot-container" id = "recovery-plot">
                 <iframe src="../widgets/raw_recovery_pattern_downtown.html" name = "patternsframe"></iframe>
               </div>
-           </div>
+           <!--</div>
 
            <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
               data-src="../text_pages/pattern_README.html">
               <div class="map-container">
                 <iframe src="../text_pages/pattern_README.html"></iframe>
               </div>
-            </div>
+            </div>-->
           </div> 
-        
         </div>
       </div>
+        
   </main>
 
 
