@@ -65,20 +65,17 @@ div.map-container iframe{
 
  div.plot-container#recovery-plot {
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
   display: inline;
-  padding-right:25px;
-  height:85%;
+  height:90%;
   width:80%;
   border: none;
 }
 
 div.plot-container#recovery-plot iframe{
   position: absolute;
-  overflow: auto;
+  overflow: hidden;
   display: inline;
-  padding-bottom:25px;
-  padding-right:25px;
   height:100%;
   width:100%;
   border: none;
@@ -107,7 +104,7 @@ div.plot-container#explanatory-plot{
   position: absolute;
   overflow:auto;
   display:inline;
-  height:85%;
+  height:90%;
   width:80%;
   border: none;
 }
@@ -117,6 +114,6 @@ div.plot-container#explanatory-plot iframe{
   overflow:auto;
   display:inline;
   height:100%;
-  width:85%;
+  width:100%;
   border: none;
 }

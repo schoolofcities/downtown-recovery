@@ -163,7 +163,7 @@ recovery_patterns_plot <- function(df, metric, n) {
                                data_id = city), size = 1, alpha = .1) +
      geom_label_repel_interactive(
        data = starting_lqs,
-       size = 4,
+       size = 3,
        direction = "y",
        hjust = "right",
        force = 1,
@@ -179,7 +179,7 @@ recovery_patterns_plot <- function(df, metric, n) {
      ) +
     geom_label_repel_interactive(
        data = ending_lqs,
-       size = 4,
+       size = 3,
        direction = "y",
        hjust = "left",
        force = 1,
@@ -217,15 +217,8 @@ recovery_patterns_plot <- function(df, metric, n) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
+  g1
   
-  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
-                             options = list(
-                               opts_tooltip(use_fill = TRUE),
-                               opts_hover_inv(css = "opacity:0.1;"),
-                               opts_hover(css = "stroke-width:2;"),
-                               opts_sizing(rescale = TRUE, width = 1)
-                             ))
-  interactive_plot
 }
 
 explanatory_plot <- function(selected_metric, x_var, y_var) {
@@ -332,14 +325,7 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  interactive_plot <- girafe(ggobj = g1, width_svg = 10, height_svg = 10,
-                             options = list(
-                               opts_tooltip(use_fill = TRUE),
-                               opts_hover_inv(css = "opacity:0.1;"),
-                               opts_hover(css = "stroke-width:2;"),
-                               opts_sizing(rescale = TRUE, width = 1)
-                             ))
-  interactive_plot
+  g1
   
 }
 
