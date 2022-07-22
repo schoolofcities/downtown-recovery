@@ -59,14 +59,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Methodology</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="../text_pages/methods.html">Methods</a>
-                        <a class="dropdown-item" href="../text_pages/sources.html">Sources</a>
-                        <a class="dropdown-item" href="../text_pages/documentation.html">Documentation</a>
-                    </div>
-                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
+                  </li>
               </ul>
         </div>
       </div>
@@ -112,17 +107,17 @@
                   <div class="box alt">
                     <div class="row gtr-50 gtr-uniform">
                       <div class="col-12">
-                        <span class="image fit">
-                          <ul class="actions fit" id='patterns buttons'>
-                            <li title="Downtown recovery quotient"><a href="../widgets/raw_recovery_pattern_downtown.html" target="patternsframe" class="button primary fit">Downtown</a></li>
-                            <li title="City recovery quotient"><a href="../widgets/raw_recovery_pattern_city.html" target="patternsframe" class="button fit">City</a></li>
-                            <li title="Location quotient"><a href="../widgets/raw_recovery_pattern_relative.html" target="patternsframe" class="button fit">Relative</a></li>
-                          </ul>
-                        </span>
+                       
+                          <div class="btn-group-vertical" id='patterns buttons'>
+                            <a href="../widgets/raw_recovery_pattern_downtown.html" target="patternsframe" class="btn btn-primary data-page-btn">Downtown</a>
+                            <a href="../widgets/raw_recovery_pattern_city.html" target="patternsframe" class="btn btn-primary data-page-btn">City</a>
+                            <a href="../widgets/raw_recovery_pattern_relative.html" target="patternsframe" class="btn btn-primary data-page-btn">Relative</a>
+                          </div>
+                        
                         <!-- Script to toggle buttons -->
                         <script>
                           var header = document.getElementById("patterns buttons");
-                          var btns = header.getElementsByClassName("button fit");
+                          var btns = header.getElementsByClassName("btn btn-primary data-page-btn");
                           for (var i = 0; i < btns.length; i++) {
                             btns[i].addEventListener("click", function() {
                             var current = document.getElementsByClassName("primary");

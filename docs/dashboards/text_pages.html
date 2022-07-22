@@ -87,51 +87,53 @@
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Navigation
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                data-bs-parent="#accordionContainer">
-                <div class="accordion-body">
-                  <strong>This is the second item's accordion body.</strong>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
         <div class="col-10">
           <ul class="nav nav-tabs" id="mapTabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
-                aria-controls="all-detail" aria-selected="true">Methods</a>
+              <button class="nav-link active" id="method-tab" data-bs-toggle="tab" data-bs-target="#method-detail" role="tab"
+                aria-controls="method-detail" aria-selected="true">Methods</a>
             </li>
 
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-detail" role="tab"
-                aria-controls="about-detail" aria-selected="false">Sources</a>
+              <button class="nav-link" id="sources-tab" data-bs-toggle="tab" data-bs-target="#sources-detail" role="tab"
+                aria-controls="sources-detail" aria-selected="false">Sources</a>
             </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="future-tab" data-bs-toggle="tab" data-bs-target="#future-detail" role="tab"
+                  aria-controls="future-detail" aria-selected="false">Future</a>
+              </li>
+
+
           </ul>
        
           
          <div class="tab-content">
-            <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
+            <div class="tab-pane fade show active" id="method-detail" role="tabpanel" aria-labelledby="method-tab"
               data-src="../text_pages/methods.html">
               <div class="map-container">
                 <iframe src="../text_pages/methods.html"></iframe>
               </div>
            </div>
 
-           <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
+           <div class="tab-pane fade" id="sources-detail" role="tabpanel" aria-labelledby="sources-tab"
               data-src="../text_pages/sources.html">
               <div class="map-container">
                 <iframe src="../text_pages/sources.html"></iframe>
               </div>
             </div>
+
+            <div class="tab-pane fade" id="future-detail" role="tabpanel" aria-labelledby="future-tab"
+              data-src="../text_pages/contact_info_future.html">
+              <div class="map-container">
+                <iframe src="../text_pages/contact_info_future.html"></iframe>
+              </div>
+            </div>
+
+
           </div> 
         
         </div>
