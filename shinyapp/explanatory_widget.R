@@ -19,7 +19,13 @@ source("dtra_functions.R")
 #htmlwidgets::saveWidget(explanatory_plot("downtown", "pct_jobs_information", "Season_9"), "../docs/widgets/explanatory_variables.html", selfcontained = FALSE)
 
 for (selected_metric in c("downtown", "city", "relative")) {
-  g1 <- explanatory_plot(selected_metric, "pct_jobs_information", "Season_9")
+  
+  plot_df <- create_model_df(selected_metric, "Season_9")
+  
+  
+  exp <- highlight_key(plot_df, ~city)
+  
+  g1 <- explanatory_plot(plot_df, "pct_jobs_information")
   widget2save <- girafe(ggobj = g1, width_svg = 12, height_svg = 8,
                              options = list(
                                opts_tooltip(use_fill = TRUE),
