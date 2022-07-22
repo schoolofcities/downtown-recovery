@@ -217,7 +217,7 @@ recovery_patterns_plot <- function(df, metric, n) {
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
   
-  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 6,
                              options = list(
                                opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),
@@ -331,7 +331,7 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+  interactive_plot <- girafe(ggobj = g1, width_svg = 8, height_svg = 8,
                              options = list(
                                opts_tooltip(use_fill = TRUE),
                                opts_hover_inv(css = "opacity:0.1;"),
