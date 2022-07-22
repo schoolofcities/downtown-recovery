@@ -195,7 +195,7 @@ pre code {
 <div id="rq" class="section level3">
 <h3>RQ</h3>
 <p>Recovery Quotient:</p>
-<p><span class="math display">\[ RQ_{2021} = \frac{\text{Downtown POI visits in 2021}}{\text{Downtown POI visits in 2019}} \]</span></p>
+<p><span class="math display">\[ RQ_{2022} = \frac{\text{Downtown POI visits in 2022}}{\text{Downtown POI visits in 2019}} \]</span></p>
 </div>
 <div id="polycentricity" class="section level3">
 <h3>Polycentricity</h3>
@@ -204,7 +204,7 @@ pre code {
 <div id="lq" class="section level3">
 <h3>LQ</h3>
 <p>Location Quotient:</p>
-<p><span class="math display">\[ LQ_{2021} = \frac{\frac{\text{Downtown POI visits in 2021}}{\text{Entire City POI visits in 2021}}}{\frac{\text{Downtown POI visits in 2019}}{\text{Entire City POI visits in 2019}}} \]</span></p>
+<p><span class="math display">\[ LQ_{2022} = \frac{\frac{\text{Downtown POI visits in 2022}}{\text{Entire City POI visits in 2022}}}{\frac{\text{Downtown POI visits in 2019}}{\text{Entire City POI visits in 2019}}} \]</span></p>
 <div id="what-is-an-observation" class="section level4">
 <h4>What is an observation?</h4>
 <p>In the United States, the smallest unit of observation in this study is the ZCTA. For Canada, it is a census dissemination area.</p>
@@ -216,61 +216,58 @@ pre code {
 <div id="time-periods" class="section level4">
 <h4>Time periods</h4>
 <div id="period-1" class="section level5">
-<h5>Period 1:</h5>
-<p>March 2020 - August 2020</p>
+<p>March 2020 - May 2020</p>
 </div>
 <div id="period-2" class="section level5">
-<h5>Period 2:</h5>
-<p>September 2020 - February 2021</p>
+<p>June 2020 - August 2020</p>
 </div>
 <div id="period-3" class="section level5">
-<h5>Period 3:</h5>
-<p>March 2021 - August 2021</p>
+<p>September 2020 - November 2020</p>
 </div>
 <div id="period-4" class="section level5">
-<h5>Period 4:</h5>
-<p>September 2021 - February 2022</p>
+<p>December 2020 - February 2021</p>
 </div>
+
+<div id="period-5" class="section level5">
+  <p>March 2021 - May 2021</p>
+  </div>
+  <div id="period-6" class="section level5">
+  <p>June 2021 - August 2021</p>
+  </div>
+  <div id="period-7" class="section level5">
+  <p>September 2021 - November 2021</p>
+  </div>
+  <div id="period-8" class="section level5">
+  <p>December 2021 - February 2022</p>
+  </div>
+  <div id="period-9" class="section level5">
+    <p>March 2022 - May 2022</p>
+  </div>
 </div>
-<div id="compound-metrics" class="section level4">
-<h4>Compound Metrics:</h4>
-<div id="rate-of-recovery" class="section level5">
-<h5>Rate of Recovery:</h5>
-<p><span class="math display">\[ \frac{RQ_{\text{period 4}}}{RQ_{\text{period 1}}} \]</span></p>
-</div>
-<div id="omicron-resilience" class="section level5">
-<h5>Omicron Resilience:</h5>
-<p><span class="math display">\[ \frac{RQ_{\text{Jan-Feb 2022}}}{RQ_{\text{Sep - Dec 2021}}}\]</span></p>
-</div>
-</div>
+
 <div id="comparative-map" class="section level4">
 <h4>Comparative Map</h4>
-<p>Displays 2D maps of all metrics and all periods for all cities at the national level. Only the average weekly metric over Period 4 is available at the city level. A value greater than 1 indicates an increase in activity from the comparison period. A value less than 1 indicates the opposite. A value equal to 1 means the activity level has not changed between the two periods. #### All cities map This map has 12 viewable layers.</p>
+<p>Displays 2D maps of all metrics and all periods for all cities at the national level. A value greater than 100% indicates an increase in activity from the comparison period. A value less than 100% indicates the opposite. A value equal to 100% means the activity level has not changed between the two periods.</p>
 <p>The purpose of this map is to provide an overview of all metrics over all periods for all cities in the study.</p>
 </div>
+
 <div id="select-metric" class="section level4">
 <h4>Select Metric</h4>
 <p>Recovery Quotient (RQ) Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
 <p>Recovery Quotient (RQ) City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
 <p>Location Quotient (LQ): A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
 </div>
+
 <div id="select-period" class="section level4">
-<h4>Select Period</h4>
-<p>Each numbered period averages the chosen metric over the specified window of time.</p>
-<p>Rate of recovery is the ratio of the metric in Period 4 divided by Period 1</p>
-<p>Omicron resilience is the ratio of the average weekly metric between January 2022 - February 2022 divided by September 2021 - December 2021</p>
+<h4>Select Season</h4>
+<p>Each season averages the chosen metric over the specified window of time.</p>
 </div>
-<div id="single-city-map" class="section level4">
-<h4>Single city map</h4>
-<p>This map has only one layer to view.</p>
-<p>The purpose of this map is to display information about how mobile device count activity changed from pre-pandemic levels in each ZIP code or dissemination area for Period 4. #### Limitations Because of the small size of census dissemination areas, the Canadian cities can take more time to load than the US cities. Most of the time this is a non-issue, although larger cities like Toronto and Montreal do have a few seconds of delay before loading in. The fill color of Canadian cities is better observed while zoomed in, since the thickness of the highlighter line can obscure some of the tinier dissemination areas. #### Relevant libraries dplyr, geojsonio, leaflet, sf, sp, tidyverse</p>
-<p><a href="#">Back to top</a></p>
-</div>
+
 <div id="recovery-rankings" class="section level4">
 <h4>Recovery Rankings</h4>
 <p>Displays a ranked bar chart wth city names and metrics superimposed on the bars. The bars are filled according to which region they belong to (Canada, US Midwest, US Northeast, US Pacific, US Southeast, US Southwest) and the text is colored according to city size. The text on the bars is as follows:</p>
 <p>City ranking : City name : Value</p>
-<p>A value greater than 1.0 means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 1.0 means the opposite, and a value equal to 1.0 means the activity did not change. #### City size Since all cities in the study were included because they were the largest cities in Canada and the United States, ‘large’ in this case refers to the largest 20 cities in the study. All other cities are considered ‘medium’.</p>
+<p>A value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change. Since all cities in the study were included because they were the largest cities in Canada and the United States, ‘large’ in this case refers to the largest 20 cities in the study. All other cities are considered ‘medium’.</p>
 </div>
 <div id="select-metric-1" class="section level4">
 <h4>Select Metric</h4>
@@ -279,15 +276,14 @@ pre code {
 <p>Location Quotient (LQ): A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
 </div>
 <div id="select-period-1" class="section level4">
-<h4>Select Period</h4>
-<p>Each numbered period averages the chosen metric over the specified window of time.</p>
-<p>Rate of recovery is the ratio of the metric in Period 4 divided by Period 1</p>
-<p>Omicron resilience is the ratio of the average weekly metric between January 2022 - February 2022 divided by September 2021 - December 2021</p>
+<h4>Select Season</h4>
+<p>Each season averages the chosen metric over the specified window of time.</p>
 </div>
 <div id="limitations" class="section level4">
 <h4>Limitations</h4>
-<p>Take caution when ranking more than 25 cities at a time. The bars have been filled and accented with readability in mind and the text will resize as more cities are added, but after a certain point it will be difficult to read. #### Relevant libraries ggplot2, dplyr, tidyverse</p>
+<p>Take caution when ranking more than 25 cities at a time. The bars have been filled and accented with readability in mind and the text will resize as more cities are added, but after a certain point it will be difficult to read. Relevant libraries ggplot2, dplyr, tidyverse</p>
 <p><a href="#">Back to top</a></p>
+
 </div>
 <div id="recovery-patterns" class="section level4">
 <h4>Recovery Patterns</h4>
@@ -319,7 +315,7 @@ pre code {
 </div>
 <div id="explanatory-variables" class="section level4">
 <h4>Explanatory Variables</h4>
-<p>Plots the relationship of a selected <em>downtown</em> socioeconomic factor and selected recovery metric. This plot takes <em>all</em> cities into consideration, but a select few can be highlight for comparison’s sake. You can click on any point in the plot to see the exact value of the selected independent and dependent variables, rounded to two decimal points. The points are colored according to region.</p>
+<p>Plots the relationship of a selected socioeconomic factor and selected recovery metric. This plot takes <em>all</em> cities into consideration, but a select few can be highlight for comparison’s sake. You can click on any point in the plot to see the exact value of the selected independent and dependent variables, rounded to two decimal points. The points are colored according to region.</p>
 </div>
 <div id="select-metric-3" class="section level4">
 <h4>Select Metric</h4>
@@ -335,8 +331,6 @@ pre code {
 <h4>Select dependent variable</h4>
 <p>The dependent variable is the period, rate of recovery, and omicron resilience. It is renamed to ‘dependent variable’ in this plot to signify that the change in this value is what we want to learn more about using the independent variables.</p>
 <p>Each numbered period averages the chosen metric over the specified window of time.</p>
-<p>Rate of recovery is the ratio of the metric in Period 4 divided by Period 1</p>
-<p>Omicron resilience is the ratio of the average weekly metric between January 2022 - February 2022 divided by September 2021 - December 2021</p>
 </div>
 <div id="city" class="section level4">
 <h4>City</h4>
@@ -383,138 +377,6 @@ F-statistic: 9.417 on 1 and 60 DF,  p-value: 0.003225</code></pre>
 </div>
 </div>
 </div>
-<div id="sources" class="section level1">
-<h1>Sources</h1>
-<div id="geographic-data" class="section level4">
-<h4>Geographic data:</h4>
-<div id="united-states" class="section level5">
-<h5>United States:</h5>
-<p><a href="https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_zcta510_500k.zip">2018 ZCTA cartographic boundary shapefile, US Census Bureau</a></p>
-</div>
-<div id="canada" class="section level5">
-<h5>Canada:</h5>
-<p><a href="https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-eng.cfm">2016 Census dissemination area shapefile, Statcan</a></p>
-</div>
-</div>
-<div id="demographic-and-socioeconomic-data" class="section level4">
-<h4>Demographic and socioeconomic data:</h4>
-<div id="united-states-1" class="section level5">
-<h5>United States</h5>
-<p><a href="https://www.census.gov/data/developers/data-sets/acs-5year.2019.html">American Community Survey 5-Year estimates 2015 - 2019, US Census Bureau</a></p>
-<p><a href="https://www.census.gov/data/developers/data-sets/cbp-nonemp-zbp/cbp-api.2019.html">ZIP Code Business Patterns, US Census Bureau</a></p>
-<p><a href="https://lehd.ces.census.gov/data/lodes/">LEHD Origin-Destination Employment Statistics, US Census Bureau</a></p>
-</div>
-<div id="canada-1" class="section level5">
-<h5>Canada</h5>
-<p><a href="https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/dt-td/index-eng.cfm">2016 Census of Population, Statcan</a></p>
-</div>
-</div>
-<div id="mobile-device-count" class="section level4">
-<h4>Mobile device count:</h4>
-<blockquote>
-<p><a href="https://www.safegraph.com/">SafeGraph</a>, a data company that aggregates anonymized location data from numerous applications in order to provide insights about physical places, via the SafeGraph Community. To enhance privacy, SafeGraph excludes census block group information if fewer than five devices visited an establishment in a month from a given census block group.</p>
-</blockquote>
-<p>Datasets used:</p>
-<p><a href="https://docs.safegraph.com/docs/core-places">Places</a></p>
-<p><a href="https://docs.safegraph.com/docs/monthly-patterns">Patterns</a></p>
-<!--
-## Unemployment rate
-### US cities: 
-| Measure Data Type | Area Type |   Seasonality | Survey Name |
-|:-----------------:|:---------:|:-----------:|:-----------:|
-|unemployment rate |Cities and towns above 25,000 population|Not Seasonally Adjusted|Local Area Unemployment Statistics|
-https://beta.bls.gov/dataViewer/view/7902ccef8ffe48ac998b21a4d222c377 <br>
-
-### Canadian CMAs: 
-Statistics Canada. Table 14-10-0380-01  Labour force characteristics, three-month moving average, seasonally adjusted <br>
-https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410038001 <br>
-Canadian data is seasonally unadjusted and is available by month, as 3 month moving averages. <br>
-
-
-# Covid timeline
-## Canada:
-https://www.cihi.ca/en/covid-19-intervention-timeline-in-canada
-## US:
-https://www.cdc.gov/museum/timeline/covid19.html
-## Global:
-https://covid19.trackvaccines.org/agency/who/
-
-# Covid case count
-Note: The geographic region for Covid case count data does not exactly match the geographic region used to join Safegraph data to census data, due to unavailability at the zip code level and dissemination area level for all cities. Public health agencies are included if a study city is included in the agency's publicly available data.
-
-## Canada
-### Vancouver (British Columbia): 
-http://www.bccdc.ca/Health-Info-Site/Documents/BC_COVID-19_Disclaimer_Data_Notes.pdf <br>
-
-### Calgary & Edmonton (Alberta): 
-https://data.edmonton.ca/Community-Services/COVID-19-in-Alberta-Cases-by-Zone/jmcu-tz8y <br>
-
-### London, Mississauga, Ottawa (Ontario), Toronto: 
-https://www.publichealthontario.ca/en/data-and-analysis/infectious-disease/covid-19-data-surveillance/covid-19-data-tool?tab=trends <br>
-Note: Mississauga is grouped with Brampton and Caledon; the data is managed by Peel Public Health Unit. <br>
-
-###  Montréal, Québec, Ottawa (Québec):
-https://www.donneesquebec.ca/recherche/dataset/covid-19-portrait-quotidien-des-cas-confirmes <br>
-Note: Québec COVID-19 case data is only available at province level. <br>
-
-## United States
-### San Francisco: 
-#### cases 
-https://data.sfgov.org/COVID-19/COVID-19-Cases-Over-Time/gyr2-k29z  <br>
-#### vaccines: 
-https://data.sfgov.org/COVID-19/COVID-Vaccinations-Given-to-SF-Residents-Over-Time/bqge-2y7k <br>
-
-### New York: 
-#### cases 
-https://github.com/nychealth/coronavirus-data/blob/master/trends/data-by-day.csv <br>
-#### vaccines
-https://raw.githubusercontent.com/nychealth/covid-vaccine-data/main/doses/doses-by-day.csv <br>
-
-### Dallas: 
-#### cases 
-https://covid-analytics-pccinnovation.hub.arcgis.com/ <br>
-#### vaccines 
-https://covid-analytics-pccinnovation.hub.arcgis.com/ <br>
-Note: Dallas has county dashboards only, county data is available for download at CDC's website. <br>
-
-### Seattle: 
-#### cases 
-https://kingcounty.gov/depts/health/covid-19/data/summary-dashboard.aspx <br>
-#### vaccines 
-https://kingcounty.gov/depts/health/covid-19/data/vaccination.aspx <br>
-
-### Chicago:
-#### cases 
-https://www.chicago.gov/city/en/sites/covid-19/home/covid-dashboard.html <br>
-#### vaccines 
-https://www.chicago.gov/city/en/sites/covid-19/home/covid-dashboard.html <br>
-Note: Chicago has covid data dashboards, but no option to download the data. <br>
-
-### Washington DC:
-#### cases 
-https://coronavirus.dc.gov/data <br>
-#### vaccines
-https://coronavirus.dc.gov/data <br>
-
-### Detroit:
-#### cases 
-https://codtableau.detroitmi.gov/t/DHD/views/CityofDetroit-PublicCOVIDDashboard/TimelineCasesDashboard?%3AisGuestRedirectFromVizportal=y&%3Aembed=y <br>
-#### vaccines 
-https://codtableau.detroitmi.gov/t/DoIT-Data-Public/views/VaccinePublicDashboard/VaccineDashboard?:origin=card_share_link&:embed=y&:isGuestRedirectFromVizportal=y <br>
-Note: Detroit's tableau dashboards are visible, but data is unavailable for download. <br>
-
-### Los Angeles:
-#### cases 
-http://dashboard.publichealth.lacounty.gov/covid19_surveillance_dashboard/ <br>
-#### vaccines 
-http://publichealth.lacounty.gov/media/Coronavirus/vaccine/vaccine-dashboard.htm <br>
-Note: Los Angeles has a warning about its data: "Please note that select data for ages 12-17 by city/community had errors prior to 7/28/2021.  The issue has been resolved but please discard any files with age 12-17 data downloaded prior to 7/28/2021.  All other age group and city/community data were not impacted by these issues."
--->
-</div>
-</div>
-
-
-
 
 </div>
 

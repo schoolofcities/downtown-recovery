@@ -562,10 +562,10 @@ server = function(input, output, session) {
   
   output$home_cards <- renderUI({
     img_srcs <- c(
-      "recovery_rankings_new.png",
-      "raw_recovery_pattern_new.png",
-      "explanatory_variables_new.png",
-      "can_us_map_new.png"#,
+      "recovery_rankings.png",
+      "raw_recovery_pattern.png",
+      "explanatory_variables.png",
+      "can_us_map.png"#,
       #"kepler_toronto_2019_01_12.png",
       #"clustering.png"
     )
@@ -624,9 +624,9 @@ server = function(input, output, session) {
       <div class="row py-sm-1">
         <div class="col-sm-6 col-sm-8 mx-auto">
           <h2 class="fw-dark">Death of Downtown?</h2>
-          <h3 class = "fw-normal">Pandemic Recovery Trajectories across 66 North American Cities</h3>
+          <h3 class = "fw-normal">Pandemic Recovery Trajectories across 62 North American Cities</h3>
           <p>
-            <a href="#" class="btn btn-primary my-2">Read policy brief</a>
+            <a href="death_of_downtown_policy_brief.pdf" class="btn btn-primary my-2">Read policy brief</a>
           </p>
         </div>
       </div>
