@@ -10,6 +10,7 @@ library(ggplot2)
 library(thematic)
 library(markdown)
 library(readxl)
+library(glue)
 library(stringr)
 library(ggrepel)
 library(ggpmisc)
@@ -242,7 +243,7 @@ named_metrics <- c(
 explanatory_cities <- regions_df %>%
   group_by(region) %>%
   dplyr::arrange(-population) %>%
-  dplyr::slice_head(n = 3)
+  dplyr::slice_head(n = 2)
 
 patterns_cities <- regions_df %>%
   group_by(region) %>%

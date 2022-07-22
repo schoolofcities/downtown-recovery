@@ -64,11 +64,14 @@ recovery_rankings_plot <- function(df) {
   g1 <-
     ggplot(df) + aes(lq_rank,
                      group = display_title,
-                     fill = region,
-                     text = paste0("<b>City: </b>", display_title, "<br>",
-                                   "<b>Seasonal average: </b>", percent(round(seasonal_average, 2), 1))) +
-    geom_tile(
-      aes(y = seasonal_average / 2, height = seasonal_average, width = 1), 
+                     fill = region) +
+    geom_tile_interactive(
+      aes(y = seasonal_average / 2,
+          height = seasonal_average,
+          width = 1,
+          tooltip = paste0("<b>City: </b>", display_title, "<br>",
+                        "<b>Seasonal average: </b>", percent(round(seasonal_average, 2), 1)),
+          data_id = city), 
       alpha = .8,
       color = "white") +
     
@@ -98,7 +101,13 @@ recovery_rankings_plot <- function(df) {
                                  "Pacific" = "#984ea3",
                                  "Southeast" = "#ff7f00",
                                  "Southwest" = "#e6ab02"))
-  ggplotly(g1, tooltip = "text")
+  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+                             options = list(
+                               opts_hover_inv(css = "opacity:0.1;"),
+                               opts_hover(css = "stroke-width:2;"),
+                               opts_sizing(rescale = TRUE, width = .8)
+                             ))
+  interactive_plot
 }
 
 recovery_patterns_df <- function(selected_metric, rolling_window) {
@@ -221,14 +230,14 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
   
   colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   plot_df <- unique(y %>%
-           inner_join(X, by = "city") #%>%
-           #mutate(key_study_case = display_title %in% cities)
+           inner_join(X, by = "city") %>%
+           mutate(key_study_case = display_title %in% explanatory_cities$display_title)
            )
   
-  # key_study_cases_df <- plot_df %>%
-  #   filter(key_study_case == TRUE) 
-  # leftover_cities <- plot_df %>%
-  #   filter(key_study_case == FALSE)
+   key_study_cases_df <- plot_df %>%
+     dplyr::filter(key_study_case == TRUE) 
+   leftover_cities <- plot_df %>%
+     dplyr::filter(key_study_case == FALSE)
   model.formula <- paste0("y~x") %>% as.formula()
   model.ols <- lm(model.formula, plot_df)
   coeffs <- coef(model.ols)
@@ -236,24 +245,43 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
   
   ### get equation and r-squared as string ###
   ### adapted from: https://groups.google.com/forum/#!topic/ggplot2/1TgH-kG5XMA ###
-  # eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
-  #                                list(a = format(unname(coeffs[1]), digits = 2),
-  #                                     b = format(unname(coeffs[2]), digits = 2))))
-  # 
-  # r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
-  #                                       list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
+   eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
+                                  list(a = format(unname(coeffs[1]), digits = 2),
+                                       b = format(unname(coeffs[2]), digits = 2))))
+   
+   r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
+                                         list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
   
-  g1 <- ggplot(plot_df, aes(x = x,
-                            y = y,
-                            text = paste0("<b>City:</b> ", city, "<br>",
-                                          "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
-                                          "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
-                                          )
-                            )
-               ) +
-    geom_point(data = plot_df,
-               aes(color = region),
+  g1 <- ggplot(plot_df, aes(x = x, y = y)) +
+    geom_point_interactive(data = plot_df,
+               aes(color = region,
+                   tooltip = paste0("<b>City:</b> ", city, "<br>",
+                                    "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
+                                    "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
+                   ),
+                   data_id = city),
+               
+               alpha = .25,
                size = 5) +
+    geom_text_repel(
+      data = key_study_cases_df,
+      aes(color = region),
+      label = key_study_cases_df$city,
+      size = 6,
+      point.size = 8,
+      min.segment.length = 0,
+      segment.curvature = -1,
+      segment.ncp = 3,
+      segment.angle = 20,
+      show.legend = FALSE
+    ) +
+    geom_point_interactive(data = key_study_cases_df, aes(color = region, 
+                                                          tooltip = paste0("<b>City:</b> ", city, "<br>",
+                                                                           "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
+                                                                           "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
+                                                          ),
+                                                          data_id = city),
+                           size = 5) + 
       geom_smooth(
         data = plot_df,
         method = "lm",
@@ -263,47 +291,42 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
         na.rm = TRUE,
         fullrange = TRUE
       ) +
-     # stat_smooth(
-     #   geom = "line",
-     #   data = plot_df,
-     #   method = "lm",
-     #   formula = "y~x",
-     #   alpha = .75,
-     #   linetype = "dashed",
-     #   na.rm = TRUE,
-     #   fullrange = TRUE
-     # ) +
-    xlim(min(plot_df$x), max(plot_df$x)) +
+      stat_smooth(
+        geom = "line",
+        data = plot_df,
+        method = "lm",
+        formula = "y~x",
+        alpha = .75,
+        linetype = "dashed",
+        na.rm = TRUE,
+        fullrange = TRUE
+      ) +
+    xlim(min(key_study_cases_df$x), max(key_study_cases_df$x)) +
     
-    # geom_text_repel(
-    #   data = key_study_cases_df,
-    #   aes(color = region),
-    #   label = key_study_cases_df$city,
-    #   size = 6,
-    #   point.size = 8,
-    #   min.segment.length = 0,
-    #   segment.curvature = -1,
-    #   segment.ncp = 3,
-    #   segment.angle = 20,
-    #   show.legend = FALSE
-    # ) +
+    
+    
     theme(plot.title = element_text(size = 16, hjust = .5),
           axis.title = element_text(size = 12),
           plot.subtitle = element_text(size = 14, hjust = .5)) +
     labs(x = names(named_factors[named_factors == x_var]),
          y = names(named_periods[named_periods == y_var]),
-         #title = eq,
-         #subtitle = r_squared,
+         title = eq,
+         subtitle = r_squared,
          color = "Region") +
-    scale_y_continuous(labels = scales::percent, limits = c(min(plot_df$y), max(plot_df$y))) +
+    scale_y_continuous(labels = scales::percent, limits = c(min(key_study_cases_df$y), max(key_study_cases_df$y))) +
     scale_color_manual(values = c("Canada" = "#e41a1c",
                                   "Midwest" = "#377eb8",
                                   "Northeast" = "#4daf4a",
                                   "Pacific" = "#984ea3",
                                   "Southeast" = "#ff7f00",
                                   "Southwest" = "#e6ab02"))
-  ggplotly(g1, tooltip = "text")
-  
+  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+                             options = list(
+                               opts_hover_inv(css = "opacity:0.1;"),
+                               opts_hover(css = "stroke-width:2;"),
+                               opts_sizing(rescale = TRUE, width = .8)
+                             ))
+  interactive_plot
   
 }
 
