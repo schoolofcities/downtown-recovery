@@ -32,6 +32,13 @@
 
   <!-- Custom styles for this template -->
   <link href="../dashboards/dashboard.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src = "../dashboards/explanatory_plot.js"></script>
+  <script src="../dashboards/dashboard.js"></script>
 </head>
 
 <body>
@@ -86,12 +93,6 @@
                   <div id="explanatory-variables" class="section level1">
                     <h4>Explanatory Variables</h4>
                     <p>Plots the relationship of socioeconomic factors and selected recovery metric.</p>
-                    <div id="select-metric" class="section level2">
-                    <h4>Navigation</h4>
-                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
-                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
-                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
-                    </div>
                     </div>
                     </div>
                 </div>
@@ -107,77 +108,105 @@
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <div class="box alt">
-                    <div class="row gtr-50 gtr-uniform">
-                      <div class="col-12">
-                        
-                          <div class="btn-group-vertical" id='explanatory buttons'>
-                            <a href="../widgets/explanatory_variables_downtown.html" target="explanatoryframe" class="btn btn-primary data-page-btn">Downtown</a>
-                            <a href="../widgets/explanatory_variables_city.html" target="explanatoryframe" class="btn btn-primary data-page-btn">City</a>
-                            <a href="../widgets/explanatory_variables_relative.html" target="explanatoryframe" class="btn btn-primary data-page-btn">Relative</a>
-                          </div>
-                     
-                        <!-- Script to toggle buttons -->
-                        <script>
-                          var header = document.getElementById("explanatory buttons");
-                          var btns = header.getElementsByClassName("btn btn-primary data-page-btn");
-                          for (var i = 0; i < btns.length; i++) {
-                            btns[i].addEventListener("click", function() {
-                            var current = document.getElementsByClassName("primary");
-                          if (current.length > 0) {
-                              current[0].className = current[0].className.replace(" primary", "");
-                            }
-                            this.className += " primary";
-                            });
-                          }
-                        </script>
-                        </div>
-                        </div>
-                        </div>
+                  <div class="section level2">
+                    <h4>Navigation</h4>
+                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
+                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
+                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="btn-group-vertical" id='select_metric'>
+            <button type="button" class="btn btn-secondary">Downtown</button>
+              <button type="button" class="btn btn-secondary">City</button>
+                <button type="button" class="btn btn-secondary">Relative</button>
+          </div>
+
+          <label for="x_vars">Choose an independent variable:</label>
+          <select name="x_vars" id="x_vars">
+            <optgroup label="City-wide ACS 2015 - 2019 estimates">
+              <option value="total_pop_city">Total Population</option>
+              <option value="population_density_city">Population Density</option>
+              <option value="housing_units_city">Total Housing Stock</option> 
+              <option value="housing_density_city">Housing Density</option>
+              <option value="pct_renter_city">Percentage of Rented-Occupied Units</option> 
+              <option value="pct_singlefam_city">Percentage of Single-Family Homes</option> 
+              <option value="pct_multifam_city">Percentage of Multi-Family Homes</option>
+              <option value="median_age_city">Median Age of Residents</option>
+              <option value="bachelor_plus_city">Percentage of Residents with a Bachelor's Degree or Higher</option>
+              <option value="pct_vacant_city">Percentage of Vacant Housing Units</option>
+              <option value="median_rent_city">Median Rent of Housing Units</option>
+              <option value="median_hhinc_city">Median Household Income of Residents</option>
+              <option value="pct_nhwhite_city">Percentage of White Residents</option>
+              <option value="pct_nhblack_city">Percentage of Black Residents</option>
+              <option value="pct_hisp_city">Percentage of Hispanic Residents</option>
+              <option value="pct_nhasian_city">Percentage of Asian Residents</option>
+              <option value="pct_commute_auto_city">Percentage of Residents who Commute to Work by Car</option>
+              <option value="pct_commute_public_transit_city">Percentage of Residents who Commute to Work by Public Transit</option>
+              <option value="pct_commute_bicycle_city">Percentage of Residents who Commute to Work by Bicycle</option>
+              <option value="pct_commute_walk_city">Percentage of Residents who Commute to Work by Walking</option>
+              <option value= "pct_commute_others_city">Percentage of Residents who Commute to Work by Other Modes</option>
+              <option value="average_commute_time_city">Average City-wide Commute Time</option>
+            </optgroup>
+
+            <optgroup label="Downtown ACS 2015 - 2019 estimates">
+              <option value="total_pop_downtown">Total Population</option> 
+              <option value="population_density_downtown">Population Density</option>
+              <option value="housing_units_downtown">Total Housing Stock</option> 
+              <option value="housing_density_downtown">Housing Density</option> 
+              <option value="pct_renter_downtown">Percentage of Rented-Occupied Units</option> 
+              <option value="pct_singlefam_downtown">Percentage of Single-Family Homes</option> 
+              <option value="pct_multifam_downtown">Percentage of Multi-Family Homes</option>
+              <option value="median_age_downtown">Median Age of Residents</option>
+              <option value="bachelor_plus_downtown">Percentage of Residents with a Bachelor's Degree or Higher</option>
+              <option value="pct_vacant_downtown">Percentage of Vacant Housing Units</option>
+              <option value="median_rent_downtown">Median Rent of Housing Units</option>
+              <option value="median_hhinc_downtown">Median Household Income of Residents</option>
+            </optgroup>
+
+            <optgroup label="Downtown LEHD work area characteristics">
+              <option value="employment_density_downtown">Employment Density</option>
+              <option value="employment_entropy">Employment Entropy</option>
+              <option value="pct_jobs_agriculture_forestry_fishing_hunting">Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting</option>
+              <option value="pct_jobs_mining_quarrying_oil_gas">Percentage of Jobs in Mining, Quarrying, Oil, and Gas</option>
+              <option value="pct_jobs_utilities">Percentage of Jobs in Utilities</option>
+              <option value="pct_jobs_construction">Percentage of Jobs in Construction</option>
+              <option value="pct_jobs_manufacturing">Percentage of Jobs in Manufacturing</option>
+              <option value="pct_jobs_wholesale_trade">Percentage of Jobs in Wholesale Trade</option>
+              <option value="pct_jobs_retail_trade">Percentage of Jobs in Retail Trade</option>
+              <option value="pct_jobs_transport_warehouse">Percentage of Jobs in Transportation and Warehousing</option>
+              <option value="pct_jobs_information">Percentage of Jobs in Information</option>
+              <option value="pct_jobs_finance_insurance">Percentage of Jobs in Finance & Insurance</option>
+              <option value="pct_jobs_real_estate">Percentage of Jobs in Real Estate</option>
+              <option value="pct_jobs_professional_science_techical">Percentage of Jobs in Professional, Scientific, and Management</option>
+              <option value="pct_jobs_management_of_companies_enterprises">Percentage of Jobs in Management</option>
+              <option value="pct_jobs_administrative_support_waste">Percentage of Jobs in Administrative Support & Waste Management</option>
+              <option value="pct_jobs_educational_services">Percentage of Jobs in Educational Services</option>
+              <option value="pct_jobs_healthcare_social_assistance">Percentage of Jobs in Healthcare & Social Assistance</option>
+              <option value="pct_jobs_arts_entertainment_recreation">Percentage of Jobs in Arts, Entertainment, and Recreation</option>
+              <option value="pct_jobs_accomodation_food_services">Percentage of Jobs in Accommodation & Food Services</option>
+              <option value="pct_jobs_public_administration">Percentage of Jobs in Public Administration</option>
+            </optgroup>
+            <optgroup label="COVID-19 policies">
+              <option value="composite_closing">Composite of COVID-19 Closing Policies</option>
+              <option value="composite_economic">Composite of COVID-19 Economic Policies</option>
+            </optgroup>
+          </select> 
         </div>
 
         <div class="col-10">
-          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
-                aria-controls="all-detail" aria-selected="true">All</a>
-            </li>
-
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-detail" role="tab"
-                aria-controls="about-detail" aria-selected="false">Documentation</a>
-            </li>
-          </ul>
-       
-          
-         <div class="tab-content">
-            <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/explanatory_variables_downtown.html">-->
-              <div class="plot-container" id = "explanatory-plot">
-                <iframe src="../widgets/explanatory_variables_downtown.html" name = "explanatoryframe"></iframe>
-              </div>
-           <!--</div>
-
-           <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
-              data-src="../text_pages/explanatory_README.html">
-              <div class="map-container">
-                <iframe src="../text_pages/explanatory_README.html"></iframe>
-              </div>
-            </div>-->
-          </div> 
+          <div id = "explanatory_plot" style = "width: 480px; height: 400px;">
+            <!--<iframe src="../widgets/explanatory_variables_downtown.html" name = "explanatoryframe"></iframe>-->
+          </div>
+        </div> 
         
         </div>
       </div>
   </main>
-
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-
-  <script src="../dashboards/dashboard.js"></script>
+  
 </body>
 
 </html>

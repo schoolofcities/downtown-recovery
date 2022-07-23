@@ -101,14 +101,8 @@ recovery_rankings_plot <- function(df) {
                                  "Pacific" = "#984ea3",
                                  "Southeast" = "#ff7f00",
                                  "Southwest" = "#e6ab02"))
-  interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
-                             options = list(
-                               opts_tooltip(use_fill = TRUE),
-                               opts_hover_inv(css = "opacity:0.1;"),
-                               opts_hover(css = "stroke-width:2;"),
-                               opts_sizing(rescale = TRUE, width = 1)
-                             ))
-  interactive_plot
+  g1
+ 
 }
 
 recovery_patterns_df <- function(selected_metric, selected_cities, rolling_window) {
@@ -221,7 +215,7 @@ recovery_patterns_plot <- function(df, metric, n) {
   
 }
 
-create_model_df <- function(selected_metric, y_var) {
+create_model_df <- function(selected_metric, y_var, x_var) {
   y <- all_seasonal_metrics %>%
     dplyr::filter((metric == selected_metric) &
                     (Season == y_var)) %>%
@@ -238,35 +232,43 @@ create_model_df <- function(selected_metric, y_var) {
            inner_join(X, by = "city") %>%
            mutate(key_study_case = display_title %in% explanatory_cities$display_title))
   
+}
+
+create_model_df_long <- function(chosen_x_vars) {
+  y <- all_seasonal_metrics %>%
+    dplyr::filter((Season == "Season_9")) %>%
+    dplyr::select(city, display_title, seasonal_average, metric)
+  
+  X <- explanatory_vars %>%
+    dplyr::filter(Season == "Season_9") %>%
+    dplyr::select(-display_title, -state, -metro_size, -Season, all_of(chosen_x_vars))
+  
+  colnames(y) <- c("city", "display_title", "y", "metric")
+  
+  model_df <- unique(y %>%
+                       inner_join(X, by = "city"))
   
   
-  
-  
-  
-  
+  model_df %>%
+    pivot_longer(cols = !c("city", "metric", "region", "display_title", "y"), names_to = "x_var", values_to = "x_val")
 }
 
 
 
-
-
-explanatory_plot <- function(selected_metric, x_var, y_var) {
-  y <- all_seasonal_metrics %>%
-    dplyr::filter((metric == selected_metric) &
-                    (Season == y_var)) %>%
-    dplyr::select(city, display_title, Season, seasonal_average, metric)
-  
-  X <- explanatory_vars %>%
-    dplyr::filter(Season == y_var) %>%
-    dplyr::select(city, region, all_of(x_var))
-  
-  colnames(X) <- c("city", "region", "x")
-  
-  colnames(y) <- c("city", "display_title", "Season", "y", "metric")
-  plot_df <- unique(y %>%
-           inner_join(X, by = "city") %>%
-           mutate(key_study_case = display_title %in% explanatory_cities$display_title)
-           )
+explanatory_plot <- function(selected_metric, y_var, x_var) {
+  # y <- all_seasonal_metrics %>%
+  #   dplyr::filter((metric == selected_metric) &
+  #                   (Season == y_var)) %>%
+  #   dplyr::select(city, display_title, Season, seasonal_average, metric)
+  # 
+  # X <- explanatory_vars %>%
+  #   dplyr::filter(Season == y_var) %>%
+  #   dplyr::select(city, region, all_of(x_var))
+  # 
+  # colnames(X) <- c("city", "region", "x")
+  # 
+  # colnames(y) <- c("city", "display_title", "Season", "y", "metric")
+  plot_df <- create_model_df(selected_metric, y_var, x_var)
   
    key_study_cases_df <- plot_df %>%
      dplyr::filter(key_study_case == TRUE) 
@@ -357,6 +359,102 @@ explanatory_plot <- function(selected_metric, x_var, y_var) {
   g1
   
 }
+
+explanatory_plot_long <- function(plot_df, selected_metric) {
+  
+  plot_df <- plot_df %>%
+    dplyr::filter(metric == selected_metric)
+  
+  
+  
+  #model.formula <- paste0("y~x") %>% as.formula()
+  #model.ols <- lm(model.formula, plot_df)
+  #coeffs <- coef(model.ols)
+  
+  
+  ### get equation and r-squared as string ###
+  ### adapted from: https://groups.google.com/forum/#!topic/ggplot2/1TgH-kG5XMA ###
+  #eq <- as.expression(substitute(italic(hat(y)) == a + b * italic(x),
+  #                               list(a = format(unname(coeffs[1]), digits = 2),
+  #                                    b = format(unname(coeffs[2]), digits = 2))))
+  
+  #r_squared <- as.expression(substitute(italic(R)^2~"="~r2,
+  #                                      list(r2 = format(summary(model.ols)$r.squared, digits = 3))))
+  
+  g1 <- ggplot(plot_df, aes(x = x_var, y = y, group = x_var)) +
+    geom_point_interactive(data = plot_df,
+                           aes(color = region,
+                               text = paste0("<b>City:</b> ", city, "<br>",
+                                                "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
+                                                "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
+                               )),
+                           
+                           
+                           size = 4) +
+    # geom_text(
+    #   data = key_study_cases_df,
+    #   aes(color = region),
+    #   label = key_study_cases_df$city,
+    #   size = 4,
+    #   point.size = 4,
+    #   min.segment.length = 0,
+    #   segment.curvature = -1,
+    #   segment.ncp = 3,
+    #   segment.angle = 20,
+    #   show.legend = FALSE
+    # ) +
+    # geom_point(data = key_study_cases_df, aes(color = region, 
+    #                                                       tooltip = paste0("<b>City:</b> ", city, "<br>",
+    #                                                                        "<b>", names(named_factors[named_factors == x_var]), ":</b> ", round(x, 2),"<br>",
+    #                                                                        "<b>", names(named_metrics[named_metrics == selected_metric]), " recovery:</b> ", percent(round(y, 2), 1),  "<br>"
+    #                                                       ),
+    #                                                       data_id = city),
+    #                        size = 4) + 
+    geom_smooth(
+      data = plot_df,
+      method = "lm",
+      formula = "y~x",
+      alpha = 0.75,
+      linetype = 0,
+      na.rm = TRUE,
+      fullrange = TRUE
+    ) +
+    stat_smooth(
+      geom = "line",
+      data = plot_df,
+      method = "lm",
+      formula = "y~x",
+      alpha = .75,
+      linetype = "dashed",
+      na.rm = TRUE,
+      fullrange = TRUE
+    ) +
+    #xlim(min(key_study_cases_df$x), max(key_study_cases_df$x)) +
+    
+    
+    
+    theme(plot.title = element_text(size = 12, hjust = .5),
+          axis.title = element_text(size = 10),
+          plot.subtitle = element_text(size = 10, hjust = .5)) +
+    labs(x = names(named_factors[named_factors == x_var]),
+         y = names(named_periods[named_periods == y_var]),
+         #title = eq,
+         #subtitle = r_squared,
+         color = "Region") +
+    scale_y_continuous(labels = scales::percent, limits = c(min(key_study_cases_df$y), max(key_study_cases_df$y))) +
+    scale_color_manual(values = c("Canada" = "#e41a1c",
+                                  "Midwest" = "#377eb8",
+                                  "Northeast" = "#4daf4a",
+                                  "Pacific" = "#984ea3",
+                                  "Southeast" = "#ff7f00",
+                                  "Southwest" = "#e6ab02"))
+  g1
+  
+}
+
+
+
+
 
 
 
