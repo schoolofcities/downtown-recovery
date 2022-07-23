@@ -37,7 +37,7 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script src = "../dashboards/explanatory_plot.js"></script>
+  
   <script src="../dashboards/dashboard.js"></script>
 </head>
 
@@ -90,7 +90,7 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <div id="explanatory-variables" class="section level1">
+                  <div class="section level1">
                     <h4>Explanatory Variables</h4>
                     <p>Plots the relationship of socioeconomic factors and selected recovery metric.</p>
                     </div>
@@ -119,14 +119,19 @@
             </div>
           </div>
 
-          <div class="btn-group-vertical" id='select_metric'>
-            <button type="button" class="btn btn-secondary">Downtown</button>
-              <button type="button" class="btn btn-secondary">City</button>
-                <button type="button" class="btn btn-secondary">Relative</button>
+          <div class="btn-group-vertical btn-group-toggle" id="select_metric" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input type="radio" name="metric" autocomplete="off" checked value="downtown">Downtown
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="metric" autocomplete="off" value="city">City
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="metric" autocomplete="off" value="relative">Relative
+            </label>
           </div>
 
-          <label for="x_vars">Choose an independent variable:</label>
-          <select name="x_vars" id="x_vars">
+          <select name="x_vars" id="x_vars" label="Choose an independent variable:">
             <optgroup label="City-wide ACS 2015 - 2019 estimates">
               <option value="total_pop_city">Total Population</option>
               <option value="population_density_city">Population Density</option>
@@ -181,7 +186,7 @@
               <option value="pct_jobs_information">Percentage of Jobs in Information</option>
               <option value="pct_jobs_finance_insurance">Percentage of Jobs in Finance & Insurance</option>
               <option value="pct_jobs_real_estate">Percentage of Jobs in Real Estate</option>
-              <option value="pct_jobs_professional_science_techical">Percentage of Jobs in Professional, Scientific, and Management</option>
+              <option value="pct_jobs_professional_science_techical" selected="selected">Percentage of Jobs in Professional, Scientific, and Management</option>
               <option value="pct_jobs_management_of_companies_enterprises">Percentage of Jobs in Management</option>
               <option value="pct_jobs_administrative_support_waste">Percentage of Jobs in Administrative Support & Waste Management</option>
               <option value="pct_jobs_educational_services">Percentage of Jobs in Educational Services</option>
@@ -198,8 +203,8 @@
         </div>
 
         <div class="col-10">
-          <div id = "explanatory_plot" style = "width: 480px; height: 400px;">
-            <!--<iframe src="../widgets/explanatory_variables_downtown.html" name = "explanatoryframe"></iframe>-->
+          <div id="explanatory_plot" style="width: 480px; height: 400px;">
+            <!--<iframe src="../widgets/explanatory_variables_downtown.html" name="explanatoryframe"></iframe>-->
           </div>
         </div> 
         
@@ -208,5 +213,5 @@
   </main>
   
 </body>
-
+<script src="../dashboards/explanatory_plot.js"></script>
 </html>
