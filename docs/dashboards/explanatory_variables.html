@@ -119,17 +119,11 @@
             </div>
           </div>
 
-          <div class="btn-group-vertical btn-group-toggle" id="select_metric" data-toggle="buttons">
-            <label class="btn btn-primary active">
-              <input type="radio" name="metric" autocomplete="off" checked value="downtown">Downtown
-            </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="metric" autocomplete="off" value="city">City
-            </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="metric" autocomplete="off" value="relative">Relative
-            </label>
-          </div>
+          <select name="select_metric" id="select_metric" label="Choose an independent variable:">
+            <option value="downtown">Downtown</option>
+              <option value="city">City</option>
+              <option value="relative">Relative</option> 
+          </select>
 
           <select name="x_vars" id="x_vars" label="Choose an independent variable:">
             <optgroup label="City-wide ACS 2015 - 2019 estimates">
@@ -203,8 +197,8 @@
         </div>
 
         <div class="col-10">
-          <div id="explanatory_plot" style="width: 480px; height: 400px;">
-            <!--<iframe src="../widgets/explanatory_variables_downtown.html" name="explanatoryframe"></iframe>-->
+          <div class="plot-container" id="explanatory-plot" style="width: 80%; height: 720px;">
+           
           </div>
         </div> 
         

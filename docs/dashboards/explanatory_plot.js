@@ -1,57 +1,123 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/model_data.csv', function(err, rows){
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/model_data_metrics.csv', function(err, rows){
 
   function unpack(rows, key) {
     return rows.map(function(row) { return row[key]; });
 }
+var plotDiv = document.getElementById('explanatory-plot');
 
-    /*var x_vals = [], y_vals = [], x_vars = []; cities = []; regions = []; metrics = [];
-  
-        for (var i = 0; i < unfilteredData.length; i++) {
-  
-            row = unfilteredData[i];
-  
-            x_vals.push(row['x_val']);
-            x_vars.push(row['x_var']);
-            cities.push(row['display_title']);
-            regions.push(row['region']);
-            metrics.push(row['metric']);
-            y_vals.push(row['y']);
-  
-            }
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
 
-        return({x : x_vals, variable : x_vars, y : y_vals, city : cities, region : regions, metric : metrics});*/
+function getPlotData(selected_metric, x_variable) {
+    x_vals = [];
+    y_vals = [];
+    x_vals = unpack(rows, x_variable);
+    y_vals = unpack(rows, selected_metric);
+  };
 
-    var plotDiv = document.getElementById('explanatory_plot');
+// default plot
+setScatterPlot('downtown', 'pct_jobs_information');
 
-    var e_x = document.getElementById('x_vars');
+const regions = ['Canada', 'Midwest', 'Northeast', 'Pacific', 'Southeast', 'Southwest']
+const regions_colors = ['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#e6ab02']
 
-    var x_variable = e_x.options[e_x.selectedIndex].value;
 
-    var e_m = document.getElementsByName('metric');
 
-    for (var i = 0; i < e_m.length; i++) {
-        var this_metric = e_m[i];
-        if (this_metric.checked) {
-            var selected_metric = this_metric.value;
-        }
-    }
+
+function setScatterPlot(selected_metric, x_variable) {
 
     var trace = [{
-        type: "scatter",
-        mode: "markers",
+        type: 'scatter',
+        mode: 'markers',
         x: unpack(rows, x_variable),
-        y: unpack(rows, 'y'),
-        metric: unpack(rows, 'metric'),
+        y: unpack(rows, selected_metric),
         city: unpack(rows, 'city'),
         region: unpack(rows, 'region')
       }];
 
-    const plot_data = Object.entries(trace).filter(currentElement => {
-        return(currentElement.metric === selected_metric);
-    });
-    
-      Plotly.newPlot(plotDiv, plot_data, {title: 'Plotting CSV data from AJAX call'});
-})
+    var layout = {
+      title: selected_metric.toProperCase() + ' recovery',
+      plot_bgcolor: 'rgba(0,0,0,0)',
+      paper_bgcolor: 'rgba(0,0,0,0)'
+    };
+
+    var config = {
+        displayModeBar: false
+    }
+    Plotly.react(plotDiv, trace, layout, config);
+
+};
+
+
+
+    var xSelector = document.getElementById('x_vars');
+
+    var x_variable = xSelector.options[xSelector.selectedIndex].value;
+
+    var metricSelector = document.getElementById('select_metric');
+
+    var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
+
+
+   
+
+    function updateX(){
+      
+        var trace = [{
+            type: 'scatter',
+            mode: 'markers',
+            x: unpack(rows, xSelector.value),
+            y: unpack(rows, selected_metric),
+            city: unpack(rows, 'city'),
+            region: unpack(rows, 'region')
+        }];
+
+
+        var layout = {
+            title: selected_metric.toProperCase() + ' recovery',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        var config = {
+            displayModeBar: false
+        }
+        Plotly.react(plotDiv, trace, layout, config);
+    }
+
+    function updateMetric(){
+       
+        var trace = [{
+            type: 'scatter',
+            mode: 'markers',
+            x: unpack(rows, x_variable),
+            y: unpack(rows, metricSelector.value),
+            city: unpack(rows, 'city'),
+            region: unpack(rows, 'region')
+        }];
+
+
+        var layout = {
+            title: metricSelector.value.toProperCase() + ' recovery',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        var config = {
+            displayModeBar: false
+        }
+        Plotly.react(plotDiv, trace, layout, config);
+    }
+
+      
+    xSelector.addEventListener('change', updateX, false);
+
+    metricSelector.addEventListener('change', updateMetric, false);
+
+
+
+});
