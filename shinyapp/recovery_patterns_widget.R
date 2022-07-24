@@ -25,7 +25,7 @@ plot_data <- recovery_patterns_df_long(11) %>%
   inner_join(regions_df %>% dplyr::select(display_title, region, color), by = "display_title")
 plot_data$week <- as.Date(plot_data$week)
 plot_data <- plot_data %>%
-  arrange(week, display_title)
+  arrange(week, region, display_title)
 write.csv(plot_data, "../docs/all_weekly_metrics_plot.csv")
 
 plot_data <- read.csv("../docs/model_data.csv")
