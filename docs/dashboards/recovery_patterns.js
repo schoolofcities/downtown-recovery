@@ -12,9 +12,8 @@ String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
-var regions = unpack(rows, 'region');
-//var display_title = unpack(rows, 'display_title');
-
+    var regions = unpack(rows, 'region');
+    var display_titles = unpack(rows, 'display_title');
 
     var metricSelector = document.getElementById('select_pattern_metric');
     var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
@@ -36,11 +35,16 @@ var regions = unpack(rows, 'region');
             mode: 'lines',
           
             transforms: [{
+                type: 'filter',
+                target: unpack(rows, 'display_title'),
+                operation: '=',
+                value: cities
+                }, {
                 type: 'groupby',
-                groups: regions
+                groups: regions,
             }],
            text: unpack(rows, 'display_title'),
-            line: {
+            lines: {
                 color: unpack(rows, 'color'),
                 size:20
                 },
@@ -97,7 +101,7 @@ var regions = unpack(rows, 'region');
 
     function updateCities(){
       //updateMetric();
-      setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
+      setLinePlot(metricSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 
 
 /*
@@ -139,7 +143,7 @@ var regions = unpack(rows, 'region');
 
     function updateMetric(){
        // updateX();
-       setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
+       setLinePlot(metricSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 
         /*
         var trace = [{
@@ -186,5 +190,5 @@ var regions = unpack(rows, 'region');
 
 
     // default plot
-    setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
+    setLinePlot(metricSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 });

@@ -135,10 +135,13 @@ recovery_patterns_df_long <- function(rolling_window) {
              "Northeast" = "#4daf4a",
              "Pacific" = "#984ea3",
              "Southeast" = "#ff7f00",
-             "Southwest" = "#e6ab02")
+             "Southwest" = "#e6ab02") %>% as.data.frame
+  colors$region = rownames(colors)
+  colnames(colors) <- c("color", "region")
   
   na.omit(all_weekly_metrics %>%
             arrange(week) %>%
+            left_join(colors, by = "region") %>%
             group_by(city, display_title, metric) %>%
             mutate(rolling_avg = rollmean(
               normalized_visits_by_total_visits,
@@ -147,7 +150,6 @@ recovery_patterns_df_long <- function(rolling_window) {
               align = "center"
             ))) %>%
     ungroup() %>%
-    mutate(color = colors[region]) %>%
     dplyr::select(-city, -normalized_visits_by_total_visits, -metro_size)
 }
 
