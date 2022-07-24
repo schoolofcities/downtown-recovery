@@ -23,32 +23,65 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         for (var i=0; i < city_array.length; i++) {
             cities.push(city_array[i].text);
         }
-        cities = cities.sort();
+        //cities = cities.sort();
         var trace = [{
             x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'week'),
             y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'rolling_avg'),
             type: 'scatter',
-            mode: 'lines',
-            lines: {
+            mode: 'lines',        
+            ids: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
+            transforms: [{
+                type: 'groupby',
+                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
+                styles: {
+                    Canada: {
+                        line: {
+                            color: '#e41a1c'
+                        }
+                    },
+                    Midwest: {
+                        line: {
+                            color: '#377eb8'
+                        }
+                    },
+                    Northeast: {
+                        line: {
+                            color: '#4daf4a'
+                        }
+                    },
+                    Pacific: {
+                        line: {
+                            color: '#984ea3'
+                        }
+                    },
+                    Southeast: {
+                        line: {
+                            color: '#ff7f00'
+                        }
+                    },
+                    Southwest: {
+                        line: {
+                            color: '#e6ab02'
+                        }
+                    }
+                }
+                  
+            }, {
+                type: 'groupby',
+                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
+            }
+        ],
+            /*legendgrouptitle: {
+                color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'color')
+            },*/
+            line: {
                 color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'color'),
                 shape: 'spline'
             },
-            transforms: [{
-                type: 'groupby',
-                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
-            }/*,
-            {
-                type: 'groupby',
-               // groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
-               groups: cities
-            }*/],
-            //legendgrouptitle: {
-            //    color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region')
-            //},
-           
-           
-            name: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
-            text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
+            //legendgroup: ids,
+        //legendgroup: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
+        name: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
+        text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
         }];
 
         var layout = {
