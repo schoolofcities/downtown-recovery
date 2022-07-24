@@ -22,24 +22,23 @@ String.prototype.toProperCase = function () {
     function setLinePlot(y_val, cities) {
 
         var trace = [{
-            x: unpack(data, 'week'),
-            y: unpack(data, y_val),
+            x: unpack(Object.values(data).filter(item => item.metric === y_val), 'week'),
+            y: unpack(Object.values(data).filter(item => item.metric === y_val), 'rolling_avg'),
             type: 'scatter',
             mode: 'lines',
             
             transforms: [ {
                 type: 'groupby',
-                groups: unpack(data, 'region'),
+                groups: unpack(Object.values(data).filter(item => item.metric === y_val), 'region'),
            }, {
                 type: 'filter',
-                target: unpack(data, 'display_title'),
+                target: unpack(Object.values(data).filter(item => item.metric === y_val), 'display_title'),
                 operation: '=',
                 value: cities
                 }],
-           text: unpack(data, 'display_title'),
+           text: unpack(Object.values(data).filter(item => item.metric === y_val), 'display_title'),
            lines: {
-            color: unpack(data, 'color'),
-            size:5
+            color: unpack(Object.values(data).filter(item => item.metric === y_val), 'color')
             }
           }];
     
