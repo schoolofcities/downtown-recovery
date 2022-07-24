@@ -17,8 +17,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
     var citiesSelector = document.getElementById('patterns_cities');
 
-
-
     function setLinePlot(y_val, city_array) {
         var cities = [];
         for (var i=0; i < city_array.length; i++) {
@@ -30,20 +28,15 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             y: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'rolling_avg'),
             type: 'scatter',
             mode: 'lines',
-
-            transforms: [{
-                type: 'groupby',
-                groups: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
-            }/*, {
-                type: 'filter',
-                target: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
-                operation: '=',
-                value: cities
-            }*/],
-            text: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
             lines: {
                 color: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'color')
-            }
+            },
+            transforms: [{
+                type: 'groupby',
+                groups: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
+            }],
+            text: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
+           
         }];
 
         var layout = {
@@ -51,7 +44,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
                 text: y_val.toProperCase() + ' recovery',
-
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
@@ -59,10 +51,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             xaxis: {
-                tickcolor: '#ffffff',
+                
                 showticklabels: true,
                 range: ['2020-04-01', '2022-05-01'],
-
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
                 title: {
                     text: 'Month',
                     font: {
@@ -74,7 +70,11 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             yaxis: {
                 showticklabels: true,
-                tickcolor: '#ffffff',
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
                 title: {
                     text: 'Metric',
                     font: {
@@ -96,95 +96,16 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
 
     function updateCities() {
-        //updateMetric();
         setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
-
-
-        /*
-                var trace = [{
-                    x: unpack(rows, xSelector.value),
-                    y: unpack(rows, selected_metric),
-                    type: 'scatter',
-                    mode: 'markers',
-                    
-                   
-                    text: unpack(rows, 'display_title'),
-                    marker: {
-                        color: unpack(rows, 'color'),
-                        size:12
-                        },
-                    textfont: {
-                        color: unpack(rows, 'color'),
-                        family:'Open Sans'
-                    },
-                    hoverlabel: {
-                        bgcolor: unpack(rows, 'color'),
-                        hoveron:'points',
-                        font: {family:'Open Sans'}
-                    }
-                }];
-        
-        
-                var layout = {
-                    title: selected_metric.toProperCase() + ' recovery',
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    paper_bgcolor: 'rgba(0,0,0,0)'
-                };
-        
-                var config = {
-                    displayModeBar: false
-                }
-                Plotly.react(plotDiv, trace, layout, config);*/
     }
 
     function updateMetric() {
-        // updateX();
         setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
-
-        /*
-        var trace = [{
-            x: unpack(rows, x_variable),
-            y: unpack(rows, metricSelector.value),
-            type: 'scatter',
-            mode: 'markers',
-            
-
-            text: unpack(rows, 'display_title'),
-            marker: {
-                color: unpack(rows, 'color'),
-                size:12
-                },
-            textfont: {
-                color: unpack(rows, 'color'),
-                family:'Open Sans'
-            },
-            hoverlabel: {
-                bgcolor: unpack(rows, 'color'),
-                hoveron:'points',
-                font: {family:'Open Sans'}
-            }
-        }];
-
-
-        var layout = {
-            title: metricSelector.value.toProperCase() + ' recovery',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            paper_bgcolor: 'rgba(0,0,0,0)'
-        };
-
-        var config = {
-            displayModeBar: false
-        }
-        Plotly.react(plotDiv, trace, layout, config);*/
     }
-    // default plot
-    //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
-
+   
     citiesSelector.addEventListener('change', updateCities, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
-
-    // default plot
     setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
 });

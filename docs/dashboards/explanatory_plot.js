@@ -49,7 +49,11 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             xaxis: {
-                tickcolor: '#ffffff',
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
                 showticklabels: true,
 
 
@@ -64,7 +68,11 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             yaxis: {
                 showticklabels: true,
-                tickcolor: '#ffffff',
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
                 title: {
                     text: 'Metric',
                     font: {
@@ -86,95 +94,16 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
 
     function updateX() {
-        //updateMetric();
         setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
-
-
-        /*
-                var trace = [{
-                    x: unpack(rows, xSelector.value),
-                    y: unpack(rows, selected_metric),
-                    type: 'scatter',
-                    mode: 'markers',
-                    
-                   
-                    text: unpack(rows, 'display_title'),
-                    marker: {
-                        color: unpack(rows, 'color'),
-                        size:12
-                        },
-                    textfont: {
-                        color: unpack(rows, 'color'),
-                        family:'Open Sans'
-                    },
-                    hoverlabel: {
-                        bgcolor: unpack(rows, 'color'),
-                        hoveron:'points',
-                        font: {family:'Open Sans'}
-                    }
-                }];
-        
-        
-                var layout = {
-                    title: selected_metric.toProperCase() + ' recovery',
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    paper_bgcolor: 'rgba(0,0,0,0)'
-                };
-        
-                var config = {
-                    displayModeBar: false
-                }
-                Plotly.react(plotDiv, trace, layout, config);*/
     }
 
     function updateMetric() {
-        // updateX();
         setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
-
-        /*
-        var trace = [{
-            x: unpack(rows, x_variable),
-            y: unpack(rows, metricSelector.value),
-            type: 'scatter',
-            mode: 'markers',
-            
-
-            text: unpack(rows, 'display_title'),
-            marker: {
-                color: unpack(rows, 'color'),
-                size:12
-                },
-            textfont: {
-                color: unpack(rows, 'color'),
-                family:'Open Sans'
-            },
-            hoverlabel: {
-                bgcolor: unpack(rows, 'color'),
-                hoveron:'points',
-                font: {family:'Open Sans'}
-            }
-        }];
-
-
-        var layout = {
-            title: metricSelector.value.toProperCase() + ' recovery',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            paper_bgcolor: 'rgba(0,0,0,0)'
-        };
-
-        var config = {
-            displayModeBar: false
-        }
-        Plotly.react(plotDiv, trace, layout, config);*/
     }
-    // default plot
-    //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
 
     xSelector.addEventListener('change', updateX, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
-
-    // default plot
     setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
 });

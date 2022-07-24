@@ -43,7 +43,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
                 text: y_val.toProperCase() + ' recovery',
-
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
@@ -51,16 +50,32 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             xaxis: {
-                tickcolor: '#ffffff',
-
-                showticklabels: true
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
+                showticklabels: true,
+                title: {
+                    text: 'Recovery value',
+                    font: {
+                        family: 'Courier New, monospace',
+                        size: 16,
+                        color: '#ffffff'
+                    }
+                }
             },
             yaxis: {
                 showticklabels: true,
-                tickcolor: '#ffffff',
+                tickfont: {
+                    family: 'Courier New, monospace',
+                    size: 14,
+                    color: '#ffffff'
+                  },
                 autorange: 'reversed',
+             
                 title: {
-                    text: 'City',
+                    text: 'Ranking',
                     font: {
                         family: 'Courier New, monospace',
                         size: 16,
@@ -73,102 +88,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         var config = {
             displayModeBar: false
         }
-
         Plotly.react(plotDiv, trace, layout, config);
-
     };
 
-
-    function updateX() {
-        //updateMetric();
-        setHBarPlot(metricSelector.value);
-
-
-        /*
-                var trace = [{
-                    x: unpack(rows, xSelector.value),
-                    y: unpack(rows, selected_metric),
-                    type: 'scatter',
-                    mode: 'markers',
-                    
-                   
-                    text: unpack(rows, 'display_title'),
-                    marker: {
-                        color: unpack(rows, 'color'),
-                        size:12
-                        },
-                    textfont: {
-                        color: unpack(rows, 'color'),
-                        family:'Open Sans'
-                    },
-                    hoverlabel: {
-                        bgcolor: unpack(rows, 'color'),
-                        hoveron:'points',
-                        font: {family:'Open Sans'}
-                    }
-                }];
-        
-        
-                var layout = {
-                    title: selected_metric.toProperCase() + ' recovery',
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    paper_bgcolor: 'rgba(0,0,0,0)'
-                };
-        
-                var config = {
-                    displayModeBar: false
-                }
-                Plotly.react(plotDiv, trace, layout, config);*/
-    }
-
     function updateMetric() {
-        // updateX();
         setHBarPlot(metricSelector.value);
-
-        /*
-        var trace = [{
-            x: unpack(rows, x_variable),
-            y: unpack(rows, metricSelector.value),
-            type: 'scatter',
-            mode: 'markers',
-            
-
-            text: unpack(rows, 'display_title'),
-            marker: {
-                color: unpack(rows, 'color'),
-                size:12
-                },
-            textfont: {
-                color: unpack(rows, 'color'),
-                family:'Open Sans'
-            },
-            hoverlabel: {
-                bgcolor: unpack(rows, 'color'),
-                hoveron:'points',
-                font: {family:'Open Sans'}
-            }
-        }];
-
-
-        var layout = {
-            title: metricSelector.value.toProperCase() + ' recovery',
-            plot_bgcolor: 'rgba(0,0,0,0)',
-            paper_bgcolor: 'rgba(0,0,0,0)'
-        };
-
-        var config = {
-            displayModeBar: false
-        }
-        Plotly.react(plotDiv, trace, layout, config);*/
     }
-    // default plot
-    //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
-
-    //xSelector.addEventListener('change', updateX, false);
-
+   
     metricSelector.addEventListener('change', updateMetric, false);
-
-
-    // default plot
     setHBarPlot(metricSelector.value);
 });
