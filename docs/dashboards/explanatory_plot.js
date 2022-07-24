@@ -34,7 +34,7 @@ var regions = unpack(rows, 'region');
             y: unpack(rows, y_val),
             type: 'scatter',
             mode: 'markers',
-            //hovertemplate: '<b>City:</b> %{text}<br><extra></extra>',
+          
             transforms: [{
                 type: 'groupby',
                 groups: regions
@@ -44,15 +44,6 @@ var regions = unpack(rows, 'region');
                 color: unpack(rows, 'color'),
                 size:20
                 },
-            //textfont: {
-            //    color: unpack(rows, 'color'),
-            //    family:'Open Sans'
-            //},
-            //hoverlabel: {
-            //    bgcolor: unpack(rows, 'color'),
-            //    hoveron:'points',
-            //    font: {family:'Open Sans'}
-            //}
           }];
     
         var layout = {
@@ -68,6 +59,10 @@ var regions = unpack(rows, 'region');
                 }
               },
             xaxis: {
+                tickcolor: '#ffffff',
+                showticklabels:true,
+
+
                 title: {
                     text: x_name,
                     font: {
@@ -78,6 +73,8 @@ var regions = unpack(rows, 'region');
                   }
               },
               yaxis: {
+                showticklabels:true,
+                tickcolor: '#ffffff',
                 title: {
                     text: 'Metric',
                     font: {
@@ -189,5 +186,5 @@ var regions = unpack(rows, 'region');
 
 
     // default plot
-    //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+    setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
 });
