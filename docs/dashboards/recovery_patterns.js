@@ -13,15 +13,20 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     };
 
 
+
     var metricSelector = document.getElementById('select_pattern_metric');
 
     var citiesSelector = document.getElementById('patterns_cities');
-
-    function setLinePlot(y_val, city_array) {
-        var cities = [];
-        for (var i=0; i < city_array.length; i++) {
-            cities.push(city_array[i].text);
+    var cities = [];
+        for (var i=0; i < Array.from(citiesSelector.selectedOptions).length; i++) {
+            cities.push(Array.from(citiesSelector.selectedOptions)[i].text);
         }
+    var regions = unpack(Object.values(data).filter(item => (item.metric === metricSelector.value) && (cities.includes(item.display_title))), 'region');
+    var regions_colors = unpack(Object.values(data).filter(item => (item.metric === metricSelector.value) && (cities.includes(item.display_title))), 'color');
+    
+
+    function setLinePlot(y_val) {
+        
 
         var trace = [{
             x: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'week'),
@@ -29,12 +34,18 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             type: 'scatter',
             mode: 'lines',
             lines: {
-                color: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'color')
+                color: regions_colors,
+                shape: 'spline'
             },
             transforms: [{
                 type: 'groupby',
-                groups: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
-            }],
+                groups: regions
+            }/*, {
+                type: 'groupby',
+                groups: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.sort().includes(item.display_title))), 'display_title'),
+            } */],
+            
+            
             text: unpack(Object.values(data).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
            
         }];
@@ -51,7 +62,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             xaxis: {
-                
                 showticklabels: true,
                 range: ['2020-04-01', '2022-05-01'],
                 tickfont: {
@@ -83,6 +93,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                         color: '#ffffff'
                     }
                 }
+            },
+            legend: {
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 16,
+                    color: '#ffffff'
+                }
             }
         };
 
@@ -96,16 +113,16 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
 
     function updateCities() {
-        setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+        setLinePlot(metricSelector.value);
     }
 
     function updateMetric() {
-        setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+        setLinePlot(metricSelector.value);
     }
    
     citiesSelector.addEventListener('change', updateCities, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
-    setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+    setLinePlot(metricSelector.value);
 });

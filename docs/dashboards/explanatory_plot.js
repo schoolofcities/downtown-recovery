@@ -24,7 +24,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             y: unpack(rows, y_val),
             type: 'scatter',
             mode: 'markers',
-
             transforms: [{
                 type: 'groupby',
                 groups: regions
@@ -80,6 +79,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                         size: 16,
                         color: '#ffffff'
                     }
+                }
+            },
+            legend: {
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 16,
+                    color: '#ffffff'
                 }
             }
         };

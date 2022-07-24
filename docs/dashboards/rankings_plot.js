@@ -82,6 +82,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                         color: '#ffffff'
                     }
                 }
+            },
+            legend: {
+                font: {
+                    family: 'Courier New, monospace',
+                    size: 16,
+                    color: '#ffffff'
+                }
             }
         };
 
