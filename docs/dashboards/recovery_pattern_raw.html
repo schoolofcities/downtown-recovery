@@ -31,15 +31,14 @@
   </style>
 
     <!-- Custom styles for this template -->
-    <link href="../dashboards/dashboard.css" rel="stylesheet">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="../dashboards/dashboard.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../assets/dist/js/bootstrap-select.js"></script>
-    
-    <script src="../dashboards/dashboard.js"></script>
+  
+  <script src="../dashboards/dashboard.js"></script>
 </head>
 
 <body>
@@ -138,7 +137,7 @@
 
           <select name="patterns_cities" class="form-select" multiple id="patterns_cities" label="Select cities:" >
 
-            <optgroup label="Canada">
+            <!--<optgroup label="Canada">-->
               <option value="Calgary" >Calgary, AB</option>
               <option value="Edmonton"><p>Edmonton, AB</p></option>
               <option value="Halifax"><p>Halifax, NS</p></option> 
@@ -150,9 +149,9 @@
               <option selected value="Vancouver"><p>Vancouver, BC</p></option>
               <option value="Winnipeg"><p>Winnipeg, MB</p></option>
               <option value="Mississauga"><p>Mississauga, ON</p></option>
-            </optgroup>
+            <!--</optgroup>
        
-            <optgroup label="Midwest">
+            <optgroup label="Midwest">-->
               <option value="Chicago"><p>Chicago, IL</p></option> 
               <option value="Cincinnati"><p>Cincinnati, OH</p></option>
               <option value="Cleveland"><p>Cleveland, OH</p></option> 
@@ -166,18 +165,18 @@
               <option value="Omaha"><p>Omaha, NE</p></option>
               <option value="St Louis"><p>St. Louis, MO</p></option>
               <option value="Wichita"><p>Wichita, KS</p></option>
-            </optgroup>
+           <!-- </optgroup>
             
-            <optgroup label="Northeast">
+            <optgroup label="Northeast">-->
               <option value="Baltimore"><p>Baltimore, MD</p></option>
               <option value="Boston"><p>Boston, MA</p></option>
               <option selected value="New York"><p>New York, NY</p></option>
               <option value="Philadelphia"><p>Philadelphia, PA</p></option>
               <option value="Pittsburgh"><p>Pittsburgh, PA/p></option>
               <option value="Washington DC"><p>Washington DC</p></option>
-            </optgroup>
+           <!-- </optgroup>
 
-            <optgroup label="Pacific">
+            <optgroup label="Pacific">-->
               <option value="Bakersfield"><p>Bakersfield, CA</p></option>
               <option value="Fresno"><p>Fresno, CA</p></option>
               <option value="Honolulu"><p>Honolulu, HI</p></option>
@@ -189,9 +188,9 @@
               <option selected value="San Francisco"><p>San Francisco, CA</p></option>
               <option selected value="San Jose"><p>San Jose, CA</p></option>
               <option value="Seattle"><p>Seattle, WA</p></option>
-            </optgroup>
+           <!-- </optgroup>
 
-            <optgroup label="Southeast">
+            <optgroup label="Southeast">-->
               <option selected value="Atlanta"><p>Atlanta, GA</p></option>
               <option value="Charlotte"><p>Charlotte, NC</p></option>
               <option value="Jacksonville"><p>Jacksonville, FL</p></option>
@@ -202,9 +201,9 @@
               <option value="Raleigh"><p>Raleigh, NC</p></option>
               <option value="Tampa"><p>Tampa, FL</p></option>
               <option value="Orlando"><p>Orlando, FL</p></option>
-            </optgroup>
+           <!-- </optgroup>
 
-            <optgroup label="Southwest">
+            <optgroup label="Southwest">-->
               <option value="Albuquerque"><p>Albuquerque, NM</p></option>
               <option value="Austin"><p>Austin, TX</p></option>
               <option value="Colorado Springs"><p>Colorado Springs, CO</p></option>
@@ -220,7 +219,7 @@
               <option value="Tulsa"><p>Tulsa, OK</p></option>
               <option value="Dallas"><p>Dallas, TX</p></option>
               <option value="Oklahoma City"><p>Oklahoma City, OK</p></option>
-            </optgroup>
+           <!-- </optgroup>-->
           </select> 
 
 
@@ -228,7 +227,7 @@
       
         <div class="col-10">
           
-          <div class="plot-container" id="recovery-plot" style="width: 80%; height:80%;">
+          <div class="plot-container" id="patterns-plot" style="width: 80%; height:80%;">
            
           </div>
         </div> 
@@ -237,12 +236,7 @@
         
   </main>
 
-
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/dist/js/bootstrap-select.js"></script>
- 
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="../dashboards/dashboard.js"></script>
+  <script src="../dashboards/recovery_patterns.js"></script>
 </body>
 
 </html>

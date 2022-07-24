@@ -1,12 +1,12 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/shinyapp/input_data/all_weekly_metrics.csv', function(err, rows){
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/all_weekly_metrics_plot.csv', function(err, rows){
 
   function unpack(rows, key) {
     return rows.map(function(row) { return row[key]; });
 }
-var plotDiv = document.getElementById('explanatory-plot');
+var plotDiv = document.getElementById('patterns-plot');
 
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -20,7 +20,7 @@ var regions = unpack(rows, 'region');
     var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
 
     var citiesSelector = document.getElementById('patterns_cities');
-    var x_variable = xSelector.options[xSelector.selectedIndex].value;
+    var x_variable = citiesSelector.options[citiesSelector.selectedIndex].value;
     //var x_name = xSelector.options[xSelector.selectedIndex].text;
 
    
@@ -30,17 +30,17 @@ var regions = unpack(rows, 'region');
         var data =[];
     
         var trace = [{
-            x: unpack(rows, x_val),
+            x: unpack(rows, 'week'),
             y: unpack(rows, y_val),
             type: 'scatter',
-            mode: 'markers',
+            mode: 'lines',
           
             transforms: [{
                 type: 'groupby',
                 groups: regions
             }],
            text: unpack(rows, 'display_title'),
-            marker: {
+            line: {
                 color: unpack(rows, 'color'),
                 size:20
                 },
@@ -64,7 +64,7 @@ var regions = unpack(rows, 'region');
 
 
                 title: {
-                    text: x_name,
+                    text: 'Month',
                     font: {
                       family: 'Courier New, monospace',
                       size: 16,
@@ -97,7 +97,7 @@ var regions = unpack(rows, 'region');
 
     function updateCities(){
       //updateMetric();
-      setLinePlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+      setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 
 
 /*
@@ -139,7 +139,7 @@ var regions = unpack(rows, 'region');
 
     function updateMetric(){
        // updateX();
-       setLinePlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+       setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 
         /*
         var trace = [{
@@ -180,11 +180,11 @@ var regions = unpack(rows, 'region');
      // default plot
      //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
       
-    xSelector.addEventListener('change', updateX, false);
+     citiesSelector.addEventListener('change', updateCities, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
 
     // default plot
-    setLinePlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+    setLinePlot(metricSelector.value, citiesSelector.value, citiesSelector.options[citiesSelector.selectedIndex].text);
 });

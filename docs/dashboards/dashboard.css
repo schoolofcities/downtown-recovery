@@ -63,7 +63,7 @@ div.map-container iframe{
  * containers for plotting dashboards
  */
 
- div.plot-container#recovery-plot {
+ div.plot-container#patterns-plot {
   position: absolute;
   overflow: hidden;
   display: inline;
@@ -72,7 +72,7 @@ div.map-container iframe{
   border: none;
 }
 
-div.plot-container#recovery-plot iframe{
+div.plot-container#patterns-plot iframe{
   position: absolute;
   overflow: hidden;
   display: inline;
