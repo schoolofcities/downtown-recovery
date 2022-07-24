@@ -12,68 +12,119 @@ String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
-function getPlotData(selected_metric, x_variable) {
-    x_vals = [];
-    y_vals = [];
-    x_vals = unpack(rows, x_variable);
-    y_vals = unpack(rows, selected_metric);
-  };
+var regions = unpack(rows, 'region');
+//var display_title = unpack(rows, 'display_title');
 
-// default plot
-setScatterPlot('downtown', 'pct_jobs_information');
-
-const regions = ['Canada', 'Midwest', 'Northeast', 'Pacific', 'Southeast', 'Southwest']
-const regions_colors = ['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#e6ab02']
-
-
-
-
-function setScatterPlot(selected_metric, x_variable) {
-
-    var trace = [{
-        type: 'scatter',
-        mode: 'markers',
-        x: unpack(rows, x_variable),
-        y: unpack(rows, selected_metric),
-        city: unpack(rows, 'city'),
-        region: unpack(rows, 'region')
-      }];
-
-    var layout = {
-      title: selected_metric.toProperCase() + ' recovery',
-      plot_bgcolor: 'rgba(0,0,0,0)',
-      paper_bgcolor: 'rgba(0,0,0,0)'
-    };
-
-    var config = {
-        displayModeBar: false
-    }
-    Plotly.react(plotDiv, trace, layout, config);
-
-};
-
-
-
-    var xSelector = document.getElementById('x_vars');
-
-    var x_variable = xSelector.options[xSelector.selectedIndex].value;
 
     var metricSelector = document.getElementById('select_metric');
-
     var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
 
+    var xSelector = document.getElementById('x_vars');
+    var x_variable = xSelector.options[xSelector.selectedIndex].value;
+    //var x_name = xSelector.options[xSelector.selectedIndex].text;
 
    
 
-    function updateX(){
-      
+    function setScatterPlot(y_val, x_val, x_name) {
+
+        var data =[];
+    
         var trace = [{
+            x: unpack(rows, x_val),
+            y: unpack(rows, y_val),
             type: 'scatter',
             mode: 'markers',
+            //hovertemplate: '<b>City:</b> %{text}<br><extra></extra>',
+            transforms: [{
+                type: 'groupby',
+                groups: regions
+            }],
+           text: unpack(rows, 'display_title'),
+            marker: {
+                color: unpack(rows, 'color'),
+                size:20
+                },
+            //textfont: {
+            //    color: unpack(rows, 'color'),
+            //    family:'Open Sans'
+            //},
+            //hoverlabel: {
+            //    bgcolor: unpack(rows, 'color'),
+            //    hoveron:'points',
+            //    font: {family:'Open Sans'}
+            //}
+          }];
+    
+        var layout = {
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            title: {
+                text: y_val.toProperCase() + ' recovery',
+                
+                font: {
+                  color: '#ffffff',
+                  family: 'Courier New, monospace',
+                  size: 24
+                }
+              },
+            xaxis: {
+                title: {
+                    text: x_name,
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 16,
+                      color: '#ffffff'
+                    }
+                  }
+              },
+              yaxis: {
+                title: {
+                    text: 'Metric',
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 16,
+                      color: '#ffffff'
+                    }
+                  }
+              }
+        };
+    
+        var config = {
+            displayModeBar: false
+        }
+    
+        Plotly.react(plotDiv, trace, layout, config);
+    
+    };
+   
+
+    function updateX(){
+      //updateMetric();
+      setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+
+
+/*
+        var trace = [{
             x: unpack(rows, xSelector.value),
             y: unpack(rows, selected_metric),
-            city: unpack(rows, 'city'),
-            region: unpack(rows, 'region')
+            type: 'scatter',
+            mode: 'markers',
+            
+           
+            text: unpack(rows, 'display_title'),
+            marker: {
+                color: unpack(rows, 'color'),
+                size:12
+                },
+            textfont: {
+                color: unpack(rows, 'color'),
+                family:'Open Sans'
+            },
+            hoverlabel: {
+                bgcolor: unpack(rows, 'color'),
+                hoveron:'points',
+                font: {family:'Open Sans'}
+            }
         }];
 
 
@@ -86,18 +137,35 @@ function setScatterPlot(selected_metric, x_variable) {
         var config = {
             displayModeBar: false
         }
-        Plotly.react(plotDiv, trace, layout, config);
+        Plotly.react(plotDiv, trace, layout, config);*/
     }
 
     function updateMetric(){
-       
+       // updateX();
+        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+
+        /*
         var trace = [{
-            type: 'scatter',
-            mode: 'markers',
             x: unpack(rows, x_variable),
             y: unpack(rows, metricSelector.value),
-            city: unpack(rows, 'city'),
-            region: unpack(rows, 'region')
+            type: 'scatter',
+            mode: 'markers',
+            
+
+            text: unpack(rows, 'display_title'),
+            marker: {
+                color: unpack(rows, 'color'),
+                size:12
+                },
+            textfont: {
+                color: unpack(rows, 'color'),
+                family:'Open Sans'
+            },
+            hoverlabel: {
+                bgcolor: unpack(rows, 'color'),
+                hoveron:'points',
+                font: {family:'Open Sans'}
+            }
         }];
 
 
@@ -110,14 +178,16 @@ function setScatterPlot(selected_metric, x_variable) {
         var config = {
             displayModeBar: false
         }
-        Plotly.react(plotDiv, trace, layout, config);
+        Plotly.react(plotDiv, trace, layout, config);*/
     }
-
+     // default plot
+     //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
       
     xSelector.addEventListener('change', updateX, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
 
-
+    // default plot
+    //setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
 });

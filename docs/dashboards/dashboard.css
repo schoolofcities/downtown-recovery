@@ -104,7 +104,7 @@ div.plot-container#explanatory-plot{
   position: absolute;
   overflow:auto;
   display:inline;
-  height:90%;
+  height:80%;
   width:80%;
   border: none;
 }
