@@ -30,8 +30,15 @@
     }
   </style>
 
-  <!-- Custom styles for this template -->
-  <link href="../dashboards/dashboard.css" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="../dashboards/dashboard.css" rel="stylesheet">
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+   
+   <script src="https://d3js.org/d3.v7.min.js"></script>
+   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+ 
+   
+   <script src="../dashboards/dashboard.js"></script>
 </head>
 
 <body>
@@ -117,13 +124,13 @@
                     <div class="row gtr-50 gtr-uniform">
                       <div class="col-12">
                         
-                          <div class="btn-group-vertical" id='rankings buttons'>
+                         <!--  <div class="btn-group-vertical" id='rankings buttons'>
                             <a href="../widgets/recovery_rankings_downtown.html" target="rankingframe" class="btn btn-primary data-page-btn">Downtown</a>
                             <a href="../widgets/recovery_rankings_city.html" target="rankingframe" class="btn btn-primary data-page-btn">City</a>
                             <a href="../widgets/recovery_rankings_relative.html" target="rankingframe" class="btn btn-primary data-page-btn">Relative</a>
                           </div>
                         
-                        <!-- Script to toggle buttons -->
+                        Script to toggle buttons 
                         <script>
                           var header = document.getElementById("rankings buttons");
                           var btns = header.getElementsByClassName("btn btn-primary data-page-btn");
@@ -136,7 +143,7 @@
                             this.className += " primary";
                             });
                           }
-                        </script>
+                        </script>-->
                         </div>
                         </div>
                         </div>
@@ -144,36 +151,19 @@
               </div>
             </div>
           </div>
+          <select name="select_ranking_metric" id="select_ranking_metric" label="Choose a metric:">
+            
+            <option value="downtown">Downtown</option>
+              <option value="city">City</option>
+              <option value="relative">Relative</option> 
+          </select>
         </div>
 
         <div class="col-10">
-          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
-                aria-controls="all-detail" aria-selected="true">All</a>
-            </li>
 
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-detail" role="tab"
-                aria-controls="about-detail" aria-selected="false">Documentation</a>
-            </li>
-          </ul>
-       
-          
-         <div class="tab-content">
-            <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
-              data-src="../widgets/recovery_rankings_downtown.html">-->
-              <div class="map-container">
-                <iframe src="../widgets/recovery_rankings_downtown.html" name = "rankingframe"></iframe>
-              </div>
+          <div class="plot-container" id="rankings-plot" style="width: 80%; height:80%;">
            </div>
 
-           <!--<div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
-              data-src="../text_pages/ranking_README.html">
-              <div class="map-container">
-                <iframe src="../text_pages/ranking_README.html"></iframe>
-              </div>
-            </div>-->
           </div> 
         
         </div>
@@ -186,5 +176,5 @@
 
   <script src="../dashboards/dashboard.js"></script>
 </body>
-
+<script src="../dashboards/rankings_plot.js"></script>
 </html>

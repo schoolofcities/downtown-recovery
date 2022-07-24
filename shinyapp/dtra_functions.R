@@ -142,7 +142,7 @@ recovery_patterns_df_long <- function(rolling_window) {
   na.omit(all_weekly_metrics %>%
             arrange(week) %>%
             left_join(colors, by = "region") %>%
-            group_by(city, display_title, metric) %>%
+            group_by(city, metric) %>%
             mutate(rolling_avg = rollmean(
               normalized_visits_by_total_visits,
               as.numeric(rolling_window),

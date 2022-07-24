@@ -21,8 +21,7 @@ plot_cities <- c("Washington DC", "Seattle, WA", "New York, NY","San Francisco, 
 # interactive_plot
 # htmlwidgets::saveWidget(interactive_plot, "../docs/widgets/raw_recovery_pattern.html", selfcontained = FALSE)
 
-plot_data <- recovery_patterns_df_long(11) %>%
-  pivot_wider(id_cols = c("display_title", "region", "week", "color"), names_from = "metric", values_from = "rolling_avg", values_fn = mean)
+plot_data <- recovery_patterns_df_long(11)
 write.csv(plot_data, "../docs/all_weekly_metrics_plot.csv")
 
 plot_data <- read.csv("../docs/model_data.csv")
