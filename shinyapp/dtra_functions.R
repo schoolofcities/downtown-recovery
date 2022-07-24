@@ -106,7 +106,12 @@ recovery_rankings_plot <- function(df) {
 }
 
 recovery_patterns_df <- function(selected_metric, selected_cities, rolling_window) {
-  
+  colors = c("Canada" = "#e41a1c",
+             "Midwest" = "#377eb8",
+             "Northeast" = "#4daf4a",
+             "Pacific" = "#984ea3",
+             "Southeast" = "#ff7f00",
+             "Southwest" = "#e6ab02")
   na.omit(all_weekly_metrics %>%
     dplyr::filter((metric == selected_metric) &
                   (display_title %in% selected_cities))%>%
@@ -118,9 +123,32 @@ recovery_patterns_df <- function(selected_metric, selected_cities, rolling_windo
       na.pad = TRUE,
       align = "center"
     )) %>%
-    ungroup())
+    ungroup() %>%
+      mutate(color = colors[region]))
   
   
+}
+
+recovery_patterns_df_long <- function(rolling_window) {
+  colors = c("Canada" = "#e41a1c",
+             "Midwest" = "#377eb8",
+             "Northeast" = "#4daf4a",
+             "Pacific" = "#984ea3",
+             "Southeast" = "#ff7f00",
+             "Southwest" = "#e6ab02")
+  
+  na.omit(all_weekly_metrics %>%
+            arrange(week) %>%
+            group_by(city, display_title, metric) %>%
+            mutate(rolling_avg = rollmean(
+              normalized_visits_by_total_visits,
+              as.numeric(rolling_window),
+              na.pad = TRUE,
+              align = "center"
+            ))) %>%
+    ungroup() %>%
+    mutate(color = colors[region]) %>%
+    dplyr::select(-city, -normalized_visits_by_total_visits, -metro_size)
 }
 
 recovery_patterns_plot <- function(df, metric, n) {

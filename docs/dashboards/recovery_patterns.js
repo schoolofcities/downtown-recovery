@@ -16,16 +16,16 @@ var regions = unpack(rows, 'region');
 //var display_title = unpack(rows, 'display_title');
 
 
-    var metricSelector = document.getElementById('select_metric');
+    var metricSelector = document.getElementById('select_pattern_metric');
     var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
 
-    var xSelector = document.getElementById('x_vars');
+    var citiesSelector = document.getElementById('patterns_cities');
     var x_variable = xSelector.options[xSelector.selectedIndex].value;
     //var x_name = xSelector.options[xSelector.selectedIndex].text;
 
    
 
-    function setLinePlot(y_val, x_val, x_name) {
+    function setLinePlot(y_val, cities) {
 
         var data =[];
     

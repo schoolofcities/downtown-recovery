@@ -67,7 +67,7 @@ div.map-container iframe{
   position: absolute;
   overflow: hidden;
   display: inline;
-  height:90%;
+  height:80%;
   width:80%;
   border: none;
 }
