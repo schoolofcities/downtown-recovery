@@ -17,18 +17,16 @@ var regions = unpack(rows, 'region');
 
 
     var metricSelector = document.getElementById('select_metric');
-    var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
+
 
     var xSelector = document.getElementById('x_vars');
-    var x_variable = xSelector.options[xSelector.selectedIndex].value;
-    //var x_name = xSelector.options[xSelector.selectedIndex].text;
+
 
    
 
     function setScatterPlot(y_val, x_val, x_name) {
 
-        var data =[];
-    
+     
         var trace = [{
             x: unpack(rows, x_val),
             y: unpack(rows, y_val),

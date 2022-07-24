@@ -1,10 +1,10 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/all_weekly_metrics_plot.csv', function(err, rows){
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/all_weekly_metrics_plot.csv', function(err, data){
 
-  function unpack(rows, key) {
-    return rows.map(function(row) { return row[key]; });
+  function unpack(data, key) {
+    return data.map(function(row) { return row[key]; });
 }
 var plotDiv = document.getElementById('patterns-plot');
 
@@ -12,42 +12,35 @@ String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
 
-    var regions = unpack(rows, 'region');
-    var display_titles = unpack(rows, 'display_title');
-
+  
     var metricSelector = document.getElementById('select_pattern_metric');
-    var selected_metric = metricSelector.options[metricSelector.selectedIndex].value;
 
     var citiesSelector = document.getElementById('patterns_cities');
-    var x_variable = citiesSelector.options[citiesSelector.selectedIndex].value;
-    //var x_name = xSelector.options[xSelector.selectedIndex].text;
 
-   
+
 
     function setLinePlot(y_val, cities) {
 
-        var data =[];
-    
         var trace = [{
-            x: unpack(rows, 'week'),
-            y: unpack(rows, y_val),
+            x: unpack(data, 'week'),
+            y: unpack(data, y_val),
             type: 'scatter',
             mode: 'lines',
-          
-            transforms: [{
+            
+            transforms: [ {
+                type: 'groupby',
+                groups: unpack(data, 'region'),
+           }, {
                 type: 'filter',
-                target: unpack(rows, 'display_title'),
+                target: unpack(data, 'display_title'),
                 operation: '=',
                 value: cities
-                }, {
-                type: 'groupby',
-                groups: regions,
-            }],
-           text: unpack(rows, 'display_title'),
-            lines: {
-                color: unpack(rows, 'color'),
-                size:20
-                },
+                }],
+           text: unpack(data, 'display_title'),
+           lines: {
+            color: unpack(data, 'color'),
+            size:5
+            }
           }];
     
         var layout = {
@@ -65,7 +58,7 @@ String.prototype.toProperCase = function () {
             xaxis: {
                 tickcolor: '#ffffff',
                 showticklabels:true,
-
+                range: ['2020-04-01', '2022-05-01'],
 
                 title: {
                     text: 'Month',
