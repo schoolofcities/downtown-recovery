@@ -19,7 +19,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         const sorted = [...new Set(arr)].sort((a, b) => b - a);
         const rank = new Map(sorted.map((x, i) => [x, i + 1]));
         return arr.map((x) => rank.get(x));
-      }
+    }
 
     function setHBarPlot(y_val) {
         var trace = [{
@@ -52,7 +52,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             xaxis: {
                 tickcolor: '#ffffff',
-                
+
                 showticklabels: true
             },
             yaxis: {

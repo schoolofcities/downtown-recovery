@@ -33,11 +33,11 @@
   <!-- Custom styles for this template -->
   <link href="../dashboards/dashboard.css" rel="stylesheet">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  
+
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-  
+
   <script src="../dashboards/dashboard.js"></script>
 </head>
 
@@ -47,32 +47,34 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-          <a class="navbar-brand" href="../index.html">Home</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-    
-          <div class="collapse navbar-collapse" id="navbarMenu">
-              <ul class="navbar-nav me-auto">
+        <a class="navbar-brand" href="../index.html">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings</a>
-                          <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
-                          <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
-                      </div>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
-                  </li>
-              </ul>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <ul class="navbar-nav me-auto">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">Recovery</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings</a>
+                <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
+                <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
+            </li>
+          </ul>
         </div>
       </div>
-  </nav>
+    </nav>
 
   </header>
   <main>
@@ -93,11 +95,11 @@
                   <div class="section level1">
                     <h4>Explanatory Variables</h4>
                     <p>Plots the relationship of socioeconomic factors and selected recovery metric.</p>
-                    </div>
-                    </div>
+                  </div>
                 </div>
               </div>
-           
+            </div>
+
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -110,104 +112,220 @@
                 <div class="accordion-body">
                   <div class="section level2">
                     <h4>Navigation</h4>
-                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week in 2019</p>
-                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in 2019.</p>
-                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the device counts in a downtown area changed relative to how much it changed in the entire city.</p>
-                    </div>
+                    <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding week
+                      in 2019</p>
+                    <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week in
+                      2019.</p>
+                    <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the
+                      device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <select name="select_metric" id="select_metric" label="Choose an independent variable:">
-            
+
             <option value="downtown">Downtown</option>
-              <option value="city">City</option>
-              <option value="relative">Relative</option> 
+            <option value="city">City</option>
+            <option value="relative">Relative</option>
           </select>
 
           <select name="x_vars" id="x_vars" label="Choose an independent variable:">
             <optgroup label="City-wide ACS 2015 - 2019 estimates">
-              <option value="total_pop_city" >Total Population</option>
-              <option value="population_density_city"><p>Population Density</p></option>
-              <option value="housing_units_city"><p>Total Housing Stock</p></option> 
-              <option value="housing_density_city"><p>Housing Density</p></option>
-              <option value="pct_renter_city"><p>Percentage of Rented-Occupied Units</p></option> 
-              <option value="pct_singlefam_city"><p>Percentage of Single-Family Homes</p></option> 
-              <option value="pct_multifam_city"><p>Percentage of Multi-Family Homes</p></option>
-              <option value="median_age_city"><p>Median Age of Residents</p></option>
-              <option value="bachelor_plus_city"><p>Percentage of Residents with a Bachelor's Degree or Higher</p></option>
-              <option value="pct_vacant_city"><p>Percentage of Vacant Housing Units</p></option>
-              <option value="median_rent_city"><p>Median Rent of Housing Units</p></option>
-              <option value="median_hhinc_city"><p>Median Household Income of Residents</p></option>
-              <option value="pct_nhwhite_city"><p>Percentage of White Residents</p></option>
-              <option value="pct_nhblack_city"><p>Percentage of Black Residents</p></option>
-              <option value="pct_hisp_city"><p>Percentage of Hispanic Residents</p></option>
-              <option value="pct_nhasian_city"><p>Percentage of Asian Residents</p></option>
-              <option value="pct_commute_auto_city"><p>Percentage of Residents who Commute to Work by Car</p></option>
-              <option value="pct_commute_public_transit_city"><p>Percentage of Residents who Commute to Work by Public Transit</p></option>
-              <option value="pct_commute_bicycle_city"><p>Percentage of Residents who Commute to Work by Bicycle</p></option>
-              <option value="pct_commute_walk_city"><p>Percentage of Residents who Commute to Work by Walking</p></option>
-              <option value= "pct_commute_others_city"><p>Percentage of Residents who Commute to Work by Other Modes</p></option>
-              <option value="average_commute_time_city"><p>Average City-wide Commute Time</p></option>
+              <option value="total_pop_city">Total Population</option>
+              <option value="population_density_city">
+                <p>Population Density</p>
+              </option>
+              <option value="housing_units_city">
+                <p>Total Housing Stock</p>
+              </option>
+              <option value="housing_density_city">
+                <p>Housing Density</p>
+              </option>
+              <option value="pct_renter_city">
+                <p>Percentage of Rented-Occupied Units</p>
+              </option>
+              <option value="pct_singlefam_city">
+                <p>Percentage of Single-Family Homes</p>
+              </option>
+              <option value="pct_multifam_city">
+                <p>Percentage of Multi-Family Homes</p>
+              </option>
+              <option value="median_age_city">
+                <p>Median Age of Residents</p>
+              </option>
+              <option value="bachelor_plus_city">
+                <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
+              </option>
+              <option value="pct_vacant_city">
+                <p>Percentage of Vacant Housing Units</p>
+              </option>
+              <option value="median_rent_city">
+                <p>Median Rent of Housing Units</p>
+              </option>
+              <option value="median_hhinc_city">
+                <p>Median Household Income of Residents</p>
+              </option>
+              <option value="pct_nhwhite_city">
+                <p>Percentage of White Residents</p>
+              </option>
+              <option value="pct_nhblack_city">
+                <p>Percentage of Black Residents</p>
+              </option>
+              <option value="pct_hisp_city">
+                <p>Percentage of Hispanic Residents</p>
+              </option>
+              <option value="pct_nhasian_city">
+                <p>Percentage of Asian Residents</p>
+              </option>
+              <option value="pct_commute_auto_city">
+                <p>Percentage of Residents who Commute to Work by Car</p>
+              </option>
+              <option value="pct_commute_public_transit_city">
+                <p>Percentage of Residents who Commute to Work by Public Transit</p>
+              </option>
+              <option value="pct_commute_bicycle_city">
+                <p>Percentage of Residents who Commute to Work by Bicycle</p>
+              </option>
+              <option value="pct_commute_walk_city">
+                <p>Percentage of Residents who Commute to Work by Walking</p>
+              </option>
+              <option value="pct_commute_others_city">
+                <p>Percentage of Residents who Commute to Work by Other Modes</p>
+              </option>
+              <option value="average_commute_time_city">
+                <p>Average City-wide Commute Time</p>
+              </option>
             </optgroup>
 
             <optgroup label="Downtown ACS 2015 - 2019 estimates">
-              <option value="total_pop_downtown"><p>Total Population</p></option> 
-              <option value="population_density_downtown"><p>Population Density</p></option>
-              <option value="housing_units_downtown"><p>Total Housing Stock</p></option> 
-              <option value="housing_density_downtown"><p>Housing Density</p></option> 
-              <option value="pct_renter_downtown"><p>Percentage of Rented-Occupied Units</p></option> 
-              <option value="pct_singlefam_downtown"><p>Percentage of Single-Family Homes</p></option> 
-              <option value="pct_multifam_downtown"><p>Percentage of Multi-Family Homes</p></option>
-              <option value="median_age_downtown"><p>Median Age of Residents</p></option>
-              <option value="bachelor_plus_downtown"><p>Percentage of Residents with a Bachelor's Degree or Higher</p></option>
-              <option value="pct_vacant_downtown"><p>Percentage of Vacant Housing Units</p></option>
-              <option value="median_rent_downtown"><p>Median Rent of Housing Units</p></option>
-              <option value="median_hhinc_downtown"><p>Median Household Income of Residents</p></option>
+              <option value="total_pop_downtown">
+                <p>Total Population</p>
+              </option>
+              <option value="population_density_downtown">
+                <p>Population Density</p>
+              </option>
+              <option value="housing_units_downtown">
+                <p>Total Housing Stock</p>
+              </option>
+              <option value="housing_density_downtown">
+                <p>Housing Density</p>
+              </option>
+              <option value="pct_renter_downtown">
+                <p>Percentage of Rented-Occupied Units</p>
+              </option>
+              <option value="pct_singlefam_downtown">
+                <p>Percentage of Single-Family Homes</p>
+              </option>
+              <option value="pct_multifam_downtown">
+                <p>Percentage of Multi-Family Homes</p>
+              </option>
+              <option value="median_age_downtown">
+                <p>Median Age of Residents</p>
+              </option>
+              <option value="bachelor_plus_downtown">
+                <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
+              </option>
+              <option value="pct_vacant_downtown">
+                <p>Percentage of Vacant Housing Units</p>
+              </option>
+              <option value="median_rent_downtown">
+                <p>Median Rent of Housing Units</p>
+              </option>
+              <option value="median_hhinc_downtown">
+                <p>Median Household Income of Residents</p>
+              </option>
             </optgroup>
 
             <optgroup label="Downtown LEHD work area characteristics">
-              <option value="employment_density_downtown"><p>Employment Density</p></option>
-              <option value="employment_entropy"><p>Employment Entropy</p></option>
-              <option value="pct_jobs_agriculture_forestry_fishing_hunting"><p>Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting</p></option>
-              <option value="pct_jobs_mining_quarrying_oil_gas"><p>Percentage of Jobs in Mining, Quarrying, Oil, and Gas</p></option>
-              <option value="pct_jobs_utilities"><p>Percentage of Jobs in Utilities</p></option>
-              <option value="pct_jobs_construction"><p>Percentage of Jobs in Construction</p></option>
-              <option value="pct_jobs_manufacturing"><p>Percentage of Jobs in Manufacturing</p></option>
-              <option value="pct_jobs_wholesale_trade"><p>Percentage of Jobs in Wholesale Trade</p></option>
-              <option value="pct_jobs_retail_trade"><p>Percentage of Jobs in Retail Trade</p></option>
-              <option value="pct_jobs_transport_warehouse"><p>Percentage of Jobs in Transportation and Warehousing</p></option>
-              <option value="pct_jobs_information"><p>Percentage of Jobs in Information</p></option>
-              <option value="pct_jobs_finance_insurance"><p>Percentage of Jobs in Finance & Insurance</p></option>
-              <option value="pct_jobs_real_estate"><p>Percentage of Jobs in Real Estate</p></option>
-              <option value="pct_jobs_professional_science_techical"><p>Percentage of Jobs in Professional, Scientific, and Management</p></option>
-              <option value="pct_jobs_management_of_companies_enterprises"><p>Percentage of Jobs in Management</p></option>
-              <option value="pct_jobs_administrative_support_waste"><p>Percentage of Jobs in Administrative Support & Waste Management</p></option>
-              <option value="pct_jobs_educational_services"><p>Percentage of Jobs in Educational Services</p></option>
-              <option value="pct_jobs_healthcare_social_assistance"><p>Percentage of Jobs in Healthcare & Social Assistance</p></option>
-              <option value="pct_jobs_arts_entertainment_recreation"><p>Percentage of Jobs in Arts, Entertainment, and Recreation</p></option>
-              <option value="pct_jobs_accomodation_food_services"><p>Percentage of Jobs in Accommodation & Food Services</p></option>
-              <option value="pct_jobs_public_administration"><p>Percentage of Jobs in Public Administration</p></option>
+              <option value="employment_density_downtown">
+                <p>Employment Density</p>
+              </option>
+              <option value="employment_entropy">
+                <p>Employment Entropy</p>
+              </option>
+              <option value="pct_jobs_agriculture_forestry_fishing_hunting">
+                <p>Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting</p>
+              </option>
+              <option value="pct_jobs_mining_quarrying_oil_gas">
+                <p>Percentage of Jobs in Mining, Quarrying, Oil, and Gas</p>
+              </option>
+              <option value="pct_jobs_utilities">
+                <p>Percentage of Jobs in Utilities</p>
+              </option>
+              <option value="pct_jobs_construction">
+                <p>Percentage of Jobs in Construction</p>
+              </option>
+              <option value="pct_jobs_manufacturing">
+                <p>Percentage of Jobs in Manufacturing</p>
+              </option>
+              <option value="pct_jobs_wholesale_trade">
+                <p>Percentage of Jobs in Wholesale Trade</p>
+              </option>
+              <option value="pct_jobs_retail_trade">
+                <p>Percentage of Jobs in Retail Trade</p>
+              </option>
+              <option value="pct_jobs_transport_warehouse">
+                <p>Percentage of Jobs in Transportation and Warehousing</p>
+              </option>
+              <option value="pct_jobs_information">
+                <p>Percentage of Jobs in Information</p>
+              </option>
+              <option value="pct_jobs_finance_insurance">
+                <p>Percentage of Jobs in Finance & Insurance</p>
+              </option>
+              <option value="pct_jobs_real_estate">
+                <p>Percentage of Jobs in Real Estate</p>
+              </option>
+              <option value="pct_jobs_professional_science_techical">
+                <p>Percentage of Jobs in Professional, Scientific, and Management</p>
+              </option>
+              <option value="pct_jobs_management_of_companies_enterprises">
+                <p>Percentage of Jobs in Management</p>
+              </option>
+              <option value="pct_jobs_administrative_support_waste">
+                <p>Percentage of Jobs in Administrative Support & Waste Management</p>
+              </option>
+              <option value="pct_jobs_educational_services">
+                <p>Percentage of Jobs in Educational Services</p>
+              </option>
+              <option value="pct_jobs_healthcare_social_assistance">
+                <p>Percentage of Jobs in Healthcare & Social Assistance</p>
+              </option>
+              <option value="pct_jobs_arts_entertainment_recreation">
+                <p>Percentage of Jobs in Arts, Entertainment, and Recreation</p>
+              </option>
+              <option value="pct_jobs_accomodation_food_services">
+                <p>Percentage of Jobs in Accommodation & Food Services</p>
+              </option>
+              <option value="pct_jobs_public_administration">
+                <p>Percentage of Jobs in Public Administration</p>
+              </option>
             </optgroup>
             <optgroup label="COVID-19 policies">
-              <option value="composite_closing"><p>Composite of COVID-19 Closing Policies</p></option>
-              <option value="composite_economic"><p>Composite of COVID-19 Economic Policies</p></option>
+              <option value="composite_closing">
+                <p>Composite of COVID-19 Closing Policies</p>
+              </option>
+              <option value="composite_economic">
+                <p>Composite of COVID-19 Economic Policies</p>
+              </option>
             </optgroup>
-          </select> 
+          </select>
         </div>
 
         <div class="col-10">
-          
+
           <div class="plot-container" id="explanatory-plot" style="width: 80%; height:80%;">
-           
+
           </div>
-        </div> 
-        
         </div>
+
       </div>
+    </div>
   </main>
-  
+
 </body>
 <script src="../dashboards/explanatory_plot.js"></script>
+
 </html>
