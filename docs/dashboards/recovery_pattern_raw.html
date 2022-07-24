@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Dashboard</title>
+  <title>Recovery Patterns</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
@@ -30,9 +30,15 @@
     }
   </style>
 
-  <!-- Custom styles for this template -->
-  <link href="../dashboards/dashboard.css" rel="stylesheet">
-  <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="../dashboards/dashboard.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  
+    
+    <script src="../dashboards/dashboard.js"></script>
 </head>
 
 <body>
@@ -117,36 +123,106 @@
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
                   <div class="box alt">
-                    <div class="row gtr-50 gtr-uniform">
-                      <div class="col-12">
-                       
-                          <div class="btn-group-vertical" id='patterns buttons'>
-                            <a href="../widgets/raw_recovery_pattern_downtown.html" target="patternsframe" class="btn btn-primary data-page-btn">Downtown</a>
-                            <a href="../widgets/raw_recovery_pattern_city.html" target="patternsframe" class="btn btn-primary data-page-btn">City</a>
-                            <a href="../widgets/raw_recovery_pattern_relative.html" target="patternsframe" class="btn btn-primary data-page-btn">Relative</a>
-                          </div>
-                        
-                        <!-- Script to toggle buttons -->
-                        <script>
-                          var header = document.getElementById("patterns buttons");
-                          var btns = header.getElementsByClassName("btn btn-primary data-page-btn");
-                          for (var i = 0; i < btns.length; i++) {
-                            btns[i].addEventListener("click", function() {
-                            var current = document.getElementsByClassName("primary");
-                          if (current.length > 0) {
-                              current[0].className = current[0].className.replace(" primary", "");
-                            }
-                            this.className += " primary";
-                            });
-                          }
-                        </script>
-                        </div>
-                        </div>
+              
                         </div>
                 </div>
               </div>
             </div>
           </div>
+          <select name="select_pattern_metric" id="select_pattern_metric" label="Choose an independent variable:">
+            <option value="downtown">Downtown</option>
+              <option value="city">City</option>
+              <option value="relative">Relative</option> 
+          </select>
+
+          <select name="patterns_cities" class="form-select" multiple id="patterns_cities" label="Select cities:" >
+
+            <optgroup label="Canada">
+              <option value="Calgary" >Calgary, AB</option>
+              <option value="Edmonton"><p>Edmonton, AB</p></option>
+              <option value="Halifax"><p>Halifax, NS</p></option> 
+              <option value="London"><p>London, ON</p></option>
+              <option value="Montreal"><p>Montreal, QC</p></option> 
+              <option value="Ottawa"><p>Ottawa, ON</p></option> 
+              <option value="Quebec"><p>Quebec, QC</p></option>
+              <option selected value="Toronto"><p>Toronto, ON</p></option>
+              <option selected value="Vancouver"><p>Vancouver, BC</p></option>
+              <option value="Winnipeg"><p>Winnipeg, MB</p></option>
+              <option value="Mississauga"><p>Mississauga, ON</p></option>
+            </optgroup>
+       
+            <optgroup label="Midwest">
+              <option value="Chicago"><p>Chicago, IL</p></option> 
+              <option value="Cincinnati"><p>Cincinnati, OH</p></option>
+              <option value="Cleveland"><p>Cleveland, OH</p></option> 
+              <option value="Columbus"><p>Columbus, OH</p></option> 
+              <option value="Detroit"><p>Detroit, MI</p></option> 
+              <option value="Indianapolis"><p>Indianapolis, IN</p></option> 
+              <option value="Kansas City"><p>Kansas City, MO</p></option>
+              <option value="Louisville"><p>Louisville, KY</p></option>
+              <option value="Milwaukee"><p>Milwaukee, WI</p></option>
+              <option selected value="Minneapolis"><p>Minneapolis, MN</p></option>
+              <option value="Omaha"><p>Omaha, NE</p></option>
+              <option value="St Louis"><p>St. Louis, MO</p></option>
+              <option value="Wichita"><p>Wichita, KS</p></option>
+            </optgroup>
+            
+            <optgroup label="Northeast">
+              <option value="Baltimore"><p>Baltimore, MD</p></option>
+              <option value="Boston"><p>Boston, MA</p></option>
+              <option selected value="New York"><p>New York, NY</p></option>
+              <option value="Philadelphia"><p>Philadelphia, PA</p></option>
+              <option value="Pittsburgh"><p>Pittsburgh, PA/p></option>
+              <option value="Washington DC"><p>Washington DC</p></option>
+            </optgroup>
+
+            <optgroup label="Pacific">
+              <option value="Bakersfield"><p>Bakersfield, CA</p></option>
+              <option value="Fresno"><p>Fresno, CA</p></option>
+              <option value="Honolulu"><p>Honolulu, HI</p></option>
+              <option selected value="Los Angeles"><p>Los Angeles, CA</p></option>
+              <option value="Oakland"><p>Oakland, CA</p></option>
+              <option value="Portland"><p> Portland, OR</p></option>
+              <option selected value="Sacramento"><p>Sacramento, CA</p></option>
+              <option selected value="San Diego"><p>San Diego, CA</p></option>
+              <option selected value="San Francisco"><p>San Francisco, CA</p></option>
+              <option selected value="San Jose"><p>San Jose, CA</p></option>
+              <option value="Seattle"><p>Seattle, WA</p></option>
+            </optgroup>
+
+            <optgroup label="Southeast">
+              <option selected value="Atlanta"><p>Atlanta, GA</p></option>
+              <option value="Charlotte"><p>Charlotte, NC</p></option>
+              <option value="Jacksonville"><p>Jacksonville, FL</p></option>
+              <option value="Memphis"><p> Memphis, TN</p></option>
+              <option value="Miami"><p>Miami, FL</p></option>
+              <option value="Nashville"><p>Nashville, TN</p></option>
+              <option value="New Orleans"><p>New Orleans, LA</p></option>
+              <option value="Raleigh"><p>Raleigh, NC</p></option>
+              <option value="Tampa"><p>Tampa, FL</p></option>
+              <option value="Orlando"><p>Orlando, FL</p></option>
+            </optgroup>
+
+            <optgroup label="Southwest">
+              <option value="Albuquerque"><p>Albuquerque, NM</p></option>
+              <option value="Austin"><p>Austin, TX</p></option>
+              <option value="Colorado Springs"><p>Colorado Springs, CO</p></option>
+              <option selected value="Denver"><p>Denver, CO</p></option>
+              <option value="El Paso"><p>El Paso, TX</p></option>
+              <option value="Fort Worth"><p> Fort Worth, TX</p></option>
+              <option value="Houston"><p>Houston, TX</p></option>
+              <option value="Las Vegas"><p> Las Vegas, NV</p></option>
+              <option value="Phoenix"><p>Phoenix, AZ</p></option>
+              <option value="Salt Lake City"><p>Salt Lake City, UT</p></option>
+              <option value="San Antonio"><p>San Antonio, TX</p></option>
+              <option value="Tucson"><p>Tucson, AZ</p></option>
+              <option value="Tulsa"><p>Tulsa, OK</p></option>
+              <option value="Dallas"><p>Dallas, TX</p></option>
+              <option value="Oklahoma City"><p>Oklahoma City, OK</p></option>
+            </optgroup>
+          </select> 
+
+
         </div>
       
         <div class="col-10">
