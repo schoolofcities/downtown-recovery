@@ -29,7 +29,39 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             orientation: 'h',
             transforms: [{
                 type: 'groupby',
-                groups: regions
+                groups: regions,
+                styles: {
+                    Canada: {
+                        line: {
+                            color: '#e41a1c'
+                        }
+                    },
+                    Midwest: {
+                        line: {
+                            color: '#377eb8'
+                        }
+                    },
+                    Northeast: {
+                        line: {
+                            color: '#4daf4a'
+                        }
+                    },
+                    Pacific: {
+                        line: {
+                            color: '#984ea3'
+                        }
+                    },
+                    Southeast: {
+                        line: {
+                            color: '#ff7f00'
+                        }
+                    },
+                    Southwest: {
+                        line: {
+                            color: '#e6ab02'
+                        }
+                    }
+                }
             }],
             text: unpack(rows, 'display_title'),
             marker: {
