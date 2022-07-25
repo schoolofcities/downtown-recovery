@@ -78,7 +78,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 20
+                    size: 14
                 }
             },
             xaxis: {
@@ -117,12 +117,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             legend: {
                 "orientation": "h",
-                x:.25,
+                x:0,
                 y:1,
+                xanchor:'left',
                 yanchor:'bottom',
                 font: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                 }
             }

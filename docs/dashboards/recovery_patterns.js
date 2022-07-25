@@ -85,7 +85,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 20
+                    size: 14
                 }
             },
             xaxis: {
@@ -93,14 +93,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 range: ['2020-04-01', '2022-05-01'],
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Month',
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
@@ -109,14 +109,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 showticklabels: true,
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Metric',
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
@@ -124,7 +124,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             legend: {
                 font: {
                     family: 'Courier New, monospace',
-                    size: 16,
+                    size: 12,
                     color: '#ffffff'
                 }
             }

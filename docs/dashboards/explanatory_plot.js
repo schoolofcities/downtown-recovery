@@ -27,10 +27,19 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             text: unpack(rows, 'display_title'),
             textposition: "top center",
             textfont: {
-                color:unpack(rows, 'color')
+                color:unpack(rows, 'color'),
+                size: 10
             },
             hoverinfo:"x+y",
-            //hoveron: 'points',
+            hovertemplate:
+
+            "<b>City: </b>%{text}<br>" +
+
+            "<b>Recovery %{yaxis.title.text}: </b> %{y}<br>" +
+
+            "<b>%{xaxis.title.text}: </b>%{x}<br>" +
+
+            "<extra></extra>",
             transforms: [{
                 type: 'groupby',
                 groups: regions,
@@ -71,7 +80,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             
             marker: {
                 color: unpack(rows, 'color'),
-                size: 5
+                size: 6
             },
         }];
 
@@ -85,14 +94,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 20
+                    size: 14
                 }
             },
             xaxis: {
                 gridcolor: '#bdbdbd',
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 showticklabels: true,
@@ -102,7 +111,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     text: x_name,
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
@@ -112,26 +121,28 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 showticklabels: true,
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Metric',
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
             },
             legend: {
                 "orientation": "h",
-                x:.25,
+                x:0,
                 y:1,
+                
+                xanchor:'left',
                 yanchor:'bottom',
                 font: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                 }
             }
