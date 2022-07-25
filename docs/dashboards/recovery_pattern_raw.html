@@ -136,14 +136,21 @@
               </div>
             </div>
           </div>
-
+          <div class="section level2">
+            <h5>Select recovery metric:</h5>
+          </div>
+          
           <select name="select_pattern_metric" id="select_pattern_metric" label="Choose an independent variable:">
             <option value="downtown">Downtown</option>
             <option value="city">City</option>
             <option value="relative">Relative</option>
           </select>
 
-          <select name="patterns_cities" class="form-select" multiple id="patterns_cities" label="Select cities:" style="height:80%;">
+          <div class="section level2">
+            <h5>Select cities:</h5>
+          </div>
+
+          <select name="patterns_cities" class="form-select" multiple id="patterns_cities" label="Select cities:" style="height:100%; width:80%;">
 
             <!--<optgroup label="Canada">-->
             <option value="Calgary">Calgary, AB</option>
@@ -351,13 +358,12 @@
 
             <!-- </optgroup>-->
           </select>
-
-
+      
         </div>
 
         <div class="col-10">
 
-          <div class="plot-container" id="patterns-plot" style="width: 80%; height:80%;">
+          <div class="plot-container" id="patterns-plot">
 
           </div>
         </div>

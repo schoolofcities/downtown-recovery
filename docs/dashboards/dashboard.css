@@ -67,8 +67,8 @@ div.map-container iframe{
   position: absolute;
   overflow: hidden;
   display: inline;
-  height:100%;
-  width:100%;
+  height:80%;
+  width:80%;
   border: none;
 }
 
@@ -87,7 +87,7 @@ div.plot-container#rankings-plot{
   overflow:auto;
   display:inline;
   height:100%;
-  width:100%;
+  width:80%;
   border: none;
 }
 
@@ -104,8 +104,8 @@ div.plot-container#explanatory-plot{
   position: absolute;
   overflow:auto;
   display:inline;
-  height:100%;
-  width:100%;
+  height:80%;
+  width:80%;
   border: none;
 }
 
