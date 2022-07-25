@@ -23,7 +23,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             x: unpack(rows, x_val),
             y: unpack(rows, y_val),
             type: 'scatter',
-            mode: 'markers',
+            mode: 'markers+text',
+            text: unpack(rows, 'display_title'),
+            textposition: "top center",
+            textfont: {
+                color:unpack(rows, 'color')
+            },
+            hoverinfo:"x+y",
+            //hoveron: 'points',
             transforms: [{
                 type: 'groupby',
                 groups: regions,
@@ -60,10 +67,11 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     }
                 }
             }],
-            text: unpack(rows, 'display_title'),
+            
+            
             marker: {
                 color: unpack(rows, 'color'),
-                size: 20
+                size: 5
             },
         }];
 
@@ -71,15 +79,16 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery',
+                text: y_val.toProperCase() + ' recovery: Mar 2022 - May 2022',
 
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 24
+                    size: 20
                 }
             },
             xaxis: {
+                gridcolor: '#bdbdbd',
                 tickfont: {
                     family: 'Courier New, monospace',
                     size: 14,
@@ -98,6 +107,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             yaxis: {
+                gridcolor: '#bdbdbd',
                 showticklabels: true,
                 tickfont: {
                     family: 'Courier New, monospace',
@@ -114,15 +124,20 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             legend: {
+                "orientation": "h",
+                x:.25,
+                y:1,
+                yanchor:'bottom',
                 font: {
                     family: 'Courier New, monospace',
-                    size: 16,
+                    size: 14,
                     color: '#ffffff'
                 }
             }
         };
 
         var config = {
+            responsive: true,
             displayModeBar: false
         }
 

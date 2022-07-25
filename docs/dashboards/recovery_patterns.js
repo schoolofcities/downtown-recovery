@@ -81,11 +81,11 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery',
+                text: y_val.toProperCase() + ' recovery: 11 week rolling average',
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 24
+                    size: 20
                 }
             },
             xaxis: {
@@ -131,6 +131,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         };
 
         var config = {
+            responsive: true,
             displayModeBar: false
         }
 

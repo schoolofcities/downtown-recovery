@@ -78,9 +78,9 @@
 
   </header>
   <main>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
+    <div class="row">
+      
+        <div class="col-6">
           <div class="accordion" id="accordionContainer">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -123,212 +123,217 @@
               </div>
             </div>
           </div>
-          <div class="section level2">
+        </div>
+          <div class = "col-3">
+            <div class="section level2">
             <h5>Select recovery metric:</h5>
+            <select name="select_metric" id="select_metric" style="width:25%; height:25%;" label="Choose an independent variable:">
+
+              <option value="downtown">Downtown</option>
+              <option value="city">City</option>
+              <option value="relative">Relative</option>
+            </select>
+            </div>
+            </div>
+            <div class = "col-3">
+            <div class="section level2">
+              <h5>Select independent variable:</h5>
+            <select name="x_vars" id="x_vars" label="Choose an independent variable:" style="width:25%; height:25%;">
+              <optgroup label="City-wide ACS 2015 - 2019 estimates">
+                <option value="total_pop_city">Total Population</option>
+                <option value="population_density_city">
+                  <p>Population Density</p>
+                </option>
+                <option value="housing_units_city">
+                  <p>Total Housing Stock</p>
+                </option>
+                <option value="housing_density_city">
+                  <p>Housing Density</p>
+                </option>
+                <option value="pct_renter_city">
+                  <p>Percentage of Rented-Occupied Units</p>
+                </option>
+                <option value="pct_singlefam_city">
+                  <p>Percentage of Single-Family Homes</p>
+                </option>
+                <option value="pct_multifam_city">
+                  <p>Percentage of Multi-Family Homes</p>
+                </option>
+                <option value="median_age_city">
+                  <p>Median Age of Residents</p>
+                </option>
+                <option value="bachelor_plus_city">
+                  <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
+                </option>
+                <option value="pct_vacant_city">
+                  <p>Percentage of Vacant Housing Units</p>
+                </option>
+                <option value="median_rent_city">
+                  <p>Median Rent of Housing Units</p>
+                </option>
+                <option value="median_hhinc_city">
+                  <p>Median Household Income of Residents</p>
+                </option>
+                <option value="pct_nhwhite_city">
+                  <p>Percentage of White Residents</p>
+                </option>
+                <option value="pct_nhblack_city">
+                  <p>Percentage of Black Residents</p>
+                </option>
+                <option value="pct_hisp_city">
+                  <p>Percentage of Hispanic Residents</p>
+                </option>
+                <option value="pct_nhasian_city">
+                  <p>Percentage of Asian Residents</p>
+                </option>
+                <option value="pct_commute_auto_city">
+                  <p>Percentage of Residents who Commute to Work by Car</p>
+                </option>
+                <option value="pct_commute_public_transit_city">
+                  <p>Percentage of Residents who Commute to Work by Public Transit</p>
+                </option>
+                <option value="pct_commute_bicycle_city">
+                  <p>Percentage of Residents who Commute to Work by Bicycle</p>
+                </option>
+                <option value="pct_commute_walk_city">
+                  <p>Percentage of Residents who Commute to Work by Walking</p>
+                </option>
+                <option value="pct_commute_others_city">
+                  <p>Percentage of Residents who Commute to Work by Other Modes</p>
+                </option>
+                <option value="average_commute_time_city">
+                  <p>Average City-wide Commute Time</p>
+                </option>
+              </optgroup>
+  
+              <optgroup label="Downtown ACS 2015 - 2019 estimates">
+                <option value="total_pop_downtown">
+                  <p>Total Population</p>
+                </option>
+                <option value="population_density_downtown">
+                  <p>Population Density</p>
+                </option>
+                <option value="housing_units_downtown">
+                  <p>Total Housing Stock</p>
+                </option>
+                <option value="housing_density_downtown">
+                  <p>Housing Density</p>
+                </option>
+                <option value="pct_renter_downtown">
+                  <p>Percentage of Rented-Occupied Units</p>
+                </option>
+                <option value="pct_singlefam_downtown">
+                  <p>Percentage of Single-Family Homes</p>
+                </option>
+                <option value="pct_multifam_downtown">
+                  <p>Percentage of Multi-Family Homes</p>
+                </option>
+                <option value="median_age_downtown">
+                  <p>Median Age of Residents</p>
+                </option>
+                <option value="bachelor_plus_downtown">
+                  <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
+                </option>
+                <option value="pct_vacant_downtown">
+                  <p>Percentage of Vacant Housing Units</p>
+                </option>
+                <option value="median_rent_downtown">
+                  <p>Median Rent of Housing Units</p>
+                </option>
+                <option value="median_hhinc_downtown">
+                  <p>Median Household Income of Residents</p>
+                </option>
+              </optgroup>
+  
+              <optgroup label="Downtown LEHD work area characteristics">
+                <option value="employment_density_downtown">
+                  <p>Employment Density</p>
+                </option>
+                <option value="employment_entropy">
+                  <p>Employment Entropy</p>
+                </option>
+                <option value="pct_jobs_agriculture_forestry_fishing_hunting">
+                  <p>Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting</p>
+                </option>
+                <option value="pct_jobs_mining_quarrying_oil_gas">
+                  <p>Percentage of Jobs in Mining, Quarrying, Oil, and Gas</p>
+                </option>
+                <option value="pct_jobs_utilities">
+                  <p>Percentage of Jobs in Utilities</p>
+                </option>
+                <option value="pct_jobs_construction">
+                  <p>Percentage of Jobs in Construction</p>
+                </option>
+                <option value="pct_jobs_manufacturing">
+                  <p>Percentage of Jobs in Manufacturing</p>
+                </option>
+                <option value="pct_jobs_wholesale_trade">
+                  <p>Percentage of Jobs in Wholesale Trade</p>
+                </option>
+                <option value="pct_jobs_retail_trade">
+                  <p>Percentage of Jobs in Retail Trade</p>
+                </option>
+                <option value="pct_jobs_transport_warehouse">
+                  <p>Percentage of Jobs in Transportation and Warehousing</p>
+                </option>
+                <option value="pct_jobs_information">
+                  <p>Percentage of Jobs in Information</p>
+                </option>
+                <option value="pct_jobs_finance_insurance">
+                  <p>Percentage of Jobs in Finance & Insurance</p>
+                </option>
+                <option value="pct_jobs_real_estate">
+                  <p>Percentage of Jobs in Real Estate</p>
+                </option>
+                <option value="pct_jobs_professional_science_techical">
+                  <p>Percentage of Jobs in Professional, Scientific, and Management</p>
+                </option>
+                <option value="pct_jobs_management_of_companies_enterprises">
+                  <p>Percentage of Jobs in Management</p>
+                </option>
+                <option value="pct_jobs_administrative_support_waste">
+                  <p>Percentage of Jobs in Administrative Support & Waste Management</p>
+                </option>
+                <option value="pct_jobs_educational_services">
+                  <p>Percentage of Jobs in Educational Services</p>
+                </option>
+                <option value="pct_jobs_healthcare_social_assistance">
+                  <p>Percentage of Jobs in Healthcare & Social Assistance</p>
+                </option>
+                <option value="pct_jobs_arts_entertainment_recreation">
+                  <p>Percentage of Jobs in Arts, Entertainment, and Recreation</p>
+                </option>
+                <option value="pct_jobs_accomodation_food_services">
+                  <p>Percentage of Jobs in Accommodation & Food Services</p>
+                </option>
+                <option value="pct_jobs_public_administration">
+                  <p>Percentage of Jobs in Public Administration</p>
+                </option>
+              </optgroup>
+              <optgroup label="COVID-19 policies">
+                <option value="composite_closing">
+                  <p>Composite of COVID-19 Closing Policies</p>
+                </option>
+                <option value="composite_economic">
+                  <p>Composite of COVID-19 Economic Policies</p>
+                </option>
+              </optgroup>
+            </select>
+          </div>
+          </div>
+          </div>
+          </div>
+          <div class="container-fluid">
+          <div class="plot-container" id="explanatory-plot" style="width: 100%; height:100%;"></div>
+         </div>
+        
            
-          </div>
-          <select name="select_metric" id="select_metric" label="Choose an independent variable:">
+     
+    
+     
+   
 
-            <option value="downtown">Downtown</option>
-            <option value="city">City</option>
-            <option value="relative">Relative</option>
-          </select>
-          <div class="section level2">
-            <h5>Select independent variable:</h5>
-           
-          </div>
-          <select name="x_vars" id="x_vars" label="Choose an independent variable:" style="width:80%;">
-            <optgroup label="City-wide ACS 2015 - 2019 estimates">
-              <option value="total_pop_city">Total Population</option>
-              <option value="population_density_city">
-                <p>Population Density</p>
-              </option>
-              <option value="housing_units_city">
-                <p>Total Housing Stock</p>
-              </option>
-              <option value="housing_density_city">
-                <p>Housing Density</p>
-              </option>
-              <option value="pct_renter_city">
-                <p>Percentage of Rented-Occupied Units</p>
-              </option>
-              <option value="pct_singlefam_city">
-                <p>Percentage of Single-Family Homes</p>
-              </option>
-              <option value="pct_multifam_city">
-                <p>Percentage of Multi-Family Homes</p>
-              </option>
-              <option value="median_age_city">
-                <p>Median Age of Residents</p>
-              </option>
-              <option value="bachelor_plus_city">
-                <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
-              </option>
-              <option value="pct_vacant_city">
-                <p>Percentage of Vacant Housing Units</p>
-              </option>
-              <option value="median_rent_city">
-                <p>Median Rent of Housing Units</p>
-              </option>
-              <option value="median_hhinc_city">
-                <p>Median Household Income of Residents</p>
-              </option>
-              <option value="pct_nhwhite_city">
-                <p>Percentage of White Residents</p>
-              </option>
-              <option value="pct_nhblack_city">
-                <p>Percentage of Black Residents</p>
-              </option>
-              <option value="pct_hisp_city">
-                <p>Percentage of Hispanic Residents</p>
-              </option>
-              <option value="pct_nhasian_city">
-                <p>Percentage of Asian Residents</p>
-              </option>
-              <option value="pct_commute_auto_city">
-                <p>Percentage of Residents who Commute to Work by Car</p>
-              </option>
-              <option value="pct_commute_public_transit_city">
-                <p>Percentage of Residents who Commute to Work by Public Transit</p>
-              </option>
-              <option value="pct_commute_bicycle_city">
-                <p>Percentage of Residents who Commute to Work by Bicycle</p>
-              </option>
-              <option value="pct_commute_walk_city">
-                <p>Percentage of Residents who Commute to Work by Walking</p>
-              </option>
-              <option value="pct_commute_others_city">
-                <p>Percentage of Residents who Commute to Work by Other Modes</p>
-              </option>
-              <option value="average_commute_time_city">
-                <p>Average City-wide Commute Time</p>
-              </option>
-            </optgroup>
 
-            <optgroup label="Downtown ACS 2015 - 2019 estimates">
-              <option value="total_pop_downtown">
-                <p>Total Population</p>
-              </option>
-              <option value="population_density_downtown">
-                <p>Population Density</p>
-              </option>
-              <option value="housing_units_downtown">
-                <p>Total Housing Stock</p>
-              </option>
-              <option value="housing_density_downtown">
-                <p>Housing Density</p>
-              </option>
-              <option value="pct_renter_downtown">
-                <p>Percentage of Rented-Occupied Units</p>
-              </option>
-              <option value="pct_singlefam_downtown">
-                <p>Percentage of Single-Family Homes</p>
-              </option>
-              <option value="pct_multifam_downtown">
-                <p>Percentage of Multi-Family Homes</p>
-              </option>
-              <option value="median_age_downtown">
-                <p>Median Age of Residents</p>
-              </option>
-              <option value="bachelor_plus_downtown">
-                <p>Percentage of Residents with a Bachelor's Degree or Higher</p>
-              </option>
-              <option value="pct_vacant_downtown">
-                <p>Percentage of Vacant Housing Units</p>
-              </option>
-              <option value="median_rent_downtown">
-                <p>Median Rent of Housing Units</p>
-              </option>
-              <option value="median_hhinc_downtown">
-                <p>Median Household Income of Residents</p>
-              </option>
-            </optgroup>
-
-            <optgroup label="Downtown LEHD work area characteristics">
-              <option value="employment_density_downtown">
-                <p>Employment Density</p>
-              </option>
-              <option value="employment_entropy">
-                <p>Employment Entropy</p>
-              </option>
-              <option value="pct_jobs_agriculture_forestry_fishing_hunting">
-                <p>Percentage of Jobs in Agriculture, Forestry, Fishing, and Hunting</p>
-              </option>
-              <option value="pct_jobs_mining_quarrying_oil_gas">
-                <p>Percentage of Jobs in Mining, Quarrying, Oil, and Gas</p>
-              </option>
-              <option value="pct_jobs_utilities">
-                <p>Percentage of Jobs in Utilities</p>
-              </option>
-              <option value="pct_jobs_construction">
-                <p>Percentage of Jobs in Construction</p>
-              </option>
-              <option value="pct_jobs_manufacturing">
-                <p>Percentage of Jobs in Manufacturing</p>
-              </option>
-              <option value="pct_jobs_wholesale_trade">
-                <p>Percentage of Jobs in Wholesale Trade</p>
-              </option>
-              <option value="pct_jobs_retail_trade">
-                <p>Percentage of Jobs in Retail Trade</p>
-              </option>
-              <option value="pct_jobs_transport_warehouse">
-                <p>Percentage of Jobs in Transportation and Warehousing</p>
-              </option>
-              <option value="pct_jobs_information">
-                <p>Percentage of Jobs in Information</p>
-              </option>
-              <option value="pct_jobs_finance_insurance">
-                <p>Percentage of Jobs in Finance & Insurance</p>
-              </option>
-              <option value="pct_jobs_real_estate">
-                <p>Percentage of Jobs in Real Estate</p>
-              </option>
-              <option value="pct_jobs_professional_science_techical">
-                <p>Percentage of Jobs in Professional, Scientific, and Management</p>
-              </option>
-              <option value="pct_jobs_management_of_companies_enterprises">
-                <p>Percentage of Jobs in Management</p>
-              </option>
-              <option value="pct_jobs_administrative_support_waste">
-                <p>Percentage of Jobs in Administrative Support & Waste Management</p>
-              </option>
-              <option value="pct_jobs_educational_services">
-                <p>Percentage of Jobs in Educational Services</p>
-              </option>
-              <option value="pct_jobs_healthcare_social_assistance">
-                <p>Percentage of Jobs in Healthcare & Social Assistance</p>
-              </option>
-              <option value="pct_jobs_arts_entertainment_recreation">
-                <p>Percentage of Jobs in Arts, Entertainment, and Recreation</p>
-              </option>
-              <option value="pct_jobs_accomodation_food_services">
-                <p>Percentage of Jobs in Accommodation & Food Services</p>
-              </option>
-              <option value="pct_jobs_public_administration">
-                <p>Percentage of Jobs in Public Administration</p>
-              </option>
-            </optgroup>
-            <optgroup label="COVID-19 policies">
-              <option value="composite_closing">
-                <p>Composite of COVID-19 Closing Policies</p>
-              </option>
-              <option value="composite_economic">
-                <p>Composite of COVID-19 Economic Policies</p>
-              </option>
-            </optgroup>
-          </select>
-        </div>
-
-        <div class="col-10">
-
-          <div class="plot-container" id="explanatory-plot" style="width: 80%; height:80%;">
-
-          </div>
-        </div>
-
-      </div>
-    </div>
   </main>
 
 </body>

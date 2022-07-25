@@ -74,17 +74,17 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery',
+                text: y_val.toProperCase() + ' recovery: Mar 2022 - May 2022',
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
-                    size: 24
+                    size: 20
                 }
             },
             xaxis: {
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 showticklabels: true,
@@ -92,7 +92,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     text: 'Recovery value',
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
@@ -101,7 +101,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 showticklabels: true,
                 tickfont: {
                     family: 'Courier New, monospace',
-                    size: 14,
+                    size: 12,
                     color: '#ffffff'
                   },
                 autorange: 'reversed',
@@ -110,21 +110,26 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     text: 'Ranking',
                     font: {
                         family: 'Courier New, monospace',
-                        size: 16,
+                        size: 12,
                         color: '#ffffff'
                     }
                 }
             },
             legend: {
+                "orientation": "h",
+                x:.25,
+                y:1,
+                yanchor:'bottom',
                 font: {
                     family: 'Courier New, monospace',
-                    size: 16,
+                    size: 14,
                     color: '#ffffff'
                 }
             }
         };
 
         var config = {
+            responsive: true,
             displayModeBar: false
         }
         Plotly.react(plotDiv, trace, layout, config);
