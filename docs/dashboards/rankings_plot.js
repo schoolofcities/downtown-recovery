@@ -25,7 +25,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     function setHBarPlot(y_val, season) {
         var trace = [{
             x: unpack(Object.values(rows).filter(item => (item.Season === season.value)), y_val),
-            y: rankDuplicate(unpack(Object.values(rows).filter(item => (item.Season === season.value)), y_val)),
+            y: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'lq_rank'),
             type: 'bar',
             orientation: 'h',
             transforms: [{
@@ -64,9 +64,9 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     }
                 }
             }],
-            text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'display_title'),
+            text: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'display_title'),
             marker: {
-                color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'color'),
+                color: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'color'),
                 size: 20
             },
         }];
