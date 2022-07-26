@@ -12,14 +12,17 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    var regions = unpack(rows, 'region');
+    
     var metricSelector = document.getElementById('select_metric');
     var seasonSelector = document.getElementById('select_explanatory_season');
     var xSelector = document.getElementById('x_vars');
 
+    
+
+
     function setScatterPlot(y_val, x_val, x_name, season) {
 
-
+        var regions = unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'region');
         var trace = [{
             x: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'x_val'),
             y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), y_val),
@@ -94,14 +97,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
                 font: {
                     color: '#ffffff',
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 14
                 }
             },
             xaxis: {
                 gridcolor: '#bdbdbd',
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
@@ -111,7 +114,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 title: {
                     text: x_name,
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -121,14 +124,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 gridcolor: '#bdbdbd',
                 showticklabels: true,
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Metric',
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -142,7 +145,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 xanchor:'left',
                 yanchor:'bottom',
                 font: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                 }

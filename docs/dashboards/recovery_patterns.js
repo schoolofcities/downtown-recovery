@@ -84,7 +84,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 text: y_val.toProperCase() + ' recovery: 11 week rolling average',
                 font: {
                     color: '#ffffff',
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 14
                 }
             },
@@ -92,14 +92,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 showticklabels: true,
                 range: ['2020-04-01', '2022-05-01'],
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Month',
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -108,14 +108,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             yaxis: {
                 showticklabels: true,
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
                 title: {
                     text: 'Metric',
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -123,7 +123,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             legend: {
                 font: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                 }

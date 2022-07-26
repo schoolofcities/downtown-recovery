@@ -24,7 +24,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     
     function setHBarPlot(metric, season) {
         var regions = unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'region');
-
         var trace = [{
             x: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'seasonal_average'),
             y: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'lq_rank'),
@@ -80,13 +79,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {
                     color: '#ffffff',
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 14
                 }
             },
             xaxis: {
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
@@ -94,7 +93,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 title: {
                     text: 'Recovery value',
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -103,7 +102,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             yaxis: {
                 showticklabels: true,
                 tickfont: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                   },
@@ -112,7 +111,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 title: {
                     text: 'Ranking',
                     font: {
-                        family: 'Courier New, monospace',
+                        family: 'Open Sans, monospace',
                         size: 12,
                         color: '#ffffff'
                     }
@@ -125,7 +124,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 xanchor:'left',
                 yanchor:'bottom',
                 font: {
-                    family: 'Courier New, monospace',
+                    family: 'Open Sans, monospace',
                     size: 12,
                     color: '#ffffff'
                 }
