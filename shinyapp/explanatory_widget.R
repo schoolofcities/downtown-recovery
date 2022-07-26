@@ -22,6 +22,7 @@ plot_data <- read.csv("../docs/model_data.csv")
 write.csv(plot_data %>%
   dplyr::select(-city) %>%
   pivot_wider(names_from = "metric", values_from = "y") %>%
+  inner_join(regions_df %>% dplyr::select(region, color), by = "region") %>%
   distinct(), "../docs/model_data_metrics.csv")
 
 

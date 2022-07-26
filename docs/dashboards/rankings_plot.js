@@ -22,10 +22,10 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         return arr.map((x) => rank.get(x));
     }
     
-    function setHBarPlot(y_val, season) {
+    function setHBarPlot(metric, season) {
         var trace = [{
-            x: unpack(Object.values(rows).filter(item => (item.Season === season.value)), y_val),
-            y: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'lq_rank'),
+            x: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'seasonal_average'),
+            y: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'lq_rank'),
             type: 'bar',
             orientation: 'h',
             transforms: [{
@@ -64,9 +64,9 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     }
                 }
             }],
-            text: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'display_title'),
+            text: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'display_title'),
             marker: {
-                color: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'color'),
+                color: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'color'),
                 size: 20
             },
         }];
@@ -75,7 +75,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
+                text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
