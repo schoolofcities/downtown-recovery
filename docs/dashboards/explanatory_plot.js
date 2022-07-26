@@ -21,14 +21,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
 
         var trace = [{
-            x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), x_val),
-            y: unpack(Object.values(rows).filter(item =>  (item.Season === season.value)), y_val),
+            x: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'x_val'),
+            y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), y_val),
             type: 'scatter',
             mode: 'markers+text',
-            text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'display_title'),
+            text: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'display_title'),
             textposition: "top center",
             textfont: {
-                color:unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'color'),
+                color:unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
                 size: 10
             },
             hoverinfo:"x+y",
@@ -80,7 +80,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             
             
             marker: {
-                color: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'color'),
+                color: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
                 size: 6
             },
         }];
