@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/model_data_long.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/ranking_data.csv', function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
@@ -14,17 +14,18 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
     var regions = unpack(rows, 'region');
     var metricSelector = document.getElementById('select_ranking_metric');
+    var seasonSelector = document.getElementById('select_ranking_season');
 
     function rankDuplicate(arr) {
         const sorted = [...new Set(arr)].sort((a, b) => b - a);
         const rank = new Map(sorted.map((x, i) => [x, i + 1]));
         return arr.map((x) => rank.get(x));
     }
-
-    function setHBarPlot(y_val) {
+    
+    function setHBarPlot(y_val, season) {
         var trace = [{
-            x: unpack(rows, y_val),
-            y: rankDuplicate(unpack(rows, y_val)),
+            x: unpack(Object.values(rows).filter(item => (item.Season === season.value)), y_val),
+            y: rankDuplicate(unpack(Object.values(rows).filter(item => (item.Season === season.value)), y_val)),
             type: 'bar',
             orientation: 'h',
             transforms: [{
@@ -63,9 +64,9 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     }
                 }
             }],
-            text: unpack(rows, 'display_title'),
+            text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'display_title'),
             marker: {
-                color: unpack(rows, 'color'),
+                color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'color'),
                 size: 20
             },
         }];
@@ -74,7 +75,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery: Mar 2022 - May 2022',
+                text: y_val.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {
                     color: '#ffffff',
                     family: 'Courier New, monospace',
@@ -137,9 +138,18 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     };
 
     function updateMetric() {
-        setHBarPlot(metricSelector.value);
+        setHBarPlot(metricSelector.value, seasonSelector);
     }
+
+    function updateSeason() {
+        setHBarPlot(metricSelector.value, seasonSelector);
+    }
+
+
    
     metricSelector.addEventListener('change', updateMetric, false);
-    setHBarPlot(metricSelector.value);
+
+    seasonSelector.addEventListener('change', updateSeason, false);
+
+    setHBarPlot(metricSelector.value, seasonSelector);
 });

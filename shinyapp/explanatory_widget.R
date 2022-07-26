@@ -14,13 +14,13 @@ source("dtra_functions.R")
 # interactive_plot
 
 plot_x_vars <- named_factors
-plot_data <- create_model_df_long(plot_x_vars)
+plot_data <- create_model_df_long(unname(plot_x_vars))
 write.csv(plot_data, "../docs/model_data_long.csv")
 
 plot_data <- read.csv("../docs/model_data.csv")
 
 write.csv(plot_data %>%
-  dplyr::select(-city, -state, -Season, -X) %>%
+  dplyr::select(-city) %>%
   pivot_wider(names_from = "metric", values_from = "y") %>%
   distinct(), "../docs/model_data_metrics.csv")
 

@@ -35,7 +35,20 @@ create_buttons <- function(df, var_names, axis_type) {
   )
 }
 
-
+recovery_rankings_df_widget <- function() {
+  unique(all_seasonal_metrics %>%
+           dplyr::select(display_title,
+                         seasonal_average,
+                         region,
+                         metric,
+                         city,
+                         Season)) %>%
+    dplyr::filter(!is.na(seasonal_average)) %>%
+    group_by(metric, Season) %>%
+    dplyr::arrange(-seasonal_average) %>%
+    mutate(lq_rank = rank(-seasonal_average, ties.method = "first")) %>%
+    ungroup()
+}
 
 
 
@@ -259,7 +272,7 @@ create_model_df_long <- function(chosen_x_vars) {
     dplyr::select(city, display_title, Season, seasonal_average, metric)
   
   X <- explanatory_vars %>%
-    dplyr::select(-display_title, -state, -metro_size, all_of(chosen_x_vars))
+    dplyr::select(-display_title, -state, -metro_size, chosen_x_vars)
   
   colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   

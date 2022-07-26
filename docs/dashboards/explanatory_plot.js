@@ -14,20 +14,21 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
     var regions = unpack(rows, 'region');
     var metricSelector = document.getElementById('select_metric');
+    var seasonSelector = document.getElementById('select_explanatory_season');
     var xSelector = document.getElementById('x_vars');
 
-    function setScatterPlot(y_val, x_val, x_name) {
+    function setScatterPlot(y_val, x_val, x_name, season) {
 
 
         var trace = [{
-            x: unpack(rows, x_val),
-            y: unpack(rows, y_val),
+            x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), x_val),
+            y: unpack(Object.values(rows).filter(item =>  (item.Season === season.value)), y_val),
             type: 'scatter',
             mode: 'markers+text',
-            text: unpack(rows, 'display_title'),
+            text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'display_title'),
             textposition: "top center",
             textfont: {
-                color:unpack(rows, 'color'),
+                color:unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.Season === season.value)), 'color'),
                 size: 10
             },
             hoverinfo:"x+y",
@@ -79,7 +80,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             
             
             marker: {
-                color: unpack(rows, 'color'),
+                color: unpack(Object.values(rows).filter(item => (item.Season === season.value)), 'color'),
                 size: 6
             },
         }];
@@ -89,7 +90,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery: Mar 2022 - May 2022',
+                text: y_val.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
 
                 font: {
                     color: '#ffffff',
@@ -159,16 +160,22 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
 
     function updateX() {
-        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
     }
 
     function updateMetric() {
-        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
+    }
+
+    function updateSeason() {
+        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
     }
 
     xSelector.addEventListener('change', updateX, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
-    setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text);
+    seasonSelector.addEventListener('change', updateSeason, false);
+
+    setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
 });
