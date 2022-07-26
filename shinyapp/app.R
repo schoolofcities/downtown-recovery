@@ -1109,7 +1109,7 @@ server = function(input, output, session) {
       ) +
       coord_flip(clip = "off", expand = FALSE) +
       labs(title = paste(names(named_metrics[named_metrics == input$recovery_rankings_metric[1]]), "Recovery Rankings"),
-           subtitle = names(named_periods[9]),
+           subtitle = names(named_periods[named_periods == input$recovery_rankings_period[1]]),
            fill = "Region") +
       scale_y_continuous("", labels = scales::percent) +
       scale_x_reverse("") +
