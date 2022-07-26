@@ -102,20 +102,20 @@ ui <- bootstrapPage(
                       multiple = TRUE,
                       selected = unlist(regions_choices),
                       pickerOptions(mobile = TRUE)
-                    )
+                    ),
                    
-                   # pickerInput(
-                   #   "recovery_rankings_period",
-                   #   span(tags$i(
-                   #     h6(
-                   #       "Select the comparison period. Only one period can be selected at a time."
-                   #     )
-                   #   )),
-                   #   choices = named_periods,
-                   #   selected = named_periods[9],
-                   #   multiple = FALSE,
-                   #   pickerOptions(mobile = TRUE)
-                   # )
+                    pickerInput(
+                      "recovery_rankings_period",
+                      span(tags$i(
+                        h6(
+                          "Select the comparison period. Only one period can be selected at a time."
+                        )
+                      )),
+                      choices = named_periods,
+                      selected = named_periods[9],
+                      multiple = FALSE,
+                      pickerOptions(mobile = TRUE)
+                    )
                  ),
                  mainPanel(
                     tags$style(
@@ -138,6 +138,18 @@ ui <- bootstrapPage(
                sidebarLayout(
                  sidebarPanel(
                    pickerInput(
+                     "recovery_patterns_metric",
+                     span(tags$i(
+                       h6(
+                         "Select which metric to use in the ranking. Only one metric can be selected at a time."
+                       )
+                     )),
+                     choices = named_metrics,
+                     selected = "downtown",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                   pickerInput(
                      "recovery_patterns_cities",
                      span(tags$i(
                        h6(
@@ -151,18 +163,7 @@ ui <- bootstrapPage(
                      pickerOptions(mobile = TRUE)
                      
                    ),
-                   pickerInput(
-                     "recovery_patterns_metric",
-                     span(tags$i(
-                       h6(
-                         "Select which metric to use in the ranking. Only one metric can be selected at a time."
-                       )
-                     )),
-                     choices = named_metrics,
-                     selected = "downtown",
-                     multiple = FALSE,
-                     pickerOptions(mobile = TRUE)
-                   ),
+                   
 
                    sliderInput(
                      "rolling_window",
@@ -212,32 +213,6 @@ ui <- bootstrapPage(
                      pickerOptions(mobile = TRUE)
                    ),
                    pickerInput(
-                     "x",
-                     span(tags$i(
-                       h6(
-                         "Select independent variable. Only one variable can be selected at a time."
-                       )
-                     )),
-                     choices = named_factors,
-                     selected = "pct_jobs_information",
-                     multiple = FALSE,
-                     pickerOptions(mobile = TRUE)
-                   ),
-                  
-                   # pickerInput(
-                   #   "y",
-                   #   span(tags$i(
-                   #     h6(
-                   #       "Select dependent variable. Only one variable can be selected at a time."
-                   #     )
-                   #   )),
-                   #   choices = named_periods,
-                   #   selected = named_periods[9],
-                   #   multiple = FALSE,
-                   #   pickerOptions(mobile = TRUE)
-                   # ),
-                   
-                   pickerInput(
                      "slr_cities",
                      span(tags$i(
                        h6(
@@ -250,6 +225,33 @@ ui <- bootstrapPage(
                      multiple = TRUE,
                      pickerOptions(mobile = TRUE)
                    ),
+                   pickerInput(
+                     "x",
+                     span(tags$i(
+                       h6(
+                         "Select independent variable. Only one variable can be selected at a time."
+                       )
+                     )),
+                     choices = named_factors,
+                     selected = "pct_jobs_information",
+                     multiple = FALSE,
+                     pickerOptions(mobile = TRUE)
+                   ),
+                  
+                    pickerInput(
+                      "y",
+                      span(tags$i(
+                        h6(
+                          "Select dependent variable. Only one variable can be selected at a time."
+                        )
+                      )),
+                      choices = named_periods,
+                      selected = named_periods[9],
+                      multiple = FALSE,
+                      pickerOptions(mobile = TRUE)
+                    ),
+                   
+                  
                    verbatimTextOutput("slr_summary")
                  ),
                  
@@ -317,15 +319,15 @@ ui <- bootstrapPage(
                 selected = "downtown",
                 multiple = FALSE,
                 pickerOptions(mobile = TRUE)
-              )
-              # pickerInput(
-              #   "map_period",
-              #   label = span(tags$i(h5("Select recovery period:")), style = "color:#045a8d"),
-              #   choices = named_periods,
-              #   selected = named_periods[9],
-              #   multiple = FALSE,
-              #   pickerOptions(mobile = TRUE)
-              # )
+              ),
+               pickerInput(
+                 "map_period",
+                 label = span(tags$i(h5("Select recovery period:")), style = "color:#045a8d"),
+                 choices = named_periods,
+                 selected = named_periods[9],
+                 multiple = FALSE,
+                 pickerOptions(mobile = TRUE)
+               )
             )
           )
         ),
@@ -446,13 +448,13 @@ server = function(input, output, session) {
     # filters on user selected metric as well as multi-city choice
     
     y <- all_seasonal_metrics %>%
-      dplyr::filter((metric == input$slr_metric) #&
-                    #(Season == input$y)
+      dplyr::filter((metric == input$slr_metric) &
+                    (Season == input$y)
                     ) %>%
       dplyr::select(city, display_title, Season, seasonal_average)
     
     X <- explanatory_vars %>%
-        #dplyr::filter(Season == input$y) %>%
+        dplyr::filter(Season == input$y) %>%
         dplyr::select(city, region, starts_with(input$x)) %>%
         distinct(city, region, all_of(input$x), .keep_all = TRUE)
     
@@ -500,14 +502,15 @@ server = function(input, output, session) {
         (metric == input$recovery_rankings_metric[1]) &
         #(metro_size %in% input$rankings_metro_size) &
         (region %in% input$rankings_regions) &
-        (display_title %in% input$rankings_cities) #&
-        #(Season == input$recovery_rankings_period)
+        (display_title %in% input$rankings_cities) &
+        (Season == input$recovery_rankings_period)
         ) %>%
       dplyr::select(display_title,
                     #metro_size,
                     seasonal_average,
                     region,
                     metric,
+                    Season,
                     city))
 
     colnames(ranking_df) <-
@@ -516,6 +519,7 @@ server = function(input, output, session) {
         "recovery_rankings_period",
         "region",
         "metric",
+        "Season",
         "city")
     ranking_df
   })
@@ -715,7 +719,7 @@ server = function(input, output, session) {
             axis.title = element_text(size = 12),
             plot.subtitle = element_text(size = 14, hjust = .5)) +
       labs(x = names(named_factors[named_factors == input$x[1]]),
-           y = names(named_periods[9]),
+           y = names(named_periods[named_periods == input$y[1]]),
            title = eq,
            subtitle = r_squared,
            color = "Region") +
@@ -794,7 +798,7 @@ server = function(input, output, session) {
                   round(point[,input$x[1]], 2),
                   "<br/>",
                   "<b>",
-                  names(named_periods[9]),
+                  names(named_periods[named_periods == input$y[1]]),
                   ": </b>",
                   round(point[,input$y[1]], 2),
                   "<br/>"
@@ -815,7 +819,8 @@ server = function(input, output, session) {
   output$can_us_map <- renderLeaflet({
     
     plot_metrics <- all_seasonal_metrics %>%
-      dplyr::filter(metric == input$map_metric[1]) %>%
+      dplyr::filter((metric == input$map_metric[1]) &
+                    (Season == input$map_period[1]))%>%
        mutate(popup =  str_c(
          '<b>City: </b>', city, '<br>',
          '<b>Seasonal average: </b>', percent(round(seasonal_average, 2), 1),'<br>'
@@ -1179,7 +1184,7 @@ server = function(input, output, session) {
                       (Season == input$y)) %>%
       dplyr::select(city, Season, seasonal_average)
     
-    X <- explanatory_vars_wide %>%
+    X <- explanatory_vars %>%
       dplyr::filter(Season == input$y) %>%
       distinct(city, .keep_all = TRUE)
     

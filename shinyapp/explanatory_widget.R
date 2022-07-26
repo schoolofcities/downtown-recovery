@@ -29,38 +29,38 @@ write.csv(plot_data %>%
 
 #htmlwidgets::saveWidget(explanatory_plot("downtown", "pct_jobs_information", "Season_9"), "../docs/widgets/explanatory_variables.html", selfcontained = FALSE)
 
-for (selected_metric in c("downtown", "city", "relative")) {
-
-  
-  
-  pd <- highlight_key(plot_data, ~city)
-  
-  
-  p <- plot_ly(pd, 
-               color = ~region, 
-               colors = c("Canada" = "#e41a1c",
-                                               "Midwest" = "#377eb8",
-                                               "Northeast" = "#4daf4a",
-                                               "Pacific" = "#984ea3",
-                                               "Southeast" = "#ff7f00",
-                                               "Southwest" = "#e6ab02"),
-               hovertext = ~paste("City: ", city, '<br>', x_var, x_val),
-               hoverinfo = "x+y"
-               ) %>% 
-    group_by(x_var) %>%
-    config(displayModeBar  = FALSE) %>%
-    add_markers(x = ~x_val,
-                y = ~y,
-                hoverinfo = "x+y") %>%
-    highlight(selectize = TRUE,
-              dynamic = TRUE,
-              persistent = FALSE)
-  
-  widget2save <- bscols(
-    filter_select("x_vars", "Select a variable: ", pd, ~x_var),
-    p,
-    widths = c(2, 10)
-  )
+# for (selected_metric in c("downtown", "city", "relative")) {
+# 
+#   
+#   
+#   pd <- highlight_key(plot_data, ~city)
+#   
+#   
+#   p <- plot_ly(pd, 
+#                color = ~region, 
+#                colors = c("Canada" = "#e41a1c",
+#                                                "Midwest" = "#377eb8",
+#                                                "Northeast" = "#4daf4a",
+#                                                "Pacific" = "#984ea3",
+#                                                "Southeast" = "#ff7f00",
+#                                                "Southwest" = "#e6ab02"),
+#                hovertext = ~paste("City: ", city, '<br>', x_var, x_val),
+#                hoverinfo = "x+y"
+#                ) %>% 
+#     group_by(x_var) %>%
+#     config(displayModeBar  = FALSE) %>%
+#     add_markers(x = ~x_val,
+#                 y = ~y,
+#                 hoverinfo = "x+y") %>%
+#     highlight(selectize = TRUE,
+#               dynamic = TRUE,
+#               persistent = FALSE)
+#   
+#   widget2save <- bscols(
+#     filter_select("x_vars", "Select a variable: ", pd, ~x_var),
+#     p,
+#     widths = c(2, 10)
+#   )
     
 
   
@@ -74,6 +74,6 @@ for (selected_metric in c("downtown", "city", "relative")) {
   #                              opts_sizing(rescale = TRUE, width = .8)
   #                            )),
   #                       )
-  widget2save$sizingPolicy$padding <- 0
-  htmltools::save_html(widget2save, paste0("../docs/widgets/explanatory_variables_", selected_metric, ".html"))
-}
+#   widget2save$sizingPolicy$padding <- 0
+#   htmltools::save_html(widget2save, paste0("../docs/widgets/explanatory_variables_", selected_metric, ".html"))
+# }

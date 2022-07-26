@@ -1,0 +1,595 @@
+﻿City ,State,Season,Sum of C1_FULL,Sum of C2_FULL,Sum of C4_Large,Sum of C4_FULL,Sum of C6_FULL,Sum of E1_FULL,Sum of H6_FULL,Sum of V4_FULL
+Vancouver,British Columbia,Spring 2020,7,90,90,90,0,74,90,0
+Montreal,Quebec,Spring 2020,32,90,90,90,17,90,90,0
+Calgary,Alberta,Spring 2020,6,69,0,90,0,74,90,0
+Halifax,Nova Scotia,Spring 2020,38,0,54,90,0,74,90,0
+London,Ontario,Spring 2020,12,55,55,90,0,90,90,0
+Edmonton,Alberta,Spring 2020,6,69,0,90,0,74,90,0
+Mississauga,Ontario,Spring 2020,12,55,55,90,0,90,90,0
+Ottawa,Ontario,Spring 2020,12,55,55,90,0,90,90,0
+Winnipeg,Manitoba,Spring 2020,89,58,58,89,0,73,89,0
+Toronto,Ontario,Spring 2020,12,55,55,90,0,90,90,0
+Quebec,Quebec,Spring 2020,32,90,90,90,17,90,90,0
+Columbus,Ohio,Spring 2020,27,0,0,0,0,0,0,0
+Indianapolis,Indiana,Spring 2020,0,0,0,0,0,0,90,0
+Charlotte,North Carolina,Spring 2020,0,0,0,0,0,0,69,0
+San Francisco,California,Spring 2020,21,0,42,30,0,0,90,0
+Seattle,Washington,Spring 2020,0,0,0,0,0,0,90,0
+Denver,Colorado,Spring 2020,62,0,62,0,0,0,14,90
+Washington DC,Washington DC,Spring 2020,23,0,0,0,0,0,90,90
+Cleveland,Ohio,Spring 2020,27,0,0,0,0,0,0,0
+Honolulu,Hawaii,Spring 2020,0,0,0,83,0,0,90,0
+Cincinnati,Ohio,Spring 2020,27,0,0,0,0,0,0,0
+Pittsburgh,Pennsylvania,Spring 2020,27,0,0,0,0,0,49,0
+Salt Lake City,Utah,Spring 2020,0,0,0,0,0,0,84,0
+St Louis,Missouri,Spring 2020,0,0,0,0,0,0,1,0
+Orlando,Florida,Spring 2020,14,0,0,0,0,0,54,0
+San Antonio,Texas,Spring 2020,6,0,0,0,0,0,15,0
+San Diego,California,Spring 2020,21,0,42,30,0,0,90,0
+Dallas,Texas,Spring 2020,6,0,0,0,0,0,15,0
+San Jose,California,Spring 2020,21,0,42,30,0,0,90,0
+Austin,Texas,Spring 2020,6,0,0,0,0,0,15,0
+Jacksonville,Florida,Spring 2020,14,0,0,0,0,0,54,0
+Fort Worth,Texas,Spring 2020,6,0,0,0,0,0,15,0
+Sacramento,California,Spring 2020,21,0,42,30,0,0,90,0
+Kansas City,Missouri,Spring 2020,0,0,0,0,0,0,1,0
+Atlanta,Georgia,Spring 2020,90,0,0,0,0,0,0,0
+Omaha,Nebraska,Spring 2020,34,0,0,0,0,0,28,0
+Colorado Springs,Colorado,Spring 2020,62,0,62,0,0,0,14,90
+Raleigh,North Carolina,Spring 2020,0,0,0,0,0,0,69,0
+Miami,Florida,Spring 2020,14,0,0,0,0,0,54,0
+Oakland,California,Spring 2020,21,0,42,30,0,0,90,0
+Minneapolis,Minnesota,Spring 2020,0,0,0,0,0,0,90,0
+Tulsa,Oklahoma,Spring 2020,0,0,0,0,0,0,90,0
+Bakersfield,California,Spring 2020,21,0,42,30,0,0,90,0
+Wichita,Kansas,Spring 2020,0,0,0,0,0,0,62,0
+Tampa,Florida,Spring 2020,14,0,0,0,0,0,54,0
+New Orleans,Louisiana,Spring 2020,35,90,90,90,0,0,5,0
+Memphis,Tennessee,Spring 2020,0,0,0,0,0,0,90,0
+Louisville,Kentucky,Spring 2020,0,0,0,0,0,0,90,0
+Baltimore,Maryland,Spring 2020,0,0,0,0,0,0,0,35
+Milwaukee,Wisconsin,Spring 2020,0,0,0,0,0,0,69,0
+Albuquerque,New Mexico,Spring 2020,6,0,0,0,0,0,78,0
+Tucson,Arizona,Spring 2020,0,0,0,0,0,0,42,0
+Fresno,California,Spring 2020,21,0,42,30,0,0,90,0
+Nashville,Tennessee,Spring 2020,0,0,0,0,0,0,90,0
+Oklahoma City,Oklahoma,Spring 2020,0,0,0,0,0,0,90,0
+El Paso,Texas,Spring 2020,6,0,0,0,0,0,15,0
+Boston,Massachusetts,Spring 2020,34,45,0,0,0,0,0,0
+Portland,Oregon,Spring 2020,0,0,0,0,0,0,90,0
+Las Vegas,Nevada,Spring 2020,0,0,0,0,0,0,90,0
+Detroit,Michigan,Spring 2020,90,0,0,0,0,0,0,0
+New York,New York,Spring 2020,90,90,90,0,0,0,90,21
+Los Angeles,California,Spring 2020,21,0,42,30,0,0,90,0
+Chicago,Illinois,Spring 2020,0,0,0,0,0,0,90,0
+Houston,Texas,Spring 2020,6,0,0,0,0,0,15,0
+Phoenix,Arizona,Spring 2020,0,0,0,0,0,0,42,0
+Philadelphia,Pennsylvania,Spring 2020,27,0,0,0,0,0,49,0
+Vancouver,British Columbia,Summer 2020,92,23,92,92,0,92,92,0
+Montreal,Quebec,Summer 2020,92,92,92,92,0,92,92,0
+Calgary,Alberta,Summer 2020,11,92,13,92,0,92,92,0
+Halifax,Nova Scotia,Summer 2020,92,4,4,92,0,92,92,0
+London,Ontario,Summer 2020,92,92,46,92,0,92,92,0
+Edmonton,Alberta,Summer 2020,11,92,13,92,0,92,92,0
+Mississauga,Ontario,Summer 2020,92,92,46,92,0,92,92,0
+Ottawa,Ontario,Summer 2020,92,92,46,92,0,92,92,0
+Winnipeg,Manitoba,Summer 2020,92,0,92,92,0,92,92,0
+Toronto,Ontario,Summer 2020,92,92,46,92,0,92,92,0
+Quebec,Quebec,Summer 2020,92,92,92,92,0,92,92,0
+Columbus,Ohio,Summer 2020,92,92,77,92,0,0,77,0
+Indianapolis,Indiana,Summer 2020,92,18,52,92,0,0,92,0
+Charlotte,North Carolina,Summer 2020,92,92,0,92,0,0,69,0
+San Francisco,California,Summer 2020,92,92,92,92,0,0,75,0
+Seattle,Washington,Summer 2020,92,92,92,92,0,19,92,0
+Denver,Colorado,Summer 2020,92,92,17,92,0,0,47,0
+Washington DC,Washington DC,Summer 2020,92,92,92,92,0,0,92,0
+Cleveland,Ohio,Summer 2020,92,92,77,92,0,0,77,0
+Honolulu,Hawaii,Summer 2020,92,92,46,92,92,0,31,0
+Cincinnati,Ohio,Summer 2020,92,92,77,92,0,0,77,0
+Pittsburgh,Pennsylvania,Summer 2020,92,79,92,92,4,0,92,0
+Salt Lake City,Utah,Summer 2020,92,43,92,92,0,0,26,0
+St Louis,Missouri,Summer 2020,92,14,61,60,0,0,30,0
+Orlando,Florida,Summer 2020,92,92,92,92,67,0,0,0
+San Antonio,Texas,Summer 2020,92,73,90,70,0,0,81,0
+San Diego,California,Summer 2020,92,92,92,92,0,0,75,0
+Dallas,Texas,Summer 2020,92,73,90,70,0,0,81,0
+San Jose,California,Summer 2020,92,92,92,92,0,0,75,0
+Austin,Texas,Summer 2020,92,73,90,70,0,0,81,0
+Jacksonville,Florida,Summer 2020,92,92,92,92,67,0,0,0
+Fort Worth,Texas,Summer 2020,92,73,90,70,0,0,81,0
+Sacramento,California,Summer 2020,92,92,92,92,0,0,75,0
+Kansas City,Missouri,Summer 2020,92,14,61,60,0,0,30,0
+Atlanta,Georgia,Summer 2020,92,30,92,92,92,0,77,0
+Omaha,Nebraska,Summer 2020,92,21,92,35,0,32,92,0
+Colorado Springs,Colorado,Summer 2020,92,92,17,92,0,0,47,0
+Raleigh,North Carolina,Summer 2020,92,92,0,92,0,0,69,0
+Miami,Florida,Summer 2020,92,92,92,92,67,0,0,0
+Oakland,California,Summer 2020,92,92,92,92,0,0,75,0
+Minneapolis,Minnesota,Summer 2020,92,9,92,92,0,0,41,0
+Tulsa,Oklahoma,Summer 2020,92,0,61,31,0,0,3,0
+Bakersfield,California,Summer 2020,92,92,92,92,0,0,75,0
+Wichita,Kansas,Summer 2020,92,7,7,92,0,0,32,0
+Tampa,Florida,Summer 2020,92,92,92,92,67,0,0,0
+New Orleans,Louisiana,Summer 2020,92,92,92,92,0,0,52,0
+Memphis,Tennessee,Summer 2020,92,77,92,92,0,0,32,0
+Louisville,Kentucky,Summer 2020,92,42,28,92,0,0,92,0
+Baltimore,Maryland,Summer 2020,92,28,92,92,0,0,92,0
+Milwaukee,Wisconsin,Summer 2020,92,0,0,92,0,0,8,0
+Albuquerque,New Mexico,Summer 2020,92,92,92,92,0,0,92,0
+Tucson,Arizona,Summer 2020,92,64,71,29,0,0,18,0
+Fresno,California,Summer 2020,92,92,92,92,0,0,75,0
+Nashville,Tennessee,Summer 2020,92,77,92,92,0,0,32,0
+Oklahoma City,Oklahoma,Summer 2020,92,0,61,31,0,0,3,0
+El Paso,Texas,Summer 2020,92,73,90,70,0,0,81,0
+Boston,Massachusetts,Summer 2020,92,92,35,92,0,0,92,0
+Portland,Oregon,Summer 2020,92,92,92,92,23,0,71,0
+Las Vegas,Nevada,Summer 2020,92,56,92,92,0,0,92,0
+Detroit,Michigan,Summer 2020,92,66,33,92,0,0,92,0
+New York,New York,Summer 2020,92,92,54,92,7,92,92,0
+Los Angeles,California,Summer 2020,92,92,92,92,0,0,75,0
+Chicago,Illinois,Summer 2020,92,0,25,92,25,0,92,0
+Houston,Texas,Summer 2020,92,73,90,70,0,0,81,0
+Phoenix,Arizona,Summer 2020,92,64,71,29,0,0,18,0
+Philadelphia,Pennsylvania,Summer 2020,92,79,92,92,4,0,92,0
+Vancouver,British Columbia,Fall 2020,9,84,91,91,12,91,91,0
+Montreal,Quebec,Fall 2020,61,91,91,91,0,91,91,0
+Calgary,Alberta,Fall 2020,1,91,7,91,0,91,91,0
+Halifax,Nova Scotia,Fall 2020,19,5,5,91,0,91,91,0
+London,Ontario,Fall 2020,75,91,8,91,0,91,91,0
+Edmonton,Alberta,Fall 2020,1,91,7,91,0,91,91,0
+Mississauga,Ontario,Fall 2020,75,91,8,91,0,91,91,0
+Ottawa,Ontario,Fall 2020,75,91,8,91,0,91,91,0
+Winnipeg,Manitoba,Fall 2020,43,43,91,91,58,91,91,0
+Toronto,Ontario,Fall 2020,75,91,8,91,0,91,91,0
+Quebec,Quebec,Fall 2020,61,91,91,91,0,91,91,0
+Columbus,Ohio,Fall 2020,91,20,0,91,12,0,91,0
+Indianapolis,Indiana,Fall 2020,91,0,0,91,0,0,62,0
+Charlotte,North Carolina,Fall 2020,91,91,0,91,0,0,91,0
+San Francisco,California,Fall 2020,91,91,91,91,10,0,91,0
+Seattle,Washington,Fall 2020,91,91,91,91,0,91,91,0
+Denver,Colorado,Fall 2020,91,91,0,91,0,0,91,0
+Washington DC,Washington DC,Fall 2020,78,91,91,91,0,0,91,0
+Cleveland,Ohio,Fall 2020,91,20,0,91,12,0,91,0
+Honolulu,Hawaii,Fall 2020,91,91,91,91,72,0,49,0
+Cincinnati,Ohio,Fall 2020,91,20,0,91,12,0,91,0
+Pittsburgh,Pennsylvania,Fall 2020,91,24,38,91,0,78,91,0
+Salt Lake City,Utah,Fall 2020,91,3,3,91,0,0,19,0
+St Louis,Missouri,Fall 2020,91,0,91,91,14,0,0,0
+Orlando,Florida,Fall 2020,35,31,24,31,91,0,0,0
+San Antonio,Texas,Fall 2020,66,91,91,91,15,0,91,0
+San Diego,California,Fall 2020,91,91,91,91,10,0,91,0
+Dallas,Texas,Fall 2020,66,91,91,91,15,0,91,0
+San Jose,California,Fall 2020,91,91,91,91,10,0,91,0
+Austin,Texas,Fall 2020,66,91,91,91,15,0,91,0
+Jacksonville,Florida,Fall 2020,35,31,24,31,91,0,0,0
+Fort Worth,Texas,Fall 2020,66,91,91,91,15,0,91,0
+Sacramento,California,Fall 2020,91,91,91,91,10,0,91,0
+Kansas City,Missouri,Fall 2020,91,0,91,91,14,0,0,0
+Atlanta,Georgia,Fall 2020,91,0,91,91,91,0,0,0
+Omaha,Nebraska,Fall 2020,15,10,75,20,0,91,91,0
+Colorado Springs,Colorado,Fall 2020,91,91,0,91,0,0,91,0
+Raleigh,North Carolina,Fall 2020,91,91,0,91,0,0,91,0
+Miami,Florida,Fall 2020,35,31,24,31,91,0,0,0
+Oakland,California,Fall 2020,91,91,91,91,10,0,91,0
+Minneapolis,Minnesota,Fall 2020,91,11,31,91,0,0,91,0
+Tulsa,Oklahoma,Fall 2020,91,0,91,0,0,0,0,0
+Bakersfield,California,Fall 2020,91,91,91,91,10,0,91,0
+Wichita,Kansas,Fall 2020,91,0,15,91,0,0,6,0
+Tampa,Florida,Fall 2020,35,31,24,31,91,0,0,0
+New Orleans,Louisiana,Fall 2020,91,77,10,91,0,0,91,0
+Memphis,Tennessee,Fall 2020,91,0,91,91,0,0,0,0
+Louisville,Kentucky,Fall 2020,91,0,0,91,0,0,91,0
+Baltimore,Maryland,Fall 2020,81,21,91,91,0,0,66,0
+Milwaukee,Wisconsin,Fall 2020,91,0,0,91,0,0,0,0
+Albuquerque,New Mexico,Fall 2020,91,91,91,91,0,0,91,0
+Tucson,Arizona,Fall 2020,91,51,0,91,0,0,0,0
+Fresno,California,Fall 2020,91,91,91,91,10,0,91,0
+Nashville,Tennessee,Fall 2020,91,0,91,91,0,0,0,0
+Oklahoma City,Oklahoma,Fall 2020,91,0,91,0,0,0,0,0
+El Paso,Texas,Fall 2020,66,91,91,91,15,0,91,0
+Boston,Massachusetts,Fall 2020,91,91,0,91,0,0,56,0
+Portland,Oregon,Fall 2020,91,91,91,91,0,0,91,0
+Las Vegas,Nevada,Fall 2020,91,23,29,91,0,0,91,0
+Detroit,Michigan,Fall 2020,91,37,37,91,0,0,91,0
+New York,New York,Fall 2020,91,91,91,91,0,91,91,0
+Los Angeles,California,Fall 2020,91,91,91,91,10,0,91,0
+Chicago,Illinois,Fall 2020,91,0,11,91,15,0,30,0
+Houston,Texas,Fall 2020,66,91,91,91,15,0,91,0
+Phoenix,Arizona,Fall 2020,91,51,0,91,0,0,0,0
+Philadelphia,Pennsylvania,Fall 2020,91,24,38,91,0,78,91,0
+Vancouver,British Columbia,Winter 2020 - 2021,0,38,90,90,0,90,90,0
+Montreal,Quebec,Winter 2020 - 2021,69,90,90,90,51,90,90,0
+Calgary,Alberta,Winter 2020 - 2021,41,90,90,90,0,90,90,0
+Halifax,Nova Scotia,Winter 2020 - 2021,54,34,22,90,0,90,90,0
+London,Ontario,Winter 2020 - 2021,90,90,90,90,65,90,90,0
+Edmonton,Alberta,Winter 2020 - 2021,41,90,90,90,0,90,90,0
+Mississauga,Ontario,Winter 2020 - 2021,90,90,90,90,65,90,90,0
+Ottawa,Ontario,Winter 2020 - 2021,90,90,90,90,65,90,90,0
+Winnipeg,Manitoba,Winter 2020 - 2021,90,90,90,90,82,90,90,0
+Toronto,Ontario,Winter 2020 - 2021,90,90,90,90,65,90,90,0
+Quebec,Quebec,Winter 2020 - 2021,69,90,90,90,51,90,90,0
+Columbus,Ohio,Winter 2020 - 2021,90,0,0,90,72,72,90,0
+Indianapolis,Indiana,Winter 2020 - 2021,90,0,0,90,0,0,90,0
+Charlotte,North Carolina,Winter 2020 - 2021,90,90,0,90,80,80,90,0
+San Francisco,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Seattle,Washington,Winter 2020 - 2021,90,90,90,90,0,0,90,0
+Denver,Colorado,Winter 2020 - 2021,90,47,16,90,16,16,90,0
+Washington DC,Washington DC,Winter 2020 - 2021,2,52,90,90,0,0,90,0
+Cleveland,Ohio,Winter 2020 - 2021,90,0,0,90,72,72,90,0
+Honolulu,Hawaii,Winter 2020 - 2021,90,90,90,90,87,87,90,0
+Cincinnati,Ohio,Winter 2020 - 2021,90,0,0,90,72,72,90,0
+Pittsburgh,Pennsylvania,Winter 2020 - 2021,90,34,0,90,0,0,90,0
+Salt Lake City,Utah,Winter 2020 - 2021,69,0,0,35,0,0,90,0
+St Louis,Missouri,Winter 2020 - 2021,49,0,90,90,90,90,0,0
+Orlando,Florida,Winter 2020 - 2021,55,0,0,75,90,90,0,0
+San Antonio,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+San Diego,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Dallas,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+San Jose,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Austin,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+Jacksonville,Florida,Winter 2020 - 2021,55,0,0,75,90,90,0,0
+Fort Worth,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+Sacramento,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Kansas City,Missouri,Winter 2020 - 2021,49,0,90,90,90,90,0,0
+Atlanta,Georgia,Winter 2020 - 2021,84,0,29,90,90,90,0,0
+Omaha,Nebraska,Winter 2020 - 2021,0,0,0,23,13,13,90,0
+Colorado Springs,Colorado,Winter 2020 - 2021,90,47,16,90,16,16,90,0
+Raleigh,North Carolina,Winter 2020 - 2021,90,90,0,90,80,80,90,0
+Miami,Florida,Winter 2020 - 2021,55,0,0,75,90,90,0,0
+Oakland,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Minneapolis,Minnesota,Winter 2020 - 2021,90,34,34,90,0,0,90,0
+Tulsa,Oklahoma,Winter 2020 - 2021,90,0,5,0,0,0,0,0
+Bakersfield,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Wichita,Kansas,Winter 2020 - 2021,90,0,80,90,0,0,90,0
+Tampa,Florida,Winter 2020 - 2021,55,0,0,75,90,90,0,0
+New Orleans,Louisiana,Winter 2020 - 2021,90,68,21,90,5,5,90,0
+Memphis,Tennessee,Winter 2020 - 2021,90,71,49,90,0,0,0,0
+Louisville,Kentucky,Winter 2020 - 2021,90,0,0,90,0,0,90,0
+Baltimore,Maryland,Winter 2020 - 2021,90,62,58,90,0,0,0,0
+Milwaukee,Wisconsin,Winter 2020 - 2021,90,0,0,90,0,0,25,0
+Albuquerque,New Mexico,Winter 2020 - 2021,90,90,90,90,0,0,90,0
+Tucson,Arizona,Winter 2020 - 2021,90,55,84,90,0,0,0,0
+Fresno,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Nashville,Tennessee,Winter 2020 - 2021,90,71,49,90,0,0,0,0
+Oklahoma City,Oklahoma,Winter 2020 - 2021,90,0,5,0,0,0,0,0
+El Paso,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+Boston,Massachusetts,Winter 2020 - 2021,83,85,78,90,0,0,90,0
+Portland,Oregon,Winter 2020 - 2021,90,90,90,90,0,0,90,0
+Las Vegas,Nevada,Winter 2020 - 2021,90,34,0,90,0,0,90,0
+Detroit,Michigan,Winter 2020 - 2021,90,90,20,90,0,0,90,0
+New York,New York,Winter 2020 - 2021,90,90,82,90,0,0,90,0
+Los Angeles,California,Winter 2020 - 2021,90,90,90,90,57,57,90,0
+Chicago,Illinois,Winter 2020 - 2021,90,0,65,90,32,32,71,0
+Houston,Texas,Winter 2020 - 2021,90,90,56,90,0,0,63,0
+Phoenix,Arizona,Winter 2020 - 2021,90,55,84,90,0,0,0,0
+Philadelphia,Pennsylvania,Winter 2020 - 2021,90,34,0,90,0,0,90,0
+Vancouver,British Columbia,Spring 2021,0,57,85,92,0,92,92,0
+Montreal,Quebec,Spring 2021,60,92,92,92,88,92,92,0
+Calgary,Alberta,Spring 2021,43,92,92,92,0,92,92,0
+Halifax,Nova Scotia,Spring 2021,50,39,43,92,0,92,92,0
+London,Ontario,Spring 2021,92,92,92,92,61,92,92,0
+Edmonton,Alberta,Spring 2021,43,92,92,92,0,92,92,0
+Mississauga,Ontario,Spring 2021,92,92,92,92,61,92,92,0
+Ottawa,Ontario,Spring 2021,92,92,92,92,61,92,92,0
+Winnipeg,Manitoba,Spring 2021,92,92,92,92,88,92,92,0
+Toronto,Ontario,Spring 2021,92,92,92,92,61,92,92,0
+Quebec,Quebec,Spring 2021,60,92,92,92,88,92,92,0
+Columbus,Ohio,Spring 2021,92,0,0,92,0,0,92,0
+Indianapolis,Indiana,Spring 2021,92,0,0,92,0,0,71,0
+Charlotte,North Carolina,Spring 2021,9,25,12,72,31,31,92,0
+San Francisco,California,Spring 2021,92,92,92,92,37,37,92,0
+Seattle,Washington,Spring 2021,84,0,0,92,0,0,92,0
+Denver,Colorado,Spring 2021,92,0,0,92,0,0,65,0
+Washington DC,Washington DC,Spring 2021,0,0,61,81,0,0,92,0
+Cleveland,Ohio,Spring 2021,92,0,0,92,0,0,92,0
+Honolulu,Hawaii,Spring 2021,92,92,92,92,78,78,92,0
+Cincinnati,Ohio,Spring 2021,92,0,0,92,0,0,92,0
+Pittsburgh,Pennsylvania,Spring 2021,92,0,0,25,0,0,92,0
+Salt Lake City,Utah,Spring 2021,0,0,0,5,0,0,75,0
+St Louis,Missouri,Spring 2021,0,0,23,74,78,78,0,0
+Orlando,Florida,Spring 2021,0,24,0,63,43,43,19,0
+San Antonio,Texas,Spring 2021,70,9,0,79,0,0,0,0
+San Diego,California,Spring 2021,92,92,92,92,37,37,92,0
+Dallas,Texas,Spring 2021,70,9,0,79,0,0,0,0
+San Jose,California,Spring 2021,92,92,92,92,37,37,92,0
+Austin,Texas,Spring 2021,70,9,0,79,0,0,0,0
+Jacksonville,Florida,Spring 2021,0,24,0,63,43,43,19,0
+Fort Worth,Texas,Spring 2021,70,9,0,79,0,0,0,0
+Sacramento,California,Spring 2021,92,92,92,92,37,37,92,0
+Kansas City,Missouri,Spring 2021,0,0,23,74,78,78,0,0
+Atlanta,Georgia,Spring 2021,0,0,0,38,38,38,0,0
+Omaha,Nebraska,Spring 2021,0,0,0,0,0,0,92,0
+Colorado Springs,Colorado,Spring 2021,92,0,0,92,0,0,65,0
+Raleigh,North Carolina,Spring 2021,9,25,12,72,31,31,92,0
+Miami,Florida,Spring 2021,0,24,0,63,43,43,19,0
+Oakland,California,Spring 2021,92,92,92,92,37,37,92,0
+Minneapolis,Minnesota,Spring 2021,92,0,0,88,0,0,74,0
+Tulsa,Oklahoma,Spring 2021,92,0,20,0,0,0,0,0
+Bakersfield,California,Spring 2021,92,92,92,92,37,37,92,0
+Wichita,Kansas,Spring 2021,36,0,0,39,0,0,92,0
+Tampa,Florida,Spring 2021,0,24,0,63,43,43,19,0
+New Orleans,Louisiana,Spring 2021,92,75,13,92,0,0,90,0
+Memphis,Tennessee,Spring 2021,7,92,0,57,0,0,18,0
+Louisville,Kentucky,Spring 2021,35,0,0,61,0,0,92,0
+Baltimore,Maryland,Spring 2021,92,0,0,75,0,0,49,0
+Milwaukee,Wisconsin,Spring 2021,92,0,0,92,0,0,30,0
+Albuquerque,New Mexico,Spring 2021,33,76,26,92,0,0,92,0
+Tucson,Arizona,Spring 2021,14,4,8,36,0,0,0,0
+Fresno,California,Spring 2021,92,92,92,92,37,37,92,0
+Nashville,Tennessee,Spring 2021,7,92,0,57,0,0,18,0
+Oklahoma City,Oklahoma,Spring 2021,92,0,20,0,0,0,0,0
+El Paso,Texas,Spring 2021,70,9,0,79,0,0,0,0
+Boston,Massachusetts,Spring 2021,77,89,21,89,0,0,90,0
+Portland,Oregon,Spring 2021,42,50,60,92,0,0,92,0
+Las Vegas,Nevada,Spring 2021,36,92,0,92,0,0,92,0
+Detroit,Michigan,Spring 2021,92,92,0,92,0,0,92,0
+New York,New York,Spring 2021,92,4,0,92,0,0,86,0
+Los Angeles,California,Spring 2021,92,92,92,92,37,37,92,0
+Chicago,Illinois,Spring 2021,53,0,0,92,0,0,16,0
+Houston,Texas,Spring 2021,70,9,0,79,0,0,0,0
+Phoenix,Arizona,Spring 2021,14,4,8,36,0,0,0,0
+Philadelphia,Pennsylvania,Spring 2021,92,0,0,25,0,0,92,0
+Vancouver,British Columbia,Summer 2021,0,0,0,53,0,86,76,0
+Montreal,Quebec,Summer 2021,0,27,24,92,0,86,92,0
+Calgary,Alberta,Summer 2021,9,30,9,30,0,86,92,0
+Halifax,Nova Scotia,Summer 2021,24,15,15,92,0,86,92,0
+London,Ontario,Summer 2021,92,29,10,92,1,86,92,0
+Edmonton,Alberta,Summer 2021,9,30,9,30,0,86,92,0
+Mississauga,Ontario,Summer 2021,92,29,10,92,1,86,92,0
+Ottawa,Ontario,Summer 2021,92,29,10,92,1,86,92,0
+Winnipeg,Manitoba,Summer 2021,92,25,50,67,25,86,67,0
+Toronto,Ontario,Summer 2021,92,29,10,92,1,86,92,0
+Quebec,Quebec,Summer 2021,0,27,24,92,0,86,92,0
+Columbus,Ohio,Summer 2021,1,0,0,1,0,0,91,0
+Indianapolis,Indiana,Summer 2021,92,0,0,34,0,0,0,0
+Charlotte,North Carolina,Summer 2021,7,0,0,0,0,0,62,0
+San Francisco,California,Summer 2021,59,14,92,14,0,0,89,30
+Seattle,Washington,Summer 2021,0,0,63,29,0,0,92,0
+Denver,Colorado,Summer 2021,49,0,43,30,0,0,5,0
+Washington DC,Washington DC,Summer 2021,0,22,0,0,0,0,92,0
+Cleveland,Ohio,Summer 2021,1,0,0,1,0,0,91,0
+Honolulu,Hawaii,Summer 2021,17,37,59,92,0,0,92,0
+Cincinnati,Ohio,Summer 2021,1,0,0,1,0,0,91,0
+Pittsburgh,Pennsylvania,Summer 2021,12,0,0,1,0,0,10,0
+Salt Lake City,Utah,Summer 2021,0,0,0,0,0,0,12,0
+St Louis,Missouri,Summer 2021,0,0,0,0,0,0,0,0
+Orlando,Florida,Summer 2021,0,0,0,0,0,0,71,0
+San Antonio,Texas,Summer 2021,21,0,10,0,0,0,17,0
+San Diego,California,Summer 2021,59,14,92,14,0,0,89,30
+Dallas,Texas,Summer 2021,21,0,10,0,0,0,17,0
+San Jose,California,Summer 2021,59,14,92,14,0,0,89,30
+Austin,Texas,Summer 2021,21,0,10,0,0,0,17,0
+Jacksonville,Florida,Summer 2021,0,0,0,0,0,0,71,0
+Fort Worth,Texas,Summer 2021,21,0,10,0,0,0,17,0
+Sacramento,California,Summer 2021,59,14,92,14,0,0,89,30
+Kansas City,Missouri,Summer 2021,0,0,0,0,0,0,0,0
+Atlanta,Georgia,Summer 2021,7,0,7,0,0,0,0,0
+Omaha,Nebraska,Summer 2021,0,0,0,0,0,0,86,0
+Colorado Springs,Colorado,Summer 2021,49,0,43,30,0,0,5,0
+Raleigh,North Carolina,Summer 2021,7,0,0,0,0,0,62,0
+Miami,Florida,Summer 2021,0,0,0,0,0,0,71,0
+Oakland,California,Summer 2021,59,14,92,14,0,0,89,30
+Minneapolis,Minnesota,Summer 2021,92,0,0,0,0,0,91,0
+Tulsa,Oklahoma,Summer 2021,35,0,0,0,0,0,0,0
+Bakersfield,California,Summer 2021,59,14,92,14,0,0,89,30
+Wichita,Kansas,Summer 2021,0,8,0,0,0,0,92,0
+Tampa,Florida,Summer 2021,0,0,0,0,0,0,71,0
+New Orleans,Louisiana,Summer 2021,22,35,69,82,0,0,90,0
+Memphis,Tennessee,Summer 2021,2,0,0,0,0,0,92,0
+Louisville,Kentucky,Summer 2021,0,0,0,10,0,0,92,0
+Baltimore,Maryland,Summer 2021,73,0,0,0,0,0,92,0
+Milwaukee,Wisconsin,Summer 2021,14,0,0,1,0,0,51,0
+Albuquerque,New Mexico,Summer 2021,14,0,0,30,0,0,92,0
+Tucson,Arizona,Summer 2021,0,0,0,0,0,0,0,0
+Fresno,California,Summer 2021,59,14,92,14,0,0,89,30
+Nashville,Tennessee,Summer 2021,2,0,0,0,0,0,92,0
+Oklahoma City,Oklahoma,Summer 2021,35,0,0,0,0,0,0,0
+El Paso,Texas,Summer 2021,21,0,10,0,0,0,17,0
+Boston,Massachusetts,Summer 2021,0,0,0,0,0,0,0,0
+Portland,Oregon,Summer 2021,9,0,0,29,0,0,92,0
+Las Vegas,Nevada,Summer 2021,0,0,0,0,0,0,45,0
+Detroit,Michigan,Summer 2021,29,0,0,21,0,0,21,0
+New York,New York,Summer 2021,92,7,78,14,0,0,92,0
+Los Angeles,California,Summer 2021,59,14,92,14,0,0,89,30
+Chicago,Illinois,Summer 2021,21,0,0,10,0,0,92,0
+Houston,Texas,Summer 2021,21,0,10,0,0,0,17,0
+Phoenix,Arizona,Summer 2021,0,0,0,0,0,0,0,0
+Philadelphia,Pennsylvania,Summer 2021,12,0,0,1,0,0,10,0
+Vancouver,British Columbia,Fall 2021,0,79,79,91,0,52,91,0
+Montreal,Quebec,Fall 2021,0,91,91,91,0,91,91,0
+Calgary,Alberta,Fall 2021,4,76,0,76,0,52,91,0
+Halifax,Nova Scotia,Fall 2021,20,0,0,91,0,52,91,0
+London,Ontario,Fall 2021,0,0,0,91,0,91,91,0
+Edmonton,Alberta,Fall 2021,4,76,0,76,0,52,91,0
+Mississauga,Ontario,Fall 2021,0,0,0,91,0,91,91,0
+Ottawa,Ontario,Fall 2021,0,0,0,91,0,91,91,0
+Winnipeg,Manitoba,Fall 2021,86,0,6,85,0,52,90,0
+Toronto,Ontario,Fall 2021,0,0,0,91,0,91,91,0
+Quebec,Quebec,Fall 2021,0,91,91,91,0,91,91,0
+Columbus,Ohio,Fall 2021,0,0,0,0,0,0,0,0
+Indianapolis,Indiana,Fall 2021,14,0,0,0,0,0,78,0
+Charlotte,North Carolina,Fall 2021,56,0,0,0,0,0,0,0
+San Francisco,California,Fall 2021,0,0,91,0,0,0,91,43
+Seattle,Washington,Fall 2021,0,0,64,0,0,0,91,0
+Denver,Colorado,Fall 2021,36,0,91,0,0,0,0,72
+Washington DC,Washington DC,Fall 2021,0,76,0,0,0,0,91,73
+Cleveland,Ohio,Fall 2021,0,0,0,0,0,0,0,0
+Honolulu,Hawaii,Fall 2021,0,0,90,91,0,0,91,0
+Cincinnati,Ohio,Fall 2021,0,0,0,0,0,0,0,0
+Pittsburgh,Pennsylvania,Fall 2021,16,0,0,0,0,0,0,0
+Salt Lake City,Utah,Fall 2021,0,0,0,0,0,0,8,0
+St Louis,Missouri,Fall 2021,0,0,0,0,0,0,38,0
+Orlando,Florida,Fall 2021,7,0,0,0,0,0,13,0
+San Antonio,Texas,Fall 2021,60,0,26,0,0,0,45,0
+San Diego,California,Fall 2021,0,0,91,0,0,0,91,43
+Dallas,Texas,Fall 2021,60,0,26,0,0,0,45,0
+San Jose,California,Fall 2021,0,0,91,0,0,0,91,43
+Austin,Texas,Fall 2021,60,0,26,0,0,0,45,0
+Jacksonville,Florida,Fall 2021,7,0,0,0,0,0,13,0
+Fort Worth,Texas,Fall 2021,60,0,26,0,0,0,45,0
+Sacramento,California,Fall 2021,0,0,91,0,0,0,91,43
+Kansas City,Missouri,Fall 2021,0,0,0,0,0,0,38,0
+Atlanta,Georgia,Fall 2021,91,0,0,0,0,0,0,0
+Omaha,Nebraska,Fall 2021,0,0,0,0,0,0,0,0
+Colorado Springs,Colorado,Fall 2021,36,0,91,0,0,0,0,72
+Raleigh,North Carolina,Fall 2021,56,0,0,0,0,0,0,0
+Miami,Florida,Fall 2021,7,0,0,0,0,0,13,0
+Oakland,California,Fall 2021,0,0,91,0,0,0,91,43
+Minneapolis,Minnesota,Fall 2021,7,0,0,0,0,0,91,0
+Tulsa,Oklahoma,Fall 2021,0,0,0,0,0,0,76,0
+Bakersfield,California,Fall 2021,0,0,91,0,0,0,91,43
+Wichita,Kansas,Fall 2021,0,34,0,0,0,0,83,0
+Tampa,Florida,Fall 2021,7,0,0,0,0,0,13,0
+New Orleans,Louisiana,Fall 2021,0,83,65,90,0,0,57,0
+Memphis,Tennessee,Fall 2021,39,0,0,0,0,0,25,0
+Louisville,Kentucky,Fall 2021,0,0,0,0,0,0,91,0
+Baltimore,Maryland,Fall 2021,0,0,0,0,0,0,56,0
+Milwaukee,Wisconsin,Fall 2021,0,0,0,0,0,0,51,0
+Albuquerque,New Mexico,Fall 2021,0,0,0,0,0,0,91,0
+Tucson,Arizona,Fall 2021,0,0,0,0,0,0,80,0
+Fresno,California,Fall 2021,0,0,91,0,0,0,91,43
+Nashville,Tennessee,Fall 2021,39,0,0,0,0,0,25,0
+Oklahoma City,Oklahoma,Fall 2021,0,0,0,0,0,0,76,0
+El Paso,Texas,Fall 2021,60,0,26,0,0,0,45,0
+Boston,Massachusetts,Fall 2021,0,0,0,0,0,0,0,0
+Portland,Oregon,Fall 2021,26,0,0,0,0,0,91,0
+Las Vegas,Nevada,Fall 2021,0,0,0,0,0,0,71,0
+Detroit,Michigan,Fall 2021,91,0,0,0,0,0,0,0
+New York,New York,Fall 2021,91,91,91,0,0,0,91,0
+Los Angeles,California,Fall 2021,0,0,91,0,0,0,91,43
+Chicago,Illinois,Fall 2021,0,0,0,0,0,0,91,0
+Houston,Texas,Fall 2021,60,0,26,0,0,0,45,0
+Phoenix,Arizona,Fall 2021,0,0,0,0,0,0,80,0
+Philadelphia,Pennsylvania,Fall 2021,16,0,0,0,0,0,0,0
+Vancouver,British Columbia,Winter 2021 - 2022,7,90,90,90,0,74,90,0
+Montreal,Quebec,Winter 2021 - 2022,32,90,90,90,17,90,90,0
+Calgary,Alberta,Winter 2021 - 2022,6,69,0,90,0,74,90,0
+Halifax,Nova Scotia,Winter 2021 - 2022,38,0,54,90,0,74,90,0
+London,Ontario,Winter 2021 - 2022,12,55,55,90,0,90,90,0
+Edmonton,Alberta,Winter 2021 - 2022,6,69,0,90,0,74,90,0
+Mississauga,Ontario,Winter 2021 - 2022,12,55,55,90,0,90,90,0
+Ottawa,Ontario,Winter 2021 - 2022,12,55,55,90,0,90,90,0
+Winnipeg,Manitoba,Winter 2021 - 2022,89,58,58,89,0,73,89,0
+Toronto,Ontario,Winter 2021 - 2022,12,55,55,90,0,90,90,0
+Quebec,Quebec,Winter 2021 - 2022,32,90,90,90,17,90,90,0
+Columbus,Ohio,Winter 2021 - 2022,27,0,0,0,0,0,0,0
+Indianapolis,Indiana,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Charlotte,North Carolina,Winter 2021 - 2022,0,0,0,0,0,0,69,0
+San Francisco,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Seattle,Washington,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Denver,Colorado,Winter 2021 - 2022,62,0,62,0,0,0,14,90
+Washington DC,Washington DC,Winter 2021 - 2022,23,0,0,0,0,0,90,90
+Cleveland,Ohio,Winter 2021 - 2022,27,0,0,0,0,0,0,0
+Honolulu,Hawaii,Winter 2021 - 2022,0,0,0,83,0,0,90,0
+Cincinnati,Ohio,Winter 2021 - 2022,27,0,0,0,0,0,0,0
+Pittsburgh,Pennsylvania,Winter 2021 - 2022,27,0,0,0,0,0,49,0
+Salt Lake City,Utah,Winter 2021 - 2022,0,0,0,0,0,0,84,0
+St Louis,Missouri,Winter 2021 - 2022,0,0,0,0,0,0,1,0
+Orlando,Florida,Winter 2021 - 2022,14,0,0,0,0,0,54,0
+San Antonio,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+San Diego,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Dallas,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+San Jose,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Austin,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+Jacksonville,Florida,Winter 2021 - 2022,14,0,0,0,0,0,54,0
+Fort Worth,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+Sacramento,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Kansas City,Missouri,Winter 2021 - 2022,0,0,0,0,0,0,1,0
+Atlanta,Georgia,Winter 2021 - 2022,90,0,0,0,0,0,0,0
+Omaha,Nebraska,Winter 2021 - 2022,34,0,0,0,0,0,28,0
+Colorado Springs,Colorado,Winter 2021 - 2022,62,0,62,0,0,0,14,90
+Raleigh,North Carolina,Winter 2021 - 2022,0,0,0,0,0,0,69,0
+Miami,Florida,Winter 2021 - 2022,14,0,0,0,0,0,54,0
+Oakland,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Minneapolis,Minnesota,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Tulsa,Oklahoma,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Bakersfield,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Wichita,Kansas,Winter 2021 - 2022,0,0,0,0,0,0,62,0
+Tampa,Florida,Winter 2021 - 2022,14,0,0,0,0,0,54,0
+New Orleans,Louisiana,Winter 2021 - 2022,35,90,90,90,0,0,5,0
+Memphis,Tennessee,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Louisville,Kentucky,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Baltimore,Maryland,Winter 2021 - 2022,0,0,0,0,0,0,0,35
+Milwaukee,Wisconsin,Winter 2021 - 2022,0,0,0,0,0,0,69,0
+Albuquerque,New Mexico,Winter 2021 - 2022,6,0,0,0,0,0,78,0
+Tucson,Arizona,Winter 2021 - 2022,0,0,0,0,0,0,42,0
+Fresno,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Nashville,Tennessee,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Oklahoma City,Oklahoma,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+El Paso,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+Boston,Massachusetts,Winter 2021 - 2022,34,45,0,0,0,0,0,0
+Portland,Oregon,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Las Vegas,Nevada,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Detroit,Michigan,Winter 2021 - 2022,90,0,0,0,0,0,0,0
+New York,New York,Winter 2021 - 2022,90,90,90,0,0,0,90,21
+Los Angeles,California,Winter 2021 - 2022,21,0,42,30,0,0,90,0
+Chicago,Illinois,Winter 2021 - 2022,0,0,0,0,0,0,90,0
+Houston,Texas,Winter 2021 - 2022,6,0,0,0,0,0,15,0
+Phoenix,Arizona,Winter 2021 - 2022,0,0,0,0,0,0,42,0
+Philadelphia,Pennsylvania,Winter 2021 - 2022,27,0,0,0,0,0,49,0
+Vancouver,British Columbia,Spring 2022,0,86,38,9,0,12,9,0
+Montreal,Quebec,Spring 2022,0,11,11,11,0,69,69,0
+Calgary,Alberta,Spring 2022,0,0,0,0,0,12,87,0
+Halifax,Nova Scotia,Spring 2022,0,0,0,20,0,12,20,0
+London,Ontario,Spring 2022,0,0,0,0,0,87,87,0
+Edmonton,Alberta,Spring 2022,0,0,0,0,0,12,87,0
+Mississauga,Ontario,Spring 2022,0,0,0,0,0,87,87,0
+Ottawa,Ontario,Spring 2022,0,0,0,0,0,87,87,0
+Winnipeg,Manitoba,Spring 2022,0,0,0,0,0,0,62,0
+Toronto,Ontario,Spring 2022,0,0,0,0,0,87,87,0
+Quebec,Quebec,Spring 2022,0,11,11,11,0,69,69,0
+Columbus,Ohio,Spring 2022,41,0,0,0,0,0,38,0
+Indianapolis,Indiana,Spring 2022,0,0,0,0,0,0,79,0
+Charlotte,North Carolina,Spring 2022,0,0,0,0,0,0,79,0
+San Francisco,California,Spring 2022,0,0,0,0,0,0,79,34
+Seattle,Washington,Spring 2022,0,0,0,0,0,0,79,0
+Denver,Colorado,Spring 2022,0,0,0,0,0,0,0,33
+Washington DC,Washington DC,Spring 2022,0,0,0,0,0,0,79,31
+Cleveland,Ohio,Spring 2022,41,0,0,0,0,0,38,0
+Honolulu,Hawaii,Spring 2022,0,0,0,0,0,0,79,0
+Cincinnati,Ohio,Spring 2022,41,0,0,0,0,0,38,0
+Pittsburgh,Pennsylvania,Spring 2022,0,0,0,0,0,0,63,0
+Salt Lake City,Utah,Spring 2022,52,0,0,0,0,0,79,0
+St Louis,Missouri,Spring 2022,0,0,0,0,0,0,79,0
+Orlando,Florida,Spring 2022,0,0,0,0,0,0,79,0
+San Antonio,Texas,Spring 2022,0,0,0,0,0,0,79,0
+San Diego,California,Spring 2022,0,0,0,0,0,0,79,34
+Dallas,Texas,Spring 2022,0,0,0,0,0,0,79,0
+San Jose,California,Spring 2022,0,0,0,0,0,0,79,34
+Austin,Texas,Spring 2022,0,0,0,0,0,0,79,0
+Jacksonville,Florida,Spring 2022,0,0,0,0,0,0,79,0
+Fort Worth,Texas,Spring 2022,0,0,0,0,0,0,79,0
+Sacramento,California,Spring 2022,0,0,0,0,0,0,79,34
+Kansas City,Missouri,Spring 2022,0,0,0,0,0,0,79,0
+Atlanta,Georgia,Spring 2022,79,0,0,0,0,0,0,0
+Omaha,Nebraska,Spring 2022,0,0,0,0,0,0,37,0
+Colorado Springs,Colorado,Spring 2022,0,0,0,0,0,0,0,33
+Raleigh,North Carolina,Spring 2022,0,0,0,0,0,0,79,0
+Miami,Florida,Spring 2022,0,0,0,0,0,0,79,0
+Oakland,California,Spring 2022,0,0,0,0,0,0,79,34
+Minneapolis,Minnesota,Spring 2022,0,0,0,0,0,0,79,0
+Tulsa,Oklahoma,Spring 2022,0,0,0,0,0,0,79,0
+Bakersfield,California,Spring 2022,0,0,0,0,0,0,79,34
+Wichita,Kansas,Spring 2022,0,0,0,0,0,0,74,0
+Tampa,Florida,Spring 2022,0,0,0,0,0,0,79,0
+New Orleans,Louisiana,Spring 2022,79,20,20,20,0,0,73,0
+Memphis,Tennessee,Spring 2022,0,0,0,0,0,0,79,0
+Louisville,Kentucky,Spring 2022,0,0,0,0,0,0,79,0
+Baltimore,Maryland,Spring 2022,0,0,0,0,0,0,79,58
+Milwaukee,Wisconsin,Spring 2022,0,0,0,0,0,0,30,0
+Albuquerque,New Mexico,Spring 2022,0,0,0,0,0,0,0,0
+Tucson,Arizona,Spring 2022,0,0,0,0,0,0,79,0
+Fresno,California,Spring 2022,0,0,0,0,0,0,79,34
+Nashville,Tennessee,Spring 2022,0,0,0,0,0,0,79,0
+Oklahoma City,Oklahoma,Spring 2022,0,0,0,0,0,0,79,0
+El Paso,Texas,Spring 2022,0,0,0,0,0,0,79,0
+Boston,Massachusetts,Spring 2022,44,0,0,0,0,0,75,0
+Portland,Oregon,Spring 2022,0,0,0,0,0,0,10,0
+Las Vegas,Nevada,Spring 2022,0,0,0,0,0,0,79,0
+Detroit,Michigan,Spring 2022,50,0,0,0,0,0,29,0
+New York,New York,Spring 2022,79,79,63,0,0,0,79,79
+Los Angeles,California,Spring 2022,0,0,0,0,0,0,79,34
+Chicago,Illinois,Spring 2022,0,0,0,0,0,0,79,0
+Houston,Texas,Spring 2022,0,0,0,0,0,0,79,0
+Phoenix,Arizona,Spring 2022,0,0,0,0,0,0,79,0
+Philadelphia,Pennsylvania,Spring 2022,0,0,0,0,0,0,63,0

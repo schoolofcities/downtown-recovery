@@ -256,21 +256,19 @@ create_model_df <- function(selected_metric, y_var, x_var) {
 
 create_model_df_long <- function(chosen_x_vars) {
   y <- all_seasonal_metrics %>%
-    dplyr::filter((Season == "Season_9")) %>%
-    dplyr::select(city, display_title, seasonal_average, metric)
+    dplyr::select(city, display_title, Season, seasonal_average, metric)
   
   X <- explanatory_vars %>%
-    dplyr::filter(Season == "Season_9") %>%
-    dplyr::select(-display_title, -state, -metro_size, -Season, all_of(chosen_x_vars))
+    dplyr::select(-display_title, -state, -metro_size, all_of(chosen_x_vars))
   
-  colnames(y) <- c("city", "display_title", "y", "metric")
+  colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   
   model_df <- unique(y %>%
-                       inner_join(X, by = "city"))
+                       inner_join(X, by = c("city", "Season")))
   
   
   model_df %>%
-    pivot_longer(cols = !c("city", "metric", "region", "display_title", "y"), names_to = "x_var", values_to = "x_val")
+    pivot_longer(cols = !c("city", "metric", "region", "Season", "display_title", "y"), names_to = "x_var", values_to = "x_val")
 }
 
 

@@ -95,10 +95,9 @@ largest_n_cities <- regions_df %>%
 # explanatory_vars already has a metro_size col from when it was created on databricks, but it's reassigned here just in case
 # you did want to do a quick change in definition to metro_size without having to recreate or redownload anything
 explanatory_vars <- explanatory_vars %>%
-   #mutate(metro_size = case_when(
-  #   city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
-  # )) %>%
-  dplyr::filter(Season == "Season_9")
+   mutate(metro_size = case_when(
+     city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
+   ))
 
 all_weekly_metrics$week <-
   as.Date(all_weekly_metrics$week, format = "%Y-%m-%d")
@@ -108,10 +107,9 @@ all_city_coords <- all_city_coords %>%
 
 all_seasonal_metrics <- all_seasonal_metrics %>%
   inner_join(all_city_coords, by = "city") %>%
-  #mutate(metro_size = case_when(
-  #  city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
-  #)) %>%
-  dplyr::filter(Season == "Season_9")
+  mutate(metro_size = case_when(
+    city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
+  ))
 
 # 2022/07/15 TODO: whittle this down a bit more
 named_factors <- c(

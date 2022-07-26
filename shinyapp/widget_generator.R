@@ -475,5 +475,44 @@ gsub('.{4}$', '', json_dat[[1]][1])
 lapply(json_dat, function(x) {cat(sub("</script>","", sub('<script type=\"application/json\" data-for=.*\">', "", x[[2]])), file = paste0(gsub('.{4}$', '', x[[1]][1]), "json"))})
 
 
+#htmlwidgets::saveWidget(recovery_rankings_plot(recovery_rankings_df("downtown")), "../docs/widgets/recovery_rankings.html", selfcontained = FALSE)
 
+# for (selected_metric in c("downtown", "city", "relative")) {
+#   g1 <- recovery_rankings_plot(recovery_rankings_df(selected_metric))
+#   widget2save <- girafe(ggobj = g1, width_svg = 12, height_svg = 12,
+#                              options = list(
+#                                opts_tooltip(use_fill = TRUE),
+#                                opts_hover_inv(css = "opacity:0.1;"),
+#                                opts_hover(css = "stroke-width:2;"),
+#                                opts_sizing(rescale = TRUE, width = 1)
+#                              ))
+#   widget2save$sizingPolicy$padding <- 0
+#   htmlwidgets::saveWidget(widget2save, paste0("../docs/widgets/recovery_rankings_", selected_metric, ".html"), selfcontained = FALSE)
+# }
 
+# for (selected_metric in c("downtown", "city", "relative")) {
+#    g1 <- recovery_patterns_plot(recovery_patterns_df(selected_metric, plot_cities, 11), selected_metric, 11)
+#    widget2save <- girafe(ggobj = g1, width_svg = 12, height_svg = 6,
+#                               options = list(
+#                                 opts_tooltip(use_fill = TRUE),
+#                                 opts_hover_inv(css = "opacity:0.1;"),
+#                                 opts_hover(css = "stroke-width:2;"),
+#                                 opts_sizing(rescale = TRUE, width = 1)
+#                               ))
+#    widget2save$sizingPolicy$padding <- 0
+#    htmlwidgets::saveWidget(widget2save, paste0("../docs/widgets/raw_recovery_pattern_", selected_metric, ".html"), selfcontained = FALSE)
+# }
+
+# selected_metric <- "downtown"
+# 
+# g1 <- recovery_patterns_plot(recovery_patterns_df(selected_metric, plot_cities, 11), selected_metric, 11)
+# 
+# interactive_plot <- girafe(ggobj = g1, width_svg = 12, height_svg = 18,
+#                            options = list(
+#                              opts_tooltip(use_fill = TRUE),
+#                              opts_hover_inv(css = "opacity:0.1;"),
+#                              opts_hover(css = "stroke-width:2;"),
+#                              opts_sizing(rescale = TRUE, width = 1)
+#                            ))
+# interactive_plot
+# htmlwidgets::saveWidget(interactive_plot, "../docs/widgets/raw_recovery_pattern.html", selfcontained = FALSE)
