@@ -7,17 +7,12 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Comparative Map</title>
+  <title>2D maps</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
   <!-- Bootstrap core CSS -->
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-  integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-  crossorigin=""/>
 
   <style>
     .bd-placeholder-img {
@@ -37,16 +32,6 @@
 
   <!-- Custom styles for this template -->
   <link href="../dashboards/dashboard.css" rel="stylesheet">
-   <!-- Custom styles for this template -->
-   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
- 
-   <script src="https://d3js.org/d3.v7.min.js"></script>
-   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-   <!-- leaflet script -->
- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-   crossorigin=""></script>
-   <script src="../dashboards/dashboard.js"></script>
   <!--jQuery-->
   <script src="../widgets/can_us_map_files/jquery-1.12.4/jquery.min.js"></script>
   <script>$('#mapTabs').click('show', function (e) {
@@ -162,12 +147,44 @@
             </div>
           </div>
           
+
+
+
+
+
+
+
+
         </div>
 
         <div class="col-10">
+          <!--<ul class="nav nav-tabs" id="mapTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-detail" role="tab"
+                aria-controls="all-detail" aria-selected="true">All</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about-detail" role="tab"
+                aria-controls="about-detail" aria-selected="false">Documentation</a>
+            </li>
+          </ul>
+       
+          
+         <div class="tab-content">
+            <div class="tab-pane fade show active" id="all-detail" role="tabpanel" aria-labelledby="all-tab"
+              data-src="../widgets/can_us_map.html">-->
               <div class="map-container">
                 <iframe src="../widgets/national_map_downtown.html" name = "mapframe"></iframe>
               </div>
+           <!--</div>
+
+           <div class="tab-pane fade" id="about-detail" role="tabpanel" aria-labelledby="about-tab"
+              data-src="../text_pages/maps_README.html">
+              <div class="map-container">
+                <iframe src="../text_pages/maps_README.html"></iframe>
+              </div>
+            </div>-->
           </div> 
         
         </div>
@@ -175,7 +192,9 @@
 
   </main>
 
-  <script src="../dashboards/comparative_map.js"></script>
+  <script src="../dashboards/dashboard.js"></script>
+  <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

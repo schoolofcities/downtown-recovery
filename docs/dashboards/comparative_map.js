@@ -6,23 +6,21 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
     }
-    var plotDiv = document.getElementById('rankings-plot');
+    var mapDiv = document.getElementById('map-container');
 
     String.prototype.toProperCase = function () {
         return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    
+
+    var cities = unpack(rows, 'display_title');
+
+
+
     var metricSelector = document.getElementById('select_ranking_metric');
     var seasonSelector = document.getElementById('select_ranking_season');
-
-    function rankDuplicate(arr) {
-        const sorted = [...new Set(arr)].sort((a, b) => b - a);
-        const rank = new Map(sorted.map((x, i) => [x, i + 1]));
-        return arr.map((x) => rank.get(x));
-    }
     
-    function setHBarPlot(metric, season) {
+    function setMap(metric, season) {
         var regions = unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'region');
         var trace = [{
             x: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'seasonal_average'),
@@ -136,6 +134,17 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             responsive: true,
             displayModeBar: false
         }
+
+
+        var map = L.map('mapDiv').setView([41.1164, -95.35], 5);
+        var cities = L.layerGroup()
+        var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+
+
         Plotly.react(plotDiv, trace, layout, config);
     };
 
@@ -153,5 +162,5 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
     seasonSelector.addEventListener('change', updateSeason, false);
 
-    setHBarPlot(metricSelector.value, seasonSelector);
+    setMap(metricSelector.value, seasonSelector);
 });
