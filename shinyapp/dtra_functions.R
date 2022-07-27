@@ -248,22 +248,23 @@ recovery_patterns_plot <- function(df, metric, n) {
   
 }
 
-create_model_df <- function(selected_metric, y_var, x_var) {
+create_model_df <- function(x_var) {
   y <- all_seasonal_metrics %>%
-    dplyr::filter((metric == selected_metric) &
-                    (Season == y_var)) %>%
+    #dplyr::filter((metric == selected_metric) &
+    #                (Season == y_var)) %>%
     dplyr::select(city, display_title, Season, seasonal_average, metric)
   
   X <- explanatory_vars %>%
-    dplyr::filter(Season == y_var) %>%
-    dplyr::select(city, region, all_of(x_var))
+   # dplyr::filter(Season == y_var) %>%
+    dplyr::select(city, region, Season, all_of(x_var))
   
-  colnames(X) <- c("city", "region", "x")
+  #colnames(X) <- c("city", "region", "x")
   
-  colnames(y) <- c("city", "display_title", "Season", "y", "metric")
+  #colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   unique(y %>%
-           inner_join(X, by = "city") %>%
-           mutate(key_study_case = display_title %in% explanatory_cities$display_title))
+           inner_join(X, by = c("city", "Season")) #%>%
+           #mutate(key_study_case = display_title %in% explanatory_cities$display_title)
+           )
   
 }
 

@@ -14,8 +14,14 @@ source("dtra_functions.R")
 # interactive_plot
 
 plot_x_vars <- named_factors
-plot_data <- create_model_df_long(unname(plot_x_vars))
-write.csv(plot_data, "../docs/model_data_long.csv")
+plot_data <- create_model_df(unname(plot_x_vars))
+write.csv(plot_data, "../docs/model_data_full.csv")
+
+
+
+
+
+
 
 plot_data <- read.csv("../docs/model_data.csv")
 

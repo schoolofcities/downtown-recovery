@@ -137,23 +137,28 @@ named_factors <- c(
   "Percentage of Rented-Occupied Units in Downtown" = "pct_renter_downtown", 
   "Percentage of Single-Family Homes in Downtown" = "pct_singlefam_downtown", 
   "Percentage of Multi-Family Homes in Downtown" = "pct_multifam_downtown",
-  #"Percentage of Mobile Homes and Others" = "pct_mobile_home_and_others",
+  #"Percentage of Mobile Homes and Others in Downtown" = "pct_mobile_home_and_others",
   "Median Age of Residents in Downtown" = "median_age_downtown",
   "Percentage of Residents with a Bachelor's Degree or Higher in Downtown" = "bachelor_plus_downtown",
   "Percentage of Vacant Housing Units in Downtown" = "pct_vacant_downtown",
   "Median Rent of Housing Units in Downtown" = "median_rent_downtown",
   "Median Household Income of Residents in Downtown" = "median_hhinc_downtown",
+  "Percentage of White Residents in Downtown" = "pct_nhwhite_downtown", # always city
+  "Percentage of Black Residents in Downtown" = "pct_nhblack_downtown", # always city
+  "Percentage of Hispanic Residents in Downtown" = "pct_hisp_downtown", # always city
+  "Percentage of Asian Residents in Downtown" = "pct_nhasian_downtown", # always city
+  
   
   "Percentage of White Residents in City" = "pct_nhwhite_city", # always city
   "Percentage of Black Residents in City" = "pct_nhblack_city", # always city
   "Percentage of Hispanic Residents in City" = "pct_hisp_city", # always city
   "Percentage of Asian Residents in City" = "pct_nhasian_city", # always city
-  #"Percentage of Residents with Other Races" = "pct_other", # always city
+  #"Percentage of Residents with Other Races in City" = "pct_other", # always city
   "Percentage of Residents in City who Commute to Work by Car" = "pct_commute_auto_city", # always city
   "Percentage of Residents in City who Commute to Work by Public Transit" = "pct_commute_public_transit_city", # always city
   "Percentage of Residents in City who Commute to Work by Bicycle" = "pct_commute_bicycle_city", # always city
   "Percentage of Residents in City who Commute to Work by Walking" = "pct_commute_walk_city", # always city
-  "Percentage of Residents in City who Commute to Work by Other Modes" = "pct_commute_others_city", # always city
+  #"Percentage of Residents in City who Commute to Work by Other Modes" = "pct_commute_others_city", # always city
   "Average City-wide Commute Time" = "average_commute_time_city", #always city
   # LEHD / employment vars, always downtown
   "Employment Density in Downtown" = "employment_density_downtown",
