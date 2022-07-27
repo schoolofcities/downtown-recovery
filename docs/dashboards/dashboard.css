@@ -44,8 +44,8 @@ body {
   position: absolute;
   overflow:hidden;
   display:inline;
-  height:85%;
-  width:80%;
+  height:100%;
+  width:100%;
   border: none;
 }
 

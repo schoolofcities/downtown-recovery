@@ -1,4 +1,26 @@
 source("load_data.R")
+source("dtra_functions.R")
+
+
+
+
+map_df_widget() %>%
+  inner_join(regions_df %>% dplyr::select(region, color), by = "region") %>%
+  distinct() %>%
+  arrange(region, display_title)
+write.csv(plot_data, "../docs/national_map_data.csv")
+
+
+
+
+
+
+
+
+
+
+
+
 
 create_national_map <-
   function(selected_metric) {

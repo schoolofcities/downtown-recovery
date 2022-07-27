@@ -39,7 +39,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
             "<b>City: </b>%{text}<br>" +
 
-            "<b>Recovery %{yaxis.title.text}: </b> %{y}<br>" +
+            "<b>Recovery %{yaxis.title.text}: </b> %{y:.0%}<br>" +
 
             "<b>%{xaxis.title.text}: </b>%{x}<br>" +
 
@@ -123,6 +123,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             yaxis: {
                 gridcolor: '#bdbdbd',
                 showticklabels: true,
+                tickformat: ".0%",
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,

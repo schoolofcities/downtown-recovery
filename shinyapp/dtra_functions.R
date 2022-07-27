@@ -50,6 +50,17 @@ recovery_rankings_df_widget <- function() {
     ungroup()
 }
 
+map_df_widget <- function() {
+  unique(all_seasonal_metrics %>%
+           dplyr::select(display_title,
+                         seasonal_average,
+                         region,
+                         metric,
+                         lat, 
+                         city,
+                         Season)) %>%
+    dplyr::filter(!is.na(seasonal_average))
+}
 
 
 

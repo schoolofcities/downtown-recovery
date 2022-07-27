@@ -73,7 +73,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             shape: 'spline'
         },
         name: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
-       // hoverinfo:"x+y",
         text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
         }];
 
@@ -91,6 +90,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             xaxis: {
                 showticklabels: true,
                 range: ['2020-04-01', '2022-05-01'],
+                
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
@@ -107,6 +107,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             },
             yaxis: {
                 showticklabels: true,
+                tickformat: ".0%",
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
