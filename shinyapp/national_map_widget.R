@@ -48,7 +48,9 @@ create_national_map <-
     can_us_map <- can_us_map %>%
       addLayersControl(baseGroups = names(named_periods),
                        options = layersControlOptions(collapsed = FALSE),
+                       
                        position = "bottomright") %>%
+      showGroup(names(named_periods[9])) %>%
       addLegend(
         pal = lq_pal,
         values = lq_spectrum,

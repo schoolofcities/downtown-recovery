@@ -121,7 +121,7 @@
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Navigation
+                  How to navigate this page
                 </button>
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -130,14 +130,17 @@
                   <div class="box alt">
                     <div class="row gtr-50 gtr-uniform">
                       <div class="col-12">
-                        <div class="section level3">
-                          <h4>Plot controls</h4>
-                          <div  class="section level4">
-                            <p><b>To zoom in:</b> click and drag a region of the plot you want to get a closer look at.</p>
-                            <p><b>To reset:</b> double click anywhere on the plot.</p>
-                          
-                        </div>
-                        </div>
+                        <div class="section level1">
+                          <h5>Selection:</h5>
+                          <p>To select a recovery metric, use the dropdown tool.</p>
+                          <p>To view another comparison season, use the dropdown tool.</p>
+                          <h5>Navigating the plot:</h5>
+                          <p>After making your selections, you can further customize the output by directly interacting with the plot. 
+                            To omit cities by region, click once on their legend titles- click again to bring them back.
+                            You may zoom in to the plot by clicking and dragging to create a new viewport.
+                            To return the plot to its original scale, double click anywhere on the plot.
+                            </p>
+                          </div>
 
                       </div>
                     </div>
@@ -147,17 +150,21 @@
             </div>
           </div>
         </div>
-          <div class="col-6">
+          <div class="col-3">
             <div  class="section level4">
             <h5>Select recovery metric:</h5>
+            <h6><i>Only one metric may be viewed at a time.</i></h6>
             <select name="select_ranking_metric" id="select_ranking_metric">
               <option value="downtown">Downtown</option>
               <option value="city">City</option>
               <option value="relative">Relative</option>
             </select>
           </div>
-          <div class="section level2">
+          </div>
+          <div class="col-3">
+          <div class="section level4">
             <h5>Select comparison period:</h5>
+            <h6><i>Only one comparison period may be viewed at a time.</i></h6>
             <select name="select_ranking_season" id="select_ranking_season" style="width:50%; height:25%;">
               <option value="Season_1">Spring: Mar 2020 - May 2020</option>
               <option value="Season_2">Summer: June 2020 - Aug 2020</option>
@@ -170,6 +177,7 @@
               <option selected="selected" value="Season_9">Spring: Mar 2022 - May 2022</option>
             </select>
             </div>
+          </div>
         </div>
           
          

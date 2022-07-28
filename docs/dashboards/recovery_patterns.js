@@ -16,20 +16,20 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
     const citiesSelector = document.getElementById('patterns_cities');
 
-    function setLinePlot(y_val, city_array) {
-        var cities = [];
-        for (var i=0; i < city_array.length; i++) {
-            cities.push(city_array[i].text);
-        }
-        var trace = [{
-            x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'week'),
-            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'rolling_avg'),
+    const all_cities = unpack(Object.values(rows).filter(item => ((item.metric === metricSelector.value) &&
+    (item.week === '2022-01-31'))), 'display_title');
+
+    function createCityTrace(y_val, city) {
+        var trace = {
+            x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'week'),
+            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'rolling_avg'),
             type: 'scatter',
-            mode: 'lines',        
-            ids: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title'),
+            mode: 'lines',
+            visible: 'legendonly',       
+            //ids: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'display_title'),
             transforms: [{
                 type: 'groupby',
-                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
+                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'region'),
                 styles: {
                     Canada: {
                         line: {
@@ -63,19 +63,42 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     }
                 }
                   
-            }, {
+            }/*, {
                 type: 'groupby',
-                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
-            }
+                groups: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'display_title')
+            }*/
         ],
         line: {
-            color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'color'),
+            color: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'color'),
             shape: 'spline'
         },
-        name: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'region'),
-        text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (cities.includes(item.display_title))), 'display_title')
-        }];
+        legendgroup: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'region'),
+        name: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'display_title'),
+    
+        text: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'display_title'),
+        hoverinfo:"x+y",
+            hovertemplate:
+            "<b>City: </b>%{text}<br>" +
+            "<b>Recovery %{yaxis.title.text}: </b> %{y:.0%}<br>" +
+            "<extra></extra>"
+        };
 
+        trace['name'] = city;
+
+        return(trace);
+    };
+
+
+
+
+
+    function initLinePlot(y_val, city_array) {
+        
+        var data = [];
+        for (var i=0; i < all_cities.length; i++) {
+            data[i] = createCityTrace(y_val, all_cities[i])
+
+        }
         var layout = {
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
@@ -90,7 +113,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             xaxis: {
                 showticklabels: true,
                 range: ['2020-04-01', '2022-05-01'],
-                
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
@@ -134,24 +156,44 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         var config = {
             responsive: true,
             displayModeBar: false
+        };
+
+        Plotly.react(plotDiv, data, layout, config);
+        
+
+
+        Plotly.restyle(plotDiv, update, indices);
+
+
+
+
+        var highlighted_cities = [];
+        for (var i=0; i < city_array.length; i++) {
+            highlighted_cities.push(city_array[i].text);
         }
+        var indices = all_cities.map(elem => highlighted_cities.includes(elem)).reduce(
+            (out, bool, index) => bool ? out.concat(index) : out, 
+            []
+          );
+        var update = {
+            visible: true
+        };
 
-        Plotly.react(plotDiv, trace, layout, config);
-
+        Plotly.restyle(plotDiv, update, indices);
     };
 
 
     function updateCities() {
-        setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+        initLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
     }
 
     function updateMetric() {
-        setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+        initLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
     }
    
     citiesSelector.addEventListener('change', updateCities, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
 
-    setLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
+    initLinePlot(metricSelector.value, Array.from(citiesSelector.selectedOptions));
 });

@@ -28,11 +28,12 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), y_val),
             type: 'scatter',
             mode: 'markers+text',
+           
             text: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'display_title'),
             textposition: "top center",
             textfont: {
                 color:unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
-                size: 10
+                size: 14
             },
             hoverinfo:"x+y",
             hovertemplate:
@@ -84,7 +85,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             
             marker: {
                 color: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
-                size: 6
+                size: 14
             },
         }];
 

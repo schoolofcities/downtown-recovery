@@ -92,16 +92,16 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-
-                  <div id="recovery-patterns" class="section level1">
+                  <div class="section level1">
                     <h4>Recovery Patterns</h4>
                     <p>This chart displays a rolling weekly average of the selected metric.
                       The normalized visits by total visits for a given week during the pandemic is divided by the
                       normalized visits by total visits for the corresponding
                       week pre-pandemic. Weeks are considered to correspond with one another if their ISO week number
                       matches.</p>
-                    <div id="select-metric" class="section level2">
-                      <h4>Navigation</h4>
+                    </div>
+                    <div class="section level2">
+                      <h4>Metric Definitions</h4>
                       <p>Downtown: divides the sum of downtown area’s device counts of the week by the corresponding
                         week in 2019</p>
                       <p>City: divides the sum of the entire city’s device counts of the week by the corresponding week
@@ -109,11 +109,7 @@
                       <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the
                         device counts in a downtown area changed relative to how much it changed in the entire city.</p>
                     </div>
-                    <div id="relevant-libraries" class="section level2">
-                      <h4>Relevant libraries</h4>
-                      <p>ggplot, ggrepel <a href="#">Back to top</a></p>
-                    </div>
-                  </div>
+                  
 
                 </div>
               </div>
@@ -122,15 +118,27 @@
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Navigation
+                  How to navigate this page
                 </button>
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionContainer">
                 <div class="accordion-body">
-                  <div class="box alt">
-
-                  </div>
+                  <div class="section level1">
+                    <h5>Selection:</h5>
+                    <p>To select a recovery metric, use the dropdown tool. </p>
+                    <p>To select multiple consecutive cities, you may click and drag within the selection window or shift+click after having selected a single city. To select multiple non-consecutive cities,
+                      you may use ctrl+click. Cities are grouped and colored by region, but each individual city's recovery metric will display in descending order when hovering 
+                      over each week.</p>
+                    <h5>Navigating the plot:</h5>
+                    <p>After making your city selection, you can further customize the output by directly interacting with the plot. 
+                      You may omit cities by clicking once on their legend item. 
+                      You may select all cities by double-clicking. The quickest way to return to a smaller selection is to use the selection window.  
+                      You may zoom in to the plot by clicking and dragging to create the time period you wish to view.
+                      To return the plot to its original tiem period, double click anywhere on the plot.
+                      </p>
+                    </div>
+   
                 </div>
               </div>
             </div>
@@ -139,8 +147,8 @@
           <div class="col-3">
           <div class="section level2">
             <h5>Select recovery metric:</h5>
+            <h6><i>Only one metric may be viewed at a time.</i></h6>
           </div>
-          
           <select name="select_pattern_metric" id="select_pattern_metric">
             <option value="downtown">Downtown</option>
             <option value="city">City</option>
@@ -150,7 +158,7 @@
         <div class="col-3">
           <div class="section level2">
             <h5>Select cities:</h5>
-          
+            <h6><i>Multiple cities may be viewed at a time.</i></h6>
         
 
           <select name="patterns_cities" class="form-select" multiple id="patterns_cities" style="height:100%; width:80%;">

@@ -46,7 +46,7 @@ all_city_coords <- read.csv("input_data/all_city_coords.csv")
 all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics.csv")
 
 # to automatically apply the shinytheme to all ggplots for consistency's sake
-thematic_shiny()
+# thematic_shiny()
 
 all_seasonal_metrics <- all_seasonal_metrics %>%
   dplyr::select(
