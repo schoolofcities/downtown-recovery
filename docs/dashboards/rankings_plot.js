@@ -29,6 +29,16 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             y: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'lq_rank'),
             type: 'bar',
             orientation: 'h',
+            hoverinfo:"x+y",
+            hovertemplate:
+
+            "<b>City: </b>%{text}<br>" +
+
+            "<b>Recovery ranking: </b> %{y}<br>" +
+
+            "<b>%{xaxis.title.text}: </b>%{x:.0%}<br>" +
+
+            "<extra></extra>",
             transforms: [{
                 type: 'groupby',
                 groups: regions,
@@ -75,6 +85,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         var layout = {
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
+            hovermode: 'closest',
             title: {
                 text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {

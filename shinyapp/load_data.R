@@ -285,12 +285,12 @@ card <- function(.img, .title, .text, .tab) {
   )
 }
 
-# all_shapefile <- st_read("shp/study_area_all.shp")
+all_shapefile <- st_read("shp/study_area_all.shp")
 # 
-# all_shapefile <-
-#   st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
-# colnames(all_shapefile) <- c("postal_code", "geometry")
+all_shapefile <-
+   st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
+ colnames(all_shapefile) <- c("postal_code", "geometry")
 
 all_city_index <- read.csv("input_data/all_city_index.csv")
 
-#all_shapefile <- inner_join(all_shapefile, all_city_index, by = "postal_code")
+all_shapefile <- inner_join(all_shapefile, all_city_index, by = "postal_code")

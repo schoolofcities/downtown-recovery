@@ -331,30 +331,33 @@ ui <- bootstrapPage(
             )
           )
         ),
-         tabPanel(
-           value = "single_city_map",
-           "Single city",
-           fluidRow(
-             column(
-               width = 3,
-               wellPanel(
-                  singleCitySelectorUI("city_1", n = 1, selected_city = "San Francisco, CA"),
-                  singleCityMapUI("citymap_1")
-               )
-             ),
-             column(
-               width = 6,
-               #singleCityMapUI("citymaps")
-             ),
-             column(
-               width = 3,
-               wellPanel(
-                 singleCitySelectorUI("city_2", n = 2, selected_city = "Sacramento, CA"),
-                 singleCityMapUI("citymap_2")
-               )
-               )
-             )
-           ),
+        tabPanel(
+          value = "single_city_map",
+          "Single city",
+          
+          sidebarLayout(
+            sidebarPanel(pickerInput(
+              "city_map_select",
+              label = "City: ",
+              choices = regions_choices,
+              # options = list(`actions-box` = TRUE, `none-selected-text` = "Please make a selection!"),
+              selected = "San Francisco, CA",
+              multiple = FALSE,
+              pickerOptions(mobile = TRUE)
+            )
+            ),
+            mainPanel(
+              tags$style(
+                type = "text/css",
+                "#city_map {height: calc(100vh) !important;}"
+              ),
+              leafletOutput("city_map", width = "100%", height = "100%")
+        )
+            
+            
+          )
+          
+        ),
         tabPanel(
           "About this tool",
           includeMarkdown("text_files/maps_README.md")
@@ -525,8 +528,21 @@ server = function(input, output, session) {
   })
   
   getCityMapDF <- reactive({
-    city_map_df(input$city_map_select[1])
-   })
+    ## filter city and set up a simple popup with postal_code / explicit RQ4
+    
+    city_dc <- inner_join(all_shapefile, regions_df %>% dplyr::select(display_title, city), by = "city")
+    
+    plot_map <- city_dc %>%
+      dplyr::filter((display_title == input$city_map_select[1])) %>%
+      mutate(
+        popup = str_c(
+          '<b>Region: </b>',
+          postal_code
+        )
+      )
+    
+    plot_map
+  })
   
   points_df <- reactiveValues(df_data = NULL)
   
@@ -867,9 +883,9 @@ server = function(input, output, session) {
      # single city map
    
      downtown_pal <-
-       colorFactor("#f1a340", domain = TRUE, na.color = "transparent")
+       colorFactor(c("#8856a7", "#f1a340"), domain = c(TRUE,FALSE), na.color = "transparent")
      
-     plot_map_sf <- getCityMapDF() %>% dplyr::filter(as.logical(is_downtown))
+     plot_map_sf <- getCityMapDF()
      plot_map_sf$is_downtown <- as.logical(plot_map_sf$is_downtown)
      
      city_map <- leaflet(plot_map_sf) %>%
@@ -899,12 +915,13 @@ server = function(input, output, session) {
            weight = 5,
            bringToFront = TRUE,
            opacity = 1
-         )
+         ),
+         popup = ~popup,
+         popupOptions = popupOptions(maxHeight = 215, closeOnClick = TRUE)
        ) %>%
        addLegend(color = "#d94801",
                  labels = "Downtown area",
-                 "bottomleft") #%>%
-       #fitBounds(plot_map_sf %>% dplyr::filter(is_downtown) %>% bbox() %>% as.character())
+                 "bottomleft")
    })
   
   # output$city_map_morans <- renderUI({
