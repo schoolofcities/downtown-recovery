@@ -11,13 +11,13 @@
 ![its a mess](delete_when_ready.png)
 
 # TODO
-* Update this entire page to reflect final, simplified version of website that accompanies the policy brief and mentions future plans, and nothing more, nothing less. 
+* ~~Update this entire page to reflect final, simplified version of website that accompanies the policy brief and mentions future plans, and nothing more, nothing less.~~
 * ~~Change text in pop-up boxes of national comparative map to a time series? If not, some change here might be warranted to better convey a city's change over time rather than increasing lines of text~~
 * ~~Implement automation in pulling data from safegraph/databricks/wherever the new mobility data ends up going.~~
 * ~~Update 'Raw device counts' tab to have a slideshow of Kepler images for the cities in which they are available~~
 * ~~Select which explanatory variables / city-specific data is suitable for the single city dashboard page. It might make most sense to use the explanatory variables from the multinomial logistic model / time series regression / etc to start with, then add one or two others that might be interesting but ultimately not significant enough to use in the model?~~ 
-* Select the method to best display the data: tables? charts? map? text? popup?
-* Clean up *entire pipeline* to be useable for someone other than myself
+* ~~Select the method to best display the data: tables? charts? map? text? popup?~~
+* ~~Clean up *entire pipeline* to be useable for someone other than myself~~
 * ~~Clean up R scripts to be useable for someone other than myself (they can run on a separate machine by only pulling whats in the repo, but the caveat is it was my laptop)~~
 * ~~Add single city dashboard tab~~
 * ~~Rework site to display information by month rather than by period 1/2/3/4~~
@@ -26,41 +26,17 @@
 * ~~Embed working examples of widgets in website~~
 * ~~Format website to be suitable for human eyes~~
 
-# File structure and organization TODO
-* docs: The idea is to have everything unrelated to the Shiny app in here and be strictly anything front end-- the index.html file, maintenance.html, and image folder are in here. Most of the other folders are essentially relics from when this was an effort to piece together disparate html widget outputs from R into one site.
-* shinyapp: the folder where everything the Shiny app needs to run lives in. The idea is for you to be able to clone this repo, run app.R in RStudio, and so long as you have the necessary libraries installed, you should be able to see the Shiny app locally. The changes you make locally will not affect the public facing website. The changes you push will not affect the public facing website. The only time the actual downtownrecovery.com page will update is if the app.R and its necessary folders are pushed to shinyapps.io on my account.
+# File structure and organization
+* docs: The idea is to have everything unrelated to the Shiny app in here and be strictly anything front end-- the index.html file, Javascript files, dashboards in HTML, maintenance.html, and image folder are in here. Most of the other folders are essentially relics from when this was an effort to piece together disparate html widget outputs from R into one site.
+* shinyapp: the folder where everything the Shiny app needs to run lives in. The idea is for you to be able to clone this repo, run app.R in RStudio, and so long as you have the necessary libraries installed, you should be able to see the Shiny app locally.
 
-
-# Table schema TODO
+# Table schema
 * all_city_index.csv: table consisting of `postal_code`, `city`, `is_downtown` (a true/false flag), and `country`. 
 contactenated togther into one master table of purely dependent variables for each season, for each type of recovery.
-* all_weekly_metrics.csv: a table consisting of `city`, `metric`, `date_range_start`, `region`, and `weekly_lq`. This is a longform version of the 3 tables `downtown_rec_df_0407`, `metro_rec_df_0407`, and `relative_rec_df_0407`, from databricks pivoted and concatenated together. The convention of Year.week_num column names in databricks has been changed to a parse-able Date format in R to allow for plotting a time series of the weekly recovery patterns for each city. This table is used in the 'Recovery Patterns' tab. 
-* all_seasonal_metrics.csv: a table consisting of `city`, `metric`, `date_range_start`, `region`, `period`, and `season_X`. This is a longform version of the 3 tables `downtown_rec_df_0407`, `metro_rec_df_0407`, and `relative_rec_df_0407`, from databricks averaged by season to calculate the recovery metric for each different type. In other words, it is all_weekly_lq.csv pivoted by `city`, `metric`, then assigned a `season` based on the window in which `date_range_start` falls, then averaged by `season`. 
-* master_factors_display.csv: a table consisting of `city`, `region`, `display_title`, and all explanatory variables from the ACS and LEHD datasets. This is the *non-time dependent* independent explanatory variable dataset.
-* time_factors_display.csv: (TBD) This is a table consisting solely of the time-dependent independent explanatory variables. The timesteps are the same as the dependent variable's timesteps. It might be interesting to parameterize this by t and do a time series regression with something like f = x(t), g = y(t), h = g(f). 
+* all_weekly_metrics.csv: a table consisting of `city`, `metric`, `date_range_start`, `region`, and `normalized_visits_by_total_visits`. This is a longform version of the 3 tables `downtown_rec_df_0407`, `metro_rec_df_0407`, and `relative_rec_df_0407`, from databricks pivoted and concatenated together. The convention of Year.week_num column names in databricks has been changed to a parse-able Date format in R to allow for plotting a time series of the weekly recovery patterns for each city. This table is used in the 'Recovery Patterns' tab. 
+* all_seasonal_metrics.csv: a table consisting of `city`, `metric`, `date_range_start`, `region`, `period`, and `season_X`. This is a longform version of the 3 tables `downtown_rec_df_0407`, `metro_rec_df_0407`, and `relative_rec_df_0407`, from databricks averaged by season to calculate the recovery metric for each different type. In other words, it is all_weekly_metrics.csv pivoted by `city`, `metric`, then assigned a `season` based on the window in which `date_range_start` falls, then averaged by `season`. This table is used in the 'Recovery Rankings', 'Explanatory Variables', and 'Comparative Map' tabs.
+* explanatory_vars.csv: a table consisting of `city`, `region`, `display_title`, and all explanatory variables from the ACS (downtown AND city specific), LEHD (only downtown), and Oxford government response datasets.
 * all_city_coords.csv: a table consisting of lat/lon coordinates for all cities in the study for the sake of plotting them on the national map. 
-
-
-
-# Updating mobility data 
-
-## If no lq/rq calculations have been done:
-Ideally, the data should be in longform format with the following columns:
-
-| postal_code | city | date_range_start | normalized_visits_by_state_scaling |
-| ----------- | ---- | ---------------- | ---------------------------------- |
-|  94016 | San Francisco | 2022-05-01 | 175 |
-
-This should be aggregated from the raw data collected from safegraph / cubiq. If the data is not aggregated, there are functions throughout ```device_count_helper.R``` that are used to join the raw data by its placekey column to a `placekeys` <-> `postal_code` column for US data and a separate table for Canadian `placekey` <-> `postal_code`, (which is really a dissemination area). This is then joined to another table that has `postal_code` <-> (`city` , `is_downtown`) columns. These are commented accordingly. 
-
-This will create the regional rqs for the single city map.
-
-## If the weekly_lq / weekly_rq for each city, by each type of metric is already calculated:
-This is the easiest case scenario where the new rows are simply concatenated to the end of all_weekly_lq, then you can proceed to ```avg_lq_calculator``` and simply run the script to create the new `metrics_df` table.
-
-This is used in all other maps/charts
-
-
 
 # Debugging Shiny apps:
 
