@@ -22,7 +22,7 @@ plot_data %>%
   pivot_wider(names_from = "metric", values_from = "seasonal_average") %>%
   inner_join(regions_df %>% dplyr::select(region, color), by = "region") %>%
   distinct() %>%
-  arrange(region, display_title)
+  arrange(region, display_title) 
 
 
 

@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/model_data_metrics.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/explanatory_updates/docs/model_data_metrics.csv', function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
@@ -21,24 +21,24 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     const resetCityButton = document.getElementById('explanatory_reset');
 
     const initCities = Array("Toronto, ON", "Chicago, IL", "New York, NY", "San Francisco, CA", "Atlanta, GA", "Salt Lake City, UT",
-    "", "", "", "");
+    "Atlanta, GA", "Pittsburgh, PA", "Charlotte, NC", "Phoenix, AZ");
 
-    const all_cities = unpack(Object.values(rows).filter(item => (item.x_var === xSelector.value) && (item.Season === seasonSelector.value)), 'display_title');
+    const all_cities = unpack(Object.values(rows).filter(item => item.Season === seasonSelector.value), 'display_title');
 
 
 
 
     function createCityTrace(y_val, x_val, x_name, season, city) {
         var trace = {
-            x: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'x_val'),
-            y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), y_val),
+            x: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), x_val),
+            y: unpack(Object.values(rows).filter(item =>  (item.Season === season.value) && (item.display_title === city)), y_val),
             type: 'scatter',
             mode: 'markers+text',
            
             visible: 'legendonly',       
             transforms: [{
                 type: 'groupby',
-                groups: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'region'),
+                groups: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'region'),
                 styles: {
                     Canada: {
                         line: {
@@ -75,15 +75,15 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             }
         ],
         marker: {
-            color: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'color'),
+            color: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'color'),
             size: 14
         },
-        legendgroup: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'region'),
-        name: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'display_title'),
-        text: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'display_title'),
+        legendgroup: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'region'),
+        name: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'display_title'),
+        text: unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'display_title'),
         textposition: "top center",
         textfont: {
-            color:unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'color'),
+            color:unpack(Object.values(rows).filter(item => (item.Season === season.value) && (item.display_title === city)), 'color'),
             size: 14
         },
         hoverinfo:"x+y",
