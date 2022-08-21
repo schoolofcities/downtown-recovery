@@ -24,6 +24,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     
     function setHBarPlot(metric, season) {
         var regions = unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'region');
+
         var trace = [{
             x: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'seasonal_average'),
             y: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'lq_rank'),
@@ -76,16 +77,30 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             }],
             text: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'display_title'),
+            texttemplate:
+            "<b>%{text} : </b> %{x}<br>",
+            textposition: 'inside',
             marker: {
                 color: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'color'),
-                size: 20
+                size: 50,
+                opacity: .9,
+                line : {
+                    color: '#ffffff',
+                    width: 1.5
+                }
             },
+            insidetextfont: {
+                size: 64
+            }
+            //width: 3
+            //offset: 5
         }];
 
         var layout = {
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             hovermode: 'closest',
+            height: 1800,
             title: {
                 text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {
@@ -140,12 +155,13 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     size: 12,
                     color: '#ffffff'
                 }
-            }
+            },
+            bargap:0
         };
 
         var config = {
             responsive: true,
-            displayModeBar: false
+            //displayModeBar: false
         }
         Plotly.react(plotDiv, trace, layout, config);
     };
