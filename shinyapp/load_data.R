@@ -35,7 +35,7 @@ library(spdep)
 library(plotly)
 library(geojsonio)
 
-explanatory_vars <- read.csv("input_data/explanatory_vars.csv")
+explanatory_vars <- read.csv("input_data/updated_model_features.csv")
 
 # 2022-07-15: updates: anything pertaining to single city map tab has been removed
 # this is a 'policy brief only' version of the app
@@ -97,7 +97,8 @@ largest_n_cities <- regions_df %>%
 explanatory_vars <- explanatory_vars %>%
    mutate(metro_size = case_when(
      city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
-   ))
+   )) %>%
+  inner_join(regions_df %>% select(city, region))
 
 all_weekly_metrics$week <-
   as.Date(all_weekly_metrics$week, format = "%Y-%m-%d")
@@ -184,20 +185,19 @@ named_factors <- c(
   "Percentage of Jobs in Public Administration in Downtown" = "pct_jobs_public_administration",
   #"Percentage of Jobs in Other Categories in Downtown" = "pct_jobs_other",
   # covid policies, all at city level
-  "Composite of COVID-19 Closing Policies" = "composite_closing",
-  "Composite of COVID-19 Economic Policies" = "composite_economic",
-  #"Average of C1_School closing" = "school_closing",
-  #"Average of C2_Workplace closing" = "workplace_closing",
-  #"Average of C3_Cancel public events" = "cancel_public_events",
-  #"Average of C4_Restrictions on gatherings" = "restrict_gatherings",
-  #"Average of C6_Stay at home requirements" = "stay_at_home",
-  #"Average of E1_Income support" = "income_support",
-  #"Average of E2_Debt relief" = "debt_relief",
-  #"Average of H6_Facial Coverings" = "facial_coverings",
-  #"Average of H7_Vaccination policy" = "vaccination_policy",
+  #"Composite of COVID-19 Closing Policies" = "composite_closing",
+  #"Composite of COVID-19 Economic Policies" = "composite_economic",
+  
+  "Number of days with required school closure" = "days_school_closing",
+  "Number of days with required workplace closure" = "days_workplace_closing",
+  "Number of days with required large event cancellation" = "days_cancel_large_events",
+  "Number of days with required cancellation of all events" = "days_cancel_all_events",
+  "Number of days with stay at home requirements" = "days_stay_home_requirements",
+  "Number of days with income support policy" = "days_income_support",
+  "Number of days with mask mandates" = "days_mask_mandates"
   # political leaning - city level
-  "Percentage Liberal Leaning" = "pct_liberal_leaning",
-  "Percentage Conservative Leaning" = "pct_conservative_leaning"
+  #"Percentage Liberal Leaning" = "pct_liberal_leaning",
+  #"Percentage Conservative Leaning" = "pct_conservative_leaning"
   # "Percentage Other Leaning" = "pct_other"
   #weather - all at city level
 )

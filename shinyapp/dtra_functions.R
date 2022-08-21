@@ -267,13 +267,13 @@ create_model_df <- function(x_var) {
   
   X <- explanatory_vars %>%
    # dplyr::filter(Season == y_var) %>%
-    dplyr::select(city, region, Season, all_of(x_var))
+    dplyr::select(city, region, all_of(x_var))
   
   #colnames(X) <- c("city", "region", "x")
   
   #colnames(y) <- c("city", "display_title", "Season", "y", "metric")
   unique(y %>%
-           inner_join(X, by = c("city", "Season")) #%>%
+           inner_join(X, by = c("city")) #%>%
            #mutate(key_study_case = display_title %in% explanatory_cities$display_title)
            )
   

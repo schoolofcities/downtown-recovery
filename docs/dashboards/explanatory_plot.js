@@ -13,41 +13,32 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
     };
 
     
-    var metricSelector = document.getElementById('select_metric');
+    const metricSelector = document.getElementById('select_metric');
     var seasonSelector = document.getElementById('select_explanatory_season');
     var xSelector = document.getElementById('x_vars');
 
-    
+
+    const resetCityButton = document.getElementById('explanatory_reset');
+
+    const initCities = Array("Toronto, ON", "Chicago, IL", "New York, NY", "San Francisco, CA", "Atlanta, GA", "Salt Lake City, UT",
+    "", "", "", "");
+
+    const all_cities = unpack(Object.values(rows).filter(item => (item.x_var === xSelector.value) && (item.Season === seasonSelector.value)), 'display_title');
 
 
-    function setScatterPlot(y_val, x_val, x_name, season) {
 
-        var regions = unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'region');
-        var trace = [{
-            x: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'x_val'),
-            y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), y_val),
+
+    function createCityTrace(y_val, x_val, x_name, season, city) {
+        var trace = {
+            x: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'x_val'),
+            y: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), y_val),
             type: 'scatter',
             mode: 'markers+text',
            
-            text: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'display_title'),
-            textposition: "top center",
-            textfont: {
-                color:unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
-                size: 14
-            },
-            hoverinfo:"x+y",
-            hovertemplate:
-
-            "<b>City: </b>%{text}<br>" +
-
-            "<b>Recovery %{yaxis.title.text}: </b> %{y:.0%}<br>" +
-
-            "<b>%{xaxis.title.text}: </b>%{x}<br>" +
-
-            "<extra></extra>",
+            visible: 'legendonly',       
             transforms: [{
                 type: 'groupby',
-                groups: regions,
+                groups: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'region'),
                 styles: {
                     Canada: {
                         line: {
@@ -80,14 +71,47 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                         }
                     }
                 }
-            }],
-            
-            
-            marker: {
-                color: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value)), 'color'),
-                size: 14
-            },
-        }];
+                  
+            }
+        ],
+        marker: {
+            color: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'color'),
+            size: 14
+        },
+        legendgroup: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'region'),
+        name: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'display_title'),
+        text: unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'display_title'),
+        textposition: "top center",
+        textfont: {
+            color:unpack(Object.values(rows).filter(item => (item.x_var === x_val) && (item.Season === season.value) && (item.display_title === city)), 'color'),
+            size: 14
+        },
+        hoverinfo:"x+y",
+        hovertemplate:
+            "<b>City: </b>%{text}<br>" +
+            "<b>Recovery %{yaxis.title.text}: </b> %{y:.0%}<br>" +
+            "<b>%{xaxis.title.text}: </b>%{x}<br>" +
+            "<extra></extra>"
+        };
+
+        trace['name'] = city;
+
+        return(trace);
+    };
+
+    // old below-
+
+
+
+
+
+    function initScatterPlot(y_val, x_val, x_name, season, city_array) {
+
+        var data = [];
+        for (var i=0; i < all_cities.length; i++) {
+            data[i] = createCityTrace(y_val, x_val, x_name, season, all_cities[i])
+
+        }
 
         var layout = {
             hovermode:'closest',
@@ -140,12 +164,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 }
             },
             legend: {
-                "orientation": "h",
-                x:0,
-                y:1,
-                
-                xanchor:'left',
-                yanchor:'bottom',
                 font: {
                     family: 'Open Sans, monospace',
                     size: 12,
@@ -157,30 +175,49 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         var config = {
             responsive: true,
             displayModeBar: false
-        }
+        };
 
-        Plotly.react(plotDiv, trace, layout, config);
+        Plotly.react(plotDiv, data, layout, config);
+    
+
+        var highlighted_cities = [];
+        for (var i=0; i < city_array.length; i++) {
+            highlighted_cities.push(city_array[i]);
+        }
+        var indices = all_cities.map(elem => highlighted_cities.includes(elem)).reduce(
+            (out, bool, index) => bool ? out.concat(index) : out, 
+            []
+          );
+        var update = {
+            visible: true
+        };
+
+        Plotly.restyle(plotDiv, update, indices);
 
     };
 
 
     function updateX() {
-        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
+        initScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector, initCities);
     }
 
     function updateMetric() {
-        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
+        initScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector, initCities);
     }
 
     function updateSeason() {
-        setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
+        initScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector, initCities);
+    }
+
+    function resetCities() {
+        initScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector, initCities);
     }
 
     xSelector.addEventListener('change', updateX, false);
 
     metricSelector.addEventListener('change', updateMetric, false);
-
+    resetCityButton.addEventListener('click', resetCities, false);
     seasonSelector.addEventListener('change', updateSeason, false);
 
-    setScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector);
+    initScatterPlot(metricSelector.value, xSelector.value, xSelector.options[xSelector.selectedIndex].text, seasonSelector, initCities);
 });

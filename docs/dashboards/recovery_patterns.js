@@ -86,10 +86,6 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
         return(trace);
     };
 
-
-
-
-
     function initLinePlot(y_val, city_array) {
         
         var data = [];
