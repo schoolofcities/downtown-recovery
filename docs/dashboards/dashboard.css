@@ -83,7 +83,7 @@ div.plot-container#patterns-plot iframe{
 
 div.plot-container#rankings-plot{
   position: absolute;
-  overflow:auto;
+  overflow:scroll;
   display:inline;
   height:100%;
   width:100%;
@@ -92,7 +92,7 @@ div.plot-container#rankings-plot{
 
 div.plot-container#rankings-plot iframe{
   position: absolute;
-  overflow:auto;
+  overflow:scroll;
   display:inline;
   height:100%;
   width:100%;
