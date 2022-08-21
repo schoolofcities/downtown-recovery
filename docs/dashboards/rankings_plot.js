@@ -78,7 +78,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             }],
             text: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'display_title'),
             texttemplate:
-            "<b>%{text} : </b> %{x}<br>",
+            "<b>%{y} : %{text} </b> %{x} recovery",
             textposition: 'inside',
             marker: {
                 color: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'color'),
