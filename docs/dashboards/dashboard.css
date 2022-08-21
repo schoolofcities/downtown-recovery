@@ -86,7 +86,7 @@ div.plot-container#rankings-plot{
   overflow:scroll;
   display:inline;
   height:100%;
-  width:100%;
+  width:80%;
   border: none;
 }
 

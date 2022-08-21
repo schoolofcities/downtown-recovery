@@ -83,10 +83,14 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             marker: {
                 color: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'color'),
                 size: 50,
-                outlinecolor:'white'
+                opacity: .9,
+                line : {
+                    color: '#ffffff',
+                    width: 1.5
+                }
             },
             insidetextfont: {
-                size: 32
+                size: 64
             }
             //width: 3
             //offset: 5
@@ -96,7 +100,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             hovermode: 'closest',
-            height: 1200,
+            height: 1800,
             title: {
                 text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
                 font: {
@@ -157,7 +161,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
 
         var config = {
             responsive: true,
-            displayModeBar: false
+            //displayModeBar: false
         }
         Plotly.react(plotDiv, trace, layout, config);
     };

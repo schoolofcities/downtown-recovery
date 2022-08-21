@@ -83,7 +83,7 @@
 
   <main>
       <div class="row">
-        <div class="col-6">
+        <div class="col-2">
           <div class="accordion" id="accordionContainer">
 
             <div class="accordion-item">
@@ -152,8 +152,7 @@
               </div>
             </div>
           </div>
-        </div>
-          <div class="col-3">
+          <div class="row">
             <div  class="section level4">
             <h5>Select recovery metric:</h5>
     
@@ -164,11 +163,11 @@
             </select>
           </div>
           </div>
-          <div class="col-3">
+          <div class="row">
           <div class="section level4">
             <h5>Select comparison period:</h5>
        
-            <select name="select_ranking_season" id="select_ranking_season" style="width:50%; height:25%;">
+            <select name="select_ranking_season" id="select_ranking_season" style="width:75%; height:75%;">
               <option value="Season_1">Spring: Mar 2020 - May 2020</option>
               <option value="Season_2">Summer: June 2020 - Aug 2020</option>
               <option value="Season_3">Fall: Sept 2020 - Nov 2020</option>
@@ -182,12 +181,14 @@
             </div>
           </div>
         </div>
+       
+        
     
    
-        <div class="container-fluid">
+        <div class="col-10">
           <div class="plot-container" id="rankings-plot"></div>
         </div>
-      
+      </div>
   </main>
 
 </body>
