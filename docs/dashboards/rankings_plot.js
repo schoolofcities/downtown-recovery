@@ -156,7 +156,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     color: '#ffffff'
                 }
             },
-            bargap:0
+            bargap:2
         };
 
         var config = {
