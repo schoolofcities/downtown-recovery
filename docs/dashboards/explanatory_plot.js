@@ -59,7 +59,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
                     },
                     Pacific: {
                         line: {
-                            color: '#f3b0ff'
+                            color: '#00A189'
                         }
                     },
                     Southeast: {

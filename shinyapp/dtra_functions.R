@@ -122,7 +122,7 @@ recovery_rankings_plot <- function(df) {
     scale_fill_manual(values = c("Canada" = "#DC4633",
                                  "Midwest" = "#6FC7EA",
                                  "Northeast" = "#8DBF2E",
-                                 "Pacific" = "#f3b0ff",
+                                 "Pacific" = "#00A189",
                                  "Southeast" = "#AB1368",
                                  "Southwest" = "#F1C500"))
   g1
@@ -133,7 +133,7 @@ recovery_patterns_df <- function(selected_metric, selected_cities, rolling_windo
   colors = c("Canada" = "#DC4633",
              "Midwest" = "#6FC7EA",
              "Northeast" = "#8DBF2E",
-             "Pacific" = "#f3b0ff",
+             "Pacific" = "#00A189",
              "Southeast" = "#AB1368",
              "Southwest" = "#F1C500")
   na.omit(all_weekly_metrics %>%
@@ -252,7 +252,7 @@ recovery_patterns_plot <- function(df, metric, n) {
     scale_color_manual(values = c("Canada" = "#DC4633",
                                   "Midwest" = "#6FC7EA",
                                   "Northeast" = "#8DBF2E",
-                                  "Pacific" = "#f3b0ff",
+                                  "Pacific" = "#00A189",
                                   "Southeast" = "#AB1368",
                                   "Southwest" = "#F1C500"))
   g1
@@ -396,7 +396,7 @@ explanatory_plot <- function(selected_metric, y_var, x_var) {
     scale_color_manual(values = c("Canada" = "#DC4633",
                                   "Midwest" = "#6FC7EA",
                                   "Northeast" = "#8DBF2E",
-                                  "Pacific" = "#f3b0ff",
+                                  "Pacific" = "#00A189",
                                   "Southeast" = "#AB1368",
                                   "Southwest" = "#F1C500"))
   g1
@@ -488,7 +488,7 @@ explanatory_plot_long <- function(plot_df, selected_metric) {
     scale_color_manual(values = c("Canada" = "#DC4633",
                                   "Midwest" = "#6FC7EA",
                                   "Northeast" = "#8DBF2E",
-                                  "Pacific" = "#f3b0ff",
+                                  "Pacific" = "#00A189",
                                   "Southeast" = "#AB1368",
                                   "Southwest" = "#F1C500"))
   g1

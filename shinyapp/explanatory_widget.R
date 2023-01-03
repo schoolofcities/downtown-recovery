@@ -54,7 +54,7 @@ write.csv(plot_data %>%
 #                colors = c("Canada" = "#DC4633",
 #                                                "Midwest" = "#6FC7EA",
 #                                                "Northeast" = "#8DBF2E",
-#                                                "Pacific" = "#f3b0ff",
+#                                                "Pacific" = "#00A189",
 #                                                "Southeast" = "#AB1368",
 #                                                "Southwest" = "#F1C500"),
 #                hovertext = ~paste("City: ", city, '<br>', x_var, x_val),

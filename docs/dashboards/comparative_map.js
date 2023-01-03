@@ -48,7 +48,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                     },
                     Pacific: {
                         line: {
-                            color: '#f3b0ff'
+                            color: '#00A189'
                         }
                     },
                     Southeast: {

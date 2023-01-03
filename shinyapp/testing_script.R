@@ -358,7 +358,7 @@ ranking_plot <- function(top_n_df, metric, top_n = 20) {
     scale_color_manual(values = c("Canada" = "#DC4633",
                                   "Midwest" = "#6FC7EA",
                                   "Northeast" = "#8DBF2E",
-                                  "Pacific" = "#f3b0ff",
+                                  "Pacific" = "#00A189",
                                   "Southeast" = "#AB1368",
                                   "Southwest" = "#F1C500"))
   g1
@@ -413,13 +413,13 @@ bar_chart_race <- function(smoothed_df, metric, rolling_window, top_n = 25) {
     scale_fill_manual(values = c("Canada" = "#DC4633",
                                  "Midwest" = "#6FC7EA",
                                  "Northeast" = "#8DBF2E",
-                                 "Pacific" = "#f3b0ff",
+                                 "Pacific" = "#00A189",
                                  "Southeast" = "#AB1368",
                                  "Southwest" = "#F1C500")) +
     scale_color_manual(values = c("Canada" = "#DC4633",
                                  "Midwest" = "#6FC7EA",
                                  "Northeast" = "#8DBF2E",
-                                 "Pacific" = "#f3b0ff",
+                                 "Pacific" = "#00A189",
                                  "Southeast" = "#AB1368",
                                  "Southwest" = "#F1C500"))
     #scale_colour_manual(values = c("large" = "#000000", 
