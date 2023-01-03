@@ -1,4 +1,5 @@
 # Status
+* 2023/01/03: Mirroring to School of Cities GitHub page
 * 2022/08/04: Everything has been rewritten in HTML and Javascript. Aside from any absolutely essential changes, the website is more or less complete. Any further developments would be the content of a text container, a minor change in functionality, or new tab altogether. The existing tabs are pretty much in their final form.
 * 2022/07/21: 'version 1' is beginning. All data preprocessing has been moved to databricks. The goal is to pare down [the website](https://www.downtownrecovery.com) to something that does not depend so much on Shiny's servers to function. The website will likely be some middle ground between the original 'only widgets, pure HTML' setup and 'all Shiny' from version 0. 
 * 2022/06/13: 'version 0' is done. Now moving on to version 1: will have the single city dashboard tab and update temporal filters to be by month / 3 month window instead of the 6 month window. The concept of Period 1/2/3/4 is now irrelevant.
