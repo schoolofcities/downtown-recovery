@@ -3538,7 +3538,11 @@ textarea.form-control-lg{
 	margin-right:1rem;
 	font-size:1.25rem;
 	text-decoration:none;
-	white-space:nowrap
+	white-space:nowrap;
+    opacity: 1;
+}
+.navbar-brand:hover {
+    opacity: 0.7;
 }
 .navbar-nav{
 	display:-ms-flexbox;
@@ -4037,9 +4041,9 @@ textarea.form-control-lg{
 	flex-direction:column;
 	min-width:0;
 	word-wrap:break-word;
-	background-color:#303030;
+	background-color: var(--bs-body-bg);
 	background-clip:border-box;
-	border:1px solid rgba(0,0,0,.125);
+	border:1px solid var(--bs-primary);
 	border-radius:.25rem
 }
 .card>hr{
@@ -6967,7 +6971,7 @@ textarea.form-control-lg{
 }
 .text-muted{
 	--bs-text-opacity:1;
-	color:#888!important
+	color:#fff!important
 }
 .text-black-50{
 	--bs-text-opacity:1;
