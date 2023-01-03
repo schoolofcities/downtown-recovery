@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('./ranking_data.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/ranking_data.csv', function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
