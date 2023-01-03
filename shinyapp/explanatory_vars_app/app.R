@@ -178,12 +178,12 @@ server = function(input, output, session) {
            subtitle = r_squared,
            color = "Region") +
       scale_y_continuous(labels = scales::percent, limits = c(min(key_study_cases_df$seasonal_average), max(key_study_cases_df$seasonal_average))) +
-      scale_color_manual(values = c("Canada" = "#e41a1c",
-                                    "Midwest" = "#377eb8",
-                                    "Northeast" = "#4daf4a",
-                                    "Pacific" = "#984ea3",
-                                    "Southeast" = "#ff7f00",
-                                    "Southwest" = "#e6ab02"))
+      scale_color_manual(values = c("Canada" = "#DC4633",
+                                    "Midwest" = "#6FC7EA",
+                                    "Northeast" = "#8DBF2E",
+                                    "Pacific" = "#f3b0ff",
+                                    "Southeast" = "#AB1368",
+                                    "Southwest" = "#F1C500"))
     g1
   })
 

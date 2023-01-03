@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/docs/ranking_data.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/ranking_data.csv', function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
@@ -46,32 +46,32 @@ Plotly.d3.csv('https://raw.githubusercontent.com/hmooreo/downtownrecovery/main/d
                 styles: {
                     Canada: {
                         line: {
-                            color: '#e41a1c'
+                            color: '#DC4633'
                         }
                     },
                     Midwest: {
                         line: {
-                            color: '#377eb8'
+                            color: '#6FC7EA'
                         }
                     },
                     Northeast: {
                         line: {
-                            color: '#4daf4a'
+                            color: '#8DBF2E'
                         }
                     },
                     Pacific: {
                         line: {
-                            color: '#984ea3'
+                            color: '#f3b0ff'
                         }
                     },
                     Southeast: {
                         line: {
-                            color: '#ff7f00'
+                            color: '#AB1368'
                         }
                     },
                     Southwest: {
                         line: {
-                            color: '#e6ab02'
+                            color: '#F1C500'
                         }
                     }
                 }

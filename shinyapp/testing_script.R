@@ -355,12 +355,12 @@ ranking_plot <- function(top_n_df, metric, top_n = 20) {
       expand = expansion(mult = .15)
     ) +
     scale_y_continuous(breaks = unique(df$lq_rank)) +
-    scale_color_manual(values = c("Canada" = "#e41a1c",
-                                  "Midwest" = "#377eb8",
-                                  "Northeast" = "#4daf4a",
-                                  "Pacific" = "#984ea3",
-                                  "Southeast" = "#ff7f00",
-                                  "Southwest" = "#e6ab02"))
+    scale_color_manual(values = c("Canada" = "#DC4633",
+                                  "Midwest" = "#6FC7EA",
+                                  "Northeast" = "#8DBF2E",
+                                  "Pacific" = "#f3b0ff",
+                                  "Southeast" = "#AB1368",
+                                  "Southwest" = "#F1C500"))
   g1
 
     
@@ -410,18 +410,18 @@ bar_chart_race <- function(smoothed_df, metric, rolling_window, top_n = 25) {
           ) + 
    # theme(legend.position = "none") + 
 
-    scale_fill_manual(values = c("Canada" = "#e41a1c",
-                                 "Midwest" = "#377eb8",
-                                 "Northeast" = "#4daf4a",
-                                 "Pacific" = "#984ea3",
-                                 "Southeast" = "#ff7f00",
-                                 "Southwest" = "#e6ab02")) +
-    scale_color_manual(values = c("Canada" = "#e41a1c",
-                                 "Midwest" = "#377eb8",
-                                 "Northeast" = "#4daf4a",
-                                 "Pacific" = "#984ea3",
-                                 "Southeast" = "#ff7f00",
-                                 "Southwest" = "#e6ab02"))
+    scale_fill_manual(values = c("Canada" = "#DC4633",
+                                 "Midwest" = "#6FC7EA",
+                                 "Northeast" = "#8DBF2E",
+                                 "Pacific" = "#f3b0ff",
+                                 "Southeast" = "#AB1368",
+                                 "Southwest" = "#F1C500")) +
+    scale_color_manual(values = c("Canada" = "#DC4633",
+                                 "Midwest" = "#6FC7EA",
+                                 "Northeast" = "#8DBF2E",
+                                 "Pacific" = "#f3b0ff",
+                                 "Southeast" = "#AB1368",
+                                 "Southwest" = "#F1C500"))
     #scale_colour_manual(values = c("large" = "#000000", 
     #                               "medium" = "#ffffff"))
   
