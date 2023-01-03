@@ -129,7 +129,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
                 }
             },
             xaxis: {
-                gridcolor: '#bdbdbd',
+                gridcolor: '#4f4f4f',
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
@@ -148,7 +148,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
                 }
             },
             yaxis: {
-                gridcolor: '#bdbdbd',
+                gridcolor: '#4f4f4f',
                 showticklabels: true,
                 tickformat: ".0%",
                 tickfont: {
