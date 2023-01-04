@@ -120,12 +120,12 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
             plot_bgcolor: 'rgba(0,0,0,0)',
             paper_bgcolor: 'rgba(0,0,0,0)',
             title: {
-                text: y_val.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
+                text: y_val.toProperCase() + ' Recovery -- ' + season.options[season.selectedIndex].text,
 
                 font: {
                     color: '#ffffff',
                     family: 'Open Sans, monospace',
-                    size: 14
+                    size: 18
                 }
             },
             xaxis: {

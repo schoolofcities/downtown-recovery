@@ -102,14 +102,15 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
             hovermode: 'closest',
             height: 1800,
             title: {
-                text: metric.toProperCase() + ' recovery: ' + season.options[season.selectedIndex].text,
+                text: metric.toProperCase() + ' Recovery -- ' + season.options[season.selectedIndex].text,
                 font: {
                     color: '#ffffff',
                     family: 'Open Sans, monospace',
-                    size: 14
+                    size: 18
                 }
             },
             xaxis: {
+                gridcolor: '#5c5c5c',
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
