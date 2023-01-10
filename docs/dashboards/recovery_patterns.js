@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/all_weekly_metrics_plot.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/all_weekly_metrics_plot_cuebiq_update.csv', function (err, rows) {
 
     function unpack(data, key) {
         return data.map(function (row) { return row[key]; });
@@ -108,7 +108,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
             xaxis: {
                 gridcolor: '#4f4f4f',
                 showticklabels: true,
-                range: ['2020-04-01', '2022-05-01'],
+                range: ['2020-04-01', '2022-10-24'],
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
