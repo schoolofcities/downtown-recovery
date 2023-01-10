@@ -12,12 +12,28 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
         return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
+    const update_seasons = ["Season_10", "Season_11"];
+
     
-    const metricSelector = document.getElementById('select_metric');
     var seasonSelector = document.getElementById('select_explanatory_season');
     var xSelector = document.getElementById('x_vars');
 
+    seasonSelector.addEventListener('change', function(e) {
+        if (update_seasons.includes(seasonSelector.value) & (document.getElementById('select_metric').value != "downtown")) {
+            document.getElementById('select_metric').value = "downtown";
+        }
+      });
 
+    
+
+    document.getElementById('select_metric').addEventListener('change', function(e) {
+        if (update_seasons.includes(seasonSelector.value) & (document.getElementById('select_metric').value != "downtown")) {
+            document.getElementById('select_metric').value = "downtown";
+        }
+      });
+
+    var metricSelector = document.getElementById('select_metric');
+    
     const resetCityButton = document.getElementById('explanatory_reset');
 
     const initCities = Array("Toronto, ON", "Chicago, IL", "New York, NY", "San Francisco, CA", "Atlanta, GA", "Salt Lake City, UT",

@@ -1,92 +1,26 @@
 source("load_data.R")
 source("dtra_functions.R")
 
-
-
-#g1 <- explanatory_plot(selected_metric, "pct_jobs_information", "Season_9")
-#interactive_plot <- girafe(ggobj = g1, width_svg = 10, height_svg = 10,
-#                            options = list(
-#                              opts_tooltip(use_fill = TRUE),
-#                              opts_hover_inv(css = "opacity:0.1;"),
-#                              opts_hover(css = "stroke-width:2;"),
-#                              opts_sizing(rescale = TRUE, width = 1)
-#                            ))
-# interactive_plot
-
 plot_x_vars <- named_factors
 plot_data <- create_model_df(unname(plot_x_vars))
-write.csv(plot_data, "../docs/model_data_full.csv")
+
+plot_data %>% glimpse()
 
 plot_data %>%
+  group_by(Season) %>%
+  count()
+
+
+summary(plot_data)
+
+write.csv(plot_data, "../docs/model_data_full_cuebiq_update.csv")
+
+metrics_format <- plot_data %>%
   dplyr::select(-city) %>%
   pivot_wider(names_from = "metric", values_from = "seasonal_average") %>%
   inner_join(regions_df %>% dplyr::select(region, color), by = "region") %>%
   distinct() %>%
-  arrange(region, display_title) 
+  arrange(region, display_title) %>%
+  replace_na(list(city = 0, relative = 0))
 
-
-
-
-
-plot_data <- read.csv("../docs/model_data.csv")
-
-write.csv(plot_data %>%
-            dplyr::select(-city) %>%
-            pivot_wider(names_from = "metric", values_from = "seasonal_average") %>%
-            inner_join(regions_df %>% dplyr::select(region, color), by = "region") %>%
-            distinct() %>%
-            arrange(region, display_title), "../docs/model_data_metrics.csv")
-
-
-
-
-#htmlwidgets::saveWidget(explanatory_plot("downtown", "pct_jobs_information", "Season_9"), "../docs/widgets/explanatory_variables.html", selfcontained = FALSE)
-
-# for (selected_metric in c("downtown", "city", "relative")) {
-# 
-#   
-#   
-#   pd <- highlight_key(plot_data, ~city)
-#   
-#   
-#   p <- plot_ly(pd, 
-#                color = ~region, 
-#                colors = c("Canada" = "#DC4633",
-#                                                "Midwest" = "#6FC7EA",
-#                                                "Northeast" = "#8DBF2E",
-#                                                "Pacific" = "#00A189",
-#                                                "Southeast" = "#AB1368",
-#                                                "Southwest" = "#F1C500"),
-#                hovertext = ~paste("City: ", city, '<br>', x_var, x_val),
-#                hoverinfo = "x+y"
-#                ) %>% 
-#     group_by(x_var) %>%
-#     config(displayModeBar  = FALSE) %>%
-#     add_markers(x = ~x_val,
-#                 y = ~y,
-#                 hoverinfo = "x+y") %>%
-#     highlight(selectize = TRUE,
-#               dynamic = TRUE,
-#               persistent = FALSE)
-#   
-#   widget2save <- bscols(
-#     filter_select("x_vars", "Select a variable: ", pd, ~x_var),
-#     p,
-#     widths = c(2, 10)
-#   )
-    
-
-  
-  #g1 <- explanatory_plot(selected_metric, "Season_9", x$x)
-  # widget2save <- bscols(x,
-  #                       girafe(ggobj = g1, width_svg = 12, height_svg = 8,
-  #                            options = list(
-  #                              opts_tooltip(use_fill = TRUE),
-  #                              opts_hover_inv(css = "opacity:0.1;"),
-  #                              opts_hover(css = "stroke-width:2;"),
-  #                              opts_sizing(rescale = TRUE, width = .8)
-  #                            )),
-  #                       )
-#   widget2save$sizingPolicy$padding <- 0
-#   htmltools::save_html(widget2save, paste0("../docs/widgets/explanatory_variables_", selected_metric, ".html"))
-# }
+write.csv(metrics_format, "../docs/model_data_metrics_cuebiq_update.csv")
