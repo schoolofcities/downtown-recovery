@@ -12,9 +12,29 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
         return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    
-    var metricSelector = document.getElementById('select_ranking_metric');
+    const update_seasons = ["Season_10", "Season_11"];
     var seasonSelector = document.getElementById('select_ranking_season');
+
+    seasonSelector.addEventListener('change', function(e) {
+        if (update_seasons.includes(seasonSelector.value) & (document.getElementById('select_ranking_metric').value != "downtown")) {
+            document.getElementById('select_ranking_metric').value = "downtown";
+        }
+      });
+
+    
+
+    document.getElementById('select_ranking_metric').addEventListener('change', function(e) {
+        if (update_seasons.includes(seasonSelector.value) & (document.getElementById('select_ranking_metric').value != "downtown")) {
+            document.getElementById('select_ranking_metric').value = "downtown";
+        }
+      });
+
+
+
+
+
+    var metricSelector = document.getElementById('select_ranking_metric');
+    
 
     function rankDuplicate(arr) {
         const sorted = [...new Set(arr)].sort((a, b) => b - a);

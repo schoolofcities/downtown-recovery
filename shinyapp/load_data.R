@@ -14,11 +14,7 @@ library(glue)
 library(stringr)
 library(ggrepel)
 library(ggpmisc)
-library(shiny.router)
 library(ggiraph)
-library(shinyLP)
-library(shinyBS)
-library(crosstalk)
 library(zoo)
 library(tidyverse)
 library(broom)
@@ -26,24 +22,31 @@ library(dplyr)
 library(htmlwidgets)
 library(leaflet)
 library(scales)
-library(shiny)
-library(shinyWidgets)
-library(shinythemes)
 library(sf)
 library(sp)
 library(spdep)
 library(plotly)
 library(geojsonio)
-
+setwd("E:\\git/downtown-recovery/shinyapp")
 explanatory_vars <- read.csv("input_data/updated_model_features.csv")
 
 # 2022-07-15: updates: anything pertaining to single city map tab has been removed
 # this is a 'policy brief only' version of the app
 
-all_weekly_metrics <- read.csv("input_data/all_weekly_metrics.csv")
+# 2023-01: cuebiq data and color update
+region_colors <- c("Canada" = "#DC4633",
+                   "Midwest" = "#6FC7EA",
+                   "Northeast" = "#8DBF2E",
+                   "Pacific" = "#00A189",
+                   "Southeast" = "#AB1368",
+                   "Southwest" = "#F1C500")
+
+
+
+all_weekly_metrics <- read.csv("input_data/all_weekly_metrics_cuebiq_update.csv")
 all_weekly_metrics$metric <- str_replace(all_weekly_metrics$metric, "metro", "city")
 all_city_coords <- read.csv("input_data/all_city_coords.csv")
-all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics.csv")
+all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics_cuebiq_update.csv")
 
 # to automatically apply the shinytheme to all ggplots for consistency's sake
 # thematic_shiny()
@@ -77,7 +80,8 @@ explanatory_vars <- explanatory_vars %>%
 # this was manually set but can be updated with however you want to define metro_size
 # you can drop the population col from regions_df and left_join with some other table with city and population info and use this
 
-# also maybe save a lat and long col to this so that way all the geographic information is in one table
+#' also maybe save a lat and long col to this so all the geographic information is in one table
+#' or to the census vars table
 regions_df <- read.csv("input_data/regions.csv")
 
 regions_df <- regions_df %>%
@@ -95,9 +99,9 @@ largest_n_cities <- regions_df %>%
 # explanatory_vars already has a metro_size col from when it was created on databricks, but it's reassigned here just in case
 # you did want to do a quick change in definition to metro_size without having to recreate or redownload anything
 explanatory_vars <- explanatory_vars %>%
-   mutate(metro_size = case_when(
-     city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
-   )) %>%
+  mutate(metro_size = case_when(
+    city %in% largest_n_cities$city ~ "large",!(city %in% largest_n_cities$city) ~ "medium"
+  )) %>%
   inner_join(regions_df %>% select(city, region))
 
 all_weekly_metrics$week <-
@@ -288,8 +292,8 @@ card <- function(.img, .title, .text, .tab) {
 all_shapefile <- st_read("shp/study_area_all.shp")
 # 
 all_shapefile <-
-   st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
- colnames(all_shapefile) <- c("postal_code", "geometry")
+  st_transform(all_shapefile, st_crs("+proj=longlat +datum=WGS84"))
+colnames(all_shapefile) <- c("postal_code", "geometry")
 
 all_city_index <- read.csv("input_data/all_city_index.csv")
 
