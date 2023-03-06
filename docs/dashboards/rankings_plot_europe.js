@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/ranking_data_cuebiq_update_europe_subset.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/europe-updates/docs/ranking_data_cuebiq_update_europe_subset.csv', function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
@@ -43,7 +43,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
     }
     
     function setHBarPlot(metric, season) {
-        var regions = unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'region');
+        var regions = unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'region1');
 
         var trace = [{
             x: unpack(Object.values(rows).filter(item => ((item.Season === season.value) && (item.metric === metric))), 'seasonal_average'),
