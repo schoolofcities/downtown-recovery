@@ -109,21 +109,11 @@
                   <div id="recovery-rankings" class="section level3">
                     <h4>Recovery Rankings</h4>
                     <div id="about-ranking" class="section level4">
-                      <p>Displays a ranked bar chart wth city names and metrics superimposed on the bars.</p>
-                      <p>The bars are filled according to which region they belong to (Canada, US Midwest, US Northeast,
-                        US Pacific, US Southeast, US Southwest). </p>
-                      <p> The hover text is as follows: </p>
-                      <p> City name : Recovery value</p>
-                      <p>A recovery value greater than 100% means that for the selected inputs, the mobile device activity
-                        improved from the comparison period. A value less than 100% means the opposite, and a value
-                        equal to 100% means the activity did not change.</p>
-                        <p>Recovery metrics:</p>
-                        <p>Downtown: divides the sum of downtown area's device counts of the week by the corresponding
-                          week in 2019</p>
-                        <p>City: divides the sum of the entire city's device counts of the week by the corresponding week
-                          in 2019.</p>
-                        <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the
-                          device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                      <p>This a supplement to the rankings chart, but with additional data bars for a few major European cities.</p>
+                      <p>These European-inclusive charts are available from Dec 2021 to Nov 2022. We have not yet queried data for any other dates for Europe. For earlier data for North America, check out the more detailed chart found <a href="../dashboards/recovery_ranking.html">here</a>.</p>                     
+                      <p>The bars are coloured according to which region they belong to (Canada, United States, and Europe).</p>
+                      <p> The metric is calculating by dividing the sum of downtown area's device counts of the period by the corresponding period in 2019</p>               
+                       
                     </div>
                     
                   </div>
@@ -168,8 +158,8 @@
     
             <select name="select_ranking_metric" id="select_ranking_metric">
               <option value="downtown">Downtown</option>
-              <option value="city">City</option>
-              <option value="relative">Relative</option>
+              <!-- <option value="city">City</option>
+              <option value="relative">Relative</option> -->
             </select>
           </div>
           </div>
@@ -178,13 +168,13 @@
             <h5>Select comparison period:</h5>
        
             <select name="select_ranking_season" id="select_ranking_season" style="width:75%; height:75%;">
-              <option value="Season_1">Spring: Mar 2020 - May 2020</option>
+              <!-- <option value="Season_1">Spring: Mar 2020 - May 2020</option>
               <option value="Season_2">Summer: June 2020 - Aug 2020</option>
               <option value="Season_3">Fall: Sept 2020 - Nov 2020</option>
               <option value="Season_4">Winter: Dec 2020 - Feb 2021</option>
               <option value="Season_5">Spring: Mar 2021 - May 2021</option>
               <option value="Season_6">Summer: June 2021 - Aug 2021</option>
-              <option value="Season_7">Fall: Sept 2021 - Nov 2021</option>
+              <option value="Season_7">Fall: Sept 2021 - Nov 2021</option> -->
               <option value="Season_8">Winter: Dec 2021 - Feb 2022</option>
               <option value="Season_9">Spring: Mar 2022 - May 2022</option>
               <option value="Season_10">Summer: June 2022 - Aug 2022</option>
