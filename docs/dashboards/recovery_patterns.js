@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/all_weekly_metrics_plot_cuebiq_update.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/europe-updates/docs/all_weekly_metrics_plot_cuebiq_update.csv', function (err, rows) {
 
     function unpack(data, key) {
         return data.map(function (row) { return row[key]; });
@@ -24,7 +24,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
     function createCityTrace(y_val, city) {
         var trace = {
             x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'week'),
-            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'rolling_avg'),
+            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'rolling_avg_right'),
             type: 'scatter',
             mode: 'lines',
             visible: 'legendonly',       
