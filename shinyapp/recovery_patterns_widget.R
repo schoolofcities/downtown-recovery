@@ -33,7 +33,8 @@ plot_data <-
     )) %>%
     ungroup() %>%
     dplyr::select(-city, -normalized_visits_by_total_visits, -metro_size, -X) %>%
-  inner_join(colors_df)
+  inner_join(colors_df) %>%
+  filter(!is.na(rolling_avg))
 
 plot_data$week <- as.Date(plot_data$week)
 
@@ -42,6 +43,8 @@ plot_data <- plot_data %>%
 
 
 plot_data %>% glimpse()
+
+
 
 summary(plot_data)
 
