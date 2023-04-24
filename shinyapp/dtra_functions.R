@@ -35,20 +35,7 @@ create_buttons <- function(df, var_names, axis_type) {
   )
 }
 
-recovery_rankings_df_widget <- function() {
-  unique(all_seasonal_metrics %>%
-           dplyr::select(display_title,
-                         seasonal_average,
-                         region,
-                         metric,
-                         city,
-                         Season)) %>%
-    dplyr::filter(!is.na(seasonal_average)) %>%
-    group_by(metric, Season) %>%
-    dplyr::arrange(-seasonal_average) %>%
-    mutate(lq_rank = rank(-seasonal_average, ties.method = "first")) %>%
-    ungroup()
-}
+
 
 map_df_widget <- function() {
   unique(all_seasonal_metrics %>%

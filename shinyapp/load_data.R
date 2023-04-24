@@ -14,7 +14,6 @@ library(glue)
 library(stringr)
 library(ggrepel)
 library(ggpmisc)
-library(ggiraph)
 library(zoo)
 library(tidyverse)
 library(broom)
@@ -27,7 +26,7 @@ library(sp)
 library(spdep)
 library(plotly)
 library(geojsonio)
-setwd("E:\\git/downtown-recovery/shinyapp")
+
 explanatory_vars <- read.csv("input_data/updated_model_features.csv")
 
 # 2022-07-15: updates: anything pertaining to single city map tab has been removed
@@ -43,10 +42,11 @@ region_colors <- c("Canada" = "#DC4633",
 
 
 
-all_weekly_metrics <- read.csv("input_data/all_weekly_metrics_cuebiq_update.csv")
+all_weekly_metrics <- read.csv("input_data/all_weekly_metrics_cuebiq_update_hll.csv")
 all_weekly_metrics$metric <- str_replace(all_weekly_metrics$metric, "metro", "city")
 all_city_coords <- read.csv("input_data/all_city_coords.csv")
-all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics_cuebiq_update.csv")
+all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics_cuebiq_update_hll.csv")
+
 
 # to automatically apply the shinytheme to all ggplots for consistency's sake
 # thematic_shiny()

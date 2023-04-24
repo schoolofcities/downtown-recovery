@@ -1,27 +1,49 @@
-source("load_data.R")
-source("dtra_functions.R")
+# creates data ready for ranking plot in javascript on downtownrecovery.com
 
+rm(list = ls())
+gc()
 
+setwd("~/git/downtown-recovery/shinyapp")
 
-plot_cities <- c("Washington DC", "Seattle, WA", "New York, NY","San Francisco, CA",
-                 "Sacramento, CA", "Los Angeles, CA", "San Diego, CA", "Portland, OR",
-                 "Boston, MA", "Chicago, IL", "Vancouver, BC", "Toronto, ON")
+# 2023-01: cuebiq data and color update
+region_colors <- c("Canada" = "#DC4633",
+                   "Midwest" = "#6FC7EA",
+                   "Northeast" = "#8DBF2E",
+                   "Pacific" = "#00A189",
+                   "Southeast" = "#AB1368",
+                   "Southwest" = "#F1C500")
 
+colors_df <- data.frame(region = names(region_colors), color = region_colors)
+colors_df
 
+all_weekly_metrics <- read.csv("input_data/all_weekly_metrics_cuebiq_update_hll.csv")
+all_weekly_metrics$metric <- str_replace(all_weekly_metrics$metric, "metro", "city")
 
-plot_data <- recovery_patterns_df_long(11) %>%
-  inner_join(regions_df %>% dplyr::select(display_title, region, color), by = "display_title")
+rolling_window <- 11
+
+plot_data <-
+  all_weekly_metrics %>%
+    arrange(week) %>%
+    group_by(city, metric) %>%
+    mutate(rolling_avg = rollmean(
+      normalized_visits_by_total_visits,
+      as.numeric(rolling_window),
+      na.pad = TRUE,
+      align = "right"
+    )) %>%
+    ungroup() %>%
+    dplyr::select(-city, -normalized_visits_by_total_visits, -metro_size, -X) %>%
+  inner_join(colors_df)
 
 plot_data$week <- as.Date(plot_data$week)
 
 plot_data <- plot_data %>%
   arrange(week, region, display_title)
 
-recovery_patterns_plot(plot_data, "downtown", 11)
 
 plot_data %>% glimpse()
 
 summary(plot_data)
 
 
-write.csv(plot_data, "../docs/all_weekly_metrics_plot_cuebiq_update.csv")
+write.csv(plot_data, "../docs/all_weekly_metrics_plot_cuebiq_update_hll.csv")
