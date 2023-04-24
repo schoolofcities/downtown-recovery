@@ -27,7 +27,7 @@ library(spdep)
 library(plotly)
 library(geojsonio)
 
-explanatory_vars <- read.csv("input_data/updated_model_features.csv")
+explanatory_vars <- read.csv("input_data/all_model_features_1015_weather.csv")
 
 # 2022-07-15: updates: anything pertaining to single city map tab has been removed
 # this is a 'policy brief only' version of the app
