@@ -4,6 +4,7 @@ rm(list = ls())
 gc()
 
 setwd("~/git/downtown-recovery/shinyapp")
+outlier_cities <- c("Dallas", "Oklahoma City", "Orlando")
 
 # 2023-01: cuebiq data and color update
 region_colors <- c("Canada" = "#DC4633",

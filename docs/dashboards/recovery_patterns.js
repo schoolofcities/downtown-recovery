@@ -24,7 +24,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
     function createCityTrace(y_val, city) {
         var trace = {
             x: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'week'),
-            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'rolling_avg_right'),
+            y: unpack(Object.values(rows).filter(item => (item.metric === y_val) && (item.display_title === city)), 'rolling_avg'),
             type: 'scatter',
             mode: 'lines',
             visible: 'legendonly',       
