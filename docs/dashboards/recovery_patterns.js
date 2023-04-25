@@ -108,7 +108,7 @@ Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recover
             xaxis: {
                 gridcolor: '#4f4f4f',
                 showticklabels: true,
-                range: ['2020-05-10', '2022-11-28'],
+                range: ['2020-05-10', '2023-04-10'],
                 tickfont: {
                     family: 'Open Sans, monospace',
                     size: 12,
