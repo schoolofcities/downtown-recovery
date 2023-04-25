@@ -111,6 +111,9 @@ plot_x_vars  <- c(
 )
 
 all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics_cuebiq_update_hll.csv")
+
+all_seasonal_metrics <- all_seasonal_metrics %>%
+  filter(!(city %in% outlier_cities))
 explanatory_vars <- read.csv("input_data/all_model_features_1015_weather.csv")
 
 y <- all_seasonal_metrics %>%

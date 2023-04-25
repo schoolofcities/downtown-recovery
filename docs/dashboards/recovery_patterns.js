@@ -1,7 +1,7 @@
 
 
 // load in data
-Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/stoppers_hll_update/docs/all_weekly_metrics_plot_cuebiq_update_hll.csv', function (err, rows) {
+Plotly.d3.csv('https://raw.githubusercontent.com/schoolofcities/downtown-recovery/main/docs/all_weekly_metrics_plot_cuebiq_update_hll.csv', function (err, rows) {
 
     function unpack(data, key) {
         return data.map(function (row) { return row[key]; });

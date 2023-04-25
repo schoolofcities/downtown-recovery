@@ -1,4 +1,18 @@
 # creates data ready for ranking plot in javascript on downtownrecovery.com
+library(ggplot2)
+library(thematic)
+library(markdown)
+library(readxl)
+library(glue)
+library(stringr)
+library(zoo)
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(htmlwidgets)
+library(scales)
+library(plotly)
+library(geojsonio)
 
 rm(list = ls())
 gc()
@@ -20,6 +34,9 @@ colors_df
 
 all_weekly_metrics <- read.csv("input_data/all_weekly_metrics_cuebiq_update_hll.csv")
 all_weekly_metrics$metric <- str_replace(all_weekly_metrics$metric, "metro", "city")
+
+all_weekly_metrics <- all_weekly_metrics %>%
+  filter(!(city %in% outlier_cities))
 
 rolling_window <- 11
 
@@ -46,7 +63,10 @@ plot_data <- plot_data %>%
 
 plot_data %>% glimpse()
 
-
+plot_data %>%
+  group_by(display_title) %>%
+  count() %>%
+  print(n = Inf)
 
 summary(plot_data)
 
