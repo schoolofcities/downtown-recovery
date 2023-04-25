@@ -20,6 +20,9 @@ colors_df
 
 all_seasonal_metrics <- read.csv("input_data/all_seasonal_metrics_cuebiq_update_hll.csv")
 
+all_seasonal_metrics <- all_seasonal_metrics %>%
+  filter(!(city %in% outlier_cities))
+
 rankings_df <-
   unique(
     
