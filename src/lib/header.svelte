@@ -1,18 +1,35 @@
 <script>
 
 	import logo from '../assets/top-logo-full.svg';
+	import { onMount } from 'svelte';
+
+	let isMobile = false;
+
+	onMount(() => {
+		isMobile = window.innerWidth < 600;
+		window.addEventListener('resize', handleResize);
+	});
+
+	function handleResize() {
+		isMobile = window.innerWidth < 600;
+	}
+
+	$: console.log(isMobile);
 
 </script>
 
-<header>
 
+
+<header>
 	<div id="logo">
 		<a href="https://www.schoolofcities.utoronto.ca/"><img src={logo} alt="School of Cities"></a>
 	</div>
+	<p>Downtown Recovery</p>
+</header>
 
+<div id="menu">
 	<nav>
 		<ul>
-		  
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
@@ -32,19 +49,28 @@
 		  <li><a href="#">Methodology</a></li>
 		  <li><a href="#">Team</a></li>
 		</ul>
-	  </nav>
+	</nav> 
+</div>
 
-</header>
+
 
 <style>
 
 	header {
-		background: var(--brandDarkGray);
+		background-color: var(--brandGray90);
 		height: 50px; 
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		border-bottom: solid 1px var(--brandDarkBlue);
+	}
+
+	header p {
+		color: var(--brandWhite);
+		padding-right: 10px;
+		text-align: right;
+		font-family: TradeGothicBold;
+		font-size: 20px;
 	}
 
 	#logo {
@@ -69,6 +95,19 @@
 		cursor: pointer;
 	}
 
+	#menu {
+		background-color: var(--brandGray90);
+		height: 25px; 
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: solid 1px var(--brandDarkBlue);
+	}
+
+	nav {
+		margin-left: auto;
+	}
+
 	nav ul {
 		list-style: none;
 		margin: 0;
@@ -87,9 +126,7 @@
 		margin-left: 0px;
 	}
 
-	nav {
-		margin-left: auto;
-	}
+	
 
 	nav ul li.dropdown:hover .dropdown-menu {
 		display: block;
