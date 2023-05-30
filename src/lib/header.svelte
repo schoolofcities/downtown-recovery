@@ -16,9 +16,10 @@
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="#">Submenu 1</a></li>
-			  <li><a href="#">Submenu 2</a></li>
-			  <li><a href="#">Submenu 3</a></li>
+			  <li><a href="#">Rankings</a></li>
+			  <li><a href="#">Rankings (Europe Suppliment)</a></li>
+			  <li><a href="#">Patterns</a></li>
+			  <li><a href="#">Explanatory Variables</a></li>
 			</ul>
 		  </li>
 		  <li class="dropdown">
@@ -26,7 +27,6 @@
 			<ul class="dropdown-menu">
 			  <li><a href="#">Submenu 4</a></li>
 			  <li><a href="#">Submenu 5</a></li>
-			  <li><a href="#">Submenu 6</a></li>
 			</ul>
 		  </li>
 		  <li><a href="#">Methodology</a></li>
@@ -80,10 +80,11 @@
 	nav ul a {
 		color: var(--brandWhite);
 		text-decoration: none;
+		padding-right: 10px;
 	}
 
 	nav ul li {
-		margin-left: 20px;
+		margin-left: 0px;
 	}
 
 	nav {
@@ -96,18 +97,28 @@
 
 	.dropdown-menu {
 		display: none;
-		background: #fff;
+		background-color: var(--brandGray90);
+		border-left: solid 1px var(--brandDarkBlue);
+		border-bottom: solid 1px var(--brandDarkBlue);
 		position: absolute;
-		padding: 10px;
-		z-index: 1;
+		padding: 0px;
+		margin-top: 0px;
+		padding-top: 14px;
+		z-index: 20;
 	}
 
 	.dropdown-menu li {
-		margin-bottom: 5px;
+		margin-bottom: 2px;
+		margin-left: 0px;
+		padding-left: 10px;
+		padding-top: 4px;
+		padding-bottom: 2px;
+		border-top: solid 1px var(--brandDarkBlue);
+		border-right: solid 1px var(--brandDarkBlue);
 	}
 
 	.dropdown-menu li a {
-		color: #333;
+		color: var(--brandWhite);
 		text-decoration: none;
 	}
 
