@@ -21,7 +21,7 @@
 		height: 50px;
 		background-color: var(--brandGray90);
 		margin-bottom: 20px;
-		border-bottom: 1px solid var(--brandGray80);
+		border-bottom: 1px solid var(--brandWhite);
 		width: 100%;
 		min-width: 200px;
 		padding-left: 0px;
@@ -36,9 +36,6 @@
 		height: 50px;
 	}
 
-	a {
-		color: black;
-	}
 	a:hover {
 		opacity: 0.7;
 	}

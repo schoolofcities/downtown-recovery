@@ -22,3 +22,9 @@
     --brandGray80: #333333;
     --brandGray90: #191919;
 }
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: var(--brandGray90);
+}
