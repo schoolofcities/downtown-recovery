@@ -4,9 +4,30 @@
     import SelectSeason from "../../../lib/SelectSeason.svelte";
     import SelectRegions from "../../../lib/SelectRegions.svelte";
 
+    import { onMount } from 'svelte';
+
     import { season, regions, selectedRegions } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
+
+
+    async function loadData() {
+        try {
+            const response = await fetch('../ranking_data.csv');
+            const csvData = await response.text();
+            console.log(csvData);
+            // const jsonData = csvParse(csvData);
+            // console.log(jsonData); // Display the converted JSON data in the console
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
+
+    onMount(() => {
+        loadData();
+    });
+
+    // console.log(data);
 
 </script>
 
@@ -27,12 +48,6 @@
         </p>
         <p>
             A recovery value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change.
-        </p>
-
-        <p>
-            Options
-            - select Season
-            - select Region (by colour - Europe as white)
         </p>
 
     </div>
@@ -75,6 +90,13 @@
         max-width: 650px;
         color: white;
         border-bottom: solid 1px var(--brandDarkBlue);
+    }
+
+    h1 {
+        font-family: TradeGothicBold;
+		font-size: 30px;
+        color: var(--brandWhite);
+        text-decoration: underline;
     }
 
     #ranking-chart {
