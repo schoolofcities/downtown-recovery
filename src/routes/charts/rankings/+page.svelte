@@ -1,64 +1,14 @@
 <script>
 
-    import Header from "../../../lib/header.svelte";
+    import Header from "../../../lib/Header.svelte";
+    import SelectSeason from "../../../lib/SelectSeason.svelte";
+    import SelectRegions from "../../../lib/SelectRegions.svelte";
+
+    import { season, regions, selectedRegions } from '../../../lib/stores.js';
+
     import "../../../assets/global.css";
 
-    const regions = ["Southeast", "Southwest", "Pacific", "Northeast", "Midwest", "Canada", "Europe"]
-
-    const seasons = [
-        {
-            "name": "Spring: Mar 2020 - May 2020",
-            "number": 1
-        },
-        {
-            "name": "Summer: June 2020 - Aug 2020",
-            "number": 2
-        },
-        {
-            "name": "Fall: Sept 2020 - Nov 2020",
-            "number": 3
-        },
-        {
-            "name": "Winter: Dec 2020 - Feb 2021",
-            "number": 4
-        },
-        {
-            "name": "Spring: Mar 2021 - May 2021",
-            "number": 5
-        },
-        {
-            "name": "Summer: June 2021 - Aug 2021",
-            "number": 6
-        },
-        {
-            "name": "Fall: Sept 2021 - Nov 2021",
-            "number": 7
-        },
-        {
-            "name": "Winter: Dec 2021 - Feb 2022",
-            "number": 8
-        },
-        {
-            "name": "Spring: Mar 2022 - May 2022",
-            "number": 9
-        },
-        {
-            "name": "Summer: June 2022 - Aug 2022",
-            "number": 10
-        },
-        {
-            "name": "Fall: Sept 2022 - Nov 2022",
-            "number": 11
-        },
-        {
-            "name": "Winter: Dec 2022 - Feb 2023",
-            "number": 12
-        }
-    ]
-
-    let selectedRegions = ["Southeast", "Southwest", "Pacific", "Northeast", "Midwest", "Canada"]
-
-    let selectedSeason = 12
+    $: console.log($selectedRegions);
 
 </script>
 
@@ -91,8 +41,12 @@
     </div>
 
     <div id="ranking-chart">
+        
+        <div id="options">
+            <SelectSeason/>
+        </div>
 
-        meow
+        <SelectRegions/>
 
     </div>
 
@@ -114,12 +68,19 @@
 
     #title {
         margin: 0 auto;
-        max-width: 666px;
+        max-width: 650px;
         color: white;
+        border-bottom: solid 1px var(--brandDarkBlue);
     }
 
     #ranking-chart {
+        margin: 0 auto;
         max-width: 1920px;
+    }
+
+    #options {
+        margin: 0 auto;
+        max-width: 650px;
     }
 
 </style>

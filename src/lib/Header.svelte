@@ -126,8 +126,6 @@
 		margin-left: 0px;
 	}
 
-	
-
 	nav ul li.dropdown:hover .dropdown-menu {
 		display: block;
 	}
