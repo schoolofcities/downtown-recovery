@@ -62,7 +62,9 @@
 
     main {
         margin: 0 auto;
-        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        width: calc(100% - 30px);
         min-width: 320px;
         max-width: 1920px;
         position: relative;

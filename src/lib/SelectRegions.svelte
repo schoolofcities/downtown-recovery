@@ -68,4 +68,8 @@
         padding-left: 5px;
     }
 
+    .name:hover {
+        opacity: 0.7;
+    }
+
 </style>

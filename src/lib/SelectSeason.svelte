@@ -76,14 +76,20 @@
     }
 
     select {
-      padding: 5px;
-      background-color: var(--brandGray90);
-      border: 1px solid var(--brandDarkBlue);
-      color: white; /* Optional: Set the text color to white */
+        padding: 5px;
+        background-color: var(--brandGray90);
+        border: 1px solid var(--brandDarkBlue);
+        color: white; 
     }
   
     select option {
         background-color: var(--brandGray90);
-      color: white; /* Optional: Set the text color to white */
+        color: white;
     }
+
+    select:hover {
+        cursor: pointer;
+        background-color: black;
+    }
+
 </style>
