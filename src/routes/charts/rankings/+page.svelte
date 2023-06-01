@@ -8,8 +8,6 @@
 
     import "../../../assets/global.css";
 
-    $: console.log($selectedRegions);
-
 </script>
 
 
@@ -35,7 +33,6 @@
             Options
             - select Season
             - select Region (by colour - Europe as white)
-            - select metric (city vs downtown) - maybe add later?
         </p>
 
     </div>
@@ -43,10 +40,15 @@
     <div id="ranking-chart">
         
         <div id="options">
-            <SelectSeason/>
+            <div id="options-season">
+                <SelectSeason/>
+            </div>
+            <div id="options-region">
+                <SelectRegions/>
+            </div>
         </div>
 
-        <SelectRegions/>
+
 
     </div>
 
@@ -81,6 +83,14 @@
     #options {
         margin: 0 auto;
         max-width: 650px;
+    }
+
+    #options-season {
+        float: left;
+        padding-right: 15px;
+    }
+    #options-region {
+        overflow: hidden;
     }
 
 </style>

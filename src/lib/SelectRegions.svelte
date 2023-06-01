@@ -2,8 +2,6 @@
     import { regions, selectedRegions } from './stores.js';
     import '../assets/global.css';
 
-    import { onMount } from 'svelte';
-
     let selectedButtons = $selectedRegions;
 
     function handleClick(name) {
@@ -19,15 +17,16 @@
 </script>
 
 
+<p>Select Regions:</p>
 <div id="buttons">
     {#each $regions as region}
         <div
         class="button"
         on:click={() => handleClick(region.name)}
-        style="color: white; "
+        style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
         >
             <div class="box" style="background-color: {region.colour}"></div>
-            <div class="name">
+            <div class="name" >
                 {region.name}
             </div>
         </div>
@@ -37,18 +36,36 @@
 
 
 <style>
+
+    p {
+        color: white;
+    }
+
+    #buttons {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 600px;
+    }
+
     .button {
-        width: 500px;
+        width: 102px;
         float: left;
     }
+
+    .button:hover {
+        cursor: pointer;
+    }
+
     .box {
         height: 15px;
         width: 15px;
-        border: solid 1px white;
+        border: solid 1px var(--brandDarkBlue);
         float:left;
     }
+
     .name {
         overflow: hidden;
         padding-left: 5px;
     }
+
 </style>
