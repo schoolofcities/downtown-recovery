@@ -8,7 +8,6 @@
     import { csvParse } from 'd3-dsv';
 
     import { season, selectedRegions, regions } from '../../../lib/stores.js';
-    // import regions from '../../../lib/regions.json';
 
     import "../../../assets/global.css";
 
@@ -48,7 +47,7 @@
 
     let chartWidth;
     let chartHeight = 100;
-    $: chartHeight = 20 * filteredData.length + 20;
+    $: chartHeight = 20 * filteredData.length + 50;
 
     let maxValue = 1; // for x-axis scale
     $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
@@ -65,6 +64,9 @@
     $: xAxisIntervals = generateXaxisIntervals(maxValue, 0.2);
 
     $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
+
+    $: console.log(regionColours);
+
 
 
 </script>
@@ -103,12 +105,12 @@
 
         <svg height={chartHeight} width={chartWidth} id="chart">
             
-            <line class="grid"
+            <!-- <line class="grid"
                 x1 = 29
                 y1 = 40
                 x2 = {chartWidth}
                 y2 = 40
-            ></line>
+            ></line> -->
 
             {#each xAxisIntervals as xInterval, i}
 
@@ -120,20 +122,61 @@
                 ></line>
 
                 <text class="axis-label"
-                x = {25 + i * xAxisIntervalSpacing}
-                y = 30
+                    x = {25 + i * xAxisIntervalSpacing}
+                    y = 30
                 >{(100 * xInterval).toFixed(0)}%</text>
 
             {/each}
 
             {#each filteredData as d, i}
 
-                <line class="grid"
+                <line class="bar"
+                    x1 = {29}
+                    y1 = {52 + i * 20}
+                    x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals)}
+                    y2 = {52 + i * 20}
+                    style = "
+                        stroke: white;
+                        stroke-width: 17
+                    "
+                ></line>
+
+                <line class="bar"
                     x1 = {30}
                     y1 = {52 + i * 20}
-                    x2 = {150}
+                    x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals) - 1}
                     y2 = {52 + i * 20}
-                    
+                    style = "
+                        stroke: {regionColours.find(region => region.name === d.region).colour};
+                        stroke-width: 15
+                    "
+                ></line>
+
+                <text class="axis-label"
+                    x = 25
+                    y = {57 + i * 20}
+                    text-anchor="end"
+                >{i + 1}</text>
+
+                <text class="bar-label"
+                    x = 32
+                    y = {56 + i * 20}
+                    style = "
+                        fill: {regionColours.find(region => region.name === d.region).text};
+                    "
+                >{d.display_title}</text>
+
+            {/each}
+
+            {#each xAxisIntervals as xInterval, i}
+
+                <line class="grid"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = {chartHeight}
+                    stroke="#fff"
+                    stroke-opacity="0.42"
                 ></line>
 
             {/each}
@@ -195,17 +238,22 @@
     #chart {
         margin-top: 10px;
         margin-bottom: 10px;
-        background-color: black;
+        background-color: var(--brandGray90);
     }
 
     .grid {
-        stroke: var(--brandWhite);
+        stroke: var(--brandGray70);
         stroke-width: 1px;
     }
 
     .axis-label {
-        fill: var(--brandWhite);
+        fill: var(--brandGray);
         font-size: 14px;
+    }
+
+    .bar-label {
+        /* fill: var(--brandWhite); */
+        font-size: 11px;
     }
 
 </style>

@@ -8,31 +8,38 @@ export const regions = writable(
     [ 
         {
             "name": "Midwest",
-            "colour": "#6FC7EA"
+            "colour": "#6FC7EA",
+            "text": "#000"
         },
         {
             "name": "Northeast",
-            "colour": "#8DBF2E"
+            "colour": "#8DBF2E",
+            "text": "#000"
         },
         {
             "name": "Pacific",
-            "colour": "#00A189"
-        },
-        {
-            "name": "Southeast",
-            "colour": "#F1C500"
+            "colour": "#00A189",
+            "text": "#fff"
         },
         {
             "name": "Southwest",
-            "colour": "#AB1368  "
+            "colour": "#F1C500",
+            "text": "#000"
+        },
+        {
+            "name": "Southeast",
+            "colour": "#AB1368",
+            "text": "#fff"
         },
         {
             "name": "Canada",
-            "colour": "#DC4633"
+            "colour": "#DC4633",
+            "text": "#fff"
         },
         {
             "name": "Europe",
-            "colour": "#ffffff"
+            "colour": "#ffffff",
+            "text": "#000"
         }
     ]
 )
