@@ -1,4 +1,5 @@
 <script>
+
     import { regions, selectedRegions } from './stores.js';
     import '../assets/global.css';
 
@@ -18,6 +19,7 @@
 
 
 <p>Select Regions:</p>
+
 <div id="buttons">
     {#each $regions as region}
         <div

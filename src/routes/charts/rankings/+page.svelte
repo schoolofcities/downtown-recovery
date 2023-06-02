@@ -7,12 +7,19 @@
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
-    import { season, regions, selectedRegions } from '../../../lib/stores.js';
+    import { season, selectedRegions, regions } from '../../../lib/stores.js';
+    // import regions from '../../../lib/regions.json';
 
     import "../../../assets/global.css";
 
+
+    // initial loading data and dynamic filtering
+
     let data = [];
     let filteredData = [];
+
+    const regionColours = $regions;
+
 
     async function loadData() {
         try {
@@ -27,6 +34,38 @@
     onMount(() => {
         loadData();
     });
+
+    $: filteredData = data
+        .filter(item => item.metric === 'downtown')
+        .filter(item => item.Season === `Season_${$season}`)
+        .filter(item => $selectedRegions.includes(item.region))
+        .sort((a, b) => b.seasonal_average - a.seasonal_average);
+
+    $: console.log(filteredData);
+
+
+    // chart parameters
+
+    let chartWidth;
+    let chartHeight = 100;
+    $: chartHeight = 20 * filteredData.length + 20;
+
+    let maxValue = 1; // for x-axis scale
+    $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
+    $: maxValue = maxValue < 1 ? 1 : maxValue;
+
+    function generateXaxisIntervals(maxValue, interval) {
+        let values = [];
+
+        for (let i = 0; i <= Math.ceil(maxValue / interval); i++) {
+            values.push(i * interval);
+        }
+        return values;
+    } 
+    $: xAxisIntervals = generateXaxisIntervals(maxValue, 0.2);
+
+    $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
+
 
 </script>
 
@@ -51,7 +90,7 @@
 
     </div>
 
-    <div id="ranking-chart">
+    <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
             <div id="options-season">
@@ -62,7 +101,44 @@
             </div>
         </div>
 
+        <svg height={chartHeight} width={chartWidth} id="chart">
+            
+            <line class="grid"
+                x1 = 29
+                y1 = 40
+                x2 = {chartWidth}
+                y2 = 40
+            ></line>
 
+            {#each xAxisIntervals as xInterval, i}
+
+                <line class="grid"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = {chartHeight}
+                ></line>
+
+                <text class="axis-label"
+                x = {25 + i * xAxisIntervalSpacing}
+                y = 30
+                >{(100 * xInterval).toFixed(0)}%</text>
+
+            {/each}
+
+            {#each filteredData as d, i}
+
+                <line class="grid"
+                    x1 = {30}
+                    y1 = {52 + i * 20}
+                    x2 = {150}
+                    y2 = {52 + i * 20}
+                    
+                ></line>
+
+            {/each}
+
+        </svg>
 
     </div>
 
@@ -98,9 +174,9 @@
         text-decoration: underline;
     }
 
-    #ranking-chart {
+    #chart-wrapper {
         margin: 0 auto;
-        max-width: 1920px;
+        max-width: 1080px;
     }
 
     #options {
@@ -114,6 +190,22 @@
     }
     #options-region {
         overflow: hidden;
+    }
+
+    #chart {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: black;
+    }
+
+    .grid {
+        stroke: var(--brandWhite);
+        stroke-width: 1px;
+    }
+
+    .axis-label {
+        fill: var(--brandWhite);
+        font-size: 14px;
     }
 
 </style>
