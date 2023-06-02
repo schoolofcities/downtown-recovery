@@ -33,7 +33,7 @@
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="#">Rankings</a></li>
+			  <li><a href="./downtown-recovery/charts/rankings">Rankings</a></li>
 			  <li><a href="#">Rankings (Europe Suppliment)</a></li>
 			  <li><a href="#">Patterns</a></li>
 			  <li><a href="#">Explanatory Variables</a></li>

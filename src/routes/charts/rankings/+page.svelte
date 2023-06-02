@@ -19,7 +19,6 @@
 
     const regionColours = $regions;
 
-
     async function loadData() {
         try {
             const response = await fetch('../ranking_data.csv');
@@ -64,9 +63,6 @@
     $: xAxisIntervals = generateXaxisIntervals(maxValue, 0.2);
 
     $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
-
-    $: console.log(regionColours);
-
 
 
 </script>
