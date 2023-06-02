@@ -21,5 +21,6 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"d3-dsv": "^3.0.1"
 	}
 }

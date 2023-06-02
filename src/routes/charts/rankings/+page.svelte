@@ -5,19 +5,20 @@
     import SelectRegions from "../../../lib/SelectRegions.svelte";
 
     import { onMount } from 'svelte';
+    import { csvParse } from 'd3-dsv';
 
     import { season, regions, selectedRegions } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
 
+    let data = [];
+    let filteredData = [];
 
     async function loadData() {
         try {
             const response = await fetch('../ranking_data.csv');
             const csvData = await response.text();
-            console.log(csvData);
-            // const jsonData = csvParse(csvData);
-            // console.log(jsonData); // Display the converted JSON data in the console
+            data = csvParse(csvData);
         } catch (error) {
             console.error('Error loading CSV data:', error);
         }
@@ -26,8 +27,6 @@
     onMount(() => {
         loadData();
     });
-
-    // console.log(data);
 
 </script>
 
