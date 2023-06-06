@@ -4,7 +4,7 @@ export const season = writable(12);
 
 export const selectedRegions = writable(["Southeast", "Southwest", "Pacific", "Northeast", "Midwest", "Canada"]);
 
-export const regions = writable(
+export const regions = readable(
     [ 
         {
             "name": "Midwest",

@@ -14,8 +14,6 @@
 		isMobile = window.innerWidth < 600;
 	}
 
-	$: console.log(isMobile);
-
 </script>
 
 

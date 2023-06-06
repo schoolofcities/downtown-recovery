@@ -100,13 +100,6 @@
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
-            
-            <!-- <line class="grid"
-                x1 = 29
-                y1 = 40
-                x2 = {chartWidth}
-                y2 = 40
-            ></line> -->
 
             {#each xAxisIntervals as xInterval, i}
 
@@ -117,9 +110,17 @@
                     y2 = {chartHeight}
                 ></line>
 
+                <line class="grid-white"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = 38
+                ></line>
+
                 <text class="axis-label"
-                    x = {25 + i * xAxisIntervalSpacing}
+                    x = {35 + i * xAxisIntervalSpacing}
                     y = 30
+                    text-anchor="end"
                 >{(100 * xInterval).toFixed(0)}%</text>
 
             {/each}
@@ -172,7 +173,7 @@
                     x2 = {29 + i * xAxisIntervalSpacing}
                     y2 = {chartHeight}
                     stroke="#fff"
-                    stroke-opacity="0.42"
+                    stroke-opacity="0.32"
                 ></line>
 
             {/each}
@@ -239,6 +240,11 @@
 
     .grid {
         stroke: var(--brandGray70);
+        stroke-width: 1px;
+    }
+
+    .grid-white {
+        stroke: var(--brandWhite);
         stroke-width: 1px;
     }
 
