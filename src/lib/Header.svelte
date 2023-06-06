@@ -37,7 +37,6 @@
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
 			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
-			  <li><a href="#">Rankings (Europe Suppliment)</a></li>
 			  <li><a href="#">Patterns</a></li>
 			  <li><a href="#">Explanatory Variables</a></li>
 			</ul>
@@ -70,10 +69,11 @@
 
 	header p {
 		color: var(--brandWhite);
-		padding-right: 10px;
+		padding-right: 15px;
 		text-align: right;
 		font-family: TradeGothicBold;
 		font-size: 20px;
+		line-height: 20px;
 	}
 
 	#logo {
@@ -115,8 +115,9 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		padding-right: 20px;
+		padding-right: 6px;
 		display: flex;
+		font-size: 14px;
 	}
 
 	nav ul a {
