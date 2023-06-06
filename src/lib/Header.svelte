@@ -3,6 +3,8 @@
 	import logo from '../assets/top-logo-full.svg';
 	import { onMount } from 'svelte';
 
+	const baseUrl = import.meta.env.BASE_URL;
+
 	let isMobile = false;
 
 	onMount(() => {
@@ -13,6 +15,9 @@
 	function handleResize() {
 		isMobile = window.innerWidth < 600;
 	}
+
+	
+
 
 </script>
 
@@ -31,7 +36,7 @@
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="./downtown-recovery/charts/rankings">Rankings</a></li>
+			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
 			  <li><a href="#">Rankings (Europe Suppliment)</a></li>
 			  <li><a href="#">Patterns</a></li>
 			  <li><a href="#">Explanatory Variables</a></li>

@@ -107,8 +107,6 @@
             <p id="note">*Data for Europe is only available from 12/2021 to 11/2022</p>
         </div>
 
-        
-
         <svg height={chartHeight} width={chartWidth} id="chart">
 
             {#each xAxisIntervals as xInterval, i}
