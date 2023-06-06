@@ -60,7 +60,14 @@
         }
         return values;
     } 
-    $: xAxisIntervals = generateXaxisIntervals(maxValue, 0.2);
+
+    let xAxisIntervals = [];
+    $: if (maxValue < 2) {
+        xAxisIntervals = generateXaxisIntervals(maxValue, 0.2)
+    }
+    else 
+        {xAxisIntervals = generateXaxisIntervals(maxValue, 0.5)
+    } ;
 
     $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
 
@@ -97,7 +104,10 @@
             <div id="options-region">
                 <SelectRegions/>
             </div>
+            <p id="note">*Data for Europe is only available from 12/2021 to 11/2022</p>
         </div>
+
+        
 
         <svg height={chartHeight} width={chartWidth} id="chart">
 
@@ -230,6 +240,12 @@
     }
     #options-region {
         overflow: hidden;
+    }
+
+    #note {
+        color: var(--brandGray);
+        font-size: 13px;
+        text-align: right;
     }
 
     #chart {
