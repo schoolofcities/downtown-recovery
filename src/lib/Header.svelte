@@ -5,6 +5,8 @@
 
 	const baseUrl = import.meta.env.BASE_URL;
 
+	// generated this code for mobile specific rendering - not needed at the moment
+
 	let isMobile = false;
 
 	onMount(() => {
@@ -15,9 +17,6 @@
 	function handleResize() {
 		isMobile = window.innerWidth < 600;
 	}
-
-	
-
 
 </script>
 
@@ -97,6 +96,7 @@
 		height: 50px;
 		color: white;
 	}
+	
 	img:hover {
 		height: 50px;
 		opacity: 0.7;
