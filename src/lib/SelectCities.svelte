@@ -2,446 +2,289 @@
 
 <script>
   import {
-    init_cities,
+    cities,
     regions,
     selectedRegions,
     selectedCities,
   } from "./stores.js";
+  import { onMount } from 'svelte';
   import "../assets/global.css";
 
-  const cities = [
-    {
-      city: "Calgary",
-      display_title: "Calgary, AB",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Edmonton",
-      display_title: "Edmonton, AB",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Halifax",
-      display_title: "Halifax, NS",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "London",
-      display_title: "London, ON",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Mississauga",
-      display_title: "Mississauga, ON",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Montreal",
-      display_title: "Montréal, QC",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Ottawa",
-      display_title: "Ottawa, ON",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Quebec",
-      display_title: "Québec, QC",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Toronto",
-      display_title: "Toronto, ON",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Vancouver",
-      display_title: "Vancouver, BC",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Winnipeg",
-      display_title: "Winnipeg, MB",
-      region: "Canada",
-      colour: "#ab1368",
-    },
-    {
-      city: "Chicago",
-      display_title: "Chicago, IL",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Cincinnati",
-      display_title: "Cincinnati, OH",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Cleveland",
-      display_title: "Cleveland, OH",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Columbus",
-      display_title: "Columbus, OH",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Detroit",
-      display_title: "Detroit, MI",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Indianapolis",
-      display_title: "Indianapolis, IN",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Kansas City",
-      display_title: "Kansas City, MO",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Louisville",
-      display_title: "Louisville, KY",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Milwaukee",
-      display_title: "Milwaukee, WI",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Minneapolis",
-      display_title: "Minneapolis, MN",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Oklahoma City",
-      display_title: "Oklahoma City, OK",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Omaha",
-      display_title: "Omaha, NE",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "St Louis",
-      display_title: "St. Louis, MO",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Wichita",
-      display_title: "Wichita, KS",
-      region: "Midwest",
-      colour: "#007fa3",
-    },
-    {
-      city: "Baltimore",
-      display_title: "Baltimore, MD",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "Boston",
-      display_title: "Boston, MA",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "New York",
-      display_title: "New York, NY",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "Philadelphia",
-      display_title: "Philadelphia, PA",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "Pittsburgh",
-      display_title: "Pittsburgh, PA",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "Washington DC",
-      display_title: "Washington DC",
-      region: "Northeast",
-      colour: "#8dbf2e",
-    },
-    {
-      city: "Bakersfield",
-      display_title: "Bakersfield, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Fresno",
-      display_title: "Fresno, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Honolulu",
-      display_title: "Honolulu, HI",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Los Angeles",
-      display_title: "Los Angeles, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Oakland",
-      display_title: "Oakland, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Portland",
-      display_title: "Portland, OR",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Sacramento",
-      display_title: "Sacramento, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "San Diego",
-      display_title: "San Diego, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "San Francisco",
-      display_title: "San Francisco, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "San Jose",
-      display_title: "San Jose, CA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Seattle",
-      display_title: "Seattle, WA",
-      region: "Pacific",
-      colour: "#6d247a",
-    },
-    {
-      city: "Atlanta",
-      display_title: "Atlanta, GA",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Charlotte",
-      display_title: "Charlotte, NC",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Jacksonville",
-      display_title: "Jacksonville, FL",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Memphis",
-      display_title: "Memphis, TN",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Miami",
-      display_title: "Miami, FL",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Nashville",
-      display_title: "Nashville, TN",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "New Orleans",
-      display_title: "New Orleans, LA",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Orlando",
-      display_title: "Orlando, FL",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Raleigh",
-      display_title: "Raleigh, NC",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Tampa",
-      display_title: "Tampa, FL",
-      region: "Southeast",
-      colour: "#dc4633",
-    },
-    {
-      city: "Albuquerque",
-      display_title: "Albuquerque, NM",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Austin",
-      display_title: "Austin, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "colourado Springs",
-      display_title: "colourado Springs, CO",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Dallas",
-      display_title: "Dallas, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Denver",
-      display_title: "Denver, CO",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "El Paso",
-      display_title: "El Paso, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Fort Worth",
-      display_title: "Fort Worth, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Houston",
-      display_title: "Houston, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Las Vegas",
-      display_title: "Las Vegas, NV",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Phoenix",
-      display_title: "Phoenix, AZ",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Salt Lake City",
-      display_title: "Salt Lake City, UT",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "San Antonio",
-      display_title: "San Antonio, TX",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Tucson",
-      display_title: "Tucson, AZ",
-      region: "Southwest",
-      colour: "#e6ab02",
-    },
-    {
-      city: "Tulsa",
-      display_title: "Tulsa, OK",
-      region: "Southwest",
-      colour: "#e6ab02",
-    }
-  ];
+  export let id = '';
+  export let value = [];
+  export let readonly = false;
+  export let placeholder = '';
 
-  let initialCities = $init_cities;
+    let input, 
+    inputValue, 
+    options = [],
+    activeOption, 
+    showOptions = false,
+    selected = {},
+    first = true,
+    slot
+  const iconClearPath = 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z';
 
-  function handleChange(event) {
-    const selectedValue = event.target.value;
-    cities.set(selectedValue);
+  onMount(() => {
+    slot.querySelectorAll('option').forEach(o => {
+      o.selected && !value.includes(o.value) && (value = [...value, o.value]);
+      options = [...options, {value: o.value, name: o.textContent}]
+    });
+    value && (selected = options.reduce((obj, op) => value.includes(op.value) ? {...obj, [op.value]: op} : obj, {}));
+    first = false;
+  });
+
+  $: if (!first) value = Object.values(selected).map(o => o.value);
+  $: filtered = options.filter(o => inputValue ? o.name.toLowerCase().includes(inputValue.toLowerCase()) : o);
+  $: if (activeOption && !filtered.includes(activeOption) || !activeOption && inputValue) activeOption = filtered[0];
+
+  function add(token) {
+    if (!readonly) selected[token.value] = token;
   }
+
+  function remove(value) {
+    if (!readonly) {
+      const {[value]: val, ...rest} = selected;
+      selected = rest;
+    }
+  }
+
+  function optionsVisibility(show) {
+    if (readonly) return;
+    if (typeof show === 'boolean') {
+      showOptions = show;
+      show && input.focus();
+    } else {
+      showOptions = !showOptions;
+    }
+    if (!showOptions) {
+      activeOption = undefined;
+    }
+  }
+
+  function handleKeyup(e) {
+    if (e.keyCode === 13) {
+      Object.keys(selected).includes(activeOption.value) ? remove(activeOption.value) : add(activeOption);
+      inputValue = '';
+    }
+    if ([38,40].includes(e.keyCode)) { // up and down arrows
+      const increment = e.keyCode === 38 ? -1 : 1;
+      const calcIndex = filtered.indexOf(activeOption) + increment;
+      activeOption = calcIndex < 0 ? filtered[filtered.length - 1]
+        : calcIndex === filtered.length ? filtered[0]
+        : filtered[calcIndex];
+    }
+  }
+
+  function handleBlur(e) {
+    optionsVisibility(false);
+  }
+
+  function handleTokenClick(e) {
+    if (e.target.closest('.token-remove')) {
+      e.stopPropagation();
+      remove(e.target.closest('.token').dataset.id);
+    } else if (e.target.closest('.remove-all')) {
+      selected = [];
+      inputValue = '';
+    } else {
+      optionsVisibility(true);
+    }
+  }
+
+  function handleOptionMousedown(e) {
+    const value = e.target.dataset.value;
+    if (selected[value]) {
+      remove(value);
+    } else {
+      add(options.filter(o => o.value === value)[0]);
+      input.focus();
+    }
+  }
+
 </script>
 
-<p>Select Season:</p>
-<select value={initialSeason} on:change={handleChange}>
-  {#each seasons as season}
-    <option value={season.number}>{season.name}</option>
-  {/each}
-</select>
+
 
 <style>
   p {
     color: white;
   }
 
-  select {
+  .multiselect {
     padding: 5px;
     background-color: var(--brandGray90);
     border: 1px solid var(--brandDarkBlue);
     color: white;
   }
 
-  select option {
-    background-color: var(--brandGray90);
-    color: white;
+  .multiselect:not(.readonly):hover {
+    border-bottom-color: hsl(0, 0%, 50%);
   }
 
-  select:hover {
+  .tokens {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .tokens::after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: -1px;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: hsl(45, 100%, 51%);
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+  .tokens.showOptions::after { 
+    width: 100%; 
+    left: 0; 
+  }
+  .token {
+    align-items: center;
+    background-color: hsl(214, 17%, 92%);
+    border-radius: 1.25rem;
+    display: flex;
+    margin: .25rem .5rem .25rem 0;
+    max-height: 1.3rem;
+    padding: .25rem .5rem .25rem .5rem;
+    transition: background-color .3s;
+    white-space: nowrap;
+  }
+  .token:hover {
+    background-color: hsl(214, 15%, 88%);
+  }
+  .readonly .token {
+    color: hsl(0, 0%, 40%);
+  }
+  .token-remove, .remove-all {
+    align-items: center;
+    background-color: hsl(214, 15%, 55%);
+    border-radius: 50%;
+    color: hsl(214, 17%, 92%);
+    display: flex;
+    justify-content: center;
+    height: 1.25rem;
+    margin-left: .25rem;
+    min-width: 1.25rem;
+  }
+  .token-remove:hover, .remove-all:hover {
+    background-color: hsl(215, 21%, 43%);
     cursor: pointer;
-    background-color: black;
+  }
+
+  .actions {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    min-width: 15rem;
+  }
+
+  input {
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+		margin: 0;
+    outline: none;
+		padding: 0;
+    width: 100%;
+  }
+
+  .dropdown-arrow path {
+    fill: hsl(0, 0%, 70%);
+  }
+  .multiselect:hover .dropdown-arrow path {
+    fill: hsl(0, 0%, 50%);
+  }
+
+  .icon-clear path {
+    fill: white;
+  }
+
+  .options {
+    box-shadow: 0px 2px 4px rgba(0,0,0,.1), 0px -2px 4px rgba(0,0,0,.1);
+    left: 0;
+    list-style: none;
+    margin-block-end: 0;
+    margin-block-start: 0;
+    max-height: 70vh;
+    overflow: auto;
+    padding-inline-start: 0;
+    position: absolute;
+    top: calc(100% + 1px);
+    width: 100%;
+  }
+  li {
+    background-color: white;
+    cursor: pointer;
+    padding: .5rem;
+  }
+  li:last-child {
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+  }
+  li:not(.selected):hover {
+    background-color: hsl(214, 17%, 92%);
+  }
+  li.selected {
+    background-color: hsl(232, 54%, 41%);
+    color: white;
+  }
+  li.selected:nth-child(even) {
+    background-color: hsl(232, 50%, 45%);
+    color: white;
+  }
+  li.active {
+    background-color: hsl(214, 17%, 88%);
+  }
+  li.selected.active, li.selected:hover {
+    background-color: hsl(232, 48%, 50%);
+  }
+
+  .hidden {
+    display: none;
   }
 </style>
+
+
+<div class="multiselect" class:readonly>
+  <div class="tokens" class:showOptions on:click={handleTokenClick}>
+    {#each Object.values(selected) as s}
+      <div class="token" data-id="{s.value}">
+        <span>{s.name}</span>
+        {#if !readonly}
+          <div class="token-remove" title="Remove {s.name}">
+            <svg class="icon-clear" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path d="{iconClearPath}"/>
+            </svg>
+          </div>
+        {/if}
+      </div>
+    {/each}
+    <div class="actions">
+      {#if !readonly}
+        <input id={id} autocomplete="off" bind:value={inputValue} bind:this={input} on:keyup={handleKeyup} on:blur={handleBlur} placeholder={placeholder}/>
+        <div class="remove-all" title="Remove All" class:hidden={!Object.keys(selected).length}>
+          <svg class="icon-clear" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+            <path d="{iconClearPath}"/>
+          </svg>
+        </div>
+        <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M5 8l4 4 4-4z"></path></svg>
+      {/if}
+    </div>
+  </div>
+
+  <select bind:this={slot} type="multiple" class="hidden"><slot></slot></select>
+  
+  {#if showOptions}
+    <ul class="options" transition:fly="{{duration: 200, y: 5}}" on:mousedown|preventDefault={handleOptionMousedown}>
+      {#each filtered as option}
+        <li class:selected={selected[option.value]} class:active={activeOption === option} data-value="{option.value}">{option.name}</li>
+      {/each}
+    </ul>
+  {/if}
+</div>

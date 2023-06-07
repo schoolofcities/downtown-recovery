@@ -4,10 +4,11 @@
     import SelectCities from "../../../lib/SelectCities.svelte";
     import SelectRegions from "../../../lib/SelectRegions.svelte";
 
+
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
-    import { season, selectedRegions, regions } from '../../../lib/stores.js';
+    import { selectedRegions, regions, selectedCities, cities } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
 
@@ -37,10 +38,9 @@
         .filter(item => item.metric === 'downtown')
         .filter(item => $selectedRegions.includes(item.region))
         .filter(item => $selectedCities.includes(item.display_title))
-        .sort((a, b) => b.seasonal_average - a.seasonal_average);
+        .sort((a, b) => b.rolling_avg - a.rolling_avg);
 
     $: console.log(filteredData);
-
 
     // chart parameters
 
@@ -49,7 +49,7 @@
     $: chartHeight = 20 * filteredData.length + 50;
 
     let maxValue = 1; // for x-axis scale
-    $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
+    $: maxValue = filteredData.length !== 0 ? filteredData[0].rolling_avg : 1;
     $: maxValue = maxValue < 1 ? 1 : maxValue;
 
     function generateXaxisIntervals(maxValue, interval) {
@@ -60,7 +60,14 @@
         }
         return values;
     } 
-    $: xAxisIntervals = generateXaxisIntervals(maxValue, 0.2);
+
+    let xAxisIntervals = [];
+    $: if (maxValue < 2) {
+        xAxisIntervals = generateXaxisIntervals(maxValue, 0.2)
+    }
+    else 
+        {xAxisIntervals = generateXaxisIntervals(maxValue, 0.5)
+    } ;
 
     $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
 
@@ -91,22 +98,19 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
-            <div id="options-cities">
-                <SelectCities/>
-            </div>
+                <p>Select City:</p>
+                <SelectCities id='options-cities' value={$selectedCities}>
+                    {#each cities as city}
+                    <option value={city.city}>{city.display_title}</option>
+                    {/each}
+                </SelectCities>
+          
             <div id="options-region">
                 <SelectRegions/>
             </div>
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
-            
-            <!-- <line class="grid"
-                x1 = 29
-                y1 = 40
-                x2 = {chartWidth}
-                y2 = 40
-            ></line> -->
 
             {#each xAxisIntervals as xInterval, i}
 
@@ -117,9 +121,17 @@
                     y2 = {chartHeight}
                 ></line>
 
+                <line class="grid-white"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = 38
+                ></line>
+
                 <text class="axis-label"
-                    x = {25 + i * xAxisIntervalSpacing}
+                    x = {35 + i * xAxisIntervalSpacing}
                     y = 30
+                    text-anchor="end"
                 >{(100 * xInterval).toFixed(0)}%</text>
 
             {/each}
@@ -128,39 +140,55 @@
 
                 <line class="bar"
                     x1 = {29}
-                    y1 = {52 + i * 20}
+                    y1 = {52 + i * 24}
                     x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals)}
-                    y2 = {52 + i * 20}
+                    y2 = {52 + i * 24}
                     style = "
                         stroke: white;
-                        stroke-width: 17
+                        stroke-width: 20
                     "
                 ></line>
 
                 <line class="bar"
                     x1 = {30}
-                    y1 = {52 + i * 20}
+                    y1 = {52 + i * 24}
                     x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals) - 1}
-                    y2 = {52 + i * 20}
+                    y2 = {52 + i * 24}
                     style = "
                         stroke: {regionColours.find(region => region.name === d.region).colour};
-                        stroke-width: 15
+                        stroke-width: 18
                     "
                 ></line>
 
                 <text class="axis-label"
                     x = 25
-                    y = {57 + i * 20}
+                    y = {57 + i * 24}
                     text-anchor="end"
                 >{i + 1}</text>
 
+                
+
+                {#if regionColours.find(region => region.name === d.region).text === "#000"}
+                    <text class="bar-label"
+                    x = 32
+                    y = {56 + i * 24}
+                    style = "
+                        fill: #000;
+                        fill-opacity: 0;
+                        stroke: #fff;
+                        stroke-width: 2px;
+                        stroke-opacity: 0.5;
+                    "
+                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
+                {/if}
+                
                 <text class="bar-label"
                     x = 32
-                    y = {56 + i * 20}
+                    y = {56 + i * 24}
                     style = "
                         fill: {regionColours.find(region => region.name === d.region).text};
                     "
-                >{d.display_title}</text>
+                >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
 
             {/each}
 
@@ -171,14 +199,27 @@
                     y1 = 34
                     x2 = {29 + i * xAxisIntervalSpacing}
                     y2 = {chartHeight}
-                    stroke="#fff"
-                    stroke-opacity="0.42"
+                    stroke-opacity="0.32"
                 ></line>
+
+                {#if xInterval === 1}
+
+                    <line class="grid-white"
+                        x1 = {29 + i * xAxisIntervalSpacing}
+                        y1 = 34
+                        x2 = {29 + i * xAxisIntervalSpacing}
+                        y2 = {chartHeight}
+                        stroke-opacity=0.75
+                        stroke-dasharray="2 2"
+                    ></line>
+
+                {/if}
 
             {/each}
 
         </svg>
 
+        
     </div>
 
 </main>
@@ -223,11 +264,11 @@
         max-width: 650px;
     }
 
-    #options-season {
-        float: left;
-        padding-right: 15px;
-    }
     #options-region {
+        overflow: hidden;
+    }
+
+    #options-cities {
         overflow: hidden;
     }
 
@@ -237,19 +278,7 @@
         background-color: var(--brandGray90);
     }
 
-    .grid {
-        stroke: var(--brandGray70);
-        stroke-width: 1px;
-    }
 
-    .axis-label {
-        fill: var(--brandGray);
-        font-size: 14px;
-    }
 
-    .bar-label {
-        /* fill: var(--brandWhite); */
-        font-size: 11px;
-    }
 
 </style>
