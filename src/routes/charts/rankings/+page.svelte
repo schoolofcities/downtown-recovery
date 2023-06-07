@@ -163,6 +163,22 @@
                     text-anchor="end"
                 >{i + 1}</text>
 
+                
+
+                {#if regionColours.find(region => region.name === d.region).text === "#000"}
+                    <text class="bar-label"
+                    x = 32
+                    y = {56 + i * 24}
+                    style = "
+                        fill: #000;
+                        fill-opacity: 0;
+                        stroke: #fff;
+                        stroke-width: 2px;
+                        stroke-opacity: 0.666;
+                    "
+                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
+                {/if}
+                
                 <text class="bar-label"
                     x = 32
                     y = {56 + i * 24}
