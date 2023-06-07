@@ -196,9 +196,21 @@
                     y1 = 34
                     x2 = {29 + i * xAxisIntervalSpacing}
                     y2 = {chartHeight}
-                    stroke="#fff"
                     stroke-opacity="0.32"
                 ></line>
+
+                {#if xInterval === 1}
+
+                    <line class="grid-white"
+                        x1 = {29 + i * xAxisIntervalSpacing}
+                        y1 = 34
+                        x2 = {29 + i * xAxisIntervalSpacing}
+                        y2 = {chartHeight}
+                        stroke-opacity=0.75
+                        stroke-dasharray="2 2"
+                    ></line>
+
+                {/if}
 
             {/each}
 
