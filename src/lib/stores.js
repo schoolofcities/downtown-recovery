@@ -47,6 +47,12 @@ export const regions = readable(
 
 export const cities = [
   {
+    city: "Montreal",
+    display_title: "Montréal, QC",
+    region: "Canada",
+    colour: "#ab1368",
+  },
+  {
     city: "Calgary",
     display_title: "Calgary, AB",
     region: "Canada",
@@ -76,12 +82,7 @@ export const cities = [
     region: "Canada",
     colour: "#ab1368",
   },
-  {
-    city: "Montreal",
-    display_title: "Montréal, QC",
-    region: "Canada",
-    colour: "#ab1368",
-  },
+ 
   {
     city: "Ottawa",
     display_title: "Ottawa, ON",
@@ -426,8 +427,8 @@ export const cities = [
   }
 ];
 
-export const selectedCities = writable([
+export const selectedCities = [
   "Montréal, QC", "Toronto, ON", "Chicago, IL",
   "Detroit, MI", "Baltimore, MD", "New York, NY",
   "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
-  "Miami, FL", "Austin, TX", "Las Vegas, NV"]);
+  "Miami, FL", "Austin, TX", "Las Vegas, NV"];

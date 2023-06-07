@@ -1,12 +1,6 @@
 <!-- copied over from SelectCities, but (may) need to be reworked to allow for multiple city selection. a dropdown might also work better -->
 
 <script>
-  import {
-    cities,
-    regions,
-    selectedRegions,
-    selectedCities,
-  } from "./stores.js";
   import { onMount } from 'svelte';
   import "../assets/global.css";
 
@@ -107,9 +101,6 @@
 
 
 <style>
-  p {
-    color: white;
-  }
 
   .multiselect {
     padding: 5px;
@@ -281,7 +272,7 @@
   <select bind:this={slot} type="multiple" class="hidden"><slot></slot></select>
   
   {#if showOptions}
-    <ul class="options" transition:fly="{{duration: 200, y: 5}}" on:mousedown|preventDefault={handleOptionMousedown}>
+    <ul class="options" on:mousedown|preventDefault={handleOptionMousedown}>
       {#each filtered as option}
         <li class:selected={selected[option.value]} class:active={activeOption === option} data-value="{option.value}">{option.name}</li>
       {/each}

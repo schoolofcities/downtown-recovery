@@ -2,13 +2,13 @@
 
     import Header from "../../../lib/Header.svelte";
     import SelectCities from "../../../lib/SelectCities.svelte";
-    import SelectRegions from "../../../lib/SelectRegions.svelte";
+
 
 
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
-    import { selectedRegions, regions, selectedCities, cities } from '../../../lib/stores.js';
+    import {selectedCities, cities } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
 
@@ -18,11 +18,11 @@
     let data = [];
     let filteredData = [];
 
-    const regionColours = $regions;
+
 
     async function loadData() {
         try {
-            const response = await fetch('../patterns_data.csv');
+            const response = await fetch('../pattern_data.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {
@@ -36,8 +36,7 @@
 
     $: filteredData = data
         .filter(item => item.metric === 'downtown')
-        .filter(item => $selectedRegions.includes(item.region))
-        .filter(item => $selectedCities.includes(item.display_title))
+        .filter(item => selectedCities.includes(item.display_title))
         .sort((a, b) => b.rolling_avg - a.rolling_avg);
 
     $: console.log(filteredData);
@@ -99,15 +98,13 @@
         
         <div id="options">
                 <p>Select City:</p>
-                <SelectCities id='options-cities' value={$selectedCities}>
+                <SelectCities id='options-cities' value={selectedCities}>
                     {#each cities as city}
-                    <option value={city.city}>{city.display_title}</option>
+                    <option value={city.display_title}>{city.display_title}</option>
                     {/each}
                 </SelectCities>
           
-            <div id="options-region">
-                <SelectRegions/>
-            </div>
+          
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
@@ -149,16 +146,7 @@
                     "
                 ></line>
 
-                <line class="bar"
-                    x1 = {30}
-                    y1 = {52 + i * 24}
-                    x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals) - 1}
-                    y2 = {52 + i * 24}
-                    style = "
-                        stroke: {regionColours.find(region => region.name === d.region).colour};
-                        stroke-width: 18
-                    "
-                ></line>
+          
 
                 <text class="axis-label"
                     x = 25
@@ -168,27 +156,7 @@
 
                 
 
-                {#if regionColours.find(region => region.name === d.region).text === "#000"}
-                    <text class="bar-label"
-                    x = 32
-                    y = {56 + i * 24}
-                    style = "
-                        fill: #000;
-                        fill-opacity: 0;
-                        stroke: #fff;
-                        stroke-width: 2px;
-                        stroke-opacity: 0.5;
-                    "
-                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
-                {/if}
-                
-                <text class="bar-label"
-                    x = 32
-                    y = {56 + i * 24}
-                    style = "
-                        fill: {regionColours.find(region => region.name === d.region).text};
-                    "
-                >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
+             
 
             {/each}
 
@@ -264,13 +232,7 @@
         max-width: 650px;
     }
 
-    #options-region {
-        overflow: hidden;
-    }
-
-    #options-cities {
-        overflow: hidden;
-    }
+ 
 
     #chart {
         margin-top: 10px;
