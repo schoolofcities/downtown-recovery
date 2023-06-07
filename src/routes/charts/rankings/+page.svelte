@@ -46,7 +46,7 @@
 
     let chartWidth;
     let chartHeight = 100;
-    $: chartHeight = 20 * filteredData.length + 50;
+    $: chartHeight = 24 * filteredData.length + 50;
 
     let maxValue = 1; // for x-axis scale
     $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
@@ -137,39 +137,39 @@
 
                 <line class="bar"
                     x1 = {29}
-                    y1 = {52 + i * 20}
+                    y1 = {52 + i * 24}
                     x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals)}
-                    y2 = {52 + i * 20}
+                    y2 = {52 + i * 24}
                     style = "
                         stroke: white;
-                        stroke-width: 17
+                        stroke-width: 20
                     "
                 ></line>
 
                 <line class="bar"
                     x1 = {30}
-                    y1 = {52 + i * 20}
+                    y1 = {52 + i * 24}
                     x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals) - 1}
-                    y2 = {52 + i * 20}
+                    y2 = {52 + i * 24}
                     style = "
                         stroke: {regionColours.find(region => region.name === d.region).colour};
-                        stroke-width: 15
+                        stroke-width: 18
                     "
                 ></line>
 
                 <text class="axis-label"
                     x = 25
-                    y = {57 + i * 20}
+                    y = {57 + i * 24}
                     text-anchor="end"
                 >{i + 1}</text>
 
                 <text class="bar-label"
                     x = 32
-                    y = {56 + i * 20}
+                    y = {56 + i * 24}
                     style = "
                         fill: {regionColours.find(region => region.name === d.region).text};
                     "
-                >{d.display_title}</text>
+                >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
 
             {/each}
 
@@ -269,7 +269,7 @@
 
     .bar-label {
         /* fill: var(--brandWhite); */
-        font-size: 11px;
+        font-size: 13px;
     }
 
 </style>
