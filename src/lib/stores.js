@@ -19,7 +19,7 @@ export const regions = readable(
         {
             "name": "Pacific",
             "colour": "#00A189",
-            "text": "#fff"
+            "text": "#000"
         },
         {
             "name": "Southwest",

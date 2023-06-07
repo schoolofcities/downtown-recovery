@@ -174,7 +174,7 @@
                         fill-opacity: 0;
                         stroke: #fff;
                         stroke-width: 2px;
-                        stroke-opacity: 0.666;
+                        stroke-opacity: 0.5;
                     "
                     >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
                 {/if}

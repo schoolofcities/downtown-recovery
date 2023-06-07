@@ -27,7 +27,7 @@
 	<div id="logo">
 		<a href="https://www.schoolofcities.utoronto.ca/"><img src={logo} alt="School of Cities"></a>
 	</div>
-	<p>Downtown Recovery</p>
+	<p><a href="{baseUrl}">Downtown Recovery</a></p>
 </header>
 
 <div id="menu">
@@ -84,6 +84,11 @@
 		padding-left: 20px;
 	}
 
+	a {
+		color: white;
+		text-decoration: none;
+	}
+
 	a:hover {
 		opacity: 0.7;
 	}
@@ -128,6 +133,7 @@
 
 	nav ul li {
 		margin-left: 0px;
+		font-size: 14px;
 	}
 
 	nav ul li.dropdown:hover .dropdown-menu {
