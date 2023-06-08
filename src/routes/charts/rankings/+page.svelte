@@ -81,7 +81,7 @@
 
 <main>
 
-    <div id="title">
+    <div id="text">
 
         <h1>
             Downtown Recovery Rankings
@@ -234,20 +234,6 @@
         min-width: 320px;
         max-width: 1920px;
         position: relative;
-    }
-
-    #title {
-        margin: 0 auto;
-        max-width: 650px;
-        color: white;
-        border-bottom: solid 1px var(--brandDarkBlue);
-    }
-
-    h1 {
-        font-family: TradeGothicBold;
-		font-size: 30px;
-        color: var(--brandWhite);
-        text-decoration: underline;
     }
 
     #chart-wrapper {

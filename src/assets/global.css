@@ -3,6 +3,11 @@
     src: url("Trade Gothic LT Bold.ttf");
 }
 
+@font-face {
+    font-family: Roboto;
+    src: url("Roboto-Regular.ttf");
+}
+
 :root {
     font-family: Roboto, sans-serif;
     --brandDarkBlue: #1E3765;
@@ -27,4 +32,27 @@ body {
     padding: 0px;
     margin: 0px;
     background-color: var(--brandGray90);
+}
+
+h1 {
+    font-family: TradeGothicBold;
+    font-size: 36px;
+    color: var(--brandWhite);
+    text-decoration: underline;
+}
+
+p {
+    font-family: Roboto;
+    color: var(--brandWhite);
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#text {
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 650px;
+    color: white;
+    border-bottom: solid 1px var(--brandDarkBlue);
 }

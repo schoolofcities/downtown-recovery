@@ -39,10 +39,6 @@
 
 <style>
 
-    p {
-        color: white;
-    }
-
     #buttons {
         display: flex;
         flex-wrap: wrap;
@@ -68,6 +64,8 @@
     .name {
         overflow: hidden;
         padding-left: 5px;
+        color: var(--brandWhite);
+        font-size: 15px;
     }
 
     .name:hover {

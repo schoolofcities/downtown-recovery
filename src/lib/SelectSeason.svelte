@@ -71,10 +71,7 @@
 
 
 <style>
-    p {
-        color: white;
-    }
-
+    
     select {
         padding: 5px;
         background-color: var(--brandGray90);
