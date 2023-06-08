@@ -36,7 +36,7 @@
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
 			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
-			  <li><a href="#">Patterns</a></li>
+			  <li><a href="{baseUrl}/charts/patterns">Patterns</a></li>
 			  <li><a href="#">Explanatory Variables</a></li>
 			</ul>
 		  </li>
@@ -96,7 +96,7 @@
 		height: 50px;
 		color: white;
 	}
-	
+
 	img:hover {
 		height: 50px;
 		opacity: 0.7;
