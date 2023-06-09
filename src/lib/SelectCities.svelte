@@ -107,6 +107,7 @@
     background-color: var(--brandGray90);
     border: 1px solid var(--brandDarkBlue);
     color: white;
+    z-index:10001;
   }
 
   .multiselect:not(.readonly):hover {
@@ -203,11 +204,12 @@
     margin-block-end: 0;
     margin-block-start: 0;
     max-height: 70vh;
-    overflow: auto;
+    overflow: scroll;
     padding-inline-start: 0;
     position: absolute;
     top: calc(100% + 1px);
     width: 100%;
+    
   }
   li {
     background-color: white;

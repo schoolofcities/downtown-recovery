@@ -427,8 +427,8 @@ export const cities = [
   }
 ];
 
-export const selectedCities = [
+export const selectedCities = writable([
   "Montréal, QC", "Toronto, ON", "Chicago, IL",
   "Detroit, MI", "Baltimore, MD", "New York, NY",
   "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
-  "Miami, FL", "Austin, TX", "Las Vegas, NV"];
+  "Miami, FL", "Austin, TX", "Las Vegas, NV"]);
