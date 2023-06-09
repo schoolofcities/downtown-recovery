@@ -2,9 +2,7 @@
 
     import Header from "../../../lib/Header.svelte";
     import SelectCities from "../../../lib/SelectCities.svelte";
-
-
-
+    
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
@@ -12,12 +10,11 @@
 
     import "../../../assets/global.css";
 
-
     // initial loading data and dynamic filtering
 
     let data = [];
     let filteredData = [];
-
+    let value;
 
 
     async function loadData() {
@@ -96,18 +93,22 @@
 
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
-        <div id="options">
+        
                 <p>Select City:</p>
-                <SelectCities id='options-cities' value={selectedCities}>
+                <SelectCities id='options-cities' value={[
+                    "Montréal, QC", "Toronto, ON", "Chicago, IL",
+                    "Detroit, MI", "Baltimore, MD", "New York, NY",
+                    "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
+                    "Miami, FL", "Austin, TX", "Las Vegas, NV"]}>
                     {#each cities as city}
                     <option value={city.display_title}>{city.display_title}</option>
                     {/each}
                 </SelectCities>
           
-          
-        </div>
+            
+        
 
-        <svg height={chartHeight} width={chartWidth} id="chart">
+      <!--  <svg height={chartHeight} width={chartWidth} id="chart">
 
             {#each xAxisIntervals as xInterval, i}
 
@@ -186,6 +187,7 @@
             {/each}
 
         </svg>
+    -->
 
         
     </div>
@@ -227,10 +229,7 @@
         max-width: 1080px;
     }
 
-    #options {
-        margin: 0 auto;
-        max-width: 650px;
-    }
+
 
  
 

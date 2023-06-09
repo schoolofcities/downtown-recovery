@@ -46,12 +46,7 @@ export const regions = readable(
 
 
 export const cities = [
-  {
-    city: "Montreal",
-    display_title: "Montréal, QC",
-    region: "Canada",
-    colour: "#ab1368",
-  },
+
   {
     city: "Calgary",
     display_title: "Calgary, AB",
@@ -82,7 +77,12 @@ export const cities = [
     region: "Canada",
     colour: "#ab1368",
   },
- 
+  {
+    city: "Montreal",
+    display_title: "Montréal, QC",
+    region: "Canada",
+    colour: "#ab1368",
+  },
   {
     city: "Ottawa",
     display_title: "Ottawa, ON",
