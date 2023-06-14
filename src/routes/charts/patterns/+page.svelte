@@ -5,7 +5,7 @@
 
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
-    import { line, curveNatural, scaleLinear, timeParse, extent, scaleTime, group } from 'd3';
+    import { line, curveNatural, scaleLinear, timeParse, extent, scaleTime, group, rollup } from 'd3';
 
     import {selectedCities, cities, regions } from '../../../lib/stores.js';
 
@@ -39,10 +39,11 @@
         loadData();
     });
 
-    $: filteredData = data
+    $: filteredData = Array.from(group(data
         .filter(item => item.metric === 'downtown')
         .filter(item => $selectedCities.includes(item.display_title))
-        .sort((a, b) => a.week - b.week);
+        .sort((a, b) => a.week - b.week), (d) => d.display_title))
+        .map(g => g[1]);
 
     $: console.log(filteredData);
 
@@ -54,36 +55,30 @@
     let xScale;
     let yScale;
 
-    function plotCity(dat, display_city) {
-    
-        return dat.filter(item => item.display_title === display_city);
-    }
 
-    function getColour(display_city) {
-        return cityColours.filter(item => item.display_title === display_city).colour;
-    }
+function getXExtent(dat) {
 
-    function getXExtent(dat) {
-
-        return extent(dat, (d) => d.week);
-    }
+    return extent(dat.map(d => d.week));
+}
 
 
 function getYExtent(dat) {
+
     return extent(dat, (d) => d.rolling_avg);
+
 }
 
 function getXTicks(dat) {
     let uniqueWeeks = [];
     dat
-    .forEach(d => {
+    .forEach((d) => {
 		if(!uniqueWeeks.includes(d.week)) {
 			uniqueWeeks.push(d.week);
 		}
 	})
 
     let xTicks = [];
-	uniqueWeeks.forEach(d => {
+	uniqueWeeks.forEach((d) => {
 		if((d.getMonth() % 5 == 0)) {
 			xTicks.push(d);
 		}
@@ -92,26 +87,26 @@ function getXTicks(dat) {
     return xTicks;
 }
 
+    // scales
+    $: console.log(filteredData.flat());
 
     $: xScale = scaleTime()
-		.domain(getXExtent(filteredData))
+		.domain(getXExtent(filteredData.flat()))
 		.range([margin.left, chartWidth - margin.right]);
 
 	$: yScale = scaleLinear()
-		.domain(getYExtent(filteredData))
+		.domain(getYExtent(filteredData.flat()))
 		.range([chartHeight - margin.bottom, margin.top]);
 
-           // scales
-    $: console.log(getXTicks(filteredData));
+ 
 
 
-   function drawLine(dat, display_city) {
+   function drawLine(dat) {
 
-    let cityDat = plotCity(dat, display_city);
     return line()
 		.x((d) => xScale(d.week))
         .y((d) => yScale(d.rolling_avg))
-        .curve(curveNatural)(cityDat);
+        .curve(curveNatural)(dat);
    }
     
 	let path = line()
@@ -208,16 +203,16 @@ function getXTicks(dat) {
                 />
             </g>
        
-        {#each $selectedCities as display_city}
+        {#each filteredData as d, i}
 
             <g>
            
                 <!-- line -->
                {#if (cityColours)}
                 <path 
-                    d="{drawLine(filteredData, display_city)}"
+                    d="{drawLine(d.flat())}"
                     stroke-width="1"
-                    stroke="{cityColours.filter(item => item.display_title === display_city)[0].colour}"
+                    stroke="{cityColours.filter(item => item.display_title === d[0].display_title)[0].colour}"
                     fill="transparent"
                     
                     
