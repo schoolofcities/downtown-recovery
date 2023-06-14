@@ -2,7 +2,7 @@
 
 <script>
   import { onMount } from 'svelte';
-  import { selectedCities } from './stores.js'
+  import { selectedCities, cities, regions } from './stores.js'
   import "../assets/global.css";
 
   export let id = '';
@@ -18,7 +18,9 @@
     selected = {},
     first = true,
     slot
+
   const iconClearPath = 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z';
+  const cityColours = $regions;
 
   onMount(() => {
     slot.querySelectorAll('option').forEach(o => {
@@ -69,6 +71,15 @@
         : calcIndex === filtered.length ? filtered[0]
         : filtered[calcIndex];
     }
+  }
+
+  function getBGColour(e) {
+    return cityColours.find(region => region.name === (cities.filter(item => item.display_title === e)[0].region)).colour
+  }
+
+  function getTextColour(e) {
+    return cityColours.find(region => region.name === (cities.filter(item => item.display_title === e)[0].region)).text
+
   }
 
   function handleBlur(e) {
@@ -141,7 +152,7 @@
   }
   .token {
     align-items: center;
-    background-color: hsl(214, 17%, 92%);
+    
     border-radius: 1.25rem;
     display: flex;
     margin: .25rem .5rem .25rem 0;
@@ -250,7 +261,7 @@
 <div class="multiselect" class:readonly>
   <div class="tokens" class:showOptions on:click={handleTokenClick}>
     {#each Object.values(selected) as s}
-      <div class="token" data-id="{s.value}">
+      <div class="token" data-id="{s.value}" style= "background-color:{getBGColour(s.value)}; color:{getTextColour(s.value)}">
         <span>{s.name}</span>
         {#if !readonly}
           <div class="token-remove" title="Remove {s.name}">

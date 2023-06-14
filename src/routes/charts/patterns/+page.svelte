@@ -48,7 +48,7 @@
     // chart parameters
 
     let chartWidth;
-    let chartHeight = 300;
+    let chartHeight = 460;
     let margin = { top: 10, bottom: 10, left: 10, right: 10 };
     let xScale;
     let yScale;
@@ -58,7 +58,6 @@ function getXExtent(dat) {
 
     return extent(dat.map(d => d.week));
 }
-
 
 function getYExtent(dat) {
 
@@ -86,7 +85,6 @@ function getXTicks(dat) {
 }
 
     // scales
-    $: console.log(filteredData.flat());
 
     $: xScale = scaleTime()
 		.domain(getXExtent(filteredData.flat()))
@@ -96,7 +94,6 @@ function getXTicks(dat) {
 		.domain(getYExtent(filteredData.flat()))
 		.range([chartHeight - margin.bottom, margin.top]);
 
- 
 
 
    function drawLine(dat) {
@@ -157,24 +154,26 @@ function getXTicks(dat) {
 
     </div>
 
-    <div id="options">
-    <div id="options-cities">
-    <p>Select City:</p>
-    <SelectCities id='options-cities' value={[
-        "Montréal, QC", "Toronto, ON", "Chicago, IL",
-        "Detroit, MI", "Baltimore, MD", "New York, NY",
-        "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
-        "Miami, FL", "Austin, TX", "Las Vegas, NV"]}>
-        {#each cities as city_obj}
-        <option value={city_obj.display_title}>{city_obj.display_title}</option>
-        {/each}
-    </SelectCities>
-</div>
 
-</div>
 
-    <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
+    <div id="chart-wrapper" bind:clientWidth={chartWidth}>
         
+        <div id="options">
+            <div id="options-cities">
+            <p>Select City:</p>
+            <SelectCities id='options-cities' value={[
+                "Montréal, QC", "Toronto, ON", "Chicago, IL",
+                "Detroit, MI", "Baltimore, MD", "New York, NY",
+                "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
+                "Miami, FL", "Austin, TX", "Las Vegas, NV"]}>
+                {#each cities as city_obj}
+                <option value={city_obj.display_title}>{city_obj.display_title}</option>
+                {/each}
+            </SelectCities>
+        </div>
+        
+        </div>
+
        <svg height={chartHeight} width={chartWidth} id="chart" transform="translate({margin.left}, {margin.top})">
 
 
@@ -208,7 +207,10 @@ function getXTicks(dat) {
                 <!-- line -->
                {#if (cityColours)}
                 <path 
-                    d="{drawLine(d.flat())}"
+                    d="{line()
+                        .x((d1) => xScale(d1.week))
+                        .y((d1) => yScale(d1.rolling_avg))
+                        .curve(curveNatural)(d.flat())}"
                     stroke-width="1"
                     stroke="{cityColours.find(region => region.name === (cities.filter(item => item.display_title === d[0].display_title)[0].region)).colour}"
                     fill="transparent"
@@ -260,7 +262,6 @@ function getXTicks(dat) {
     #chart-wrapper {
         margin: 0 auto;
         max-width: 1080px;
-        z-index:1;
     }
 
     #options {
@@ -277,7 +278,7 @@ function getXTicks(dat) {
         margin-top: 10px;
         margin-bottom: 10px;
         background-color: var(--brandGray90);
-        z-index:1;
+
     }
 
 
