@@ -16,7 +16,7 @@
     let data = [];
     let filteredData = [];
 
-    const regionColours = $regions;
+    const cityColours = cities;
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 	];
@@ -54,18 +54,14 @@
     let xScale;
     let yScale;
 
-    function plotCity(dat, city) {
+    function plotCity(dat, display_city) {
     
-        return dat.filter(item => item.display_title === city);
+        return dat.filter(item => item.display_title === display_city);
     }
 
-function getColour(dat, city) {
-
-
-    let cityDat = plotCity(dat, city);
-
-    return regionColours.find(region => region.name === cityDat.region).colour;
-}
+    function getColour(display_city) {
+        return cityColours.filter(item => item.display_title === display_city).colour;
+    }
 
     function getXExtent(dat) {
 
@@ -98,20 +94,20 @@ function getXTicks(dat) {
 
 
     $: xScale = scaleTime()
-		.domain(getXExtent(data))
+		.domain(getXExtent(filteredData))
 		.range([margin.left, chartWidth - margin.right]);
 
 	$: yScale = scaleLinear()
-		.domain(getYExtent(data))
+		.domain(getYExtent(filteredData))
 		.range([chartHeight - margin.bottom, margin.top]);
 
            // scales
-    $: console.log(getXTicks(data));
+    $: console.log(getXTicks(filteredData));
 
 
-   function drawLine(dat, city) {
+   function drawLine(dat, display_city) {
 
-    let cityDat = plotCity(dat, city);
+    let cityDat = plotCity(dat, display_city);
     return line()
 		.x((d) => xScale(d.week))
         .y((d) => yScale(d.rolling_avg))
@@ -176,8 +172,8 @@ function getXTicks(dat) {
         "Detroit, MI", "Baltimore, MD", "New York, NY",
         "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
         "Miami, FL", "Austin, TX", "Las Vegas, NV"]}>
-        {#each cities as city}
-        <option value={city.display_title}>{city.display_title}</option>
+        {#each cities as city_obj}
+        <option value={city_obj.display_title}>{city_obj.display_title}</option>
         {/each}
     </SelectCities>
 </div>
@@ -212,17 +208,21 @@ function getXTicks(dat) {
                 />
             </g>
        
-        {#each $selectedCities as city}
+        {#each $selectedCities as display_city}
 
             <g>
            
                 <!-- line -->
+               {#if (cityColours)}
                 <path 
-                    d="{drawLine(filteredData, city)}"
-                    fill="none"
+                    d="{drawLine(filteredData, display_city)}"
+                    stroke-width="1"
+                    stroke="{cityColours.filter(item => item.display_title === display_city)[0].colour}"
+                    fill="transparent"
+                    
                     
                 />
-              
+              {/if}
             </g>
         {/each}
        
