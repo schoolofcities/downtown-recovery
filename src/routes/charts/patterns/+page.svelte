@@ -49,6 +49,12 @@
 
     let chartWidth;
     let chartHeight = 460;
+    const paddings = {
+  top: 10,
+  left: 10,
+  right: 10,
+  bottom: 10,
+};
     let margin = { top: 10, bottom: 10, left: 10, right: 10 };
     let xScale;
     let yScale;
@@ -126,7 +132,6 @@ function getXTicks(dat) {
 	for (let i = 0; i < 1.5; i=i+.25) {
 		yTicks.push(Math.floor(i/.25)*.25);
 	}
-	
 	// d's for axis paths
 	let xPath = `M${margin.left + .5},6V0H${chartWidth - margin.right + 1}V6`
 	let yPath = `M-6,${chartHeight + .5}H0.5V0.5H-6`
@@ -174,10 +179,15 @@ function getXTicks(dat) {
         
         </div>
 
-       <svg height={chartHeight} width={chartWidth} id="chart" transform="translate({margin.left}, {margin.top})">
+       <svg
+        height={chartHeight}
+        width={chartWidth}
+        id="chart"
+        transform="translate({margin.left}, {margin.top})"
+        >
 
 
-            <!-- axes -->
+            <!-- create axes -->
 
             <g>
                 <line
@@ -204,14 +214,17 @@ function getXTicks(dat) {
 
             <g>
            
-                <!-- line -->
+                <!-- draw line 
+                    xScale will respond to changes in chart width
+                -->
+
                {#if (cityColours)}
                 <path 
                     d="{line()
                         .x((d1) => xScale(d1.week))
                         .y((d1) => yScale(d1.rolling_avg))
                         .curve(curveNatural)(d.flat())}"
-                    stroke-width="1"
+                    stroke-width="2"
                     stroke="{cityColours.find(region => region.name === (cities.filter(item => item.display_title === d[0].display_title)[0].region)).colour}"
                     fill="transparent"
                     
@@ -220,6 +233,8 @@ function getXTicks(dat) {
               {/if}
             </g>
         {/each}
+
+       
        
         </svg>
     
