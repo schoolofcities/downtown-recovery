@@ -2,6 +2,7 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { selectedCities } from './stores.js'
   import "../assets/global.css";
 
   export let id = '';
@@ -95,6 +96,8 @@
       input.focus();
     }
   }
+
+  $: selectedCities.set(value)
 
 </script>
 

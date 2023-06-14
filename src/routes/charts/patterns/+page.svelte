@@ -16,7 +16,7 @@
     let data = [];
     let filteredData = [];
 
-    const cityColours = cities;
+    const cityColours = $regions;
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 	];
@@ -44,8 +44,6 @@
         .filter(item => $selectedCities.includes(item.display_title))
         .sort((a, b) => a.week - b.week), (d) => d.display_title))
         .map(g => g[1]);
-
-    $: console.log(filteredData);
 
     // chart parameters
 
@@ -212,7 +210,7 @@ function getXTicks(dat) {
                 <path 
                     d="{drawLine(d.flat())}"
                     stroke-width="1"
-                    stroke="{cityColours.filter(item => item.display_title === d[0].display_title)[0].colour}"
+                    stroke="{cityColours.find(region => region.name === (cities.filter(item => item.display_title === d[0].display_title)[0].region)).colour}"
                     fill="transparent"
                     
                     
