@@ -47,7 +47,7 @@
 			  <li><a href="#">Submenu 5</a></li>
 			</ul>
 		  </li>
-		  <li><a href="#">Methodology</a></li>
+		  <li><a href="{baseUrl}/methodology">Methodology</a></li>
 		  <li><a href="#">Team</a></li>
 		</ul>
 	</nav> 
