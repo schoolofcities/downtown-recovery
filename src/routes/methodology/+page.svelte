@@ -10,7 +10,7 @@
 
 <main>
 
-    <div id="text">
+    <div class="text">
 
         <h1>Methodology</h1>
 
@@ -51,9 +51,11 @@
             Downtown areas in each city were defined based on the areas of highest employment density. In the United States these were based on zip-code level data. In Canada, downtown regions were pre-defined by Statistics Canada.
         </p>
         <p>
-            Maps of the downtowns can be found here.
+            Maps of the downtown areas for each city can be found <a href="./downtown_definitions.pdf">here</a>.
         </p>
 
     </div>
+
+    <div class="text"></div>
 
 </main>

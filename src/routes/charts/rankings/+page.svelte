@@ -83,7 +83,7 @@
 
 <main>
 
-    <div id="text">
+    <div class="text">
 
         <h1>
             Downtown Recovery Rankings
