@@ -11,6 +11,8 @@
 
     import "../../../assets/global.css";
 
+    const baseUrl = import.meta.env.BASE_URL;
+
 
     // initial loading data and dynamic filtering
 
@@ -87,10 +89,13 @@
             Downtown Recovery Rankings
         </h1>
         <p>
-            Some very simple intro to the data/charts
+            The recovery metrics on these charts are computed by counting the number unique visitors in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Visits are based on a sample of mobile phone data.
         </p>
         <p>
-            A recovery value greater than 100% means that for the selected inputs, the mobile device activity improved from the comparison period. A value less than 100% means the opposite, and a value equal to 100% means the activity did not change.
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased from the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
+        </p>
+        <p>
+            For more information, read our <a href="{baseUrl}/methodology">Methodology</a> page. 
         </p>
 
     </div>
@@ -162,8 +167,6 @@
                     y = {57 + i * 24}
                     text-anchor="end"
                 >{i + 1}</text>
-
-                
 
                 {#if regionColours.find(region => region.name === d.region).text === "#000"}
                     <text class="bar-label"

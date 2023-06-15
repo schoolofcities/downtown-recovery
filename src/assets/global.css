@@ -56,10 +56,20 @@ p {
     line-height: 24px;
 }
 
+a {
+    color: var(--brandWhite);
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--brandLightBlue);
+}
+
 #text {
     margin: 0 auto;
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 10px;
     max-width: 650px;
     color: white;
     border-bottom: solid 1px var(--brandDarkBlue);
