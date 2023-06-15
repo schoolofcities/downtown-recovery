@@ -57,12 +57,12 @@ p {
 }
 
 a {
-    color: var(--brandWhite);
+    color: var(--brandLightBlue);
     text-decoration: underline;
 }
 
 a:hover {
-    color: var(--brandLightBlue);
+    color: var(--brandWhite);
 }
 
 .text {
@@ -73,4 +73,11 @@ a:hover {
     max-width: 650px;
     color: white;
     border-bottom: solid 1px var(--brandDarkBlue);
+}
+
+.bold {
+    font-family: TradeGothicBold;
+    font-size: 18px;
+    color: var(--brandYellow);
+    background-color: var(--brandDarkBlue);
 }

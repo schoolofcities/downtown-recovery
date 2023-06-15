@@ -109,7 +109,7 @@
             <div id="options-region">
                 <SelectRegions/>
             </div>
-            <p id="note">*Data for Europe is only available from 12/2021 to 11/2022</p>
+            <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
