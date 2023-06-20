@@ -78,7 +78,7 @@
         <a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">
             <div class="card">
 
-                <div class="card-video"> 
+                <div class="card-img"> 
                     <img src={cardImgVideo}>
                 </div>
 
