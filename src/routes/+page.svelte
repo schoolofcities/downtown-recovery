@@ -5,6 +5,10 @@
 
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
+    import cardImgReport from "../assets/card-img/card-img-report.png";
+    import cardImgVideo from "../assets/card-img/card-img-video.png";
+
+    const baseUrl = import.meta.env.BASE_URL;
 
 </script>
 
@@ -29,59 +33,61 @@
 
     <div id="cards-wrapper">
 
-        <div class="card">
+        <a href="{baseUrl}/charts/rankings">
+            <div class="card">
 
-            <div class="card-img"> 
-                <img src={cardImgRankings}>
+                <div class="card-img"> 
+                    <img src={cardImgRankings}>
+                </div>
+
+                <h2>Recovery Rankings</h2>
+
+                <p>Comparison of overall recovery in activity levels across different cities and time periods.</p>
+
             </div>
+        </a>
 
-            <h2>Recovery Rankings</h2>
+        <a href="{baseUrl}/charts/patterns">
+            <div class="card">
 
-            <p>Comparison of overall recovery in activity levels across different cities and time periods.</p>
+                <div class="card-img"> 
+                    <img src={cardImgPatterns}>
+                </div>
 
-        </div>
+                <h2>Recovery Patterns</h2>
 
-        <div class="card">
+                <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
 
-            <div class="card-img"> 
-                <img src={cardImgPatterns}>
             </div>
+        </a>
 
-            <h2>Recovery Patterns</h2>
+        <a href="{baseUrl}/death_of_downtown_policy_brief.pdf">
+            <div class="card">
 
-            <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
+                <div class="card-img"> 
+                    <img src={cardImgReport}>
+                </div>
 
-        </div>
+                <h2>Policy Brief</h2>
 
-        <div class="card">
+                <p>Our report (updated January 2023) on recovery patterns and their explanatory factors.</p>
 
-            <div class="card-img"></div>
+            </div>
+        </a>
+        
+        <a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">
+            <div class="card">
 
-            <h2>Policy Brief</h2>
+                <div class="card-video"> 
+                    <img src={cardImgVideo}>
+                </div>
 
-            <p>Our report (updated January 2023) on recovery patterns and their explanatory factors.</p>
+                <h2>Explainer Video</h2>
 
-        </div>
+                <p>Our short video on downtown recovery and how to prevent the death of downtown.</p>
 
-        <div class="card">
-
-            <div class="card-img"></div>
-
-            <h2>Explainer Video</h2>
-
-            <p>Our short video on downtown recovery and how to prevent the death of downtown.</p>
-
-        </div>
-
-        <div class="card">
-
-            <div class="card-img"></div>
-
-            <h2>Methodology</h2>
-
-            <p>Details on how we measured downtown activity and recovery using mobile phone data.</p>
-
-        </div>
+            </div>
+        </a>
 
     </div>
 
@@ -111,11 +117,20 @@
         cursor: pointer;
     }
 
+    .card:hover h2,
+    .card:hover p {
+        color: var(--brandLightBlue);
+    }    
+
     .card-img {
         background-color: white;
         width: 350px;
         height: 150px;
         border: 1px solid var(--brandDarkBlue);
+    }
+
+    a {
+        text-decoration: none;
     }
 
     @media (min-width: 800px) {
@@ -127,7 +142,7 @@
     }
 
     @media (min-width: 1200px) {
-        #cards-wrapper { grid-template-columns: repeat(3, 1fr); }
+        #cards-wrapper { grid-template-columns: repeat(2, 1fr); }
     }
 
 </style>
