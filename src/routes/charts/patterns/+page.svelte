@@ -2,7 +2,7 @@
 
     import Header from "../../../lib/Header.svelte";
     import SelectCities from "../../../lib/SelectCities.svelte";
-
+    import Tick from "../../../lib/Tick.svelte"
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
     import { line, curveNatural, scaleLinear, timeParse, extent, scaleTime, group, rollup } from 'd3';
@@ -57,7 +57,9 @@
 };
     let margin = { top: 10, bottom: 10, left: 10, right: 10 };
     let xScale;
+    let xGrid;
     let yScale;
+    let yGrid;
 
 
 function getXExtent(dat) {
@@ -90,35 +92,23 @@ function getXTicks(dat) {
     return xTicks;
 }
 
+// tooltip debugging
+$: console.log();
     // scales
-
-    $: xScale = scaleTime()
+$: xScale = scaleTime()
 		.domain(getXExtent(filteredData.flat()))
 		.range([margin.left, chartWidth - margin.right]);
-
-	$: yScale = scaleLinear()
+$: yScale = scaleLinear()
 		.domain(getYExtent(filteredData.flat()))
-		.range([chartHeight - margin.bottom, margin.top]);
+		.range([chartHeight - margin.bottom, margin.top])
+        .nice(5);
 
-
-
-   function drawLine(dat) {
-
-    return line()
-		.x((d) => xScale(d.week))
-        .y((d) => yScale(d.rolling_avg))
-        .curve(curveNatural)(dat);
-   }
-    
-	let path = line()
-		.x((d) => xScale(d.week))
-        .y((d) => yScale(d.rolling_avg))
-        .curve(curveNatural);
-	
-	// ticks for X axis- every six months
-	let xTicks = [];
-    xTicks = getXTicks(filteredData);
-
+let xTickNumber;
+// ticks for X axis- every six months (?)
+$: xTickNumber = chartWidth > 480 ? 12 : 5;
+$: xGrid = xScale.ticks(xTickNumber);
+// y gets evenly spaced ticks of some fixed constant number
+$: yGrid = yScale.ticks(5);
 
     
     // x axis labels string formatting
@@ -127,7 +117,7 @@ function getXTicks(dat) {
         return xLabel;
     }
 	
-	// y ticks count to label by 25's
+	// y ticks count to label by 'nice' increments
 	let yTicks = [];
 	for (let i = 0; i < 1.5; i=i+.25) {
 		yTicks.push(Math.floor(i/.25)*.25);
@@ -195,8 +185,8 @@ function getXTicks(dat) {
                   x2={chartWidth - margin.right}
                   y1={chartHeight - margin.bottom}
                   y2={chartHeight - margin.bottom}
-                  stroke="black"
-                  stroke-width="2"
+                  stroke="white"
+                  stroke-width="1"
                 />
             </g>
             <g>
@@ -205,10 +195,33 @@ function getXTicks(dat) {
                   x2={margin.left}
                   y1={margin.top}
                   y2={chartHeight - margin.bottom}
-                  stroke="black"
-                  stroke-width="2"
+                  stroke="white"
+                  stroke-width="1"
                 />
             </g>
+
+            <!-- axis ticks -->
+            <g>
+                {#each yGrid.slice(1) as gridLine}
+                  <Tick
+                    x={paddings.left}
+                    y={yScale(gridLine)}
+                    value={gridLine}
+                    direction={"horizontal"}
+                  />
+                {/each}
+              </g>
+              <g>
+                {#each xGrid as gridLine}
+                  <Tick
+                    x={xScale(gridLine)}
+                    y={chartHeight - paddings.bottom}
+                    value={gridLine}
+                    direction={"vertical"}
+                    format={false}
+                  />
+                {/each}
+              </g>
        
         {#each filteredData as d, i}
 
@@ -227,6 +240,9 @@ function getXTicks(dat) {
                     stroke-width="2"
                     stroke="{cityColours.find(region => region.name === (cities.filter(item => item.display_title === d[0].display_title)[0].region)).colour}"
                     fill="transparent"
+                    on:click={() => {
+                        console.log(cities.filter(item => item.display_title === d[0].display_title)[0].display_title)
+                      }}
                     
                     
                 />
