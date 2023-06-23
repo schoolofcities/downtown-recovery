@@ -2,17 +2,18 @@
     import Header from "../../../lib/Header.svelte";
     import SelectCities from "../../../lib/SelectCities.svelte";
     import Tick from "../../../lib/Tick.svelte";
+    import Tooltip from "../../../lib/Tooltip.svelte"
     import { onMount } from "svelte";
     import { csvParse } from "d3-dsv";
     import {
         line,
         curveNatural,
         scaleLinear,
+        scaleOrdinal,
         timeParse,
         extent,
         scaleTime,
-        group,
-        rollup,
+        group
     } from "d3";
 
     import { selectedCities, cities, regions } from "../../../lib/stores.js";
@@ -23,6 +24,18 @@
 
     let data = [];
     let filteredData = [];
+
+    let colourScale = [];
+
+cities.forEach((j1) => {
+  $regions.forEach((j2) => {
+    if (j1.region === j2.name) {
+        colourScale[j1.display_title] = {'colour' : j2.colour, 'text' : j2.text};
+    }
+  });
+});
+
+$: console.log(colourScale["San Francisco, CA"]);
 
     const cityColours = $regions;
     const monthNames = [
@@ -282,15 +295,7 @@ function computeSelectedXValue(dat, value) {
                                 .y((d1) => yScale(d1.rolling_avg))
                                 .curve(curveNatural)(d.flat())}
                             stroke-width="2"
-                            stroke={cityColours.find(
-                                (region) =>
-                                    region.name ===
-                                    cities.filter(
-                                        (item) =>
-                                            item.display_title ===
-                                            d[0].display_title
-                                    )[0].region
-                            ).colour}
+                            stroke={colourScale[d[0].display_title].colour}
                             fill="transparent"
                             on:click={() => {
                                 console.log(
@@ -337,9 +342,28 @@ function computeSelectedXValue(dat, value) {
     ).colour}
     />
 </g>
+
+<Tooltip
+      labels="11-week rolling average"
+      values={d.find(
+        (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
+        ).rolling_avg}
+      
+      x={mousePosition.x + 180 > chartWidth
+        ? mousePosition.x - 195
+        : mousePosition.x + 15}
+      y={Math.max(0, mousePosition.y - (d.length + 2) * 25)}
+      backgroundColor={colourScale[d[0].display_title].colour}
+      opacity="0.5"
+      textColor={colourScale[d[0].display_title].text}
+      title={"Week: " + computeSelectedXValue(d, mousePosition.x)}
+      width="180"
+      adaptTexts={false}
+    />
 {/if}
                 </g>
             {/each}
+
         </svg>
     </div>
 </main>
