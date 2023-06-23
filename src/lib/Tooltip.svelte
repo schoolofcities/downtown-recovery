@@ -4,7 +4,6 @@ export let x;
 export let y;
 export let labels;
 export let values;
-export let colourScale;
 export let width = 150;
 export let backgroundColor = "white";
 export let textColor = "black";
@@ -12,8 +11,8 @@ export let opacity = 1;
 export let title;
 export let adaptTexts = true;
 const step = 25;
-const paddingLeft = 15;
-const paddingRight = 15;
+const paddingLeft = 5;
+const paddingRight = 5;
 const lineLength = 10;
 const spaceBetweenLineText = 3;
 const idContainer = "svg-legend";
@@ -50,7 +49,7 @@ onMount(async () => {
 
 </script>
 
-<svg x={x - 10} {y} width={computedWidth + 2} height="200" id={idContainer}>
+<svg x={x - 10} {y} width={computedWidth + 2} height="30" id={idContainer}>
   <rect
     x="1"
     y="1"

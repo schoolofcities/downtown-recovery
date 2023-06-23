@@ -24,8 +24,9 @@
 
     let data = [];
     let filteredData = [];
-
+    let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     let colourScale = [];
+    let weeklyRank = [];
 
 cities.forEach((j1) => {
   $regions.forEach((j2) => {
@@ -81,6 +82,11 @@ $: console.log(colourScale["San Francisco, CA"]);
         )
     ).map((g) => g[1]);
 
+    $: weeklyRank = filteredData === undefined ? null : 
+    filteredData
+    .sort((a,b) => b.rolling_avg - a.rolling_avg)
+
+    $: console.log(filteredData)
     // chart parameters
 
     let chartWidth;
@@ -138,6 +144,7 @@ $: console.log(colourScale["San Francisco, CA"]);
     // ticks for X axis- every six months (?)
     $: xTickNumber = chartWidth > 480 ? 12 : 5;
     $: xGrid = xScale.ticks(xTickNumber);
+
     // y gets evenly spaced ticks of some fixed constant number
     $: yGrid = yScale.ticks(5);
 
@@ -308,6 +315,7 @@ function computeSelectedXValue(dat, value) {
                             }}
                         />
                     {/if}
+                    </g>
 
                     {#if mousePosition.x !== null}
 <g
@@ -331,37 +339,50 @@ function computeSelectedXValue(dat, value) {
            ).rolling_avg
          )}
       r="3"
-      fill={cityColours.find(
-        (region) =>
-            region.name ===
-            cities.filter(
-                (item) =>
-                    item.display_title ===
-                    d[0].display_title
-            )[0].region
-    ).colour}
+      fill={colourScale[d[0].display_title].colour}
     />
 </g>
-
+<g>
 <Tooltip
-      labels="11-week rolling average"
-      values={d.find(
+      labels={d[0].display_title}
+      values={Math.floor(d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
-        ).rolling_avg}
+        ).rolling_avg * 100) }
       
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={Math.max(0, mousePosition.y - (d.length + 2) * 25)}
+      y={yScale(d.find(
+        (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
+        ).rolling_avg) - 15}
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
       textColor={colourScale[d[0].display_title].text}
-      title={"Week: " + computeSelectedXValue(d, mousePosition.x)}
+      
       width="180"
       adaptTexts={false}
     />
+</g>
+<g>
+    <Tooltip
+      labels="Week of"
+      values={computeSelectedXValue(data, mousePosition.x).toLocaleString(undefined, dateOptions)
+        }
+      
+      x={mousePosition.x + 180 > chartWidth
+        ? mousePosition.x - 195
+        : mousePosition.x + 15}
+      y={chartHeight - 30}
+      backgroundColor="white"
+      opacity="0.5"
+      textColor="black"
+     
+      width="200"
+      adaptTexts={false}
+    />
+</g>
 {/if}
-                </g>
+               
             {/each}
 
         </svg>

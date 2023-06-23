@@ -4,7 +4,10 @@
     export let value;
     export let direction;
     export let format = true;
-    export let formatFunction;const xTranslation = direction === "horizontal" ? x - 10 : x;function nFormatter(num, digits) {
+    export let formatFunction;
+    const xTranslation = direction === "horizontal" ? x - 10 : x;
+
+    function nFormatter(num, digits) {
       const lookup = [
         { value: 1, symbol: "" },
         { value: 1e3, symbol: "k" },
@@ -26,11 +29,15 @@
         ? (num / item.value)
            .toFixed(digits).replace(rx, "$1") + item.symbol
         : "0";
-    }const valueLabel = formatFunction !== undefined 
+    }
+    
+    const valueLabel = formatFunction !== undefined 
         ? formatFunction(value)
         : format
           ? nFormatter(value, 1)
-          : value;</script><g transform={"translate(" + xTranslation + ", " + y + ")"}>
+          : value;
+      </script>
+      <g transform={"translate(" + xTranslation + ", " + y + ")"}>
       <text
         y={direction === "horizontal" ? 0 : 20}
         font-size="13px"
