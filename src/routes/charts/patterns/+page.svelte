@@ -82,6 +82,8 @@ $: console.log(colourScale["San Francisco, CA"]);
         )
     ).map((g) => g[1]);
 
+    // TODO: write a function that gets the weekly order and set tooltip based on that
+
     $: weeklyRank = filteredData === undefined ? null : 
     filteredData
     .sort((a,b) => b.rolling_avg - a.rolling_avg)
@@ -189,6 +191,24 @@ function removePointer() {
 function computeSelectedXValue(dat, value) {
   return dat.filter((d) => xScale(d.week) >= value)[0].week
 }
+
+function getWeeklyRank(dat, value, city) {
+
+    let weeklyRank = {};
+    let weeklyData = dat.flat().filter((d1) => d1.week === value);
+
+    console.log(dat)
+    console.log(weeklyData);
+    weeklyData
+    .sort((a,b) => b.rolling_avg - a.rolling_avg)
+    .forEach((d) => {
+    
+        weeklyRank[d.display_title] = weeklyData.indexOf(d)+1;
+    })
+    console.log(weeklyRank);
+    return weeklyRank[city]
+}
+
 </script>
 
 <Header />
@@ -304,15 +324,6 @@ function computeSelectedXValue(dat, value) {
                             stroke-width="2"
                             stroke={colourScale[d[0].display_title].colour}
                             fill="transparent"
-                            on:click={() => {
-                                console.log(
-                                    cities.filter(
-                                        (item) =>
-                                            item.display_title ===
-                                            d[0].display_title
-                                    )[0].display_title
-                                );
-                            }}
                         />
                     {/if}
                     </g>
@@ -342,6 +353,7 @@ function computeSelectedXValue(dat, value) {
       fill={colourScale[d[0].display_title].colour}
     />
 </g>
+
 <g>
 <Tooltip
       labels={d[0].display_title}
@@ -352,9 +364,8 @@ function computeSelectedXValue(dat, value) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={yScale(d.find(
-        (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
-        ).rolling_avg) - 15}
+      y={chartHeight*getWeeklyRank(filteredData, computeSelectedXValue(d, mousePosition.x), d[0].display_title)
+        }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
       textColor={colourScale[d[0].display_title].text}
