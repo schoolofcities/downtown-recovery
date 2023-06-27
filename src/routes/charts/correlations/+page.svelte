@@ -97,6 +97,9 @@
     $: yAxisIntervalSpacing = (chartHeight - 40) / (yAxisIntervals.length - 1);
 
 
+    
+    $: console.log(yAxisIntervals);
+
 </script>
 
 
@@ -165,7 +168,7 @@
 
                 <circle 
                     cx="250"
-                    cy="50" 
+                    cy={d.seasonal_average * (chartHeight - 40) / Math.max(... yAxisIntervals)} 
                     r="5" 
                     fill={regionColours.find(region => region.name === d.region).colour}
                     stroke="white"
@@ -179,7 +182,6 @@
     </div>
 
 </main>
-
 
 
 
