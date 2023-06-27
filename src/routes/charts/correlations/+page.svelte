@@ -16,62 +16,85 @@
 
     // initial loading data and dynamic filtering
 
-    // let data = [];
-    // let filteredData = [];
+    let recoveryData = [];
+    let variablesData = [];
+    let filteredData = [];
+    let chartData = [];
 
-    // const regionColours = $regions;
+    const regionColours = $regions;
 
-    // async function loadData() {
-    //     try {
-    //         const response = await fetch('../ranking_data.csv');
-    //         const csvData = await response.text();
-    //         data = csvParse(csvData);
-    //     } catch (error) {
-    //         console.error('Error loading CSV data:', error);
-    //     }
-    // }
+    async function loadDataRecovery() {
+        try {
+            const response = await fetch('../ranking_data.csv');
+            const csvData = await response.text();
+            recoveryData = csvParse(csvData);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
 
-    // onMount(() => {
-    //     loadData();
-    // });
+    async function loadDataVariables() {
+        try {
+            const response = await fetch('../variables_data.csv');
+            const csvData = await response.text();
+            variablesData = csvParse(csvData);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
 
-    // $: filteredData = data
-    //     .filter(item => item.metric === 'downtown')
-    //     .filter(item => item.Season === `Season_${$season}`)
-    //     .filter(item => $selectedRegions.includes(item.region))
-    //     .sort((a, b) => b.seasonal_average - a.seasonal_average);
+    onMount(() => {
+        loadDataRecovery();
+        loadDataVariables();
+    });
 
-    // $: console.log($selectedRegions);
+    $: filteredData = recoveryData
+        .filter(item => item.metric === 'downtown')
+        .filter(item => item.Season === `Season_${$season}`)
+        .filter(item => $selectedRegions.includes(item.region))
+        .sort((a, b) => b.seasonal_average - a.seasonal_average);
+
+    // joining in the variables data
+    $: chartData = filteredData.map(function(obj1) {
+        var matchedObj = variablesData.find(function(obj2) {
+            return obj2.city === obj1.city;
+        });
+        return Object.assign({}, obj1, matchedObj);
+    });
+
+    $: console.log(filteredData);
+    $: console.log(chartData);
+
 
 
     // // chart parameters
 
     let chartWidth;
-    // let chartHeight = 100;
-    // $: chartHeight = 24 * filteredData.length + 50;
+    let chartHeight = 420;
+    $: chartHeight = chartWidth * 0.666;
 
-    // let maxValue = 1; // for x-axis scale
-    // $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
-    // $: maxValue = maxValue < 1 ? 1 : maxValue;
+    let maxRecoveryValue = 1; // for y-axis scale
+    $: maxRecoveryValue = chartData.length !== 0 ? chartData[0].seasonal_average : 1;
+    $: maxRecoveryValue = maxRecoveryValue < 1 ? 1 : maxRecoveryValue;
 
-    // function generateXaxisIntervals(maxValue, interval) {
-    //     let values = [];
+    function generateYaxisIntervals(maxValue, interval) {
+        let values = [];
 
-    //     for (let i = 0; i <= Math.ceil(maxValue / interval); i++) {
-    //         values.push(i * interval);
-    //     }
-    //     return values;
-    // } 
+        for (let i = 0; i <= Math.ceil(maxRecoveryValue / interval); i++) {
+            values.push(i * interval);
+        }
+        return values;
+    } 
 
-    // let xAxisIntervals = [];
-    // $: if (maxValue < 2) {
-    //     xAxisIntervals = generateXaxisIntervals(maxValue, 0.2)
-    // }
-    // else 
-    //     {xAxisIntervals = generateXaxisIntervals(maxValue, 0.5)
-    // } ;
+    let yAxisIntervals = [];
+    $: if (maxRecoveryValue < 2) {
+        yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.2)
+    }
+    else 
+        {yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.5)
+    } ;
 
-    // $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
+    $: yAxisIntervalSpacing = (chartHeight - 40) / (yAxisIntervals.length - 1);
 
 
 </script>
@@ -112,9 +135,46 @@
             <p id="note">*We have not yet collected explanatory variables for Europe yet</p>
         </div>
 
-        <!-- <svg height={chartHeight} width={chartWidth} id="chart">
+        <svg height={chartHeight} width={chartWidth} id="chart">
 
-        </svg> -->
+            {#each yAxisIntervals.reverse() as yInterval, i}
+
+                <line class="grid"
+                    x1 = 40
+                    y1 = {20 + i * yAxisIntervalSpacing}
+                    x2 = {chartWidth}
+                    y2 = {20 + i * yAxisIntervalSpacing}
+                ></line>
+
+                <text class="axis-label"
+                    x = 35
+                    y = {25 + i * yAxisIntervalSpacing}
+                    text-anchor="end"
+                >{(100 * yInterval).toFixed(0)}%</text>
+
+            {/each}
+
+            <line class="grid-white"
+                x1 = 45
+                y1 = 5
+                x2 = 45
+                y2 = {chartHeight - 5}
+            ></line>
+
+            {#each chartData as d, i}
+
+                <circle 
+                    cx="250"
+                    cy="50" 
+                    r="5" 
+                    fill={regionColours.find(region => region.name === d.region).colour}
+                    stroke="white"
+                    stroke-width="1"
+                />
+
+            {/each}
+            
+        </svg>
 
     </div>
 
@@ -163,7 +223,7 @@
     #chart {
         margin-top: 10px;
         margin-bottom: 10px;
-        background-color: var(--brandGray90);
+        background-color: black;
     }
 
     .grid {

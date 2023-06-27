@@ -41,8 +41,6 @@
         .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.seasonal_average - a.seasonal_average);
 
-    $: console.log($selectedRegions);
-
 
     // chart parameters
 
