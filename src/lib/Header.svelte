@@ -37,6 +37,7 @@
 			<ul class="dropdown-menu">
 			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
 			  <li><a href="{baseUrl}/charts/patterns">Patterns</a></li>
+			  <li><a href="{baseUrl}/charts/correlations">Correlations</a></li>
 			</ul>
 		  </li>
 		  <li class="dropdown">
