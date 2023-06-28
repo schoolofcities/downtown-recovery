@@ -109,9 +109,25 @@
     let xVariable;
     $: xVariable = $selectedVariable;
 
-    let xAxisWidth = chartWidth - 45;
+    let xAxisWidth = 100;
+    $: xAxisWidth = chartWidth - 45 - 10;
+
     let maxX = 1;
     $: maxX = Math.max(...chartData.map(obj => parseFloat(obj[xVariable])).filter(num => !isNaN(num)));
+
+    function roundUpToNearestOrder(number) {
+        const order = Math.pow(10, Math.floor(Math.log10(number)));
+        return Math.ceil(number / order) * order;
+    }
+
+    let maxXaxis = 1;
+    $: maxXaxis = roundUpToNearestOrder(maxX); 
+
+    let xIntervalChart = 0.1;
+    $: xIntervalChart = xAxisWidth / 4;
+
+    let xIntervalUnits = 1;
+    $: xIntervalUnits = maxXaxis / 4;
 
     function yScale(axisRange, axisHeight, yValue) {
         return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
@@ -182,6 +198,17 @@
 
             {/each}
 
+            {#each [0,1,2,3,4] as i}
+
+                <line class="grid"
+                    x1 = {45 + i * xIntervalChart}
+                    y1 = 20
+                    x2 = {45 + i * xIntervalChart}
+                    y2 = {chartHeight}
+                ></line>
+
+            {/each}
+
             <line class="grid-white"
                 x1 = 45
                 y1 = 5
@@ -189,32 +216,62 @@
                 y2 = {chartHeight - 5}
             ></line>
 
+            <line class="grid-white"
+                x1 = 45
+                y1 = 25
+                x2 = {chartWidth}
+                y2 = 25
+            ></line>
+
             
 
             {#each chartData as d, i}
 
-                <circle 
-                    cx="250"
+                {#if d[$selectedVariable] >= 0}
+
+                <circle class="point-white"
+                    cx={45 + xScale(
+                        [0, maxXaxis],
+                        xAxisWidth,
+                        parseFloat(d[$selectedVariable])
+                    )}
                     cy={20 + yScale(
                         yAxisRange,
                         chartHeight - 40,
                         d.seasonal_average
                     )}
-                    r="5" 
-                    fill={regionColours.find(region => region.name === d.region).colour}
+                    r="6" 
+                    fill="black"
                     stroke="white"
-                    stroke-width="1"
+                    stroke-width="3"
                 />
 
-                <text class="axis-label"
-                    x = 250
-                    y = {20 + yScale(
+                {/if}
+
+            {/each}
+
+            {#each chartData as d, i}
+
+                {#if d[$selectedVariable] >= 0}
+
+                <circle class="point"
+                    cx={45 + xScale(
+                        [0, maxXaxis],
+                        xAxisWidth,
+                        parseFloat(d[$selectedVariable])
+                    )}
+                    cy={20 + yScale(
                         yAxisRange,
                         chartHeight - 40,
                         d.seasonal_average
                     )}
-                    text-anchor="end"
-                >{d.seasonal_average}</text>
+                    r="6" 
+                    fill={regionColours.find(region => region.name === d.region).colour}
+                    stroke="white"
+                    stroke-width="0"
+                />
+
+                {/if}
 
             {/each}
             
@@ -264,7 +321,7 @@
     }
 
     #chart {
-        margin-top: 10px;
+        margin-top: 30px;
         margin-bottom: 10px;
         background-color: black;
     }
@@ -287,6 +344,10 @@
     .bar-label {
         /* fill: var(--brandWhite); */
         font-size: 13px;
+    }
+
+    .point-white {
+        opacity: 0.9
     }
 
 </style>
