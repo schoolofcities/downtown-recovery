@@ -185,16 +185,23 @@
 
                 <line class="grid"
                     x1 = 40
-                    y1 = {20 + i * yAxisIntervalSpacing}
+                    y1 = {30 + i * yAxisIntervalSpacing}
                     x2 = {chartWidth}
-                    y2 = {20 + i * yAxisIntervalSpacing}
+                    y2 = {30 + i * yAxisIntervalSpacing}
                 ></line>
 
                 <text class="axis-label"
                     x = 35
-                    y = {25 + i * yAxisIntervalSpacing}
+                    y = {35 + i * yAxisIntervalSpacing}
                     text-anchor="end"
                 >{(100 * yInterval).toFixed(0)}%</text>
+
+                <line class="grid-white"
+                    x1 = 37
+                    y1 = {30 + i * yAxisIntervalSpacing}
+                    x2 = 45
+                    y2 = {30 + i * yAxisIntervalSpacing}
+                ></line>
 
             {/each}
 
@@ -202,28 +209,25 @@
 
                 <line class="grid"
                     x1 = {45 + i * xIntervalChart}
-                    y1 = 20
+                    y1 = 22
                     x2 = {45 + i * xIntervalChart}
                     y2 = {chartHeight}
                 ></line>
 
+                <text class="axis-label"
+                    x = {47 + i * xIntervalChart}
+                    y = 17
+                    text-anchor="end"
+                >{(i * xIntervalUnits).toLocaleString()}</text>
+
+                <line class="grid-white"
+                    x1 = {45 + i * xIntervalChart}
+                    y1 = 22
+                    x2 = {45 + i * xIntervalChart}
+                    y2 = 31
+                ></line>
+
             {/each}
-
-            <line class="grid-white"
-                x1 = 45
-                y1 = 5
-                x2 = 45
-                y2 = {chartHeight - 5}
-            ></line>
-
-            <line class="grid-white"
-                x1 = 45
-                y1 = 25
-                x2 = {chartWidth}
-                y2 = 25
-            ></line>
-
-            
 
             {#each chartData as d, i}
 
@@ -235,7 +239,7 @@
                         xAxisWidth,
                         parseFloat(d[$selectedVariable])
                     )}
-                    cy={20 + yScale(
+                    cy={30 + yScale(
                         yAxisRange,
                         chartHeight - 40,
                         d.seasonal_average
@@ -260,7 +264,7 @@
                         xAxisWidth,
                         parseFloat(d[$selectedVariable])
                     )}
-                    cy={20 + yScale(
+                    cy={30 + yScale(
                         yAxisRange,
                         chartHeight - 40,
                         d.seasonal_average
@@ -276,6 +280,10 @@
             {/each}
             
         </svg>
+
+        <br>
+        <br>
+        <br>
 
     </div>
 
@@ -298,7 +306,7 @@
 
     #chart-wrapper {
         margin: 0 auto;
-        max-width: 1080px;
+        max-width: 840px;
     }
 
     #options {
@@ -323,11 +331,11 @@
     #chart {
         margin-top: 30px;
         margin-bottom: 10px;
-        background-color: black;
+        background-color: var(--brandGray90);
     }
 
     .grid {
-        stroke: var(--brandGray70);
+        stroke: var(--brandDarkBlue);
         stroke-width: 1px;
     }
 

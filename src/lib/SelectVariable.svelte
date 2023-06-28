@@ -116,6 +116,8 @@
 <style>
     
     select {
+        max-width: 600px;
+        max-width: calc(100vw - 30px);
         padding: 5px;
         background-color: var(--brandGray90);
         border: 1px solid var(--brandDarkBlue);

@@ -27,6 +27,9 @@
 		<a href="https://www.schoolofcities.utoronto.ca/"><img src={logo} alt="School of Cities"></a>
 	</div>
 	<p><a href="{baseUrl}">Downtown Recovery</a></p>
+
+	<!-- <img id="line-chart" src='../line-graphic.svg' alt="img" /> -->
+
 </header>
 
 <div id="menu">
@@ -103,6 +106,12 @@
 		cursor: pointer;
 	}
 
+	#line-chart {
+		position: absolute;
+		top: 10px;
+		left: 550px;
+	}
+
 	#menu {
 		background-color: var(--brandGray90);
 		height: 25px; 
@@ -142,7 +151,6 @@
 
 	.dropdown-menu {
 		display: none;
-		background-color: var(--brandGray90);
 		border-left: solid 1px var(--brandDarkBlue);
 		border-bottom: solid 1px var(--brandDarkBlue);
 		position: absolute;
@@ -153,6 +161,7 @@
 	}
 
 	.dropdown-menu li {
+		background-color: var(--brandGray90);
 		margin-bottom: 2px;
 		margin-left: 0px;
 		padding-left: 10px;
