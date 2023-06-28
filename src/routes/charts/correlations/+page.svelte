@@ -3,11 +3,12 @@
     import Header from "../../../lib/Header.svelte";
     import SelectSeason from "../../../lib/SelectSeason.svelte";
     import SelectRegions from "../../../lib/SelectRegions.svelte";
+    import SelectVariable from "../../../lib/SelectVariable.svelte";
 
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
-    import { season, selectedRegions, regions } from '../../../lib/stores.js';
+    import { season, selectedRegions, regions, selectedVariable } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
 
@@ -62,8 +63,8 @@
         return Object.assign({}, obj1, matchedObj);
     });
 
-    $: console.log(filteredData);
-    $: console.log(chartData);
+    // $: console.log(filteredData);
+    // $: console.log(chartData);
 
 
 
@@ -73,20 +74,23 @@
     let chartHeight = 420;
     $: chartHeight = chartWidth * 0.666;
 
+
+
+    // y-axis
+
     let maxRecoveryValue = 1; // for y-axis scale
     $: maxRecoveryValue = chartData.length !== 0 ? chartData[0].seasonal_average : 1;
     $: maxRecoveryValue = maxRecoveryValue < 1 ? 1 : maxRecoveryValue;
 
     function generateYaxisIntervals(maxValue, interval) {
         let values = [];
-
-        for (let i = 0; i <= Math.ceil(maxRecoveryValue / interval); i++) {
+        for (let i = 0; i <= Math.ceil(maxValue / interval); i++) {
             values.push(i * interval);
         }
         return values;
     } 
 
-    let yAxisIntervals = [];
+    let yAxisIntervals = [0, 1];
     $: if (maxRecoveryValue < 2) {
         yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.2)
     }
@@ -96,9 +100,27 @@
 
     $: yAxisIntervalSpacing = (chartHeight - 40) / (yAxisIntervals.length - 1);
 
+    $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
-    
-    $: console.log(yAxisIntervals);
+
+
+    // x axis
+
+    let xVariable;
+    $: xVariable = $selectedVariable;
+
+    let xAxisWidth = chartWidth - 45;
+    let maxX = 1;
+    $: maxX = Math.max(...chartData.map(obj => parseFloat(obj[xVariable])).filter(num => !isNaN(num)));
+
+    function yScale(axisRange, axisHeight, yValue) {
+        return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
+    }
+
+    function xScale(axisRange, axisLength, xValue) {
+        return axisLength * xValue / (axisRange[1] - axisRange[0])
+    }
+
 
 </script>
 
@@ -135,8 +157,11 @@
             <div id="options-region">
                 <SelectRegions/>
             </div>
-            <p id="note">*We have not yet collected explanatory variables for Europe yet</p>
+            <!-- <p id="note">*We have not yet collected explanatory variables for Europe yet</p> -->
+            <SelectVariable/>
         </div>
+
+        
 
         <svg height={chartHeight} width={chartWidth} id="chart">
 
@@ -164,16 +189,32 @@
                 y2 = {chartHeight - 5}
             ></line>
 
+            
+
             {#each chartData as d, i}
 
                 <circle 
                     cx="250"
-                    cy={d.seasonal_average * (chartHeight - 40) / Math.max(... yAxisIntervals)} 
+                    cy={20 + yScale(
+                        yAxisRange,
+                        chartHeight - 40,
+                        d.seasonal_average
+                    )}
                     r="5" 
                     fill={regionColours.find(region => region.name === d.region).colour}
                     stroke="white"
                     stroke-width="1"
                 />
+
+                <text class="axis-label"
+                    x = 250
+                    y = {20 + yScale(
+                        yAxisRange,
+                        chartHeight - 40,
+                        d.seasonal_average
+                    )}
+                    text-anchor="end"
+                >{d.seasonal_average}</text>
 
             {/each}
             

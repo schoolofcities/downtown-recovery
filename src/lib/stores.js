@@ -2,6 +2,8 @@ import { writable, readable } from 'svelte/store';
 
 export const season = writable(12);
 
+export const selectedVariable = writable("total_pop_city")
+
 export const selectedRegions = writable(["Southeast", "Southwest", "Pacific", "Northeast", "Midwest", "Canada"]);
 
 export const regions = readable(
@@ -432,3 +434,7 @@ export const selectedCities = writable([
   "Detroit, MI", "Baltimore, MD", "New York, NY",
   "Los Angeles, CA", "San Francisco, CA", "Atlanta, GA",
   "Miami, FL", "Austin, TX", "Las Vegas, NV"]);
+
+
+
+
