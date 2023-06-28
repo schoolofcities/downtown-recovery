@@ -36,7 +36,6 @@ cities.forEach((j1) => {
   });
 });
 
-$: console.log(colourScale["San Francisco, CA"]);
 
     const cityColours = $regions;
     const monthNames = [
@@ -88,11 +87,11 @@ $: console.log(colourScale["San Francisco, CA"]);
     filteredData
     .sort((a,b) => b.rolling_avg - a.rolling_avg)
 
-    $: console.log(filteredData)
+    $: console.log(weeklyRank);
     // chart parameters
 
     let chartWidth;
-    let chartHeight = 460;
+    let chartHeight = 640;
     const paddings = {
         top: 10,
         left: 10,
@@ -131,8 +130,6 @@ $: console.log(colourScale["San Francisco, CA"]);
         return xTicks;
     }
 
-    // tooltip debugging
-    $: console.log();
     // scales
     $: xScale = scaleTime()
         .domain(getXExtent(filteredData.flat()))
@@ -194,19 +191,18 @@ function computeSelectedXValue(dat, value) {
 
 function getWeeklyRank(dat, value, city) {
 
-    let weeklyRank = {};
-    let weeklyData = dat.flat().filter((d1) => d1.week === value);
+    let weeklyRank = [];
+    let weeklyData = dat.flat().filter((item) => item.week === value);
 
-    console.log(dat)
+    console.log(dat);
     console.log(weeklyData);
-    weeklyData
-    .sort((a,b) => b.rolling_avg - a.rolling_avg)
+    dat
     .forEach((d) => {
-    
-        weeklyRank[d.display_title] = weeklyData.indexOf(d)+1;
+        weeklyRank[d.display_title] = d;
+
     })
     console.log(weeklyRank);
-    return weeklyRank[city]
+    return weeklyRank[city];
 }
 
 </script>
@@ -364,7 +360,7 @@ function getWeeklyRank(dat, value, city) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={chartHeight*getWeeklyRank(filteredData, computeSelectedXValue(d, mousePosition.x), d[0].display_title)
+      y={chartHeight*getWeeklyRank(d, computeSelectedXValue(d, mousePosition.x))
         }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
@@ -393,8 +389,7 @@ function getWeeklyRank(dat, value, city) {
     />
 </g>
 {/if}
-               
-            {/each}
+{/each}
 
         </svg>
     </div>
