@@ -138,6 +138,18 @@
     }
 
 
+    // tooltip
+
+    let selected_datapoint = undefined;
+	let mouse_x, mouse_y;
+	const setMousePosition = function (event) {
+		mouse_x = event.clientX;
+		mouse_y = event.clientY;
+	};
+
+
+
+
 </script>
 
 
@@ -247,7 +259,7 @@
                     r="6" 
                     fill="black"
                     stroke="white"
-                    stroke-width="3"
+                    stroke-width="3"  
                 />
 
                 {/if}
@@ -273,11 +285,52 @@
                     fill={regionColours.find(region => region.name === d.region).colour}
                     stroke="white"
                     stroke-width="0"
+
+                    on:mouseover={(event) => {
+                        selected_datapoint = d;
+                        setMousePosition(event);
+                    }}
+                    on:mouseout={() => {
+                        selected_datapoint = undefined;
+                    }}
+                    
                 />
 
                 {/if}
 
             {/each}
+
+            {#if selected_datapoint != undefined}
+
+           
+
+            <foreignObject
+                x={(parseFloat(selected_datapoint[$selectedVariable]) < maxXaxis / 2 ? 0 : -145) + 55 + xScale(
+                    [0, maxXaxis],
+                    xAxisWidth,
+                    parseFloat(selected_datapoint[$selectedVariable])
+                )} 
+                y={22 + yScale(
+                    yAxisRange,
+                    chartHeight - 40,
+                    selected_datapoint.seasonal_average
+                )} 
+                width="125" 
+                height="50">
+                <div id="tooltip" 
+                style="background-color: {regionColours.find(region => region.name === selected_datapoint.region).colour}">
+                    <p id="tooltip-p"
+                    style="color: {regionColours.find(region => region.name === selected_datapoint.region).text}">
+                        <u>{selected_datapoint.city}</u>
+                        <br> 
+                        Recovery Rate: {Math.round(100 *selected_datapoint.seasonal_average)}%
+                        <br>
+                        X-Value: {selected_datapoint[$selectedVariable].toLocaleString()}
+                    </p>
+                </div>
+            </foreignObject>
+
+            {/if}
             
         </svg>
 
@@ -357,5 +410,25 @@
     .point-white {
         opacity: 0.9
     }
+
+    #tooltip {
+		color: white;
+        background-color: var(--brandGray90);
+		font-family: Roboto, sans-serif;
+		font-size: 12px;
+        border: solid 2px var(--brandGray);
+        border-radius: 4px;
+        padding: 3px;
+        z-index: 99999;
+	}
+
+    #tooltip-p {
+        font-size: 12px;
+        line-height: 13px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin: 0px;
+    }
+
 
 </style>
