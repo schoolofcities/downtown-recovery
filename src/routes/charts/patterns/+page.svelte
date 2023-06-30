@@ -74,30 +74,26 @@ cities.forEach((j1) => {
     $: filteredData = Array.from(
         group(
             data
-                .filter((item) => item.metric === "downtown")
-                .filter((item) => $selectedCities.includes(item.display_title))
+                .filter((item) => 
+                item.metric === "downtown" &&
+                $selectedCities.includes(item.display_title))
                 .sort((a, b) => a.week - b.week),
             (d) => d.display_title
         )
     ).map((g) => g[1]);
 
-    // TODO: write a function that gets the weekly order and set tooltip based on that
-
-    $: weeklyRank = filteredData === undefined ? null : 
-    filteredData
-    .sort((a,b) => b.rolling_avg - a.rolling_avg)
-
-    $: console.log(weeklyRank);
     // chart parameters
 
     let chartWidth;
     let chartHeight = 640;
+
     const paddings = {
         top: 10,
         left: 10,
         right: 10,
         bottom: 10,
     };
+
     let margin = { top: 10, bottom: 10, left: 10, right: 10 };
     let xScale;
     let xGrid;
@@ -134,6 +130,7 @@ cities.forEach((j1) => {
     $: xScale = scaleTime()
         .domain(getXExtent(filteredData.flat()))
         .range([margin.left, chartWidth - margin.right]);
+
     $: yScale = scaleLinear()
         .domain(getYExtent(filteredData.flat()))
         .range([chartHeight - margin.bottom, margin.top])
@@ -191,12 +188,21 @@ function computeSelectedXValue(dat, value) {
 
 function getWeeklyRank(dat, value, city) {
 
-    let weeklyRank = [];
-    let weeklyData = dat.flat().filter((item) => item.week === value);
+    let weeklyData = dat
+    .filter((item) => 
+        item.metric === "downtown" &&
+        $selectedCities.includes(item.display_title))
+    .sort((a, b) => b.rolling_avg - a.rolling_avg)
+    .filter(item => item.week === value);
 
-    console.log(dat);
     console.log(weeklyData);
+
+    let weeklyRank = {};
     dat
+    .filter(
+        item => item.week === value
+    )
+    .sort((a,b) => b.rolling_avg - a.rolling_avg)
     .forEach((d) => {
         weeklyRank[d.display_title] = d;
 
@@ -360,7 +366,9 @@ function getWeeklyRank(dat, value, city) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={chartHeight*getWeeklyRank(d, computeSelectedXValue(d, mousePosition.x))
+      y={yScale(d.find(
+        (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
+        ).rolling_avg)
         }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
