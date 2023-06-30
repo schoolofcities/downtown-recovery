@@ -17,7 +17,7 @@
         y={direction === "horizontal" ? 0 : 20}
         font-size="12px"
         fill="white"
-        text-anchor={direction === "horizontal" ? "end" : "end"}
+        text-anchor={direction === "horizontal" ? "end" : "middle"}
         alignment-baseline="middle">
          {valueLabel}
       </text>

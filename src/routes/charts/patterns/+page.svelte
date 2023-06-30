@@ -84,7 +84,7 @@ cities.forEach((j1) => {
     ).map((g) => g[1]);
 
     // chart parameters
-    let margin = { top: 10, bottom: 40, left: 10, right: 10 };
+    let margin = { top: 10, bottom: 40, left: 10, right: 30 };
     let chartWidth;
     let chartHeight = 640;
     $: chartHeight = chartWidth * 0.666;
@@ -114,7 +114,7 @@ cities.forEach((j1) => {
         {yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.5)
     } ;
 
-    $: yAxisIntervalSpacing = (chartHeight) / (yAxisIntervals.length - 1);
+    $: yAxisIntervalSpacing = (chartHeight - margin.bottom) / (yAxisIntervals.length - 1);
 
     $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
@@ -146,8 +146,8 @@ cities.forEach((j1) => {
     function getXLabel(x) {
        
         let xLabel =
-            monthNames[x.getMonth()] +
-            " 20" +
+            monthNames[x.getMonth()] + '\n' +
+            '20' +
             x.getYear().toString().substring(x.getYear(), 1);
     
         return xLabel;
@@ -226,7 +226,7 @@ function computeSelectedXValue(dat, value) {
         </div>
 
         <svg
-            height={chartHeight}
+            height={chartHeight + 40}
             width={chartWidth}
             id="chart"
             transform="translate({margin.left}, {margin.top})"
@@ -238,14 +238,14 @@ function computeSelectedXValue(dat, value) {
         {#each yAxisIntervals.reverse() as yInterval, i}
 
                    <line class="grid"
-                        x1 = 40
+                        x1 = {40}
                         y1 = {margin.bottom + i * yAxisIntervalSpacing}
-                        x2 = {chartWidth}
+                        x2 = {chartWidth - margin.right}
                         y2 = {margin.bottom + i * yAxisIntervalSpacing}
                     ></line>
         
                     <text class="axis-label"
-                        x = 35
+                        x = {margin.left + 25}
                         y = {margin.bottom + i * yAxisIntervalSpacing}
                         text-anchor="end"
                     >{(100 * yInterval).toFixed(0)}%</text>
@@ -263,8 +263,8 @@ function computeSelectedXValue(dat, value) {
                 <line
                     x1={margin.left + 40}
                     x2={chartWidth - margin.right}
-                    y1={chartHeight  - margin.bottom}
-                    y2={chartHeight - margin.bottom}
+                    y1={chartHeight}
+                    y2={chartHeight}
                     stroke="white"
                     stroke-width="1"
                 />
@@ -272,7 +272,7 @@ function computeSelectedXValue(dat, value) {
                     x1={margin.left + 40}
                     x2={margin.left + 40}
                     y1={margin.top}
-                    y2={chartHeight - margin.bottom}
+                    y2={chartHeight}
                     stroke="white"
                     stroke-width="1"
                 />
@@ -284,7 +284,7 @@ function computeSelectedXValue(dat, value) {
                 {#each xGrid as gridLine}
                     <Tick
                         x={xScale(gridLine)}
-                        y={chartHeight - margin.bottom}
+                        y={chartHeight}
                         value={gridLine}
                         direction={"vertical"}
                         format={false}
@@ -304,9 +304,9 @@ function computeSelectedXValue(dat, value) {
                                 .x((d1) => xScale(d1.week))
                                 .y((d1) => yScale(
                         yAxisRange,
-                        chartHeight - margin.bottom,
+                        chartHeight,
                         d1.rolling_avg
-                    ))
+                    ) + margin.bottom)
                                 .curve(curveNatural)(d.flat())}
                             stroke-width="2"
                             stroke={colourScale[d[0].display_title].colour}
@@ -320,24 +320,24 @@ function computeSelectedXValue(dat, value) {
   transform=
     "translate({xScale(computeSelectedXValue(d, mousePosition.x))} 0)"
 >
-  <line
+  <!--<line
     x1="0"
     x2="0"
     y1={margin.top}
     y2={chartHeight - margin.bottom - 2}
     stroke="black"
     stroke-width="1"
-  />
+  />-->
  
     <circle
       cx={0}
       cy={yScale(
         yAxisRange,
-        chartHeight - margin.bottom,
+        chartHeight,
          d.find(
            (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
            ).rolling_avg
-         )}
+         ) + margin.bottom}
       r="3"
       fill={colourScale[d[0].display_title].colour}
     />
@@ -358,7 +358,7 @@ function computeSelectedXValue(dat, value) {
         chartHeight,
         d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
-        ).rolling_avg)
+        ).rolling_avg) + margin.bottom
         }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
@@ -403,20 +403,6 @@ function computeSelectedXValue(dat, value) {
         position: relative;
     }
 
-    #title {
-        margin: 0 auto;
-        max-width: 650px;
-        color: white;
-        border-bottom: solid 1px var(--brandDarkBlue);
-    }
-
-    h1 {
-        font-family: TradeGothicBold;
-        font-size: 30px;
-        color: var(--brandWhite);
-        text-decoration: underline;
-    }
-
     #chart-wrapper {
         margin: 0 auto;
         max-width: 840px;
@@ -427,13 +413,27 @@ function computeSelectedXValue(dat, value) {
         max-width: 650px;
     }
 
+    
     #options-cities {
         overflow: auto;
         z-index: 1000;
     }
+    
+    #note {
+        color: var(--brandGray);
+        font-size: 13px;
+        text-align: right;
+    }
 
+    #title {
+        margin: 0 auto;
+        max-width: 650px;
+        color: white;
+        border-bottom: solid 1px var(--brandDarkBlue);
+    }
+    
     #chart {
-        margin-top: 10px;
+        margin-top: 30px;
         margin-bottom: 10px;
         background-color: var(--brandGray90);
     }
@@ -452,4 +452,19 @@ function computeSelectedXValue(dat, value) {
         fill: var(--brandGray);
         font-size: 14px;
     }
+
+    h1 {
+        font-family: TradeGothicBold;
+        font-size: 30px;
+        color: var(--brandWhite);
+        text-decoration: underline;
+    }
+
+ 
+
+  
+
+
+
+ 
 </style>
