@@ -57,7 +57,8 @@ cities.forEach((j1) => {
         try {
             const response = await fetch("../pattern_data.csv");
             const csvData = await response.text();
-            data = csvParse(csvData);
+            data = csvParse(csvData)
+                    .filter((item) => !['Dallas, TX', 'Orlando, FL', 'Oklahoma City, OK'].includes(item.display_title));
             data.forEach((d) => {
                 d.week = timeParse("%Y-%m-%d")(d.week);
                 d.week = new Date(d.week);
@@ -85,7 +86,36 @@ cities.forEach((j1) => {
     // chart parameters
 
     let chartWidth;
-    let chartHeight = 640;
+    let chartHeight = 420;
+    $: chartHeight = chartWidth * 0.666;
+
+      // y-axis
+
+    let maxRecoveryValue = 1; // for y-axis scale
+    $: maxRecoveryValue = filteredData.length !== 0 ? filteredData.flat().sort((a,b) => b.rolling_avg - a.rolling_avg)[0].rolling_avg : 1;
+    $: maxRecoveryValue = maxRecoveryValue < 1 ? 1 : maxRecoveryValue;
+
+
+
+    function generateYaxisIntervals(maxValue, interval) {
+        let values = [];
+        for (let i = 0; i <= Math.ceil(maxValue / interval); i++) {
+            values.push(i * interval);
+        }
+        return values;
+    } 
+
+    let yAxisIntervals = [0, 1];
+    $: if (maxRecoveryValue < 2) {
+        yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.2)
+    }
+    else 
+        {yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.5)
+    } ;
+
+    $: yAxisIntervalSpacing = (chartHeight - 40) / (yAxisIntervals.length - 1);
+
+    $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
     const paddings = {
         top: 10,
@@ -97,7 +127,6 @@ cities.forEach((j1) => {
     let margin = { top: 10, bottom: 10, left: 10, right: 10 };
     let xScale;
     let xGrid;
-    let yScale;
     let yGrid;
 
     function getXExtent(dat) {
@@ -129,35 +158,35 @@ cities.forEach((j1) => {
     // scales
     $: xScale = scaleTime()
         .domain(getXExtent(filteredData.flat()))
-        .range([margin.left, chartWidth - margin.right]);
+        .range([margin.left + 40, chartWidth - margin.right]);
 
-    $: yScale = scaleLinear()
-        .domain(getYExtent(filteredData.flat()))
-        .range([chartHeight - margin.bottom, margin.top])
-        .nice(5);
+    function yScale(axisRange, axisHeight, yValue) {
+        return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
+    }
+
+    $: console.log(getYExtent(data
+                .filter((item) => 
+                item.metric === "downtown")));
 
     let xTickNumber;
     // ticks for X axis- every six months (?)
     $: xTickNumber = chartWidth > 480 ? 12 : 5;
     $: xGrid = xScale.ticks(xTickNumber);
 
-    // y gets evenly spaced ticks of some fixed constant number
-    $: yGrid = yScale.ticks(5);
-
+    $: console.log(xGrid);
+    
     // x axis labels string formatting
+
     function getXLabel(x) {
+        console.log(x);
         let xLabel =
             monthNames[x.getMonth()] +
             " 20" +
             x.getYear().toString().substring(x.getYear(), 1);
+        console.log(xLabel);
         return xLabel;
     }
 
-    // y ticks count to label by 'nice' increments
-    let yTicks = [];
-    for (let i = 0; i < 1.5; i = i + 0.25) {
-        yTicks.push(Math.floor(i / 0.25) * 0.25);
-    }
     // d's for axis paths
     let xPath = `M${margin.left + 0.5},6V0H${chartWidth - margin.right + 1}V6`;
     let yPath = `M-6,${chartHeight + 0.5}H0.5V0.5H-6`;
@@ -266,40 +295,53 @@ function getWeeklyRank(dat, value, city) {
             on:mouseleave={removePointer}
         >
             <!-- create axes -->
+                    <!-- y-axis ticks -->
+        {#each yAxisIntervals.reverse() as yInterval, i}
 
-            <g>
+                   <line class="grid"
+                        x1 = 40
+                        y1 = {30 + i * yAxisIntervalSpacing}
+                        x2 = {chartWidth}
+                        y2 = {30 + i * yAxisIntervalSpacing}
+                    ></line>
+        
+                    <text class="axis-label"
+                        x = 35
+                        y = {35 + i * yAxisIntervalSpacing}
+                        text-anchor="end"
+                    >{(100 * yInterval).toFixed(0)}%</text>
+        
+                    <line class="grid-white"
+                        x1 = 37
+                        y1 = {30 + i * yAxisIntervalSpacing}
+                        x2 = 45
+                        y2 = {30 + i * yAxisIntervalSpacing}
+                    ></line>
+        
+                {/each}
+
+            
                 <line
-                    x1={margin.left}
+                    x1={margin.left + 40}
                     x2={chartWidth - margin.right}
                     y1={chartHeight - margin.bottom}
                     y2={chartHeight - margin.bottom}
                     stroke="white"
                     stroke-width="1"
                 />
-            </g>
-            <g>
                 <line
-                    x1={margin.left}
-                    x2={margin.left}
+                    x1={margin.left + 40}
+                    x2={margin.left + 40}
                     y1={margin.top}
                     y2={chartHeight - margin.bottom}
                     stroke="white"
                     stroke-width="1"
                 />
-            </g>
+            
 
-            <!-- axis ticks -->
-            <g>
-                {#each yGrid.slice(1) as gridLine}
-                    <Tick
-                        x={paddings.left}
-                        y={yScale(gridLine)}
-                        value={gridLine}
-                        direction={"horizontal"}
-                    />
-                {/each}
-            </g>
-            <g>
+            <!-- x axis ticks -->
+         
+            
                 {#each xGrid as gridLine}
                     <Tick
                         x={xScale(gridLine)}
@@ -309,10 +351,14 @@ function getWeeklyRank(dat, value, city) {
                         format={false}
                     />
                 {/each}
-            </g>
+            
+
+    
+
+       
 
             {#each filteredData as d, i}
-                <g>
+                
                     <!-- draw line 
                     xScale will respond to changes in chart width
                 -->
@@ -321,14 +367,18 @@ function getWeeklyRank(dat, value, city) {
                         <path
                             d={line()
                                 .x((d1) => xScale(d1.week))
-                                .y((d1) => yScale(d1.rolling_avg))
+                                .y((d1) => yScale(
+                        yAxisRange,
+                        chartHeight - 40,
+                        d1.rolling_avg
+                    ))
                                 .curve(curveNatural)(d.flat())}
                             stroke-width="2"
                             stroke={colourScale[d[0].display_title].colour}
                             fill="transparent"
                         />
                     {/if}
-                    </g>
+                  
 
                     {#if mousePosition.x !== null}
 <g
@@ -347,6 +397,8 @@ function getWeeklyRank(dat, value, city) {
     <circle
       cx={0}
       cy={yScale(
+        yAxisRange,
+        chartHeight,
          d.find(
            (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
            ).rolling_avg
@@ -356,7 +408,7 @@ function getWeeklyRank(dat, value, city) {
     />
 </g>
 
-<g>
+
 <Tooltip
       labels={d[0].display_title}
       values={Math.floor(d.find(
@@ -366,24 +418,26 @@ function getWeeklyRank(dat, value, city) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={yScale(d.find(
+      y={yScale(
+        yAxisRange,
+        chartHeight,
+        d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
         ).rolling_avg)
         }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
       textColor={colourScale[d[0].display_title].text}
-      
+      title={undefined}
       width="180"
       adaptTexts={false}
     />
-</g>
-<g>
+
     <Tooltip
       labels="Week of"
       values={computeSelectedXValue(data, mousePosition.x).toLocaleString(undefined, dateOptions)
         }
-      
+      title={undefined}
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
@@ -395,7 +449,7 @@ function getWeeklyRank(dat, value, city) {
       width="200"
       adaptTexts={false}
     />
-</g>
+
 {/if}
 {/each}
 
@@ -430,7 +484,7 @@ function getWeeklyRank(dat, value, city) {
 
     #chart-wrapper {
         margin: 0 auto;
-        max-width: 1080px;
+        max-width: 840px;
     }
 
     #options {
@@ -447,5 +501,20 @@ function getWeeklyRank(dat, value, city) {
         margin-top: 10px;
         margin-bottom: 10px;
         background-color: var(--brandGray90);
+    }
+
+    .grid {
+        stroke: var(--brandDarkBlue);
+        stroke-width: 1px;
+    }
+
+    .grid-white {
+        stroke: var(--brandWhite);
+        stroke-width: 1px;
+    }
+
+    .axis-label {
+        fill: var(--brandGray);
+        font-size: 14px;
     }
 </style>

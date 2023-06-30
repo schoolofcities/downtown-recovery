@@ -8,6 +8,9 @@
     const xTranslation = direction === "horizontal" ? x - 10 : x;
 
     function nFormatter(num, digits) {
+
+      console.log(num);
+      console.log(digits);
       const lookup = [
         { value: 1, symbol: "" },
         { value: 1e3, symbol: "k" },
