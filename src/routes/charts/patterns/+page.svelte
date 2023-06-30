@@ -84,10 +84,11 @@ cities.forEach((j1) => {
     ).map((g) => g[1]);
 
     // chart parameters
-
+    let margin = { top: 10, bottom: 40, left: 10, right: 10 };
     let chartWidth;
-    let chartHeight = 420;
+    let chartHeight = 640;
     $: chartHeight = chartWidth * 0.666;
+    
 
       // y-axis
 
@@ -113,46 +114,16 @@ cities.forEach((j1) => {
         {yAxisIntervals = generateYaxisIntervals(maxRecoveryValue, 0.5)
     } ;
 
-    $: yAxisIntervalSpacing = (chartHeight - 40) / (yAxisIntervals.length - 1);
+    $: yAxisIntervalSpacing = (chartHeight) / (yAxisIntervals.length - 1);
 
     $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
-    const paddings = {
-        top: 10,
-        left: 10,
-        right: 10,
-        bottom: 10,
-    };
-
-    let margin = { top: 10, bottom: 10, left: 10, right: 10 };
+    $: console.log(yAxisRange);
     let xScale;
     let xGrid;
-    let yGrid;
 
     function getXExtent(dat) {
         return extent(dat.map((d) => d.week));
-    }
-
-    function getYExtent(dat) {
-        return extent(dat, (d) => d.rolling_avg);
-    }
-
-    function getXTicks(dat) {
-        let uniqueWeeks = [];
-        dat.forEach((d) => {
-            if (!uniqueWeeks.includes(d.week)) {
-                uniqueWeeks.push(d.week);
-            }
-        });
-
-        let xTicks = [];
-        uniqueWeeks.forEach((d) => {
-            if (d.getMonth() % 5 == 0) {
-                xTicks.push(d);
-            }
-        });
-
-        return xTicks;
     }
 
     // scales
@@ -164,45 +135,37 @@ cities.forEach((j1) => {
         return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
     }
 
-    $: console.log(getYExtent(data
-                .filter((item) => 
-                item.metric === "downtown")));
-
     let xTickNumber;
     // ticks for X axis- every six months (?)
     $: xTickNumber = chartWidth > 480 ? 12 : 5;
     $: xGrid = xScale.ticks(xTickNumber);
 
-    $: console.log(xGrid);
-    
+
     // x axis labels string formatting
 
     function getXLabel(x) {
-        console.log(x);
+       
         let xLabel =
             monthNames[x.getMonth()] +
             " 20" +
             x.getYear().toString().substring(x.getYear(), 1);
-        console.log(xLabel);
+    
         return xLabel;
     }
 
-    // d's for axis paths
-    let xPath = `M${margin.left + 0.5},6V0H${chartWidth - margin.right + 1}V6`;
-    let yPath = `M-6,${chartHeight + 0.5}H0.5V0.5H-6`;
 
- 
 
   let mousePosition = { x: null, y: null }
+
   function followMouse(event) {
     const svg = document.getElementById('chart')
     if (svg === null) return
     const dim = svg.getBoundingClientRect()
     const positionInSVG = { x: event.clientX - dim.left, y: event.clientY - dim.top }
-    mousePosition = positionInSVG.x > paddings.left &&
-    positionInSVG.x < chartWidth - paddings.right &&
-    positionInSVG.y > paddings.top &&
-    positionInSVG.y < chartHeight - paddings.bottom
+    mousePosition = positionInSVG.x > margin.left &&
+    positionInSVG.x < chartWidth - margin.right &&
+    positionInSVG.y > margin.top &&
+    positionInSVG.y < chartHeight - margin.bottom
       ? { x: positionInSVG.x, y: positionInSVG.y }
       : { x: null, y: null }
 }
@@ -215,30 +178,6 @@ function computeSelectedXValue(dat, value) {
   return dat.filter((d) => xScale(d.week) >= value)[0].week
 }
 
-function getWeeklyRank(dat, value, city) {
-
-    let weeklyData = dat
-    .filter((item) => 
-        item.metric === "downtown" &&
-        $selectedCities.includes(item.display_title))
-    .sort((a, b) => b.rolling_avg - a.rolling_avg)
-    .filter(item => item.week === value);
-
-    console.log(weeklyData);
-
-    let weeklyRank = {};
-    dat
-    .filter(
-        item => item.week === value
-    )
-    .sort((a,b) => b.rolling_avg - a.rolling_avg)
-    .forEach((d) => {
-        weeklyRank[d.display_title] = d;
-
-    })
-    console.log(weeklyRank);
-    return weeklyRank[city];
-}
 
 </script>
 
@@ -300,22 +239,22 @@ function getWeeklyRank(dat, value, city) {
 
                    <line class="grid"
                         x1 = 40
-                        y1 = {30 + i * yAxisIntervalSpacing}
+                        y1 = {margin.bottom + i * yAxisIntervalSpacing}
                         x2 = {chartWidth}
-                        y2 = {30 + i * yAxisIntervalSpacing}
+                        y2 = {margin.bottom + i * yAxisIntervalSpacing}
                     ></line>
         
                     <text class="axis-label"
                         x = 35
-                        y = {35 + i * yAxisIntervalSpacing}
+                        y = {margin.bottom + i * yAxisIntervalSpacing}
                         text-anchor="end"
                     >{(100 * yInterval).toFixed(0)}%</text>
         
                     <line class="grid-white"
                         x1 = 37
-                        y1 = {30 + i * yAxisIntervalSpacing}
+                        y1 = {margin.bottom + i * yAxisIntervalSpacing}
                         x2 = 45
-                        y2 = {30 + i * yAxisIntervalSpacing}
+                        y2 = {margin.bottom + i * yAxisIntervalSpacing}
                     ></line>
         
                 {/each}
@@ -324,7 +263,7 @@ function getWeeklyRank(dat, value, city) {
                 <line
                     x1={margin.left + 40}
                     x2={chartWidth - margin.right}
-                    y1={chartHeight - margin.bottom}
+                    y1={chartHeight  - margin.bottom}
                     y2={chartHeight - margin.bottom}
                     stroke="white"
                     stroke-width="1"
@@ -345,18 +284,14 @@ function getWeeklyRank(dat, value, city) {
                 {#each xGrid as gridLine}
                     <Tick
                         x={xScale(gridLine)}
-                        y={chartHeight - paddings.bottom}
+                        y={chartHeight - margin.bottom}
                         value={gridLine}
                         direction={"vertical"}
                         format={false}
+                        formatFunction={getXLabel}
                     />
                 {/each}
             
-
-    
-
-       
-
             {#each filteredData as d, i}
                 
                     <!-- draw line 
@@ -369,7 +304,7 @@ function getWeeklyRank(dat, value, city) {
                                 .x((d1) => xScale(d1.week))
                                 .y((d1) => yScale(
                         yAxisRange,
-                        chartHeight - 40,
+                        chartHeight - margin.bottom,
                         d1.rolling_avg
                     ))
                                 .curve(curveNatural)(d.flat())}
@@ -398,7 +333,7 @@ function getWeeklyRank(dat, value, city) {
       cx={0}
       cy={yScale(
         yAxisRange,
-        chartHeight,
+        chartHeight - margin.bottom,
          d.find(
            (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
            ).rolling_avg
@@ -413,7 +348,7 @@ function getWeeklyRank(dat, value, city) {
       labels={d[0].display_title}
       values={Math.floor(d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
-        ).rolling_avg * 100) }
+        ).rolling_avg * 100)}%
       
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
