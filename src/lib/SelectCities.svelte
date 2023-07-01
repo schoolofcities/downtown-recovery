@@ -117,12 +117,15 @@
 <style>
 
   .multiselect {
+    max-width: 600px;
+    max-width: calc(100vw - 30px);
     padding: 5px;
     background-color: var(--brandGray90);
     border: 1px solid var(--brandDarkBlue);
     color: white;
-    z-index:10001;
   }
+
+  
 
   .multiselect:not(.readonly):hover {
     border-bottom-color: hsl(0, 0%, 50%);
@@ -220,13 +223,14 @@
     max-height: 70vh;
     overflow: scroll;
     padding-inline-start: 0;
-    position: absolute;
+    position: relative;
     top: calc(100% + 1px);
     width: 100%;
     
   }
   li {
-    background-color: white;
+    background-color: var(--brandGray90);
+    color: white;
     cursor: pointer;
     padding: .5rem;
   }
@@ -236,20 +240,21 @@
   }
   li:not(.selected):hover {
     background-color: hsl(214, 17%, 92%);
+    color: var(--brandGray90);
   }
   li.selected {
-    background-color: hsl(232, 54%, 41%);
+    background-color: var(--brandDarkBlue);
     color: white;
   }
   li.selected:nth-child(even) {
-    background-color: hsl(232, 50%, 45%);
+    background-color: var(--brandDarkBlue);
     color: white;
   }
   li.active {
     background-color: hsl(214, 17%, 88%);
   }
   li.selected.active, li.selected:hover {
-    background-color: hsl(232, 48%, 50%);
+    background-color: var(--brandDarkBlue);
   }
 
   .hidden {

@@ -178,13 +178,13 @@ function computeSelectedXValue(dat, value) {
   return dat.filter((d) => xScale(d.week) >= value)[0].week
 }
 
-
 </script>
+
 
 <Header />
 
 <main>
-    <div id="title">
+    <div class="text">
         <h1>Downtown Recovery Patterns</h1>
         <p>Some very simple intro to the data/charts</p>
         <p>
@@ -195,7 +195,7 @@ function computeSelectedXValue(dat, value) {
         </p>
     </div>
 
-    <div id="chart-wrapper" bind:clientWidth={chartWidth}>
+    <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         <div id="options">
             <div id="options-cities">
                 <p>Select City:</p>
@@ -416,7 +416,7 @@ function computeSelectedXValue(dat, value) {
     
     #options-cities {
         overflow: auto;
-        z-index: 1000;
+        
     }
     
     #note {
