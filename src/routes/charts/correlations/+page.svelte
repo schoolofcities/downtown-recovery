@@ -325,7 +325,7 @@
                         <br> 
                         Recovery Rate: {Math.round(100 *selected_datapoint.seasonal_average)}%
                         <br>
-                        X-Value: {selected_datapoint[$selectedVariable].toLocaleString()}
+                        X-Value: {(selected_datapoint[$selectedVariable]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </p>
                 </div>
             </foreignObject>
@@ -409,6 +409,10 @@
 
     .point-white {
         opacity: 0.9
+    }
+
+    .point:hover {
+        cursor: pointer;
     }
 
     #tooltip {
