@@ -51,6 +51,7 @@
 
     $: filteredData = recoveryData
         .filter(item => item.metric === 'downtown')
+        .filter(item => item.region !== 'Europe')
         .filter(item => item.Season === `Season_${$season}`)
         .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.seasonal_average - a.seasonal_average);
@@ -183,9 +184,8 @@
                 <SelectSeason/>
             </div>
             <div id="options-region">
-                <SelectRegions/>
+                <SelectRegions europe={"no"}/>
             </div>
-            <!-- <p id="note">*We have not yet collected explanatory variables for Europe yet</p> -->
             <SelectVariable/>
         </div>
 
