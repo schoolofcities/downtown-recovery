@@ -8,9 +8,8 @@
     import {
         line,
         curveNatural,
-        scaleLinear,
-        scaleOrdinal,
         timeParse,
+        scaleQuantize,
         extent,
         scaleTime,
         group
@@ -123,6 +122,7 @@ cities.forEach((j1) => {
     $: console.log(yAxisRange);
     let xScale;
     let xGrid;
+  
 
     function getXExtent(dat) {
         return extent(dat.map((d) => d.week));
@@ -136,6 +136,37 @@ cities.forEach((j1) => {
     function yScale(axisRange, axisHeight, yValue) {
         return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
     }
+
+    function tooltipScale(axisRange, axisHeight, dat, xValue, yValue) {
+        let nCities = filteredData.length;
+        let weeks = extent(filteredData.flat().filter((d) => xScale(d.week) >= xValue).map((d1) => d1.week))
+      
+        let weeklyData =  filteredData
+        .flat()
+        .filter((item) =>  item.week <= weeks[0] &&
+                           xScale(item.week) >= xValue);
+
+     
+
+
+        var val_range = extent(weeklyData.sort((a,b) => a.rolling_avg - b.rolling_avg).map((d) => 1 * d.rolling_avg));
+    
+        var arr = [];
+        var step = axisHeight / (nCities);
+        for (var i = 0; i < nCities; i++) {
+            arr.push(val_range[0] + (step * i));
+        }
+
+
+        
+        let weeklyScale =   scaleQuantize()
+                            .domain(val_range)
+                            .range(arr);
+        
+
+        return axisHeight - weeklyScale(yValue)
+    }
+
 
     let xTickNumber;
     // ticks for X axis- every six months (?)
@@ -209,7 +240,6 @@ function computeSelectedXValue(dat, value) {
                 <SelectCities
                     id="options-cities"
                     value={[
-                        "Montréal, QC",
                         "Toronto, ON",
                         "Chicago, IL",
                         "Detroit, MI",
@@ -241,7 +271,7 @@ function computeSelectedXValue(dat, value) {
             on:mouseleave={removePointer}
         >
             <!-- create axes -->
-                    <!-- y-axis ticks -->
+            <!-- y-axis ticks -->
         {#each yAxisIntervals.reverse() as yInterval, i}
 
                    <line class="grid"
@@ -360,12 +390,15 @@ function computeSelectedXValue(dat, value) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={yScale(
+
+      y={tooltipScale(
         yAxisRange,
         chartHeight,
+        d,
+        mousePosition.x,
         d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
-        ).rolling_avg) + margin.bottom
+        ).rolling_avg)
         }
       backgroundColor={colourScale[d[0].display_title].colour}
       opacity="0.5"
