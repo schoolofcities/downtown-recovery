@@ -20,6 +20,8 @@
 
     import "../../../assets/global.css";
 
+    const baseUrl = import.meta.env.BASE_URL;
+
     // initial loading data and dynamic filtering
 
     let data = [];
@@ -186,12 +188,17 @@ function computeSelectedXValue(dat, value) {
 <main>
     <div class="text">
         <h1>Downtown Recovery Patterns</h1>
-        <p>Some very simple intro to the data/charts</p>
         <p>
-            A recovery value greater than 100% means that for the selected
-            inputs, the mobile device activity improved from the comparison
-            period. A value less than 100% means the opposite, and a value equal
-            to 100% means the activity did not change.
+            The recovery metrics on these charts are based on a sample of mobile phone data. 
+        </p>
+        <p>    
+            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. 
+        </p>
+        <p>
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
+        </p>
+        <p>
+            For more information, read our <a href="{baseUrl}/methodology">Methodology</a> page. Or click <a href="{baseUrl}/pattern_data.csv">here</a> to download the data shown on this chart.
         </p>
     </div>
 
