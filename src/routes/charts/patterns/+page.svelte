@@ -9,7 +9,8 @@
         line,
         curveNatural,
         timeParse,
-        scaleQuantize,
+        scaleOrdinal,
+    
         extent,
         scaleTime,
         group
@@ -27,7 +28,7 @@
     let filteredData = [];
     let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     let colourScale = [];
-    let weeklyRank = [];
+    let val_range = [];
 
 cities.forEach((j1) => {
   $regions.forEach((j2) => {
@@ -84,6 +85,11 @@ cities.forEach((j1) => {
         )
     ).map((g) => g[1]);
 
+    $: val_range = extent(data
+        .filter((item) => item.metric === "downtown")
+        .sort((a,b) => a.rolling_avg - b.rolling_avg).map((d) => 1 * d.rolling_avg));
+
+    console.log(val_range);
     // chart parameters
     let margin = { top: 10, bottom: 40, left: 10, right: 30 };
     let chartWidth;
@@ -137,34 +143,40 @@ cities.forEach((j1) => {
         return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
     }
 
-    function tooltipScale(axisRange, axisHeight, dat, xValue, yValue) {
+    function tooltipScale(axisRange, axisHeight, city_name, xValue, yValue) {
         let nCities = filteredData.length;
         let weeks = extent(filteredData.flat().filter((d) => xScale(d.week) >= xValue).map((d1) => d1.week))
       
         let weeklyData =  filteredData
         .flat()
         .filter((item) =>  item.week <= weeks[0] &&
-                           xScale(item.week) >= xValue);
+                           xScale(item.week) >= xValue)
+        .sort((a,b) => b.rolling_avg - a.rolling_avg);
 
-     
-
-
-        var val_range = extent(weeklyData.sort((a,b) => a.rolling_avg - b.rolling_avg).map((d) => 1 * d.rolling_avg));
-    
         var arr = [];
-        var step = axisHeight / (nCities);
-        for (var i = 0; i < nCities; i++) {
-            arr.push(val_range[0] + (step * i));
+
+        weeklyData
+        .forEach((item) => 
+        arr.push(item))
+
+       
+     
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].rank = 30 + (i+1) * 30;
+
         }
 
+        console.log(arr)
+
+
+        let weeklyScale =   scaleOrdinal()
+                            .domain(arr.map((item) => item.display_title))
+                            .range(arr.map((item) => item.rank));
 
         
-        let weeklyScale =   scaleQuantize()
-                            .domain(val_range)
-                            .range(arr);
-        
 
-        return axisHeight - weeklyScale(yValue)
+
+        return weeklyScale(city_name)
     }
 
 
@@ -394,7 +406,7 @@ function computeSelectedXValue(dat, value) {
       y={tooltipScale(
         yAxisRange,
         chartHeight,
-        d,
+        d[0].display_title,
         mousePosition.x,
         d.find(
         (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
