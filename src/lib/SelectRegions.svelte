@@ -3,6 +3,8 @@
     import { regions, selectedRegions } from './stores.js';
     import '../assets/global.css';
 
+    export let europe;
+
     let selectedButtons = $selectedRegions;
 
     function handleClick(name) {
@@ -21,18 +23,37 @@
 <p>Select Regions:</p>
 
 <div id="buttons">
-    {#each $regions as region}
-        <div
-        class="button"
-        on:click={() => handleClick(region.name)}
-        style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
-        >
-            <div class="box" style="background-color: {region.colour}"></div>
-            <div class="name" >
-                {region.name}
+    {#if europe === "yes"}
+        {#each $regions as region}
+            <div
+            class="button"
+            on:click={() => handleClick(region.name)}
+            style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
+            >
+                <div class="box" style="background-color: {region.colour}"></div>
+                <div class="name" >
+                    {region.name}
+                </div>
             </div>
-        </div>
-    {/each}
+        {/each}
+    {/if}
+
+    {#if europe === "no"}
+        {#each $regions as region}
+            {#if region.name !== "Europe"}
+                <div
+                class="button"
+                on:click={() => handleClick(region.name)}
+                style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
+                >
+                    <div class="box" style="background-color: {region.colour}"></div>
+                    <div class="name" >
+                        {region.name}
+                    </div>
+                </div>
+            {/if}
+        {/each}
+    {/if}
 </div>
 
 
