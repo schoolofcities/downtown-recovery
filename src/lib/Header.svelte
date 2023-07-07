@@ -3,7 +3,10 @@
 	import logo from '../assets/top-logo-full.svg';
 	import { onMount } from 'svelte';
 
-	const baseUrl = import.meta.env.BASE_URL;
+	const baseUrl = '/downtown-recovery';
+	// import.meta.env.BASE_URL;
+
+	console.log(baseUrl);
 
 	// generated this code for mobile specific rendering - not needed at the moment
 

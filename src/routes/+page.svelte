@@ -8,7 +8,7 @@
     import cardImgReport from "../assets/card-img/card-img-report.png";
     import cardImgVideo from "../assets/card-img/card-img-video.png";
 
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = '/downtown-recovery';
 
 </script>
 

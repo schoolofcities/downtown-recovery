@@ -11,7 +11,7 @@
 
     import "../../../assets/global.css";
 
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = '/downtown-recovery';
 
 
     // initial loading data and dynamic filtering
