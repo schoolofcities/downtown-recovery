@@ -200,7 +200,7 @@
                     y1 = 34
                     x2 = {29 + i * xAxisIntervalSpacing}
                     y2 = {chartHeight}
-                    stroke-opacity="0.32"
+                    stroke-opacity="0.21"
                 ></line>
 
                 {#if xInterval === 1}
@@ -271,7 +271,7 @@
     }
 
     .grid {
-        stroke: var(--brandGray70);
+        stroke: var(--brandDarkBlue);
         stroke-width: 1px;
     }
 
