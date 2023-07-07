@@ -15,7 +15,10 @@
         <h1>Methodology</h1>
 
         <p>
-            The recovery metrics on the charts and maps are computed by counting the number unique visitors in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Visits are based on a sample of mobile phone data.
+            The recovery metrics on these charts are based on a sample of mobile phone data. 
+        </p>
+        <p>
+            The recovery metrics on the charts and maps are computed by counting the number unique visitors in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019.
         </p>
         <p>
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased from the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
