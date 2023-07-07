@@ -27,7 +27,7 @@
             <span class="bold">Amir Forouhar</span>, is a Post-Doctoral Fellow of the School of Cities at the University of Toronto. Amir obtained his PhD in urban planning at the Art University of Isfahan, focused on the relationship between Urban Transportation and Neighborhood Change. His research interests are Public Transportation, Transit-oriented Development, Rail Transit System, Neighborhood Change, and Urban Displacement 
          </p>
          <p>
-            <span class="bold">Julia Greenberg</span> is ______
+            <span class="bold">Julia Greenberg</span> is the research manager for the Urban Displacement Project at UC Berkeley, where she focuses on data analysis and visualization. She has a degree in Urban Studies from Cornell University and an Master of Public Policy from George Washington University.
          </p>
          <p>
             <span class="bold">Laura Schmahmann</span> is a Ph.D. student in the Department of City & Regional Planning, UC Berkeley.
