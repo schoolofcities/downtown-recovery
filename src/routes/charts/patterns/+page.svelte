@@ -362,6 +362,9 @@ function computeSelectedXValue(dat, value) {
                             fill="transparent"
                         />
                     {/if}
+
+                    {/each}
+                    {#each filteredData as d, i}
                   
 
                     {#if mousePosition.x !== null}
@@ -369,14 +372,6 @@ function computeSelectedXValue(dat, value) {
   transform=
     "translate({xScale(computeSelectedXValue(d, mousePosition.x))} 0)"
 >
-  <!--<line
-    x1="0"
-    x2="0"
-    y1={margin.top}
-    y2={chartHeight - margin.bottom - 2}
-    stroke="black"
-    stroke-width="1"
-  />-->
  
     <circle
       cx={0}
@@ -413,7 +408,7 @@ function computeSelectedXValue(dat, value) {
         ).rolling_avg)
         }
       backgroundColor={colourScale[d[0].display_title].colour}
-      opacity="0.5"
+     
       textColor={colourScale[d[0].display_title].text}
       title={undefined}
       width="180"
