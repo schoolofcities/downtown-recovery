@@ -21,6 +21,7 @@
 
     const baseUrl = '/downtown-recovery';
 
+    
     // initial loading data and dynamic filtering
 
     let data = [];
@@ -28,6 +29,7 @@
     let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     let colourScale = [];
     let val_range = [];
+    let dateRange = [];
 
 cities.forEach((j1) => {
   $regions.forEach((j2) => {
@@ -72,6 +74,8 @@ cities.forEach((j1) => {
     onMount(() => {
         loadData();
     });
+
+
 
     $: filteredData = Array.from(
         group(
@@ -124,7 +128,7 @@ cities.forEach((j1) => {
 
     $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
-    $: console.log(yAxisRange);
+    $: console.log(data);
     let xScale;
     let xGrid;
   
@@ -135,8 +139,10 @@ cities.forEach((j1) => {
 
     // scales
     $: xScale = scaleTime()
-        .domain(getXExtent(filteredData.flat()))
+        .domain(getXExtent(data))
         .range([margin.left + 40, chartWidth - margin.right]);
+
+
 
     function yScale(axisRange, axisHeight, yValue) {
         return axisHeight - axisHeight * yValue / (axisRange[1] - axisRange[0])
@@ -165,7 +171,7 @@ cities.forEach((j1) => {
 
         }
 
-        console.log(arr)
+        //console.log(arr)
 
 
         let weeklyScale =   scaleOrdinal()
@@ -181,8 +187,10 @@ cities.forEach((j1) => {
 
     let xTickNumber;
     // ticks for X axis- every six months (?)
-    $: xTickNumber = chartWidth > 480 ? 12 : 5;
+    $: xTickNumber = Math.floor(chartWidth/80);
+    $: console.log(xTickNumber);
     $: xGrid = xScale.ticks(xTickNumber);
+    $: console.log(getXExtent(data))
 
 
     // x axis labels string formatting
@@ -190,8 +198,8 @@ cities.forEach((j1) => {
     function getXLabel(x) {
        
         let xLabel =
-            monthNames[x.getMonth()] + '\n' +
-            '20' +
+            monthNames[x.getMonth()] + "\n" +
+            "20" +
             x.getYear().toString().substring(x.getYear(), 1);
     
         return xLabel;
@@ -280,6 +288,7 @@ function computeSelectedXValue(dat, value) {
             transform="translate({margin.left}, {margin.top})"
             on:mousemove={followMouse}
             on:mouseleave={removePointer}
+            
         >
             <!-- create axes -->
             <!-- y-axis ticks -->
@@ -326,7 +335,24 @@ function computeSelectedXValue(dat, value) {
                 />
             
 
-            <!-- x axis ticks -->
+                {#each xGrid as gridLine,  i}
+
+                <text class="axis-label"
+                    x = {xScale(gridLine)}
+                    y = {chartHeight + 15}
+                    text-anchor="end"
+                >{getXLabel(gridLine)}</text>
+
+                <line class="grid-white"
+                    x1 = {xScale(gridLine)}
+                    y1 = {chartHeight}
+                    x2 = {xScale(gridLine)}
+                    y2 = {chartHeight - 8}
+                ></line>
+
+            {/each}
+
+            <!-- x axis ticks
          
             
                 {#each xGrid as gridLine}
@@ -338,7 +364,7 @@ function computeSelectedXValue(dat, value) {
                         format={false}
                         formatFunction={getXLabel}
                     />
-                {/each}
+                {/each} -->
             
             {#each filteredData as d, i}
                 
@@ -361,8 +387,8 @@ function computeSelectedXValue(dat, value) {
                             fill="transparent"
                         />
                     {/if}
-
                     {/each}
+
                     {#each filteredData as d, i}
                   
 
