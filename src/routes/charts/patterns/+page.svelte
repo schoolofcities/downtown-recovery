@@ -377,7 +377,7 @@ function computeSelectedXValue(dat, value) {
         y1="10" 
         x2="{0}"
         y2="{chartHeight}" 
-        stroke="grey" 
+        stroke="" 
         stroke-width="1"
     />
  
