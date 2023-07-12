@@ -10,7 +10,6 @@
         curveNatural,
         timeParse,
         scaleOrdinal,
-    
         extent,
         scaleTime,
         group
@@ -372,6 +371,15 @@ function computeSelectedXValue(dat, value) {
   transform=
     "translate({xScale(computeSelectedXValue(d, mousePosition.x))} 0)"
 >
+
+<line
+        x1="{0}" 
+        y1="10" 
+        x2="{0}"
+        y2="{chartHeight}" 
+        stroke="grey" 
+        stroke-width="1"
+    />
  
     <circle
       cx={0}
@@ -382,9 +390,11 @@ function computeSelectedXValue(dat, value) {
            (d1) => d1.week === computeSelectedXValue(d, mousePosition.x)
            ).rolling_avg
          ) + margin.bottom}
-      r="3"
+      r="5"
       fill={colourScale[d[0].display_title].colour}
     />
+
+    
 </g>
 
 
@@ -423,10 +433,10 @@ function computeSelectedXValue(dat, value) {
       x={mousePosition.x + 180 > chartWidth
         ? mousePosition.x - 195
         : mousePosition.x + 15}
-      y={chartHeight - 30}
-      backgroundColor="white"
+      y={0}
+      backgroundColor="#191919"
       opacity="0.5"
-      textColor="black"
+      textColor="white"
      
       width="200"
       adaptTexts={false}
@@ -500,13 +510,7 @@ function computeSelectedXValue(dat, value) {
         font-size: 14px;
     }
 
-    h1 {
-        font-family: TradeGothicBold;
-        font-size: 30px;
-        color: var(--brandWhite);
-        text-decoration: underline;
-    }
-
+    
  
 
   

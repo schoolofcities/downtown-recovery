@@ -10,7 +10,7 @@ export let textColor = "black";
 export let opacity = 1;
 export let title;
 export let adaptTexts = true;
-const step = 25;
+const step = 15;
 const paddingLeft = 5;
 const paddingRight = 5;
 const lineLength = 10;
@@ -49,7 +49,7 @@ onMount(async () => {
 
 </script>
 
-<svg x={x - 10} {y} width={computedWidth + 2} height="30" id={idContainer}>
+<svg x={x - 10} {y} width={computedWidth + 2} height="25" id={idContainer}>
   <rect
     x="1"
     y="1"
