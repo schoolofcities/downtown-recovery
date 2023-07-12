@@ -8,7 +8,7 @@
   export let id = '';
   export let value = [];
   export let readonly = false;
-  export let placeholder = '';
+  export let placeholder = 'Select cities...';
 
     let input, 
     inputValue, 
@@ -201,6 +201,8 @@
     outline: none;
 		padding: 0;
     width: 100%;
+    background-color:hsl(215, 21%, 43%);
+    color:white;
   }
 
   .dropdown-arrow path {
@@ -226,6 +228,7 @@
     position: relative;
     top: calc(100% + 1px);
     width: 100%;
+
     
   }
   li {
