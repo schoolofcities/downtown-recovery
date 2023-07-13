@@ -11,8 +11,6 @@
 
     import "../../../assets/global.css";
 
-    const baseUrl = '/downtown-recovery';
-
 
     // initial loading data and dynamic filtering
 
@@ -96,7 +94,7 @@
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
-            For more information, read our <a href="{baseUrl}/methodology">Methodology</a> page. Or click <a href="{baseUrl}/ranking_data.csv">here</a> to download the data shown on this chart.
+            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data.csv">here</a> to download the data shown on this chart.
         </p>
 
     </div>
@@ -141,6 +139,20 @@
 
             {#each filteredData as d, i}
 
+                {#if regionColours.find(region => region.name === d.region).text === "#000"}
+                    <text class="bar-label"
+                    x = 32
+                    y = {56 + i * 24}
+                    style = "
+                        fill: #000;
+                        fill-opacity: 0;
+                        stroke: white;
+                        stroke-width: 3px;
+                        stroke-opacity: 0.62;
+                    "
+                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
+                {/if}
+
                 <line class="bar"
                     x1 = {29}
                     y1 = {52 + i * 24}
@@ -169,19 +181,7 @@
                     text-anchor="end"
                 >{i + 1}</text>
 
-                {#if regionColours.find(region => region.name === d.region).text === "#000"}
-                    <text class="bar-label"
-                    x = 32
-                    y = {56 + i * 24}
-                    style = "
-                        fill: #000;
-                        fill-opacity: 0;
-                        stroke: #fff;
-                        stroke-width: 2px;
-                        stroke-opacity: 0.5;
-                    "
-                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
-                {/if}
+                
                 
                 <text class="bar-label"
                     x = 32

@@ -77,7 +77,6 @@ a:hover {
 
 .bold {
     font-family: TradeGothicBold;
-    font-size: 18px;
+    font-size: 24px;
     color: var(--brandYellow);
-    background-color: var(--brandDarkBlue);
 }

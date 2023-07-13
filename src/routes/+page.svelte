@@ -33,7 +33,7 @@
 
     <div id="cards-wrapper">
 
-        <a href="{baseUrl}/charts/rankings">
+        <a href="/charts/rankings">
             <div class="card">
 
                 <div class="card-img"> 
@@ -47,7 +47,7 @@
             </div>
         </a>
 
-        <a href="{baseUrl}/charts/patterns">
+        <a href="/charts/patterns">
             <div class="card">
 
                 <div class="card-img"> 
@@ -61,7 +61,7 @@
             </div>
         </a>
 
-        <a href="{baseUrl}/death_of_downtown_policy_brief.pdf">
+        <a href="/death_of_downtown_policy_brief.pdf">
             <div class="card">
 
                 <div class="card-img"> 

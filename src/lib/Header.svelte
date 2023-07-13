@@ -3,23 +3,21 @@
 	import logo from '../assets/top-logo-full.svg';
 	import { onMount } from 'svelte';
 
-	const baseUrl = '/downtown-recovery';
-	// import.meta.env.BASE_URL;
+	// const baseUrl = '/downtown-recovery';
+	// const baseUrl = import.meta.env.BASE_URL;
 
-	console.log(baseUrl);
+	// // generated this code for mobile specific rendering - not needed at the moment
 
-	// generated this code for mobile specific rendering - not needed at the moment
+	// let isMobile = false;
 
-	let isMobile = false;
+	// onMount(() => {
+	// 	isMobile = window.innerWidth < 600;
+	// 	window.addEventListener('resize', handleResize);
+	// });
 
-	onMount(() => {
-		isMobile = window.innerWidth < 600;
-		window.addEventListener('resize', handleResize);
-	});
-
-	function handleResize() {
-		isMobile = window.innerWidth < 600;
-	}
+	// function handleResize() {
+	// 	isMobile = window.innerWidth < 600;
+	// }
 
 </script>
 
@@ -29,7 +27,7 @@
 	<div id="logo">
 		<a href="https://www.schoolofcities.utoronto.ca/"><img src={logo} alt="School of Cities"></a>
 	</div>
-	<p><a href="{baseUrl}">Downtown Recovery</a></p>
+	<p><a href="/">Downtown Recovery</a></p>
 
 	<!-- <img id="line-chart" src='../line-graphic.svg' alt="img" /> -->
 
@@ -41,20 +39,20 @@
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
-			  <li><a href="{baseUrl}/charts/patterns">Patterns</a></li>
+			  <li><a href="/charts/rankings">Rankings</a></li>
+			  <li><a href="/charts/patterns">Patterns</a></li>
 			  <!-- <li><a href="{baseUrl}/charts/correlations">Correlations</a></li> -->
 			</ul>
 		  </li>
 		  <li class="dropdown">
 			<a href="#">Resources &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="{baseUrl}/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
+			  <li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
 			  <li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
-			  <li><a href="{baseUrl}/methodology">Methodology</a></li>
+			  <li><a href="/methodology">Methodology</a></li>
 			</ul>
 		  </li>
-		  <li><a href="{baseUrl}/team">Team</a></li>
+		  <li><a href="/team">Team</a></li>
 		</ul>
 	</nav> 
 </div>
