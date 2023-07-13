@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Neighbourhood Recovery Maps</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      /* @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      } */
+
+      #wrapper {
+        padding: 20px;
+      }
+
+      .img-group {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      .img-container {
+        flex-basis: 33.33%;
+        padding-right: 10px;
+        position: relative;
+      }
+
+
+@media screen and (max-width: 1080px) {
+  .img-group {
+        display:contents;
+        margin-bottom: 20px;
+      }
+        .img-container {
+              flex-basis: 99.33%;
+              padding-right: 10px;
+              padding-bottom: 10px;
+              position: relative;
+            }
+      }
+
+      .img-container img {
+        max-width: 100%;
+      }
+
+      .img-container p {
+        position: absolute;
+        top: 12px;
+        left: 16px;
+      }
+
+      img:hover {
+        border: 1px solid lightgrey;
+      }
+
+      
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="../dashboards/dashboard.css" rel="stylesheet">
+    <!--jQuery-->
+    <script src = "../widgets/can_us_map_files/jquery-1.12.4/jquery.min.js"></script>
+    <script>$('#mapTabs').click('show', function(e) {  
+      paneID = $(e.target).attr('href');
+      src = $(paneID).attr('data-src');
+      // if the iframe hasn't already been loaded once
+      if($(paneID+" iframe").attr("src")=="")
+      {
+          $(paneID+" iframe").attr("src",src);
+      }
+    });</script>
+
+  </head>
+  <body>
+    
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://www.schoolofcities.utoronto.ca/"><img src="../assets/sofc_logos/UofT+SofC_RGB-REVERSE+RGB.svg" style="height: 65px; width:auto; padding-left:10px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home</a>
+                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings (North America)</a>
+                          <a class="dropdown-item" href="../dashboards/recovery_ranking_europe.html">Rankings (Europe Supplement)</a>
+                          <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
+                          <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Maps</a>
+                        <div class="dropdown-menu">
+                          <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
+                          <a class="nav-link" href="../dashboards/city_maps.html">City-Scale Maps</a>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../dashboards/team.html">Team</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="mailto:karen.chapple@utoronto.ca">Contact</a>
+                  </li>
+                </ul>
+          </div>
+        </div>
+    </nav>
+    </header>
+
+   
+    <main>
+
+      <div id="wrapper">
+
+        <h4>Neighbourhood Activity Maps</h4>
+
+        <p>We've done some exploratory mapping of recovery (or lack thereof) at the neighbourhood scale. These maps of three Canadian cities show the level of activity in neighbourhoods for 2019, 2020, and 2021 (higher spikes, more activity!) based on SafeGraph data</p>
+
+        <p><b>Montreal</b></p>
+        <div class="img-group">
+          <div class="img-container">
+            <p>2019</p>
+            <a href="../images/Montreal2019.png"><img src="../images/Montreal2019.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2020</p>
+            <a href="../images/Montreal2020.png"><img src="../images/Montreal2020.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2021</p>
+            <a href="../images/Montreal2021.png"><img src="../images/Montreal2021.png"></a>
+          </div>
+        </div>
+
+        <p><b>Toronto</b></p>
+        <div class="img-group">
+          <div class="img-container">
+            <p>2019</p>
+            <a href="../images/Toronto2019.png"><img src="../images/Toronto2019.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2020</p>
+            <a href="../images/Toronto2020.png"><img src="../images/Toronto2020.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2021</p>
+            <a href="../images/Toronto2021.png"><img src="../images/Toronto2021.png"></a>
+          </div>
+        </div>
+
+        <p><b>Vancouver</b></p>
+        <div class="img-group">
+          <div class="img-container">
+            <p>2019</p>
+            <a href="../images/Vancouver2019.png"><img src="../images/Vancouver2019.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2020</p>
+            <a href="../images/Vancouver2020.png"><img src="../images/Vancouver2020.png"></a>
+          </div>
+          <div class="img-container">
+            <p>2021</p>
+            <a href="../images/Vancouver2021.png"><img src="../images/Vancouver2021.png"></a>
+          </div>
+        </div>
+
+
+      </div>
+ 
+    </main>
+
+<script src= "../dashboards/dashboard.js"></script>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

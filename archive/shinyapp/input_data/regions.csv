@@ -1,0 +1,67 @@
+city,region,color,metro_size,display_title,population
+Albuquerque,Southwest,#e6ab02,medium,"Albuquerque, NM",564559
+Atlanta,Southeast,#dc4633,medium,"Atlanta, GA",498715
+Austin,Southwest,#e6ab02,large,"Austin, TX",961855
+Bakersfield,Pacific,#6d247a,medium,"Bakersfield, CA",403455
+Baltimore,Northeast,#8dbf2e,medium,"Baltimore, MD",585708
+Boston,Northeast,#8dbf2e,medium,"Boston, MA",675647
+Calgary,Canada,#ab1368,large,"Calgary, AB",1306784
+Charlotte,Southeast,#dc4633,large,"Charlotte, NC",874579
+Chicago,Midwest,#007fa3,large,"Chicago, IL",2746388
+Cincinnati,Midwest,#007fa3,medium,"Cincinnati, OH",309317
+Cleveland,Midwest,#007fa3,medium,"Cleveland, OH",372624
+Colorado Springs,Southwest,#e6ab02,medium,"Colorado Springs, CO",478961
+Columbus,Midwest,#007fa3,large,"Columbus, OH",905748
+Dallas,Southwest,#e6ab02,large,"Dallas, TX",1304442
+Denver,Southwest,#e6ab02,large,"Denver, CO",715522
+Detroit,Midwest,#007fa3,medium,"Detroit, MI",639111
+Edmonton,Canada,#ab1368,large,"Edmonton, AB",1010899
+El Paso,Southwest,#e6ab02,medium,"El Paso, TX",678815
+Fort Worth,Southwest,#e6ab02,large,"Fort Worth, TX",918915
+Fresno,Pacific,#6d247a,medium,"Fresno, CA",542107
+Halifax,Canada,#ab1368,medium,"Halifax, NS",439819
+Honolulu,Pacific,#6d247a,medium,"Honolulu, HI",350964
+Houston,Southwest,#e6ab02,large,"Houston, TX",2304580
+Indianapolis,Midwest,#007fa3,large,"Indianapolis, IN",887642
+Jacksonville,Southeast,#dc4633,large,"Jacksonville, FL",949611
+Kansas City,Midwest,#007fa3,medium,"Kansas City, MO",508090
+Las Vegas,Southwest,#e6ab02,medium,"Las Vegas, NV",641903
+London,Canada,#ab1368,medium,"London, ON",422324
+Los Angeles,Pacific,#6d247a,large,"Los Angeles, CA",3898747
+Louisville,Midwest,#007fa3,medium,"Louisville, KY",633045
+Memphis,Southeast,#dc4633,medium,"Memphis, TN",633104
+Miami,Southeast,#dc4633,medium,"Miami, FL",442241
+Milwaukee,Midwest,#007fa3,medium,"Milwaukee, WI",577222
+Minneapolis,Midwest,#007fa3,medium,"Minneapolis, MN",429954
+Mississauga,Canada,#ab1368,large,"Mississauga, ON",717961
+Montreal,Canada,#ab1368,large,"Montreal, QC",1762949
+Nashville,Southeast,#dc4633,large,"Nashville, TN",689447
+New Orleans,Southeast,#dc4633,medium,"New Orleans, LA",383997
+New York,Northeast,#8dbf2e,large,"New York, NY",8804190
+Oakland,Pacific,#6d247a,medium,"Oakland, CA",440646
+Oklahoma City,Midwest,#007fa3,medium,"Oklahoma City, OK",681054
+Omaha,Midwest,#007fa3,medium,"Omaha, NE",486051
+Orlando,Southeast,#dc4633,medium,"Orlando, FL",307573
+Ottawa,Canada,#ab1368,large,"Ottawa, ON",1017449
+Philadelphia,Northeast,#8dbf2e,large,"Philadelphia, PA",1603797
+Phoenix,Southwest,#e6ab02,large,"Phoenix, AZ",1608139
+Pittsburgh,Northeast,#8dbf2e,medium,"Pittsburgh, PA",302971
+Portland,Pacific,#6d247a,medium,"Portland, OR",652503
+Quebec,Canada,#ab1368,medium,"Quebec, QC",549459
+Raleigh,Southeast,#dc4633,medium,"Raleigh, NC",467665
+Sacramento,Pacific,#6d247a,medium,"Sacramento, CA",524943
+Salt Lake City,Southwest,#e6ab02,medium,"Salt Lake City, UT",199723
+San Antonio,Southwest,#e6ab02,large,"San Antonio, TX",1434625
+San Diego,Pacific,#6d247a,large,"San Diego, CA",1386932
+San Francisco,Pacific,#6d247a,large,"San Francisco, CA",873965
+San Jose,Pacific,#6d247a,large,"San Jose, CA",1013240
+Seattle,Pacific,#6d247a,large,"Seattle, WA",737015
+St Louis,Midwest,#007fa3,medium,"St. Louis, MO",301578
+Tampa,Southeast,#dc4633,medium,"Tampa, FL",384959
+Toronto,Canada,#ab1368,large,"Toronto, ON",2794356
+Tucson,Southwest,#e6ab02,medium,"Tucson, AZ",542629
+Tulsa,Southwest,#e6ab02,medium,"Tulsa, OK",413066
+Vancouver,Canada,#ab1368,medium,"Vancouver, BC",662248
+Washington DC,Northeast,#8dbf2e,large,Washington DC,689545
+Wichita,Midwest,#007fa3,medium,"Wichita, KS",397532
+Winnipeg,Canada,#ab1368,large,"Winnipeg, MB",749607

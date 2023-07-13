@@ -1,4 +1,4 @@
-# Downtown Recovery Website
+# Downtown Recovery
 
 This repo contains the code and data used to build https://downtownrecovery.com/
 

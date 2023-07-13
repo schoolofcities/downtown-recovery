@@ -1,0 +1,14 @@
+name: downtownrecovery-staging
+title: downtownrecovery-staging
+username:
+account: hmoore
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6596417
+bundleId: 6108204
+url: https://hmoore.shinyapps.io/downtownrecovery-staging/
+when: 1658153326.88397
+lastSyncTime: 1658153326.88397
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|animations/covid_ranking_.mov|app.Rmd|avg_lq_calculator.R|can_shp/study_area_canada.dbf|can_shp/study_area_canada.prj|can_shp/study_area_canada.shp|can_shp/study_area_canada.shx|databricks_main_driver.r|databricks_transformer.R|device_count_helper.R|downlode.R|downtown.gif|explanatory_variables_generator.R|images/Houston_map.png|images/kepler_toronto_2020_03_08.png|images/kepler_toronto_2021_03_04.png|Massachusetts/Massachusetts.xlsx|media/covid_ranking.mov|media/kepler_toronto_2019_01_12.png|media/kepler_toronto_2020_03_08.png|media/kepler_toronto_2021_03_04.png|metro.gif|relative.gif|shapefile_cropper.R|shp/study_area_all.dbf|shp/study_area_all.prj|shp/study_area_all.shp|shp/study_area_all.shx|testing_script.R|widget_generator.R|device_counts|lodes|test_widgets|us_shp

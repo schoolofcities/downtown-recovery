@@ -1,0 +1,68 @@
+city,region,metro_size,display_title,population
+Albuquerque,Southwest,medium,"Albuquerque, NM",564559
+Atlanta,Southeast,medium,"Atlanta, GA",498715
+Austin,Southwest,large,"Austin, TX",961855
+Bakersfield,Pacific,medium,"Bakersfield, CA",403455
+Baltimore,Northeast,medium,"Baltimore, MD",585708
+Boston,Northeast,medium,"Boston, MA",675647
+Calgary,Canada,large,"Calgary, AB",1306784
+Charlotte,Southeast,large,"Charlotte, NC",874579
+Chicago,Midwest,large,"Chicago, IL",2746388
+Cincinnati,Midwest,medium,"Cincinnati, OH",309317
+Cleveland,Midwest,medium,"Cleveland, OH",372624
+Colorado Springs,Southwest,medium,"Colorado Springs, CO",478961
+Columbus,Midwest,large,"Columbus, OH",905748
+Denver,Southwest,large,"Denver, CO",715522
+Detroit,Midwest,medium,"Detroit, MI",639111
+Edmonton,Canada,large,"Edmonton, AB",1010899
+El Paso,Southwest,medium,"El Paso, TX",678815
+Fort Worth,Southwest,large,"Fort Worth, TX",918915
+Fresno,Pacific,medium,"Fresno, CA",542107
+Halifax,Canada,medium,"Halifax, NS",439819
+Honolulu,Pacific,medium,"Honolulu, HI",350964
+Houston,Southwest,large,"Houston, TX",2304580
+Indianapolis,Midwest,large,"Indianapolis, IN",887642
+Jacksonville,Southeast,large,"Jacksonville, FL",949611
+Kansas City,Midwest,medium,"Kansas City, MO",508090
+Las Vegas,Southwest,medium,"Las Vegas, NV",641903
+London,Canada,medium,"London, ON",422324
+Los Angeles,Pacific,large,"Los Angeles, CA",3898747
+Louisville,Midwest,medium,"Louisville, KY",633045
+Memphis,Southeast,medium,"Memphis, TN",633104
+Miami,Southeast,medium,"Miami, FL",442241
+Milwaukee,Midwest,medium,"Milwaukee, WI",577222
+Minneapolis,Midwest,medium,"Minneapolis, MN",429954
+Montreal,Canada,large,"Montreal, QC",1762949
+Nashville,Southeast,large,"Nashville, TN",689447
+New Orleans,Southeast,medium,"New Orleans, LA",383997
+New York,Northeast,large,"New York, NY",8804190
+Oakland,Pacific,medium,"Oakland, CA",440646
+Omaha,Midwest,medium,"Omaha, NE",486051
+Ottawa,Canada,large,"Ottawa, ON",1017449
+Philadelphia,Northeast,large,"Philadelphia, PA",1603797
+Phoenix,Southwest,large,"Phoenix, AZ",1608139
+Pittsburgh,Northeast,medium,"Pittsburgh, PA",302971
+Portland,Pacific,medium,"Portland, OR",652503
+Quebec,Canada,medium,"Quebec, QC",549459
+Raleigh,Southeast,medium,"Raleigh, NC",467665
+Sacramento,Pacific,medium,"Sacramento, CA",524943
+Salt Lake City,Southwest,medium,"Salt Lake City, UT",199723
+San Antonio,Southwest,large,"San Antonio, TX",1434625
+San Diego,Pacific,large,"San Diego, CA",1386932
+San Francisco,Pacific,large,"San Francisco, CA",873965
+San Jose,Pacific,large,"San Jose, CA",1013240
+Seattle,Pacific,large,"Seattle, WA",737015
+St Louis,Midwest,medium,"St. Louis, MO",301578
+Tampa,Southeast,medium,"Tampa, FL",384959
+Toronto,Canada,large,"Toronto, ON",2794356
+Tucson,Southwest,medium,"Tucson, AZ",542629
+Tulsa,Southwest,medium,"Tulsa, OK",413066
+Vancouver,Canada,medium,"Vancouver, BC",662248
+Washington DC,Northeast,large,Washington DC,689545
+Wichita,Midwest,medium,"Wichita, KS",397532
+Winnipeg,Canada,large,"Winnipeg, MB",749607
+Dallas,Southwest,large,"Dallas, TX",
+Hamilton,Canada,medium,"Hamilton, ON",
+Mississauga,Canada,medium,"Mississauga, ON",
+Oklahoma City,Southwest,medium,"Oklahoma City, OK",
+Orlando,Southeast,medium,"Orlando, FL",
