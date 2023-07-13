@@ -1,0 +1,199 @@
+city,country,display_title,state,lat,long
+Salt Lake City,USA,"Salt Lake City, UT",UT,40.78,-111.93
+St Louis,USA,"St. Louis, MO",MO,38.64,-90.24
+Orlando,USA,"Orlando, FL",FL,28.5,-81.37
+San Antonio,USA,"San Antonio, TX",TX,29.46,-98.51
+San Diego,USA,"San Diego, CA",CA,32.81,-117.14
+Dallas,USA,"Dallas, TX",TX,32.79,-96.77
+San Jose,USA,"San Jose, CA",CA,37.3,-121.85
+Austin,USA,"Austin, TX",TX,30.31,-97.75
+Jacksonville,USA,"Jacksonville, FL",FL,30.33,-81.66
+Portland,USA,"Portland, OR",OR,45.54,-122.66
+Las Vegas,USA,"Las Vegas, NV",NV,36.21,-115.22
+Detroit,USA,"Detroit, MI",MI,42.38,-83.1
+New York,USA,"New York, NY",NY,40.67,-73.94
+Los Angeles,USA,"Los Angeles, CA",CA,34.11,-118.41
+Chicago,USA,"Chicago, IL",IL,41.84,-87.68
+Houston,USA,"Houston, TX",TX,29.77,-95.39
+Phoenix,USA,"Phoenix, AZ",AZ,33.54,-112.07
+Philadelphia,USA,"Philadelphia, PA",PA,40.01,-75.13
+Kansas City,USA,"Kansas City, MO",MO,39.12,-94.55
+Atlanta,USA,"Atlanta, GA",GA,33.76,-84.42
+Omaha,USA,"Omaha, NE",NE,41.26,-96.01
+Colorado Springs,USA,"Colorado Springs, CO",CO,38.86,-104.76
+Raleigh,USA,"Raleigh, NC",NC,35.82,-78.66
+Miami,USA,"Miami, FL",FL,25.78,-80.21
+Memphis,USA,"Memphis, TN",TN,35.11,-90.01
+Louisville,USA,"Louisville, KY",KY,38.22,-85.74
+Baltimore,USA,"Baltimore, MD",MD,39.3,-76.61
+Vancouver,CAN,"Vancouver, BC",BC,49.28,-123.13
+Montreal,CAN,"Montreal, QC",QC,45.52,-73.57
+Calgary,CAN,"Calgary, AB",AB,51.05,-114.06
+Edmonton,CAN,"Edmonton, AB",AB,53.57,-113.54
+Mississauga,CAN,"Missisauga, ON",ON,43.595,-79.6405
+Halifax,CAN,"Halifax, NS",NS,44.67,-63.61
+London,CAN,"London, ON",ON,42.97,-81.24
+Ottawa,CAN,"Ottawa, ON",ON,45.42,-75.71
+Winnipeg,CAN,"Winnipeg, MB",MB,49.88,-97.17
+Quebec,CAN,"Quebec, QC",QC,46.82,-71.23
+Toronto,CAN,"Toronto, ON",ON,43.65,-79.38
+Cleveland,USA,"Cleveland, OH",OH,41.48,-81.68
+Honolulu,USA,"Honolulu, HI",HI,21.32,-157.8
+Cincinnati,USA,"Cincinnati, OH",OH,39.14,-84.51
+Pittsburgh,USA,"Pittsburgh, PA",PA,40.44,-79.98
+Fort Worth,USA,"Fort Worth, TX",TX,32.75,-97.34
+Columbus,USA,"Columbus, OH",OH,39.99,-82.99
+Indianapolis,USA,"Indianapolis, IN",IN,39.78,-86.15
+Charlotte,USA,"Charlotte, NC",NC,35.2,-80.83
+San Francisco,USA,"San Francisco, CA",CA,37.77,-122.45
+Seattle,USA,"Seattle, WA",WA,47.62,-122.35
+Denver,USA,"Denver, CO",CO,39.77,-104.87
+Washington DC,USA,Washington DC,DC,38.91,-77.02
+Oakland,USA,"Oakland, CA",CA,37.77,-122.22
+Minneapolis,USA,"Minneapolis, MN",MN,44.96,-93.27
+Tulsa,USA,"Tulsa, OK",OK,36.13,-95.92
+Bakersfield,USA,"Bakersfield, CA",CA,35.36,-119
+Wichita,USA,"Wichita, KS",KS,37.69,-97.34
+Tampa,USA,"Tampa, FL",FL,27.96,-82.48
+New Orleans,USA,"New Orleans, LA",LA,30.07,-89.93
+Sacramento,USA,"Sacramento, CA",CA,38.57,-121.47
+Milwaukee,USA,"Milwaukee, WI",WI,43.06,-87.97
+Albuquerque,USA,"Albuquerque, NM",NM,35.12,-106.62
+Tucson,USA,"Tucson, AZ",AZ,32.2,-110.89
+Fresno,USA,"Fresno, CA",CA,36.78,-119.79
+Nashville,USA,"Nashville, TN",TN,36.17,-86.78
+Oklahoma City,USA,"Oklahoma City, OK",OK,35.47,-97.51
+El Paso,USA,"El Paso, TX",TX,31.85,-106.44
+Boston,USA,"Boston, MA",MA,42.34,-71.02
+Salt Lake City,USA,"Salt Lake City, UT",UT,40.78,-111.93
+St Louis,USA,"St. Louis, MO",MO,38.64,-90.24
+Orlando,USA,"Orlando, FL",FL,28.5,-81.37
+San Antonio,USA,"San Antonio, TX",TX,29.46,-98.51
+San Diego,USA,"San Diego, CA",CA,32.81,-117.14
+Dallas,USA,"Dallas, TX",TX,32.79,-96.77
+San Jose,USA,"San Jose, CA",CA,37.3,-121.85
+Austin,USA,"Austin, TX",TX,30.31,-97.75
+Jacksonville,USA,"Jacksonville, FL",FL,30.33,-81.66
+Portland,USA,"Portland, OR",OR,45.54,-122.66
+Las Vegas,USA,"Las Vegas, NV",NV,36.21,-115.22
+Detroit,USA,"Detroit, MI",MI,42.38,-83.1
+New York,USA,"New York, NY",NY,40.67,-73.94
+Los Angeles,USA,"Los Angeles, CA",CA,34.11,-118.41
+Chicago,USA,"Chicago, IL",IL,41.84,-87.68
+Houston,USA,"Houston, TX",TX,29.77,-95.39
+Phoenix,USA,"Phoenix, AZ",AZ,33.54,-112.07
+Philadelphia,USA,"Philadelphia, PA",PA,40.01,-75.13
+Kansas City,USA,"Kansas City, MO",MO,39.12,-94.55
+Atlanta,USA,"Atlanta, GA",GA,33.76,-84.42
+Omaha,USA,"Omaha, NE",NE,41.26,-96.01
+Colorado Springs,USA,"Colorado Springs, CO",CO,38.86,-104.76
+Raleigh,USA,"Raleigh, NC",NC,35.82,-78.66
+Miami,USA,"Miami, FL",FL,25.78,-80.21
+Memphis,USA,"Memphis, TN",TN,35.11,-90.01
+Louisville,USA,"Louisville, KY",KY,38.22,-85.74
+Baltimore,USA,"Baltimore, MD",MD,39.3,-76.61
+Vancouver,CAN,"Vancouver, BC",BC,49.28,-123.13
+Montreal,CAN,"Montreal, QC",QC,45.52,-73.57
+Calgary,CAN,"Calgary, AB",AB,51.05,-114.06
+Edmonton,CAN,"Edmonton, AB",AB,53.57,-113.54
+Mississauga,CAN,"Missisauga, ON",ON,43.595,-79.6405
+Halifax,CAN,"Halifax, NS",NS,44.67,-63.61
+London,CAN,"London, ON",ON,42.97,-81.24
+Ottawa,CAN,"Ottawa, ON",ON,45.42,-75.71
+Winnipeg,CAN,"Winnipeg, MB",MB,49.88,-97.17
+Quebec,CAN,"Quebec, QC",QC,46.82,-71.23
+Toronto,CAN,"Toronto, ON",ON,43.65,-79.38
+Cleveland,USA,"Cleveland, OH",OH,41.48,-81.68
+Honolulu,USA,"Honolulu, HI",HI,21.32,-157.8
+Cincinnati,USA,"Cincinnati, OH",OH,39.14,-84.51
+Pittsburgh,USA,"Pittsburgh, PA",PA,40.44,-79.98
+Fort Worth,USA,"Fort Worth, TX",TX,32.75,-97.34
+Columbus,USA,"Columbus, OH",OH,39.99,-82.99
+Indianapolis,USA,"Indianapolis, IN",IN,39.78,-86.15
+Charlotte,USA,"Charlotte, NC",NC,35.2,-80.83
+San Francisco,USA,"San Francisco, CA",CA,37.77,-122.45
+Seattle,USA,"Seattle, WA",WA,47.62,-122.35
+Denver,USA,"Denver, CO",CO,39.77,-104.87
+Washington DC,USA,Washington DC,DC,38.91,-77.02
+Oakland,USA,"Oakland, CA",CA,37.77,-122.22
+Minneapolis,USA,"Minneapolis, MN",MN,44.96,-93.27
+Tulsa,USA,"Tulsa, OK",OK,36.13,-95.92
+Bakersfield,USA,"Bakersfield, CA",CA,35.36,-119
+Wichita,USA,"Wichita, KS",KS,37.69,-97.34
+Tampa,USA,"Tampa, FL",FL,27.96,-82.48
+New Orleans,USA,"New Orleans, LA",LA,30.07,-89.93
+Sacramento,USA,"Sacramento, CA",CA,38.57,-121.47
+Milwaukee,USA,"Milwaukee, WI",WI,43.06,-87.97
+Albuquerque,USA,"Albuquerque, NM",NM,35.12,-106.62
+Tucson,USA,"Tucson, AZ",AZ,32.2,-110.89
+Fresno,USA,"Fresno, CA",CA,36.78,-119.79
+Nashville,USA,"Nashville, TN",TN,36.17,-86.78
+Oklahoma City,USA,"Oklahoma City, OK",OK,35.47,-97.51
+El Paso,USA,"El Paso, TX",TX,31.85,-106.44
+Boston,USA,"Boston, MA",MA,42.34,-71.02
+Salt Lake City,USA,"Salt Lake City, UT",UT,40.78,-111.93
+St Louis,USA,"St. Louis, MO",MO,38.64,-90.24
+Orlando,USA,"Orlando, FL",FL,28.5,-81.37
+San Antonio,USA,"San Antonio, TX",TX,29.46,-98.51
+San Diego,USA,"San Diego, CA",CA,32.81,-117.14
+Dallas,USA,"Dallas, TX",TX,32.79,-96.77
+San Jose,USA,"San Jose, CA",CA,37.3,-121.85
+Austin,USA,"Austin, TX",TX,30.31,-97.75
+Jacksonville,USA,"Jacksonville, FL",FL,30.33,-81.66
+Portland,USA,"Portland, OR",OR,45.54,-122.66
+Las Vegas,USA,"Las Vegas, NV",NV,36.21,-115.22
+Detroit,USA,"Detroit, MI",MI,42.38,-83.1
+New York,USA,"New York, NY",NY,40.67,-73.94
+Los Angeles,USA,"Los Angeles, CA",CA,34.11,-118.41
+Chicago,USA,"Chicago, IL",IL,41.84,-87.68
+Houston,USA,"Houston, TX",TX,29.77,-95.39
+Phoenix,USA,"Phoenix, AZ",AZ,33.54,-112.07
+Philadelphia,USA,"Philadelphia, PA",PA,40.01,-75.13
+Kansas City,USA,"Kansas City, MO",MO,39.12,-94.55
+Atlanta,USA,"Atlanta, GA",GA,33.76,-84.42
+Omaha,USA,"Omaha, NE",NE,41.26,-96.01
+Colorado Springs,USA,"Colorado Springs, CO",CO,38.86,-104.76
+Raleigh,USA,"Raleigh, NC",NC,35.82,-78.66
+Miami,USA,"Miami, FL",FL,25.78,-80.21
+Memphis,USA,"Memphis, TN",TN,35.11,-90.01
+Louisville,USA,"Louisville, KY",KY,38.22,-85.74
+Baltimore,USA,"Baltimore, MD",MD,39.3,-76.61
+Vancouver,CAN,"Vancouver, BC",BC,49.28,-123.13
+Montreal,CAN,"Montreal, QC",QC,45.52,-73.57
+Calgary,CAN,"Calgary, AB",AB,51.05,-114.06
+Edmonton,CAN,"Edmonton, AB",AB,53.57,-113.54
+Mississauga,CAN,"Missisauga, ON",ON,43.595,-79.6405
+Halifax,CAN,"Halifax, NS",NS,44.67,-63.61
+London,CAN,"London, ON",ON,42.97,-81.24
+Ottawa,CAN,"Ottawa, ON",ON,45.42,-75.71
+Winnipeg,CAN,"Winnipeg, MB",MB,49.88,-97.17
+Quebec,CAN,"Quebec, QC",QC,46.82,-71.23
+Toronto,CAN,"Toronto, ON",ON,43.65,-79.38
+Cleveland,USA,"Cleveland, OH",OH,41.48,-81.68
+Honolulu,USA,"Honolulu, HI",HI,21.32,-157.8
+Cincinnati,USA,"Cincinnati, OH",OH,39.14,-84.51
+Pittsburgh,USA,"Pittsburgh, PA",PA,40.44,-79.98
+Fort Worth,USA,"Fort Worth, TX",TX,32.75,-97.34
+Columbus,USA,"Columbus, OH",OH,39.99,-82.99
+Indianapolis,USA,"Indianapolis, IN",IN,39.78,-86.15
+Charlotte,USA,"Charlotte, NC",NC,35.2,-80.83
+San Francisco,USA,"San Francisco, CA",CA,37.77,-122.45
+Seattle,USA,"Seattle, WA",WA,47.62,-122.35
+Denver,USA,"Denver, CO",CO,39.77,-104.87
+Washington DC,USA,Washington DC,DC,38.91,-77.02
+Oakland,USA,"Oakland, CA",CA,37.77,-122.22
+Minneapolis,USA,"Minneapolis, MN",MN,44.96,-93.27
+Tulsa,USA,"Tulsa, OK",OK,36.13,-95.92
+Bakersfield,USA,"Bakersfield, CA",CA,35.36,-119
+Wichita,USA,"Wichita, KS",KS,37.69,-97.34
+Tampa,USA,"Tampa, FL",FL,27.96,-82.48
+New Orleans,USA,"New Orleans, LA",LA,30.07,-89.93
+Sacramento,USA,"Sacramento, CA",CA,38.57,-121.47
+Milwaukee,USA,"Milwaukee, WI",WI,43.06,-87.97
+Albuquerque,USA,"Albuquerque, NM",NM,35.12,-106.62
+Tucson,USA,"Tucson, AZ",AZ,32.2,-110.89
+Fresno,USA,"Fresno, CA",CA,36.78,-119.79
+Nashville,USA,"Nashville, TN",TN,36.17,-86.78
+Oklahoma City,USA,"Oklahoma City, OK",OK,35.47,-97.51
+El Paso,USA,"El Paso, TX",TX,31.85,-106.44
+Boston,USA,"Boston, MA",MA,42.34,-71.02

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>2D maps</title>
+
+  <link rel="icon" href="../images/favicon.svg">
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <!-- Custom styles for this template -->
+  <link href="../dashboards/dashboard.css" rel="stylesheet">
+  <!--jQuery-->
+  <script src="../widgets/can_us_map_files/jquery-1.12.4/jquery.min.js"></script>
+  <script>$('#mapTabs').click('show', function (e) {
+      paneID = $(e.target).attr('href');
+      src = $(paneID).attr('data-src');
+      // if the iframe hasn't already been loaded once
+      if ($(paneID + " iframe").attr("src") == "") {
+        $(paneID + " iframe").attr("src", src);
+      }
+    });</script>
+
+<script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="https://www.schoolofcities.utoronto.ca/"><img src="../assets/sofc_logos/UofT+SofC_RGB-REVERSE+RGB.svg" style="height: 65px; width:auto; padding-left:10px;"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarMenu">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.html">Home</a>
+              </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings (North America)</a>
+                        <a class="dropdown-item" href="../dashboards/recovery_ranking_europe.html">Rankings (Europe Supplement)</a>
+                        <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
+                        <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Maps</a>
+                    <div class="dropdown-menu">
+                      <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
+                      <a class="nav-link" href="../dashboards/city_maps.html">City-Scale Maps</a>
+                  </div>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../dashboards/team.html">Team</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="mailto:karen.chapple@utoronto.ca">Contact</a>
+                </li>
+              </ul>
+        </div>
+      </div>
+  </nav>
+  </header>
+
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-2">
+          <div class="accordion" id="accordionContainer">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  About
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  This map compares average weekly mobile device count activity for March 2022 through May 2022 to the same period in 2019.  
+                  A metric greater than 1 means that there was an increase in the mobile device count activity during those months of the pandemic, compared to the same months pre-pandemic.
+                  A metric less than 1 means that there were fewer recorded mobile device counts during those months of the pandemic, compared to the same months pre-pandemic. 
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  How to navigate this page
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                      <div class="col-12">
+                       <h5>Selection:</h5>
+                       <p>To select a recovery metric, use one of the buttons below.</p>
+                       <p>To view another comparison season, use the layers toggle in the map.</p>
+                       <h5>Navigating the map:</h5>
+                       <p>After making your selections, you can click and drag the map to move the viewport. Hovering over a city's marker will display the seasonal average for the selected metric.
+                         </p>
+                          <div class="btn-group-vertical" id='map buttons'>
+                            <a href="../widgets/national_map_downtown.html" target="mapframe" class="btn btn-primary data-page-btn">Downtown</a>
+                            <a href="../widgets/national_map_city.html" target="mapframe" class="btn btn-primary data-page-btn">City</a>
+                            <a href="../widgets/national_map_relative.html" target="mapframe" class="btn btn-primary data-page-btn">Relative</a>
+                          </div>
+                      
+                        <!-- Script to toggle buttons -->
+                        <script>
+                          var header = document.getElementById("map buttons");
+                          var btns = header.getElementsByClassName("btn btn-primary data-page-btn");
+                          for (var i = 0; i < btns.length; i++) {
+                            btns[i].addEventListener("click", function() {
+                            var current = document.getElementsByClassName("primary");
+                          if (current.length > 0) {
+                              current[0].className = current[0].className.replace(" primary", "");
+                            }
+                            this.className += " primary";
+                            });
+                          }
+                        </script>
+                        </div>
+                        </div>
+                        </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="col-10">
+
+              <div class="map-container">
+                <iframe src="../widgets/national_map_downtown.html" name = "mapframe"></iframe>
+              </div>
+         
+          </div> 
+        
+        </div>
+      </div>
+
+  </main>
+  
+  <script src="../dashboards/dashboard.js"></script>
+  <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

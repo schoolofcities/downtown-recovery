@@ -1,0 +1,67 @@
+﻿City ,State,Climate Name,Class,Type
+Vancouver,British Columbia,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Montreal,Quebec,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Calgary,Alberta,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Halifax,Nova Scotia,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+London,Ontario,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Edmonton,Alberta,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Mississauga,Ontario,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Ottawa,Ontario,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Winnipeg,Manitoba,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Toronto,Ontario,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Quebec,Quebec,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Columbus,Ohio,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Indianapolis,Indiana,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Charlotte,North Carolina,Humid Subtropical,C,Cfa
+San Francisco,California,Warm-Summer Mediterranean,C,Csb
+Seattle,Washington,Warm-Summer Mediterranean,C,Csb
+Denver,Colorado,Cold Semi-Arid ,B,BSk
+Washington DC,Washington DC,Humid Subtropical,C,Cfa
+Cleveland,Ohio,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Honolulu,Hawaii,Tropical Savanna,A,Aw
+Cincinnati,Ohio,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Pittsburgh,Pennsylvania,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Salt Lake City,Utah,Humid Continental Climate - Dry Warm Summer,D,Dsa
+St Louis,Missouri,Humid Subtropical,C,Cfa
+Orlando,Florida,Humid Subtropical,C,Cfa
+San Antonio,Texas,Humid Subtropical,C,Cfa
+San Diego,California,Cold Semi-Arid,B,BSk
+Dallas,Texas,Humid Subtropical,C,Cfa
+San Jose,California,Warm-Summer Mediterranean,C,Csb
+Austin,Texas,Humid Subtropical,C,Cfa
+Jacksonville,Florida,Humid Subtropical,C,Cfa
+Fort Worth,Texas,Humid Subtropical,C,Cfa
+Sacramento,California,Hot-Summer Mediterranean,C,Csa
+Kansas City,Missouri,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Atlanta,Georgia,Humid Subtropical,C,Cfa
+Omaha,Nebraska,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Colorado Springs,Colorado,Cold Semi-Arid ,B,BSk
+Raleigh,North Carolina,Humid Subtropical,C,Cfa
+Miami,Florida,Tropical Monsoon ,A,Am
+Oakland,California,Warm-Summer Mediterranean,C,Csb
+Minneapolis,Minnesota,"Humid Continental Mild Summer, Wet All Year",D,Dfb
+Tulsa,Oklahoma,Humid Subtropical,C,Cfa
+Bakersfield,California,Hot Desert ,B,BWh
+Wichita,Kansas,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Tampa,Florida,Humid Subtropical,C,Cfa
+New Orleans,Louisiana,Humid Subtropical,C,Cfa
+Memphis,Tennessee,Humid Subtropical,C,Cfa
+Louisville,Kentucky,Humid Subtropical,C,Cfa
+Baltimore,Maryland,Humid Subtropical,C,Cfa
+Milwaukee,Wisconsin,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Albuquerque,New Mexico,Cold Desert,B,BWk
+Tucson,Arizona,Hot Semi-Arid ,B,BSh
+Fresno,California,Cold Semi-Arid,B,BSk
+Nashville,Tennessee,Humid Subtropical,C,Cfa
+Oklahoma City,Oklahoma,Humid Subtropical,C,Cfa
+El Paso,Texas,Cold Desert,B,BWk
+Boston,Massachusetts,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Portland,Oregon,Warm-Summer Mediterranean,C,Csb
+Las Vegas,Nevada,Hot Desert ,B,BWh
+Detroit,Michigan,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+New York,New York,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Los Angeles,California,Warm-Summer Mediterranean,C,Csb
+Chicago,Illinois,Humid Continental Hot Summers With Year Around Precipitation,D,Dfa
+Houston,Texas,Humid Subtropical,C,Cfa
+Phoenix,Arizona,Hot Desert,B,BWh
+Philadelphia,Pennsylvania,Humid Subtropical,C,Cfa

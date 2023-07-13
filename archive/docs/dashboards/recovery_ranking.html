@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Recovery Rankings</title>
+
+  <link rel="icon" href="../images/favicon.svg">
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    select {
+      background-color: black;
+      color: white;
+      border: solid 1px #5c5c5c;
+      padding: 5px;
+    }
+  </style>
+
+  <!-- Custom styles for this template -->
+  <link href="../dashboards/dashboard.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script src="../dashboards/dashboard.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="https://www.schoolofcities.utoronto.ca/"><img src="../assets/sofc_logos/UofT+SofC_RGB-REVERSE+RGB.svg" style="height: 65px; width:auto; padding-left:10px;"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarMenu">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.html">Home</a>
+              </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recovery</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="../dashboards/recovery_ranking.html">Rankings (North America)</a>
+                        <a class="dropdown-item" href="../dashboards/recovery_ranking_europe.html">Rankings (Europe Supplement)</a>
+                        <a class="dropdown-item" href="../dashboards/recovery_pattern_raw.html">Patterns</a>
+                        <a class="dropdown-item" href="../dashboards/explanatory_variables.html">Explanatory Variables</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Maps</a>
+                    <div class="dropdown-menu">
+                      <a class="nav-link" href="../dashboards/maps_2d.html">Comparative Map</a>
+                      <a class="nav-link" href="../dashboards/city_maps.html">City-Scale Maps</a>
+                  </div>
+                </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../dashboards/text_pages.html">Methodology</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../dashboards/team.html">Team</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="mailto:karen.chapple@utoronto.ca">Contact</a>
+                </li>
+              </ul>
+        </div>
+      </div>
+  </nav>
+  </header>
+
+  <main>
+      <div class="row">
+        <div class="col-2">
+          <div class="accordion" id="accordionContainer">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  About
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  <div id="recovery-rankings" class="section level3">
+                    <h4>Recovery Rankings</h4>
+                    <div id="about-ranking" class="section level4">
+                      <p>Displays a ranked bar chart wth city names and metrics superimposed on the bars.</p>
+                      <p>The bars are filled according to which region they belong to (Canada, US Midwest, US Northeast,
+                        US Pacific, US Southeast, US Southwest). </p>
+                      <p> The hover text is as follows: </p>
+                      <p> City name : Recovery value</p>
+                      <p>A recovery value greater than 100% means that for the selected inputs, the mobile device activity
+                        improved from the comparison period. A value less than 100% means the opposite, and a value
+                        equal to 100% means the activity did not change.</p>
+                        <p>Recovery metrics:</p>
+                        <p>Downtown: divides the sum of downtown area's device counts of the week by the corresponding
+                          week in 2019</p>
+                        <p>City: divides the sum of the entire city's device counts of the week by the corresponding week
+                          in 2019.</p>
+                        <p>Relative: A ratio of the previous two metrics; this is a measures by how much more or less the
+                          device counts in a downtown area changed relative to how much it changed in the entire city.</p>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  How to navigate this page
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionContainer">
+                <div class="accordion-body">
+                  <div class="box alt">
+                    <div class="row gtr-50 gtr-uniform">
+                      <div class="col-12">
+                        <div class="section level1">
+                          <h5>Selection:</h5>
+                          <p>To select a recovery metric, use the dropdown tool.</p>
+                          <p>To view another comparison season, use the dropdown tool.</p>
+                          <h5>Navigating the plot:</h5>
+                          <p>After making your selections, you can further customize the output by directly interacting with the plot. 
+                            To omit cities by region, click once on their legend titles- click again to bring them back.
+                            You may zoom in to the plot by clicking and dragging to create a new viewport.
+                            To return the plot to its original scale, double click anywhere on the plot.
+                            </p>
+                          </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row-chart">
+            <div  class="section level4">
+            <h5>Select recovery metric:</h5>
+    
+            <select name="select_ranking_metric" id="select_ranking_metric">
+              <option value="downtown">Downtown</option>
+              <option value="city">City</option>
+              <option value="relative">Relative</option>
+            </select>
+          </div>
+          </div>
+          <div class="row-chart">
+          <div class="section level4">
+            <h5>Select comparison period:</h5>
+       
+            <select name="select_ranking_season" id="select_ranking_season" style="width:75%; height:75%;">
+              <option value="Season_1">Spring: Mar 2020 - May 2020</option>
+              <option value="Season_2">Summer: June 2020 - Aug 2020</option>
+              <option value="Season_3">Fall: Sept 2020 - Nov 2020</option>
+              <option value="Season_4">Winter: Dec 2020 - Feb 2021</option>
+              <option value="Season_5">Spring: Mar 2021 - May 2021</option>
+              <option value="Season_6">Summer: June 2021 - Aug 2021</option>
+              <option value="Season_7">Fall: Sept 2021 - Nov 2021</option>
+              <option value="Season_8">Winter: Dec 2021 - Feb 2022</option>
+              <option value="Season_9">Spring: Mar 2022 - May 2022</option>
+              <option value="Season_10">Summer: June 2022 - Aug 2022</option>
+              <option value="Season_11">Fall: Sept 2022 - Nov 2022</option>
+              <option selected="selected" value="Season_12">Winter: Dec 2022 - Feb 2023</option>
+            </select>
+            </div>
+          </div>
+        </div>
+       
+        
+    
+   
+        <div class="col-10">
+          <div class="plot-container" id="rankings-plot"></div>
+        </div>
+      </div>
+  </main>
+
+</body>
+<script src="../dashboards/rankings_plot.js"></script>
+
+</html>

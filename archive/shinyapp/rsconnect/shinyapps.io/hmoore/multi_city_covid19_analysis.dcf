@@ -1,0 +1,14 @@
+name: multi_city_covid19_analysis
+title: multi_city_covid19_analysis
+username:
+account: hmoore
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5929017
+bundleId: 6041422
+url: https://hmoore.shinyapps.io/multi_city_covid19_analysis/
+when: 1656117024.01769
+lastSyncTime: 1656117024.01769
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: animations/covid_ranking_.mov|can_shp/study_area_canada.dbf|can_shp/study_area_canada.prj|can_shp/study_area_canada.shp|can_shp/study_area_canada.shx|Massachusetts/Massachusetts.xlsx|media/covid_ranking.mov|device_counts|lodes|test_widgets|us_shp
