@@ -3,8 +3,8 @@
 	import logo from '../assets/top-logo-full.svg';
 	import { onMount } from 'svelte';
 
-	const baseUrl = '/downtown-recovery';
-	// import.meta.env.BASE_URL;
+	// const baseUrl = '/downtown-recovery';
+	const baseUrl = import.meta.env.BASE_URL;
 
 	console.log(baseUrl);
 
@@ -41,7 +41,7 @@
 		  <li class="dropdown">
 			<a href="#">Charts &darr;</a>
 			<ul class="dropdown-menu">
-			  <li><a href="{baseUrl}/charts/rankings">Rankings</a></li>
+			  <li><a href="{baseUrl}charts/rankings">Rankings</a></li>
 			  <li><a href="{baseUrl}/charts/patterns">Patterns</a></li>
 			  <!-- <li><a href="{baseUrl}/charts/correlations">Correlations</a></li> -->
 			</ul>
