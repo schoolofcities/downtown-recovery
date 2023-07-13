@@ -4,22 +4,20 @@
 	import { onMount } from 'svelte';
 
 	// const baseUrl = '/downtown-recovery';
-	const baseUrl = import.meta.env.BASE_URL;
+	// const baseUrl = import.meta.env.BASE_URL;
 
-	console.log(baseUrl);
+	// // generated this code for mobile specific rendering - not needed at the moment
 
-	// generated this code for mobile specific rendering - not needed at the moment
+	// let isMobile = false;
 
-	let isMobile = false;
+	// onMount(() => {
+	// 	isMobile = window.innerWidth < 600;
+	// 	window.addEventListener('resize', handleResize);
+	// });
 
-	onMount(() => {
-		isMobile = window.innerWidth < 600;
-		window.addEventListener('resize', handleResize);
-	});
-
-	function handleResize() {
-		isMobile = window.innerWidth < 600;
-	}
+	// function handleResize() {
+	// 	isMobile = window.innerWidth < 600;
+	// }
 
 </script>
 
