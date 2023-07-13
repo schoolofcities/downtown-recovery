@@ -187,7 +187,7 @@ cities.forEach((j1) => {
 
     let xTickNumber;
     // ticks for X axis- every six months (?)
-    $: xTickNumber = Math.floor(chartWidth/80);
+    $: xTickNumber = Math.floor(chartWidth/120);
     $: console.log(xTickNumber);
     $: xGrid = xScale.ticks(xTickNumber);
     $: console.log(getXExtent(data))
@@ -337,7 +337,7 @@ function computeSelectedXValue(dat, value) {
 
                 {#each xGrid as gridLine,  i}
 
-                <text class="axis-label"
+                <text style="white-space:pre" class="axis-label"
                     x = {xScale(gridLine)}
                     y = {chartHeight + 15}
                     text-anchor="end"
