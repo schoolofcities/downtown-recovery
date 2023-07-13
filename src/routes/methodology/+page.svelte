@@ -57,6 +57,12 @@
             Maps of the downtown areas for each city can be found <a href="./downtown_definitions.pdf">here</a>.
         </p>
 
+        <h2>Website:</h2>
+
+        <p>
+            This website was built using Svelte with a bit of D3 for the charts. Code is on <a href="https://github.com/schoolofcities/downtown-recovery">GitHub</a>
+        </p>
+
     </div>
 
     <div class="text"></div>
