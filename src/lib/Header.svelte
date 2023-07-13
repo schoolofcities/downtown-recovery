@@ -29,7 +29,7 @@
 	<div id="logo">
 		<a href="https://www.schoolofcities.utoronto.ca/"><img src={logo} alt="School of Cities"></a>
 	</div>
-	<p><a href="{baseUrl}">Downtown Recovery</a></p>
+	<p><a href="/">Downtown Recovery</a></p>
 
 	<!-- <img id="line-chart" src='../line-graphic.svg' alt="img" /> -->
 
