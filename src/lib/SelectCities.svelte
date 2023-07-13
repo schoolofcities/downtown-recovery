@@ -8,7 +8,7 @@
   export let id = '';
   export let value = [];
   export let readonly = false;
-  export let placeholder = 'Select cities...';
+  export let placeholder = ' Select cities...';
 
     let input, 
     inputValue, 
@@ -136,6 +136,7 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    font-size: 14px;
   }
   .tokens::after {    
     background: none repeat scroll 0 0 transparent;
@@ -155,12 +156,11 @@
   }
   .token {
     align-items: center;
-    
-    border-radius: 1.25rem;
+    border-radius: 0px;
     display: flex;
     margin: .25rem .5rem .25rem 0;
     max-height: 1.3rem;
-    padding: .25rem .5rem .25rem .5rem;
+    padding: .20rem .25rem .20rem .35rem;
     transition: background-color .3s;
     white-space: nowrap;
   }
@@ -195,13 +195,14 @@
 
   input {
     border: none;
-    font-size: 1.5rem;
+    font-size: 15px;
     line-height: 1.5rem;
 		margin: 0;
     outline: none;
-		padding: 0;
+		padding: 5;
     width: 100%;
-    background-color:hsl(215, 21%, 43%);
+    background-color:var(--brandBlack);
+    border: solid 1px var(--brandDarkBlue);
     color:white;
   }
 

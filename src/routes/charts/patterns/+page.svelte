@@ -245,6 +245,9 @@ function computeSelectedXValue(dat, value) {
             They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. 
         </p>
         <p>
+            Each data point on this chart is an 11-week rolling average, with the noted date as the end-point of its range.
+        </p>
+        <p>
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
@@ -457,8 +460,8 @@ function computeSelectedXValue(dat, value) {
         }
       title={undefined}
       x={mousePosition.x + 180 > chartWidth
-        ? mousePosition.x - 195
-        : mousePosition.x + 15}
+        ? mousePosition.x - 205
+        : mousePosition.x + 5}
       y={0}
       backgroundColor="#191919"
       opacity="0.5"
