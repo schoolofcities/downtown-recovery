@@ -69,9 +69,6 @@
 
     $: xAxisIntervalSpacing = (chartWidth - 50) / (xAxisIntervals.length - 1);
 
-    $: console.log(xAxisIntervals);
-    $: console.log(xAxisIntervalSpacing);
-
 
 </script>
 
