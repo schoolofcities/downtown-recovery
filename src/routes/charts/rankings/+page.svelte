@@ -268,7 +268,6 @@
         margin-top: 10px;
         margin-bottom: 10px;
         background-color: var(--brandGray90);
-        background-color: black;
     }
 
     .grid {
