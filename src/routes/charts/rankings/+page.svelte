@@ -67,7 +67,7 @@
         {xAxisIntervals = generateXaxisIntervals(maxValue, 0.5)
     } ;
 
-    $: xAxisIntervalSpacing = (chartWidth - 40) / (xAxisIntervals.length - 1);
+    $: xAxisIntervalSpacing = (chartWidth - 50) / (xAxisIntervals.length - 1);
 
 
 </script>
@@ -156,7 +156,7 @@
                 <line class="bar"
                     x1 = {29}
                     y1 = {52 + i * 24}
-                    x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals)}
+                    x2 = {29 + ((chartWidth - 50) * d.seasonal_average / Math.max(... xAxisIntervals))}
                     y2 = {52 + i * 24}
                     style = "
                         stroke: white;
@@ -167,7 +167,7 @@
                 <line class="bar"
                     x1 = {30}
                     y1 = {52 + i * 24}
-                    x2 = {d.seasonal_average * (chartWidth - 29) / Math.max(... xAxisIntervals) - 1}
+                    x2 = {29 + ((chartWidth - 50) * d.seasonal_average / Math.max(... xAxisIntervals)) - 1}
                     y2 = {52 + i * 24}
                     style = "
                         stroke: {regionColours.find(region => region.name === d.region).colour};
@@ -268,6 +268,7 @@
         margin-top: 10px;
         margin-bottom: 10px;
         background-color: var(--brandGray90);
+        background-color: black;
     }
 
     .grid {
