@@ -19,6 +19,11 @@
     let variablesData = [];
     let filteredData = [];
     let chartData = [];
+    let dataDictionary = [];
+
+    let selectedVariableTitle = "";
+    let selectedVariableSource= "";
+    let selectedVariableGroup= "";
 
     const regionColours = $regions;
 
@@ -42,9 +47,22 @@
         }
     }
 
+    async function loadDataDictionary() {
+        try {
+            const response = await fetch('../variables_data_dictionary.csv');
+            const csvData = await response.text();
+            dataDictionary = csvParse(csvData);
+            console.log(dataDictionary);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
+
     onMount(() => {
         loadDataRecovery();
         loadDataVariables();
+        loadDataDictionary();
+        
     });
 
     $: filteredData = recoveryData
@@ -62,8 +80,11 @@
         return Object.assign({}, obj1, matchedObj);
     });
 
-    // $: console.log(filteredData);
-    // $: console.log(chartData);
+
+    // variable names
+   $: selectedVariableSource = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["source"] : null;
+   $: selectedVariableTitle = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["text"] : null;
+   $: selectedVariableGroup = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["group"] : null;
 
 
 
@@ -326,6 +347,14 @@
             {/if}
             
         </svg>
+
+        <div class="text">
+            <p><i>Variable Name:</i> {selectedVariableTitle}</p>
+            <p><i>Group:</i> {selectedVariableGroup}</p>
+            <p><i>Source:</i> {selectedVariableSource}</p>
+            <br>
+            <br>
+        </div>
 
         <br>
         <br>

@@ -4,7 +4,17 @@
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
 
+    let initialVariable;
+
     let dataDictionary = [];
+    let dataDictionaryCommuting = [];
+    let dataDictionaryCovid = [];
+    let dataDictionaryDemographics = [];
+    let dataDictionaryEmployment = [];
+    let dataDictionaryHousing = [];
+    let dataDictionaryIncome = [];
+    let dataDictionaryPolitics = [];
+    let dataDictionaryWeather = [];
 
     async function loadDataDictionary() {
         try {
@@ -17,12 +27,19 @@
         }
     }
 
-    let initialVariable;
-
     onMount(() => {
         loadDataDictionary();
         initialVariable = $selectedVariable;
     });
+
+    $: dataDictionaryCommuting = dataDictionary.filter(obj => obj.group === "Commuting");
+    $: dataDictionaryCovid = dataDictionary.filter(obj => obj.group === "COVID-19 Closures");
+    $: dataDictionaryDemographics = dataDictionary.filter(obj => obj.group === "Demographics");
+    $: dataDictionaryEmployment = dataDictionary.filter(obj => obj.group === "Employment")
+    $: dataDictionaryHousing = dataDictionary.filter(obj => obj.group === "Housing")
+    $: dataDictionaryIncome = dataDictionary.filter(obj => obj.group === "Income")
+    $: dataDictionaryPolitics = dataDictionary.filter(obj => obj.group === "Political Leaning")
+    $: dataDictionaryWeather = dataDictionary.filter(obj => obj.group === "Weather")
     
     function handleChange(event) {
         const selectedValue = event.target.value;
@@ -33,9 +50,46 @@
 
 <p>Select Variable:</p>
 <select value={initialVariable} on:change={handleChange}>
-    {#each dataDictionary as v}
-        <option value={v.value}>{v.text}</option>
-    {/each}
+    <optgroup label="Demographics">
+        {#each dataDictionaryDemographics as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Employment">
+        {#each dataDictionaryEmployment as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Income">
+        {#each dataDictionaryIncome as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Housing">
+        {#each dataDictionaryHousing as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Commuting">
+        {#each dataDictionaryCommuting as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Weather">
+        {#each dataDictionaryWeather as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="COVID-19 Closures">
+        {#each dataDictionaryCovid as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Political Leaning">
+        {#each dataDictionaryPolitics as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
 </select>
 
 
