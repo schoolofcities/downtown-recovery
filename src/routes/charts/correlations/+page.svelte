@@ -7,6 +7,7 @@
 
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
+    import { sampleCorrelation, linearRegression } from 'simple-statistics';
 
     import { season, selectedRegions, regions, selectedVariable } from '../../../lib/stores.js';
 
@@ -20,6 +21,8 @@
     let filteredData = [];
     let chartData = [];
     let dataDictionary = [];
+    let dataCorrelation = 0;
+    let dataLinearRegression;
 
     let selectedVariableTitle = "";
     let selectedVariableSource= "";
@@ -62,7 +65,6 @@
         loadDataRecovery();
         loadDataVariables();
         loadDataDictionary();
-        
     });
 
     $: filteredData = recoveryData
@@ -79,6 +81,27 @@
         });
         return Object.assign({}, obj1, matchedObj);
     });
+
+
+    $: dataCorrelation =
+        chartData.length > 0 ? 
+            sampleCorrelation(
+                chartData.map(obj => parseFloat(obj[xVariable])), 
+                chartData.map(obj => parseFloat(obj.seasonal_average))
+            ) : 
+            null;
+
+    $: dataLinearRegression =
+        chartData.length > 0 ? 
+        linearRegression(
+            chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+        ) : null;
+
+    $: console.log(dataCorrelation, dataLinearRegression);
+
+    
+
+
 
 
     // variable info to print at bottom
