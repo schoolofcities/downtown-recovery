@@ -7,6 +7,7 @@
     let initialVariable;
 
     let dataDictionary = [];
+    
     let dataDictionaryCommuting = [];
     let dataDictionaryCovid = [];
     let dataDictionaryDemographics = [];

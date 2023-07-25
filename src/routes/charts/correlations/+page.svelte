@@ -81,10 +81,11 @@
     });
 
 
-    // variable names
-   $: selectedVariableSource = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["source"] : null;
-   $: selectedVariableTitle = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["text"] : null;
-   $: selectedVariableGroup = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["group"] : null;
+    // variable info to print at bottom
+
+    $: selectedVariableSource = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["source"] : null;
+    $: selectedVariableTitle = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["text"] : null;
+    $: selectedVariableGroup = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["group"] : null;
 
 
 
