@@ -384,10 +384,10 @@
         </svg>
 
         <div class="text">
-            <p><i>Variable Name:</i> {selectedVariableTitle}</p>
-            <p><i>Group:</i> {selectedVariableGroup}</p>
-            <p><i>Correlation Coefficient:</i> {dataCorrelation.toFixed(3)}</p>
-            <p><i>Data Source:</i> {selectedVariableSource}</p>
+            <p><i class="italic">Variable Name:</i> {selectedVariableTitle}</p>
+            <p><i class="italic">Group:</i> {selectedVariableGroup}</p>
+            <p><i class="italic">Correlation Coefficient:</i> {dataCorrelation.toFixed(3)}</p>
+            <p><i class="italic">Data Source:</i> {selectedVariableSource}</p>
             <br>
             <br>
         </div>

@@ -80,3 +80,7 @@ a:hover {
     font-size: 24px;
     color: var(--brandYellow);
 }
+
+.italic {
+    color: var(--brandGray);
+}
