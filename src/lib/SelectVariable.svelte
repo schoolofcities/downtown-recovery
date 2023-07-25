@@ -17,23 +17,12 @@
         }
     }
 
+    let initialVariable;
+
     onMount(() => {
         loadDataDictionary();
+        initialVariable = $selectedVariable;
     });
-
-    const variables = [
-        {
-            "value": "total_pop_city",
-            "text": "Metro population"
-        },
-        {
-            "value": "population_density_city",
-            "text": "City-wide Population Density"
-        }
-    ]
-
-
-    let initialVariable = $selectedVariable;
     
     function handleChange(event) {
         const selectedValue = event.target.value;
