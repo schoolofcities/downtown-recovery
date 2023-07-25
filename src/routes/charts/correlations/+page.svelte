@@ -12,8 +12,6 @@
 
     import "../../../assets/global.css";
 
-    const baseUrl = '/downtown-recovery';
-
 
     // initial loading data and dynamic filtering
 
@@ -171,9 +169,6 @@
         <p>
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased from the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
-        <p>
-            For more information, read our <a href="{baseUrl}/methodology">Methodology</a> page. 
-        </p>
 
     </div>
 
@@ -188,8 +183,6 @@
             </div>
             <SelectVariable/>
         </div>
-
-        
 
         <svg height={chartHeight} width={chartWidth} id="chart">
 

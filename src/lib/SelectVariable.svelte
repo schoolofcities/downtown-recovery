@@ -1,6 +1,25 @@
 <script>
     import { selectedVariable } from './stores.js';
     import '../assets/global.css';
+    import { onMount } from 'svelte';
+    import { csvParse } from 'd3-dsv';
+
+    let dataDictionary = [];
+
+    async function loadDataDictionary() {
+        try {
+            const response = await fetch('../variables_data_dictionary.csv');
+            const csvData = await response.text();
+            dataDictionary = csvParse(csvData);
+            console.log(dataDictionary);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
+
+    onMount(() => {
+        loadDataDictionary();
+    });
 
     const variables = [
         {
@@ -10,93 +29,11 @@
         {
             "value": "population_density_city",
             "text": "City-wide Population Density"
-        },
-        {
-            "value": "housing_units_city",
-            "text": "City-wide Total Housing Stock"
-        },
-        {
-            "value": "housing_density_city",
-            "text": "City-wide Housing Density"
-        },
-        {
-            "value": "pct_renter_city",
-            "text": "City-wide Percentage of Rented-Occupied Units"
-        },
-        {
-            "value": "pct_singlefam_city",
-            "text": "City-wide Percentage of Single-Family Homes"
-        },
-        {
-            "value": "pct_multifam_city",
-            "text": "City-wide Percentage of Multi-Family Homes"
-        },
-        {
-            "value": "median_age_city",
-            "text": "City-wide Median Age of Residents"
-        },
-        {
-            "value": "bachelor_plus_city",
-            "text": "City-wide Percentage of Residents with a Bachelor's Degree or Higher"
-        },
-        {
-            "value": "pct_vacant_city",
-            "text": "City-wide Percentage of Vacant Housing Units"
-        },
-        {
-            "value": "median_rent_city",
-            "text": "City-wide Median Rent of Housing Units"
-        },
-        {
-            "value": "median_hhinc_city",
-            "text": "City-wide Median Household Income of Residents"
-        },
-        {
-            "value": "pct_nhwhite_city",
-            "text": "City-wide Percentage of White Residents"
-        },
-        {
-            "value": "pct_nhblack_city",
-            "text": "City-wide Percentage of Black Residents"
-        },
-        {
-            "value": "pct_hisp_city",
-            "text": "City-wide Percentage of Hispanic Residents"
-        },
-        {
-            "value": "pct_nhasian_city",
-            "text": "City-wide Percentage of Asian Residents"
-        },
-        {
-            "value": "pct_commute_auto_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Car"
-        },
-        {
-            "value": "pct_commute_public_transit_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Public Transit"
-        },
-        {
-            "value": "pct_commute_bicycle_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Bicycle"
-        },
-        {
-            "value": "pct_commute_walk_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Walking"
-        },
-        {
-            "value": "pct_commute_others_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Other Modes"
-        },
-        {
-            "value": "average_commute_time_city",
-            "text": "City-wide Average Commute Time"
         }
     ]
 
 
     let initialVariable = $selectedVariable;
-
-    
     
     function handleChange(event) {
         const selectedValue = event.target.value;
@@ -107,7 +44,7 @@
 
 <p>Select Variable:</p>
 <select value={initialVariable} on:change={handleChange}>
-    {#each variables as v}
+    {#each dataDictionary as v}
         <option value={v.value}>{v.text}</option>
     {/each}
 </select>
