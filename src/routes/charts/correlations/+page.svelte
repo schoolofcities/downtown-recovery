@@ -83,22 +83,7 @@
     });
 
 
-    $: dataCorrelation =
-        chartData.length > 0 ? 
-            sampleCorrelation(
-                chartData.map(obj => parseFloat(obj[xVariable])), 
-                chartData.map(obj => parseFloat(obj.seasonal_average))
-            ) : 
-            null;
-
-    $: dataLinearRegression =
-        chartData.length > 0 ? 
-        linearRegression(
-            chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
-        ) : null;
-
-    $: console.log(dataCorrelation, dataLinearRegression);
-
+    
     
 
 
@@ -192,6 +177,23 @@
 	};
 
 
+
+    // correlation and trend line
+
+    $: dataCorrelation =
+        chartData.length > 0 ? 
+        sampleCorrelation(
+            chartData.map(obj => parseFloat(obj[xVariable])), 
+            chartData.map(obj => parseFloat(obj.seasonal_average))
+        ) : 0;
+
+    $: dataLinearRegression =
+        chartData.length > 0 ? 
+        linearRegression(
+            chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+        ) : null;
+
+    $: console.log(dataCorrelation, dataLinearRegression);
 
 
 </script>
@@ -384,7 +386,8 @@
         <div class="text">
             <p><i>Variable Name:</i> {selectedVariableTitle}</p>
             <p><i>Group:</i> {selectedVariableGroup}</p>
-            <p><i>Source:</i> {selectedVariableSource}</p>
+            <p><i>Correlation Coefficient:</i> {dataCorrelation.toFixed(3)}</p>
+            <p><i>Data Source:</i> {selectedVariableSource}</p>
             <br>
             <br>
         </div>
