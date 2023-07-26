@@ -262,7 +262,10 @@
             Downtown Recovery Correlations
         </h1>
         <p>
-            The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data. 
+            The following charts show the relationships and correlations between downtown recovery rates (y-axis) and a number of potential explanatory variables (x-axis).
+        </p>
+        <p>
+            The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data.
         </p>
         <p>    
             They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
@@ -363,7 +366,9 @@
                     chartHeight - 40,
                     parseFloat(dataTrendLine[1][1])
                 )}  
-                style="stroke:gray;stroke-width:2" 
+                stroke="#D0D1C9"
+                stroke-width="1.5"
+                stroke-dasharray="4 2"
             />
 
 
