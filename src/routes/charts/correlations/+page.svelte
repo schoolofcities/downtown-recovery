@@ -23,6 +23,9 @@
     let dataDictionary = [];
     let dataCorrelation = 0;
     let dataLinearRegression;
+    let dataTrendLineSlope = 0;
+    let dataTrendLineIntercept = 0;
+    let dataTrendLine = [[0,0],[1,1]];
 
     let selectedVariableTitle = "";
     let selectedVariableSource= "";
@@ -195,6 +198,54 @@
 
     $: console.log(dataCorrelation, dataLinearRegression);
 
+    function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
+        let x1, y1, x2, y2;
+
+        let y_xmin = m * xmin + b;
+        if (y_xmin >= ymin && y_xmin <= ymax) {
+            x1 = xmin;
+            y1 = y_xmin;
+        } else if (m > 0) {
+            x1 = (ymin - b) / m;
+            y1 = ymin;
+        } else {
+            x1 = (ymax - b) / m;
+            y1 = ymax;
+        };
+
+        let y_xmax = m * xmax + b
+        if (y_xmax >= ymin && y_xmax <= ymax) {
+            x2 = xmax;
+            y2 = y_xmax;
+        } else if (m > 0) {
+            x2 = (ymax - b) / m;
+            y2 = ymax;
+        } else {
+            x2 = (ymin - b) / m;
+            y2 = ymin;
+        }
+        
+        return [[x1, y1], [x2, y2]];
+    }
+
+    $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1,1]];
+
+    $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
+    $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
+
+    $: console.log(dataTrendLine);
+
+    function formatNumber(x) {
+    const threshold = 0.001; // Threshold for determining when to switch to scientific notation
+
+    if (Math.abs(x) < threshold) {
+        return x.toExponential(2); // Use scientific notation with two decimal points
+    } else if (Math.abs(x) >= 1000) {
+        return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+    } else {
+        return x.toFixed(2); // Round to two decimal points for other numbers
+    }
+    }
 
 </script>
 
@@ -290,6 +341,33 @@
 
             {/each}
 
+
+            <line 
+                x1={45 + xScale(
+                    [0, maxXaxis],
+                    xAxisWidth,
+                    parseFloat(dataTrendLine[0][0])
+                    )}
+                y1={30 + yScale(
+                    yAxisRange,
+                    chartHeight - 40,
+                    parseFloat(dataTrendLine[0][1])
+                )} 
+                x2={45 + xScale(
+                    [0, maxXaxis],
+                    xAxisWidth,
+                    parseFloat(dataTrendLine[1][0])
+                    )} 
+                y2={30 + yScale(
+                    yAxisRange,
+                    chartHeight - 40,
+                    parseFloat(dataTrendLine[1][1])
+                )}  
+                style="stroke:gray;stroke-width:2" 
+            />
+
+
+
             {#each chartData as d, i}
 
                 {#if d[$selectedVariable] >= 0}
@@ -384,9 +462,10 @@
         </svg>
 
         <div class="text">
-            <p><i class="italic">Variable Name:</i> {selectedVariableTitle}</p>
+            <p><i class="italic">X-Variable Name:</i> {selectedVariableTitle}</p>
             <p><i class="italic">Group:</i> {selectedVariableGroup}</p>
             <p><i class="italic">Correlation Coefficient:</i> {dataCorrelation.toFixed(3)}</p>
+            <p><i class="italic">Trend Line Formula</i>: Recovery Rate (%) = {formatNumber(dataTrendLineSlope)} X + {dataTrendLineIntercept.toFixed(2)}</p>
             <p><i class="italic">Data Source:</i> {selectedVariableSource}</p>
             <br>
             <br>
