@@ -7,12 +7,11 @@
 
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
+    import { sampleCorrelation, linearRegression } from 'simple-statistics';
 
     import { season, selectedRegions, regions, selectedVariable } from '../../../lib/stores.js';
 
     import "../../../assets/global.css";
-
-    const baseUrl = '/downtown-recovery';
 
 
     // initial loading data and dynamic filtering
@@ -21,6 +20,18 @@
     let variablesData = [];
     let filteredData = [];
     let chartData = [];
+    let dataDictionary = [];
+    let dataCorrelation = 0;
+    let dataLinearRegression;
+    let dataLinearRegressionR2 = 0;
+    let dataTrendLineSlope = 0;
+    let dataTrendLineIntercept = 0;
+    let dataTrendLine = [[0,0],[1,1]];
+    
+
+    let selectedVariableTitle = "";
+    let selectedVariableSource= "";
+    let selectedVariableGroup= "";
 
     const regionColours = $regions;
 
@@ -44,9 +55,20 @@
         }
     }
 
+    async function loadDataDictionary() {
+        try {
+            const response = await fetch('../variables_data_dictionary.csv');
+            const csvData = await response.text();
+            dataDictionary = csvParse(csvData);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+    }
+
     onMount(() => {
         loadDataRecovery();
         loadDataVariables();
+        loadDataDictionary();
     });
 
     $: filteredData = recoveryData
@@ -64,8 +86,14 @@
         return Object.assign({}, obj1, matchedObj);
     });
 
-    // $: console.log(filteredData);
-    // $: console.log(chartData);
+
+
+
+    // variable info to print at bottom
+
+    $: selectedVariableSource = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["source"] : null;
+    $: selectedVariableTitle = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["text"] : null;
+    $: selectedVariableGroup = dataDictionary.length > 0 ? dataDictionary.filter(obj => obj.value === $selectedVariable)[0]["group"] : null;
 
 
 
@@ -150,6 +178,67 @@
 
 
 
+    // correlation and trend line
+
+    $: dataCorrelation =
+        chartData.length > 0 ? 
+        sampleCorrelation(
+            chartData.map(obj => parseFloat(obj[xVariable])), 
+            chartData.map(obj => parseFloat(obj.seasonal_average))
+        ) : 0;
+
+    $: dataLinearRegression =
+        chartData.length > 0 ? 
+        linearRegression(
+            chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+        ) : null;
+
+    function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
+        let x1, y1, x2, y2;
+
+        let y_xmin = m * xmin + b;
+        if (y_xmin >= ymin && y_xmin <= ymax) {
+            x1 = xmin;
+            y1 = y_xmin;
+        } else if (m > 0) {
+            x1 = (ymin - b) / m;
+            y1 = ymin;
+        } else {
+            x1 = (ymax - b) / m;
+            y1 = ymax;
+        };
+
+        let y_xmax = m * xmax + b
+        if (y_xmax >= ymin && y_xmax <= ymax) {
+            x2 = xmax;
+            y2 = y_xmax;
+        } else if (m > 0) {
+            x2 = (ymax - b) / m;
+            y2 = ymax;
+        } else {
+            x2 = (ymin - b) / m;
+            y2 = ymin;
+        }
+        
+        return [[x1, y1], [x2, y2]];
+    }
+
+    $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1,1]];
+
+    $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
+    $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
+
+    function formatNumber(x) {
+    const threshold = 0.001; // Threshold for determining when to switch to scientific notation
+
+    if (Math.abs(x) < threshold) {
+        return x.toExponential(2); // Use scientific notation with two decimal points
+    } else if (Math.abs(x) >= 1000) {
+        return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+    } else {
+        return x.toFixed(2); // Round to two decimal points for other numbers
+    }
+    }
 
 </script>
 
@@ -166,13 +255,22 @@
             Downtown Recovery Correlations
         </h1>
         <p>
-            The recovery metrics on these charts are computed by counting the number unique visitors in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Visits are based on a sample of mobile phone data.
+            The following charts show the relationships and correlations between downtown recovery rates (y-axis) and a number of potential explanatory variables (x-axis).
         </p>
         <p>
-            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased from the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
+            The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data.
+        </p>
+        <p>    
+            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
         </p>
         <p>
-            For more information, read our <a href="{baseUrl}/methodology">Methodology</a> page. 
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels. Click <a href="/ranking_data.csv">here</a> to download the y-axis data shown on this chart. 
+        </p>
+        <p>
+            The data on the x-axis comes from a variety of sources. The full dataset including all variables in the drop-down can be downloaded <a href="/variables_data.csv">here</a>. You may also wish to download a <a href="/variables_data_dictionary.csv">data dictionary</a>, which includes the names of data sources for each variable.
+        </p>
+        <p>
+            For more information, read our <a href="/methodology">Methodology</a> page.
         </p>
 
     </div>
@@ -188,8 +286,6 @@
             </div>
             <SelectVariable/>
         </div>
-
-        
 
         <svg height={chartHeight} width={chartWidth} id="chart">
 
@@ -240,6 +336,32 @@
                 ></line>
 
             {/each}
+
+            <line 
+                x1={45 + xScale(
+                    [0, maxXaxis],
+                    xAxisWidth,
+                    parseFloat(dataTrendLine[0][0])
+                    )}
+                y1={30 + yScale(
+                    yAxisRange,
+                    chartHeight - 40,
+                    parseFloat(dataTrendLine[0][1])
+                )} 
+                x2={45 + xScale(
+                    [0, maxXaxis],
+                    xAxisWidth,
+                    parseFloat(dataTrendLine[1][0])
+                    )} 
+                y2={30 + yScale(
+                    yAxisRange,
+                    chartHeight - 40,
+                    parseFloat(dataTrendLine[1][1])
+                )}  
+                stroke="#D0D1C9"
+                stroke-width="1.5"
+                stroke-dasharray="4 2"
+            />
 
             {#each chartData as d, i}
 
@@ -302,8 +424,6 @@
 
             {#if selected_datapoint != undefined}
 
-           
-
             <foreignObject
                 x={(parseFloat(selected_datapoint[$selectedVariable]) < maxXaxis / 2 ? 0 : -145) + 55 + xScale(
                     [0, maxXaxis],
@@ -333,6 +453,16 @@
             {/if}
             
         </svg>
+
+        <div class="text">
+            <p><i class="italic">X-Variable Name:</i> {selectedVariableTitle}</p>
+            <p><i class="italic">Group:</i> {selectedVariableGroup}</p>
+            <p><i class="italic">Correlation Coefficient:</i> {dataCorrelation.toFixed(3)}</p>
+            <p><i class="italic">Trend Line Formula</i>: Recovery Rate (%) = {formatNumber(dataTrendLineSlope)} X + {dataTrendLineIntercept.toFixed(2)}</p>
+            <p><i class="italic">Data Source:</i> {selectedVariableSource}</p>
+            <br>
+            <br>
+        </div>
 
         <br>
         <br>
@@ -375,12 +505,6 @@
         overflow: hidden;
     }
 
-    #note {
-        color: var(--brandGray);
-        font-size: 13px;
-        text-align: right;
-    }
-
     #chart {
         margin-top: 30px;
         margin-bottom: 10px;
@@ -400,11 +524,6 @@
     .axis-label {
         fill: var(--brandGray);
         font-size: 14px;
-    }
-
-    .bar-label {
-        /* fill: var(--brandWhite); */
-        font-size: 13px;
     }
 
     .point-white {

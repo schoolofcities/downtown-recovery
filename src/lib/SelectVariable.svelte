@@ -1,102 +1,45 @@
 <script>
     import { selectedVariable } from './stores.js';
     import '../assets/global.css';
+    import { onMount } from 'svelte';
+    import { csvParse } from 'd3-dsv';
 
-    const variables = [
-        {
-            "value": "total_pop_city",
-            "text": "Metro population"
-        },
-        {
-            "value": "population_density_city",
-            "text": "City-wide Population Density"
-        },
-        {
-            "value": "housing_units_city",
-            "text": "City-wide Total Housing Stock"
-        },
-        {
-            "value": "housing_density_city",
-            "text": "City-wide Housing Density"
-        },
-        {
-            "value": "pct_renter_city",
-            "text": "City-wide Percentage of Rented-Occupied Units"
-        },
-        {
-            "value": "pct_singlefam_city",
-            "text": "City-wide Percentage of Single-Family Homes"
-        },
-        {
-            "value": "pct_multifam_city",
-            "text": "City-wide Percentage of Multi-Family Homes"
-        },
-        {
-            "value": "median_age_city",
-            "text": "City-wide Median Age of Residents"
-        },
-        {
-            "value": "bachelor_plus_city",
-            "text": "City-wide Percentage of Residents with a Bachelor's Degree or Higher"
-        },
-        {
-            "value": "pct_vacant_city",
-            "text": "City-wide Percentage of Vacant Housing Units"
-        },
-        {
-            "value": "median_rent_city",
-            "text": "City-wide Median Rent of Housing Units"
-        },
-        {
-            "value": "median_hhinc_city",
-            "text": "City-wide Median Household Income of Residents"
-        },
-        {
-            "value": "pct_nhwhite_city",
-            "text": "City-wide Percentage of White Residents"
-        },
-        {
-            "value": "pct_nhblack_city",
-            "text": "City-wide Percentage of Black Residents"
-        },
-        {
-            "value": "pct_hisp_city",
-            "text": "City-wide Percentage of Hispanic Residents"
-        },
-        {
-            "value": "pct_nhasian_city",
-            "text": "City-wide Percentage of Asian Residents"
-        },
-        {
-            "value": "pct_commute_auto_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Car"
-        },
-        {
-            "value": "pct_commute_public_transit_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Public Transit"
-        },
-        {
-            "value": "pct_commute_bicycle_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Bicycle"
-        },
-        {
-            "value": "pct_commute_walk_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Walking"
-        },
-        {
-            "value": "pct_commute_others_city",
-            "text": "City-wide Percentage of Residents who Commute to Work by Other Modes"
-        },
-        {
-            "value": "average_commute_time_city",
-            "text": "City-wide Average Commute Time"
+    let initialVariable;
+
+    let dataDictionary = [];
+
+    let dataDictionaryCommuting = [];
+    let dataDictionaryCovid = [];
+    let dataDictionaryDemographics = [];
+    let dataDictionaryEmployment = [];
+    let dataDictionaryHousing = [];
+    let dataDictionaryIncome = [];
+    let dataDictionaryPolitics = [];
+    let dataDictionaryWeather = [];
+
+    async function loadDataDictionary() {
+        try {
+            const response = await fetch('../variables_data_dictionary.csv');
+            const csvData = await response.text();
+            dataDictionary = csvParse(csvData);
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
         }
-    ]
+    }
 
+    onMount(() => {
+        loadDataDictionary();
+        initialVariable = $selectedVariable;
+    });
 
-    let initialVariable = $selectedVariable;
-
-    
+    $: dataDictionaryCommuting = dataDictionary.filter(obj => obj.group === "Commuting");
+    $: dataDictionaryCovid = dataDictionary.filter(obj => obj.group === "COVID-19 Closures");
+    $: dataDictionaryDemographics = dataDictionary.filter(obj => obj.group === "Demographics");
+    $: dataDictionaryEmployment = dataDictionary.filter(obj => obj.group === "Employment")
+    $: dataDictionaryHousing = dataDictionary.filter(obj => obj.group === "Housing")
+    $: dataDictionaryIncome = dataDictionary.filter(obj => obj.group === "Income")
+    $: dataDictionaryPolitics = dataDictionary.filter(obj => obj.group === "Political Leaning")
+    $: dataDictionaryWeather = dataDictionary.filter(obj => obj.group === "Weather")
     
     function handleChange(event) {
         const selectedValue = event.target.value;
@@ -107,9 +50,46 @@
 
 <p>Select Variable:</p>
 <select value={initialVariable} on:change={handleChange}>
-    {#each variables as v}
-        <option value={v.value}>{v.text}</option>
-    {/each}
+    <optgroup label="Demographics">
+        {#each dataDictionaryDemographics as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Employment">
+        {#each dataDictionaryEmployment as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Income">
+        {#each dataDictionaryIncome as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Housing">
+        {#each dataDictionaryHousing as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Commuting">
+        {#each dataDictionaryCommuting as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Weather">
+        {#each dataDictionaryWeather as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="COVID-19 Closures">
+        {#each dataDictionaryCovid as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
+    <optgroup label="Political Leaning">
+        {#each dataDictionaryPolitics as v}
+            <option value={v.value}>{v.text}</option>
+        {/each}
+    </optgroup>
 </select>
 
 
