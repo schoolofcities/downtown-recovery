@@ -23,9 +23,11 @@
     let dataDictionary = [];
     let dataCorrelation = 0;
     let dataLinearRegression;
+    let dataLinearRegressionR2 = 0;
     let dataTrendLineSlope = 0;
     let dataTrendLineIntercept = 0;
     let dataTrendLine = [[0,0],[1,1]];
+    
 
     let selectedVariableTitle = "";
     let selectedVariableSource= "";
@@ -58,7 +60,6 @@
             const response = await fetch('../variables_data_dictionary.csv');
             const csvData = await response.text();
             dataDictionary = csvParse(csvData);
-            console.log(dataDictionary);
         } catch (error) {
             console.error('Error loading CSV data:', error);
         }
@@ -84,10 +85,6 @@
         });
         return Object.assign({}, obj1, matchedObj);
     });
-
-
-    
-    
 
 
 
@@ -196,8 +193,6 @@
             chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
         ) : null;
 
-    $: console.log(dataCorrelation, dataLinearRegression);
-
     function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
         let x1, y1, x2, y2;
 
@@ -232,8 +227,6 @@
 
     $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
     $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
-
-    $: console.log(dataTrendLine);
 
     function formatNumber(x) {
     const threshold = 0.001; // Threshold for determining when to switch to scientific notation
@@ -344,7 +337,6 @@
 
             {/each}
 
-
             <line 
                 x1={45 + xScale(
                     [0, maxXaxis],
@@ -370,8 +362,6 @@
                 stroke-width="1.5"
                 stroke-dasharray="4 2"
             />
-
-
 
             {#each chartData as d, i}
 
@@ -433,8 +423,6 @@
             {/each}
 
             {#if selected_datapoint != undefined}
-
-           
 
             <foreignObject
                 x={(parseFloat(selected_datapoint[$selectedVariable]) < maxXaxis / 2 ? 0 : -145) + 55 + xScale(
@@ -517,12 +505,6 @@
         overflow: hidden;
     }
 
-    #note {
-        color: var(--brandGray);
-        font-size: 13px;
-        text-align: right;
-    }
-
     #chart {
         margin-top: 30px;
         margin-bottom: 10px;
@@ -542,11 +524,6 @@
     .axis-label {
         fill: var(--brandGray);
         font-size: 14px;
-    }
-
-    .bar-label {
-        /* fill: var(--brandWhite); */
-        font-size: 13px;
     }
 
     .point-white {

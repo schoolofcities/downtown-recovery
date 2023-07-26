@@ -7,7 +7,7 @@
     let initialVariable;
 
     let dataDictionary = [];
-    
+
     let dataDictionaryCommuting = [];
     let dataDictionaryCovid = [];
     let dataDictionaryDemographics = [];
@@ -22,7 +22,6 @@
             const response = await fetch('../variables_data_dictionary.csv');
             const csvData = await response.text();
             dataDictionary = csvParse(csvData);
-            console.log(dataDictionary);
         } catch (error) {
             console.error('Error loading CSV data:', error);
         }
