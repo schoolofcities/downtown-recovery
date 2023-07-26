@@ -235,8 +235,10 @@
         return x.toExponential(2); // Use scientific notation with two decimal points
     } else if (Math.abs(x) >= 1000) {
         return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+    } else if (Math.abs(x) >= 10) {
+        return x.toFixed(2);
     } else {
-        return x.toFixed(2); // Round to two decimal points for other numbers
+        return x.toFixed(4); // Round to two decimal points for other numbers
     }
     }
 
