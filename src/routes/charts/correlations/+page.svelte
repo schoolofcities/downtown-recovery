@@ -23,7 +23,6 @@
     let dataDictionary = [];
     let dataCorrelation = 0;
     let dataLinearRegression;
-    let dataLinearRegressionR2 = 0;
     let dataTrendLineSlope = 0;
     let dataTrendLineIntercept = 0;
     let dataTrendLine = [[0,0],[1,1]];
@@ -235,8 +234,10 @@
         return x.toExponential(2); // Use scientific notation with two decimal points
     } else if (Math.abs(x) >= 1000) {
         return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+    } else if (Math.abs(x) >= 10) {
+        return x.toFixed(2);
     } else {
-        return x.toFixed(2); // Round to two decimal points for other numbers
+        return x.toFixed(4); // Round to two decimal points for other numbers
     }
     }
 
@@ -255,13 +256,10 @@
             Downtown Recovery Correlations
         </h1>
         <p>
-            The following charts show the relationships and correlations between downtown recovery rates (y-axis) and a number of potential explanatory variables (x-axis).
+            This page charts scatter plots of downtown recovery rates (y-axis) relative to a number of other urban variables (x-axis). While these charts indicate bivariate relationships, and in some cases reveal potential correlations, they should be interpreted with caution as they do not imply direct causation.
         </p>
         <p>
-            The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data.
-        </p>
-        <p>    
-            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
+            The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data. They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
         </p>
         <p>
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels. Click <a href="/ranking_data.csv">here</a> to download the y-axis data shown on this chart. 
