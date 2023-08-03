@@ -46,7 +46,7 @@
 
     async function loadDataVariables() {
         try {
-            const response = await fetch('../variables_data_v2.csv');
+            const response = await fetch('../variables_data.csv');
             const csvData = await response.text();
             variablesData = csvParse(csvData);
         } catch (error) {
@@ -131,7 +131,6 @@
     $: yAxisRange = [Math.min(...yAxisIntervals), Math.max(...yAxisIntervals)];
 
 
-
     // x axis
 
     let xVariable;
@@ -179,17 +178,23 @@
 
     // correlation and trend line
 
+    let filteredChartData = [];
+    $: filteredChartData = chartData.filter(e => !isNaN(parseFloat(e[xVariable])));
+
+    $: console.log(filteredChartData);
+
+
     $: dataCorrelation =
-        chartData.length > 0 ? 
+    filteredChartData.length > 0 ? 
         sampleCorrelation(
-            chartData.map(obj => parseFloat(obj[xVariable])), 
-            chartData.map(obj => parseFloat(obj.seasonal_average))
+            filteredChartData.map(obj => parseFloat(obj[xVariable])), 
+            filteredChartData.map(obj => parseFloat(obj.seasonal_average))
         ) : 0;
 
     $: dataLinearRegression =
-        chartData.length > 0 ? 
+    filteredChartData.length > 0 ? 
         linearRegression(
-            chartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+            filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
         ) : null;
 
     function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
@@ -363,24 +368,24 @@
 
             {#each chartData as d, i}
 
-                {#if d[$selectedVariable] >= 0}
+                {#if d[xVariable] >= 0 && !isNaN(parseFloat(d[xVariable]))}
 
-                <circle class="point-white"
-                    cx={45 + xScale(
-                        [0, maxXaxis],
-                        xAxisWidth,
-                        parseFloat(d[$selectedVariable])
-                    )}
-                    cy={30 + yScale(
-                        yAxisRange,
-                        chartHeight - 40,
-                        d.seasonal_average
-                    )}
-                    r="6" 
-                    fill="black"
-                    stroke="white"
-                    stroke-width="3"  
-                />
+                    <circle class="point-white"
+                        cx={45 + xScale(
+                            [0, maxXaxis],
+                            xAxisWidth,
+                            parseFloat(d[$selectedVariable])
+                        )}
+                        cy={30 + yScale(
+                            yAxisRange,
+                            chartHeight - 40,
+                            d.seasonal_average
+                        )}
+                        r="6" 
+                        fill="black"
+                        stroke="white"
+                        stroke-width="3"  
+                    />
 
                 {/if}
 
@@ -388,7 +393,7 @@
 
             {#each chartData as d, i}
 
-                {#if d[$selectedVariable] >= 0}
+            {#if d[xVariable] >= 0 && !isNaN(parseFloat(d[xVariable]))}
 
                 <circle class="point"
                     cx={45 + xScale(
