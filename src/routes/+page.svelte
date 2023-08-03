@@ -5,6 +5,7 @@
 
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
+    import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
     import cardImgReport from "../assets/card-img/card-img-report.png";
     import cardImgVideo from "../assets/card-img/card-img-video.png";
 
@@ -57,6 +58,20 @@
                 <h2>Recovery Patterns</h2>
 
                 <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
+
+            </div>
+        </a>
+
+        <a href="/charts/correlations">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgCorrelations}>
+                </div>
+
+                <h2>Correlations</h2>
+
+                <p>Visualize how downtown recovery is (or is not) related to a range of other urban data</p>
 
             </div>
         </a>

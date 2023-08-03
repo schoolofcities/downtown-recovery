@@ -41,7 +41,7 @@
 			<ul class="dropdown-menu">
 			  <li><a href="/charts/rankings">Rankings</a></li>
 			  <li><a href="/charts/patterns">Patterns</a></li>
-			  <!-- <li><a href="{baseUrl}/charts/correlations">Correlations</a></li> -->
+			  <li><a href="/charts/correlations">Correlations</a></li>
 			</ul>
 		  </li>
 		  <li class="dropdown">
