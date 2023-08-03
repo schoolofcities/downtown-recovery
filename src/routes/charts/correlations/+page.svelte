@@ -46,7 +46,7 @@
 
     async function loadDataVariables() {
         try {
-            const response = await fetch('../variables_data.csv');
+            const response = await fetch('../variables_data_v2.csv');
             const csvData = await response.text();
             variablesData = csvParse(csvData);
         } catch (error) {
