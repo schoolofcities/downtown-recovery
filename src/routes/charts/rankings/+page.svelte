@@ -260,7 +260,7 @@
 
     #note {
         color: var(--brandGray);
-        font-size: 13px;
+        font-size: 15px;
         text-align: right;
     }
 
