@@ -1,6 +1,6 @@
 "group","value","text","source"
-"Commuting","average_commute_time_city","Downtown Average Commute Time (minutes)","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
-"Commuting","average_commute_time_downtown","City-wide Average Commute Time (minutes)","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
+"Commuting","average_commute_time_city","City-wide Average Commute Time (minutes)","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
+"Commuting","average_commute_time_downtown","Downtown Average Commute Time (minutes)","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
 "Commuting","pct_commute_auto_city","City-wide Percentage of Commuters who use Private Automobiles","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
 "Commuting","pct_commute_auto_downtown","Percentage of Downtown Commuters who use Private Automobiles","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
 "Commuting","pct_commute_bicycle_city","City-wide Percentage of Commuters who use a Bicycle","US Census Bureau ACS 2019 & Statistics Canada Census 2016"
