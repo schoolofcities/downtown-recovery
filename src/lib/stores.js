@@ -128,12 +128,6 @@ export const cities = [
     
   },
   {
-    city: "Cleveland",
-    display_title: "Cleveland, OH",
-    region: "Midwest",
-    
-  },
-  {
     city: "Columbus",
     display_title: "Columbus, OH",
     region: "Midwest",
