@@ -88,10 +88,10 @@
             The recovery metrics on these charts are based on a sample of mobile phone data. 
         </p>
         <p>    
-            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Specifically, the rankings below, compare ZZZZZ to ZZZZZ 2023 relative to ZZZZZ to ZZZZZ 2019.
+            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
         </p>
         <p>
-            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the 2019 comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
             For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data.csv">here</a> to download the data shown on this chart.
@@ -102,11 +102,11 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
-            <!-- <div id="options-season">
+            <div id="options-season">
                 <SelectSeason/>
-            </div> -->
+            </div>
             <div id="options-region">
-                <SelectRegions europe={"no"}/>
+                <SelectRegions europe={"yes"}/>
             </div>
             <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
         </div>
