@@ -48,6 +48,16 @@ h2 {
     text-decoration: underline;
 }
 
+h3 {
+    font-family: TradeGothicBold;
+    font-size: 18px;
+    color: var(--brandBlack);
+    text-decoration: none;
+    background-color: var(--brandYellow);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 p {
     font-family: Roboto;

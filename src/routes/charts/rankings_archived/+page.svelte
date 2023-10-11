@@ -80,7 +80,9 @@
 <main>
 
     <div class="text">
-
+        <h3>
+            This is an archived version of our rankings data, for our most recent rankings, using updated data sources and methodology, click <a href="/rankings">here</a>
+        </h3>
         <h1>
             Downtown Recovery Rankings
         </h1>
@@ -288,6 +290,10 @@
     .bar-label {
         /* fill: var(--brandWhite); */
         font-size: 13px;
+    }
+
+    h3 a {
+        color: var(--brandRed)
     }
 
 </style>

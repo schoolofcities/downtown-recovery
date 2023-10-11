@@ -1,7 +1,6 @@
 <script>
 
     import Header from "../../../lib/Header.svelte";
-    import SelectSeason from "../../../lib/SelectSeason.svelte";
     import SelectRegions from "../../../lib/SelectRegions.svelte";
 
     import { onMount } from 'svelte';
@@ -21,7 +20,7 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../ranking_data.csv');
+            const response = await fetch('../recovery_rankings.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {
@@ -34,8 +33,6 @@
     });
 
     $: filteredData = data
-        .filter(item => item.metric === 'downtown')
-        .filter(item => item.Season === `Season_${$season}`)
         .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.seasonal_average - a.seasonal_average);
 
@@ -102,9 +99,6 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
-            <!-- <div id="options-season">
-                <SelectSeason/>
-            </div> -->
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
