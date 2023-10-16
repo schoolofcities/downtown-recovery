@@ -36,7 +36,7 @@
 
     async function loadDataRecovery() {
         try {
-            const response = await fetch('../ranking_data.csv');
+            const response = await fetch('../recovery_rankings.csv');
             const csvData = await response.text();
             recoveryData = csvParse(csvData);
         } catch (error) {
@@ -71,9 +71,9 @@
     });
 
     $: filteredData = recoveryData
-        .filter(item => item.metric === 'downtown')
-        .filter(item => item.region !== 'Europe')
-        .filter(item => item.Season === `Season_${$season}`)
+        // .filter(item => item.metric === 'downtown')
+        // .filter(item => item.region !== 'Europe')
+        // .filter(item => item.Season === `Season_${$season}`)
         .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.seasonal_average - a.seasonal_average);
 
@@ -260,6 +260,7 @@
         <h1>
             Downtown Recovery Correlations
         </h1>
+        <p><i>Updated October, 2023</i></p>
         <p>
             This page plots downtown recovery rates (y-axis) relative to a number of other urban variables (x-axis). While these charts indicate bivariate relationships, and in some cases reveal potential correlations, they should be interpreted with caution as they do not imply direct causation.
         </p>
@@ -267,7 +268,7 @@
             The recovery metrics (y-axis) on these charts are based on a sample of mobile phone data. They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
         </p>
         <p>
-            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels. Click <a href="/ranking_data.csv">here</a> to download the y-axis data shown on this chart. 
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels. Click <a href="/recovery_rankings.csv">here</a> to download the y-axis data shown on this chart. 
         </p>
         <p>
             The data on the x-axis comes from a variety of sources. The full dataset including all variables in the drop-down can be downloaded <a href="/variables_data.csv">here</a>. You may also wish to download a <a href="/variables_data_dictionary.csv">data dictionary</a>, which includes the names of data sources for each variable.
@@ -281,9 +282,9 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
-            <div id="options-season">
+            <!-- <div id="options-season">
                 <SelectSeason/>
-            </div>
+            </div> -->
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
@@ -497,7 +498,7 @@
 
     #options {
         margin: 0 auto;
-        max-width: 650px;
+        max-width: 750px;
     }
 
     #options-season {

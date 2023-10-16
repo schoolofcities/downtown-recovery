@@ -21,7 +21,7 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../ranking_data.csv');
+            const response = await fetch('../ranking_data_archived.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {
@@ -81,7 +81,7 @@
 
     <div class="text">
         <h3>
-            This is an archived version of our rankings data, for our most recent rankings, using updated data sources and methodology, click <a href="/rankings">here</a>
+            This is an archived version of our rankings data, for our most recent rankings, using updated data sources and methodology, click <a href="/charts/rankings">here</a>
         </h3>
         <h1>
             Downtown Recovery Rankings
@@ -96,7 +96,7 @@
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
-            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data.csv">here</a> to download the data shown on this chart.
+            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data_archived.csv">here</a> to download the data shown on this chart.
         </p>
 
     </div>
@@ -290,10 +290,6 @@
     .bar-label {
         /* fill: var(--brandWhite); */
         font-size: 13px;
-    }
-
-    h3 a {
-        color: var(--brandRed)
     }
 
 </style>

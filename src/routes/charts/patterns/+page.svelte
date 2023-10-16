@@ -235,6 +235,9 @@ function computeSelectedXValue(dat, value) {
 
 <main>
     <div class="text">
+        <h3>
+            This is an archived version of our data, for our most recent rankings, using updated data sources and methodology, click <a href="/charts/rankings">here</a>
+        </h3>
         <h1>Downtown Recovery Patterns</h1>
         <p>
             The recovery metrics on these charts are based on a sample of mobile phone data. 

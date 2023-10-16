@@ -48,7 +48,7 @@
             </div>
         </a>
 
-        <a href="/charts/patterns">
+        <!-- <a href="/charts/patterns">
             <div class="card">
 
                 <div class="card-img"> 
@@ -60,7 +60,7 @@
                 <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
 
             </div>
-        </a>
+        </a> -->
 
         <a href="/charts/correlations">
             <div class="card">

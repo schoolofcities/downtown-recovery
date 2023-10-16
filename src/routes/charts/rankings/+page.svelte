@@ -81,17 +81,24 @@
         <h1>
             Downtown Recovery Rankings
         </h1>
+        <p><i>Updated October, 2023</i></p>
         <p>
             The recovery metrics on these charts are based on a sample of mobile phone data. 
         </p>
         <p>    
-            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Specifically, the rankings below, compare ZZZZZ to ZZZZZ 2023 relative to ZZZZZ to ZZZZZ 2019.
+            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. Specifically, the rankings below compare the period from the beginning of March to mid-June in 2023 relative to the same period in 2019.
         </p>
         <p>
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the 2019 comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
-            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data.csv">here</a> to download the data shown on this chart.
+            Our rankings look a little different from our last update for four reasons: (1) we shifted from combining data from two providers (Safegraph and Spectus) to using just one (Spectus); (2) we changed how we define downtown (see methodology for more details); (3) we are standardizing now by MSA instead of state/province (see methodology); and (4) we are now showing data through mid-June instead of end of May.
+        </p>
+        <p>
+            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/recovery_rankings.csv">here</a> to download the data shown on this chart.
+        </p>
+        <p>
+            Interested in seeing updated rankings? We are too! But we are seeking financial sponsors to enable us to continue the work. Please contact <a href="karen.chapple@utoronto.ca">karen.chapple@utoronto.ca</a> if you would like to become our inaugural sponsor!
         </p>
 
     </div>
@@ -102,7 +109,7 @@
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
-            <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
+            <!-- <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p> -->
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">

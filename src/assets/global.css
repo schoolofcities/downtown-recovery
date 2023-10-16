@@ -75,6 +75,10 @@ a:hover {
     color: var(--brandWhite);
 }
 
+h3 a {
+    color: var(--brandRed)
+}
+
 .text {
     margin: 0 auto;
     padding-left: 10px;
