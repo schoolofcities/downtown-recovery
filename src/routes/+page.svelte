@@ -27,7 +27,7 @@
             <span class="bold">Exploring Pandemic Recovery Trajectories Across 63 North American Cities</span>
         </p>
         <p>
-            Updated on July 7, 2023
+            Updated October 16, 2023
         </p>
 
     </div>

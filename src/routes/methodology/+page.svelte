@@ -27,7 +27,10 @@
         <h2>Downtown Geography Selection</h2>
 
         <p>
-            Our previous method for creating downtown polygons involved selecting zip codes with the highest job density. Our updated polygon definitions are more precise and do not rely as heavily on administrative or census boundaries, which often do not reflect the actual geographies of cities’ downtowns. To create these new definitions, we used jobs data to identify concentrations of jobs on individual blocks and then drew a polygon around these clusters to represent downtown. (For more details, see an appendix below).
+            Our previous method for creating downtown polygons involved selecting zip codes with the highest job density. Our updated polygon definitions are more precise and do not rely as heavily on administrative or census boundaries, which often do not reflect the actual geographies of cities’ downtowns. To create these new definitions, we used jobs data to identify concentrations of jobs on individual blocks and then drew a polygon around these clusters to represent downtown. (For more details, see below).
+        </p>
+        <p>
+            Click <a href="/downtowns-hbscan.geojson">here</a> to download a geojson file of the downtown boundaries.
         </p>
 
         <h2>Standardization</h2>
@@ -39,7 +42,7 @@
         <h2>Data Providers & Imputation</h2>
 
         <p>
-            Our mobile device data provider, Spectus, sources information from multiple providers. The most reliable source lacks data before May 2021, so we imputed this information using data from other providers (for more details, see appendix below).
+            Our mobile device data provider, Spectus, sources information from multiple providers. The most reliable source lacks data before May 2021, so we imputed this information using data from other providers (for more details, see below).
         </p>
 
 

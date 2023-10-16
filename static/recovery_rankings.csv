@@ -1,63 +1,56 @@
-display_title,seasonal_average,region,city
-"Calgary, AB",0.491247491389401,Canada,Calgary
-"Edmonton, AB",0.552525016639561,Canada,Edmonton
-"Halifax, NS",0.652698348634056,Canada,Halifax
-"London, ON",0.613417099565241,Canada,London
-"Mississauga, ON",0.80833689438804,Canada,Mississauga
-"Montreal, QC",0.467652077769494,Canada,Montreal
-"Ottawa, ON",0.54217104362077,Canada,Ottawa
-"Quebec, QC",0.568657127549962,Canada,Quebec
-"Toronto, ON",0.422491615089453,Canada,Toronto
-"Vancouver, BC",0.459318486426867,Canada,Vancouver
-"Winnipeg, MB",0.53525689762078,Canada,Winnipeg
-"Chicago, IL",0.524360278906526,Midwest,Chicago
-"Cincinnati, OH",0.574607522301304,Midwest,Cincinnati
-"Columbus, OH",0.894331621794566,Midwest,Columbus
-"Detroit, MI",0.571894241014502,Midwest,Detroit
-"Indianapolis, IN",0.413836913564367,Midwest,Indianapolis
-"Kansas City, MO",0.510259976861791,Midwest,Kansas City
-"Louisville, KY",0.455600316096383,Midwest,Louisville
-"Milwaukee, WI",0.780309563897455,Midwest,Milwaukee
-"Minneapolis, MN",0.398062782502174,Midwest,Minneapolis
-"Omaha, NE",0.822731873895321,Midwest,Omaha
-"St. Louis, MO",0.47907441286722,Midwest,St Louis
-"Wichita, KS",0.745427363273875,Midwest,Wichita
-"Baltimore, MD",0.871940033730232,Northeast,Baltimore
-"Boston, MA",0.478263263021954,Northeast,Boston
-"New York, NY",0.674162528444952,Northeast,New York
-"Philadelphia, PA",0.462092968455728,Northeast,Philadelphia
-"Pittsburgh, PA",0.610134868259947,Northeast,Pittsburgh
-Washington DC,0.755191226046819,Northeast,Washington DC
-"Bakersfield, CA",1.27719140236822,Pacific,Bakersfield
-"Fresno, CA",1.15931375617297,Pacific,Fresno
-"Honolulu, HI",0.885758905704108,Pacific,Honolulu
-"Los Angeles, CA",0.632730952356402,Pacific,Los Angeles
-"Oakland, CA",0.50374539300704,Pacific,Oakland
-"Portland, OR",0.369172439517352,Pacific,Portland
-"Sacramento, CA",0.75067559322701,Pacific,Sacramento
-"San Diego, CA",0.881518318889532,Pacific,San Diego
-"San Francisco, CA",0.319468949182248,Pacific,San Francisco
-"San Jose, CA",0.744409257010763,Pacific,San Jose
-"Seattle, WA",0.455921760651186,Pacific,Seattle
-"Atlanta, GA",0.556580171354948,Southeast,Atlanta
-"Charlotte, NC",0.625026412045387,Southeast,Charlotte
-"Jacksonville, FL",0.933866016204773,Southeast,Jacksonville
-"Memphis, TN",0.6491243201406,Southeast,Memphis
-"Miami, FL",0.630627152962366,Southeast,Miami
-"Nashville, TN",0.561470479593909,Southeast,Nashville
-"New Orleans, LA",0.478342560187255,Southeast,New Orleans
-"Raleigh, NC",0.440901101333232,Southeast,Raleigh
-"Tampa, FL",0.838382574263836,Southeast,Tampa
-"Albuquerque, NM",0.930305530291329,Southwest,Albuquerque
-"Austin, TX",0.525120020535465,Southwest,Austin
-"Colorado Springs, CO",0.678035993539275,Southwest,Colorado Springs
-"Denver, CO",0.559255405681936,Southwest,Denver
-"El Paso, TX",1.07124023665228,Southwest,El Paso
-"Fort Worth, TX",0.694943356161586,Southwest,Fort Worth
-"Houston, TX",0.574670752384907,Southwest,Houston
-"Las Vegas, NV",0.882282014377745,Southwest,Las Vegas
-"Phoenix, AZ",0.72259683818626,Southwest,Phoenix
-"Salt Lake City, UT",1.39086661476104,Southwest,Salt Lake City
-"San Antonio, TX",0.668933248706993,Southwest,San Antonio
-"Tucson, AZ",0.818789383113493,Southwest,Tucson
-"Tulsa, OK",0.645499113643639,Southwest,Tulsa
+"city","seasonal_average","display_title","region"
+"Las Vegas",1.02636460966033,"Las Vegas, NV","Southwest"
+"El Paso",0.965238638501394,"El Paso, TX","Southwest"
+"San Jose",0.964918320398636,"San Jose, CA","Pacific"
+"Bakersfield",0.945859468847414,"Bakersfield, CA","Pacific"
+"Oklahoma City",0.929554481855815,"Oklahoma City, OK","Southwest"
+"Miami",0.920359627811871,"Miami, FL","Southeast"
+"Tucson",0.911952892467144,"Tucson, AZ","Southwest"
+"Phoenix",0.891630832112041,"Phoenix, AZ","Southwest"
+"Wichita",0.890966783601944,"Wichita, KS","Midwest"
+"Omaha",0.880426022227232,"Omaha, NE","Midwest"
+"Nashville",0.876595954849634,"Nashville, TN","Southeast"
+"Colorado Springs",0.873607568119905,"Colorado Springs, CO","Southwest"
+"Milwaukee",0.857170402444071,"Milwaukee, WI","Midwest"
+"Atlanta",0.852568124208396,"Atlanta, GA","Southeast"
+"Los Angeles",0.831905069522817,"Los Angeles, CA","Pacific"
+"Tulsa",0.821499104708219,"Tulsa, OK","Southwest"
+"Salt Lake City",0.819177751088665,"Salt Lake City, UT","Southwest"
+"Tampa",0.806812320638388,"Tampa, FL","Southeast"
+"Fort Worth",0.801332894197183,"Fort Worth, TX","Southwest"
+"San Diego",0.796466853644414,"San Diego, CA","Pacific"
+"Indianapolis",0.793680519557432,"Indianapolis, IN","Midwest"
+"Orlando",0.791095318909765,"Orlando, FL","Southeast"
+"Cleveland",0.781381481918943,"Cleveland, OH","Midwest"
+"San Antonio",0.758478141447656,"San Antonio, TX","Southwest"
+"Honolulu",0.758182010367668,"Honolulu, HI","Pacific"
+"Charlotte",0.745151012339772,"Charlotte, NC","Southeast"
+"New Orleans",0.744811405443444,"New Orleans, LA","Southeast"
+"Oakland",0.743834816934551,"Oakland, CA","Pacific"
+"Memphis",0.739803598655364,"Memphis, TN","Southeast"
+"Kansas City",0.738697644141633,"Kansas City, MO","Midwest"
+"Austin",0.726433542391595,"Austin, TX","Southwest"
+"Fresno",0.71832652409348,"Fresno, CA","Pacific"
+"Dallas",0.702780863338522,"Dallas, TX","Southwest"
+"Jacksonville",0.702452590029022,"Jacksonville, FL","Southeast"
+"Boston",0.702302144198704,"Boston, MA","Northeast"
+"Washington DC",0.68505703730598,"Washington DC","Northeast"
+"Baltimore",0.677724457482987,"Baltimore, MD","Northeast"
+"San Francisco",0.673164327421333,"San Francisco, CA","Pacific"
+"Philadelphia",0.672484329496864,"Philadelphia, PA","Northeast"
+"Denver",0.66794486022482,"Denver, CO","Southwest"
+"Pittsburgh",0.662843889177992,"Pittsburgh, PA","Northeast"
+"Albuquerque",0.662453049462028,"Albuquerque, NM","Southwest"
+"New York",0.658605539412826,"New York, NY","Northeast"
+"Detroit",0.658492057083498,"Detroit, MI","Midwest"
+"Sacramento",0.657146143816075,"Sacramento, CA","Pacific"
+"Cincinnati",0.644403997291466,"Cincinnati, OH","Midwest"
+"Houston",0.639464348191383,"Houston, TX","Southwest"
+"Raleigh",0.632144242390279,"Raleigh, NC","Southeast"
+"Chicago",0.614576625554533,"Chicago, IL","Midwest"
+"Portland",0.60787214632729,"Portland, OR","Pacific"
+"Columbus",0.565491365183843,"Columbus, OH","Midwest"
+"Seattle",0.56507236523636,"Seattle, WA","Pacific"
+"Minneapolis",0.555528987671666,"Minneapolis, MN","Midwest"
+"Louisville",0.542219286509983,"Louisville, KY","Midwest"
+"St Louis",0.53158900009084,"St. Louis, MO","Midwest"

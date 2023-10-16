@@ -260,7 +260,7 @@
         <h1>
             Downtown Recovery Correlations
         </h1>
-        <p><i>Updated October, 2023</i></p>
+        <p><i>Updated October 16, 2023</i></p>
         <p>
             This page plots downtown recovery rates (y-axis) relative to a number of other urban variables (x-axis). While these charts indicate bivariate relationships, and in some cases reveal potential correlations, they should be interpreted with caution as they do not imply direct causation.
         </p>
@@ -288,7 +288,9 @@
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
+            <p id="note">*We are currently working on updating data for Canadian cities</p>
             <SelectVariable/>
+            
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
