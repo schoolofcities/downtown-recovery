@@ -27,7 +27,7 @@
             <span class="bold">Exploring Pandemic Recovery Trajectories Across 63 North American Cities</span>
         </p>
         <p>
-            Updated on July 7, 2023
+            Updated October 16, 2023
         </p>
 
     </div>
@@ -48,7 +48,7 @@
             </div>
         </a>
 
-        <a href="/charts/patterns">
+        <!-- <a href="/charts/patterns">
             <div class="card">
 
                 <div class="card-img"> 
@@ -60,7 +60,7 @@
                 <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
 
             </div>
-        </a>
+        </a> -->
 
         <a href="/charts/correlations">
             <div class="card">

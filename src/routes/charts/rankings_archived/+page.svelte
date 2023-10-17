@@ -1,6 +1,7 @@
 <script>
 
     import Header from "../../../lib/Header.svelte";
+    import SelectSeason from "../../../lib/SelectSeason.svelte";
     import SelectRegions from "../../../lib/SelectRegions.svelte";
 
     import { onMount } from 'svelte';
@@ -20,7 +21,7 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../recovery_rankings.csv');
+            const response = await fetch('../ranking_data_archived.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {
@@ -33,6 +34,8 @@
     });
 
     $: filteredData = data
+        .filter(item => item.metric === 'downtown')
+        .filter(item => item.Season === `Season_${$season}`)
         .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.seasonal_average - a.seasonal_average);
 
@@ -77,28 +80,23 @@
 <main>
 
     <div class="text">
-
+        <h3>
+            This is an archived version of our rankings data, for our most recent rankings, using updated data sources and methodology, click <a href="/charts/rankings">here</a>
+        </h3>
         <h1>
             Downtown Recovery Rankings
         </h1>
-        <p><i>Updated October 16, 2023</i></p>
         <p>
             The recovery metrics on these charts are based on a sample of mobile phone data. 
         </p>
         <p>    
-            The recovery metrics on the charts and maps are computed by counting the number of unique visitors in a city's downtown area in the specified time period (standardized by region), and then dividing it by the standardized number of unique visitors during the equivalent time period in 2019. Specifically, the rankings below compare the period from the beginning of March to mid-June in 2023 relative to the same period in 2019.
+            They are computed by counting the number of unique mobile phones in a city's downtown area in the specified time period, and then dividing it by the number of unique visitors during the equivalent time period in 2019. For example, the March 2023 - May 2023 time period is compared to the March 2019 - May 2019 time period. 
         </p>
         <p>
-            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the 2019 comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
+            A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
-            Our rankings look a little different from our last update for four reasons: (1) we shifted from combining data from two providers (Safegraph and Spectus) to using just one (Spectus); (2) we changed how we define downtown to reflect the central location with the highest concentration of private sector employment (see methodology for more details); (3) we are standardizing now by MSA instead of state/province (see methodology); and (4) we are now showing data through mid-June instead of end of May.
-        </p>
-        <p>
-            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/recovery_rankings.csv">here</a> to download the data shown on this chart.
-        </p>
-        <p>
-            Interested in seeing updated rankings? We are too! But we are seeking financial sponsors to enable us to continue the work. Please contact <a href="karen.chapple@utoronto.ca">karen.chapple@utoronto.ca</a> if you would like to become our inaugural sponsor!
+            For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/ranking_data_archived.csv">here</a> to download the data shown on this chart.
         </p>
 
     </div>
@@ -106,10 +104,13 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
-            <div id="options-region">
-                <SelectRegions europe={"no"}/>
+            <div id="options-season">
+                <SelectSeason/>
             </div>
-            <p id="note">*We are currently working on updating data for Canadian cities</p>
+            <div id="options-region">
+                <SelectRegions europe={"yes"}/>
+            </div>
+            <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
@@ -257,6 +258,12 @@
     }
     #options-region {
         overflow: hidden;
+    }
+
+    #note {
+        color: var(--brandGray);
+        font-size: 15px;
+        text-align: right;
     }
 
     #chart {

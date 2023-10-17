@@ -63,7 +63,7 @@
     #buttons {
         display: flex;
         flex-wrap: wrap;
-        max-width: 600px;
+        max-width: 750px;
     }
 
     .button {

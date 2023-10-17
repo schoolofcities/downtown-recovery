@@ -1,4 +1,4 @@
-# Downtown Recovery
+# Downtown Recovery Website
 
 This repo contains the code and data used to build https://downtownrecovery.com/
 
@@ -18,3 +18,4 @@ npm run preview
 ```
 
 Older versions of the website are in the `archive` folder.
+
