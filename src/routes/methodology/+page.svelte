@@ -15,7 +15,7 @@
         <h1>Methodology</h1>
 
         <p>
-            The recovery metrics on this website are based on a sample of location-based mobility data derived from cell phones Location-based Service (LBS) data derived from cell phones mobile phone data.
+            The recovery metrics on this website are based on a sample of location-based mobility data derived from cell phones.
         </p>
         <p>
             The recovery metrics on the charts and maps are computed by counting the number of unique visitors in a city's downtown area in the specified time period (standardized by region – see ‘Standardization’ section below), and then dividing it by the standardized number of unique visitors during the equivalent time period in 2019.
@@ -52,7 +52,7 @@
         </p>
 
         <p>
-            The imputation model we employed is called Self-Attention-based Imputation for Time Series (SAITS). The <a href="https://doi.org/10.1016/j.eswa.2023.119619">SAITS model</a>, which employs self-attention techniques, identifies relationships within time series data and imputes missing information based on observed trends. The model converts randomly selected observed values into missing values, predicts the missing values, and compares the predicted and original values to evaluate the accuracy of the model
+            The imputation model we employed is called Self-Attention-based Imputation for Time Series (SAITS). The <a href="https://doi.org/10.1016/j.eswa.2023.119619">SAITS model</a>, which employs self-attention techniques, identifies relationships within time series data and imputes missing information based on observed trends. The model converts randomly selected observed values into missing values, predicts the missing values, and compares the predicted and original values to evaluate the accuracy of the model.
         </p>
 
 
