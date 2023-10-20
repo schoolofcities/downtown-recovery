@@ -4,7 +4,7 @@ export const season = writable(12);
 
 export const selectedVariable = writable("total_pop_city")
 
-export const selectedRegions = writable(["Southeast", "Southwest", "Pacific", "Northeast", "Midwest"]);
+export const selectedRegions = writable(["Southeast", "Southwest", "Northeast", "Midwest", "Pacific", "Canada"]);
 
 export const regions = readable(
     [ 
@@ -19,11 +19,6 @@ export const regions = readable(
             "text": "#000"
         },
         {
-            "name": "Pacific",
-            "colour": "#00A189",
-            "text": "#000"
-        },
-        {
             "name": "Southwest",
             "colour": "#F1C500",
             "text": "#000"
@@ -32,6 +27,11 @@ export const regions = readable(
             "name": "Southeast",
             "colour": "#AB1368",
             "text": "#fff"
+        },
+        {
+            "name": "Pacific",
+            "colour": "#00A189",
+            "text": "#000"
         },
         {
             "name": "Canada",

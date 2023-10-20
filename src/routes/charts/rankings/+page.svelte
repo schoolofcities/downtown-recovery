@@ -109,7 +109,6 @@
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
-            <p id="note">*We are currently working on updating data for Canadian cities</p>
         </div>
 
         <svg height={chartHeight} width={chartWidth} id="chart">
