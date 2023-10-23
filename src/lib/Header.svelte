@@ -41,8 +41,16 @@
 			<ul class="dropdown-menu">
 				<li><a href="/charts/rankings">Rankings</a></li>
 			  	<li><a href="/charts/correlations">Correlations</a></li>
+				<li><a href="/methodology">Methodology</a></li>
 			  	<li><a href="/charts/rankings_archived">Rankings (Archived)</a></li>
 			  	<li><a href="/charts/patterns">Patterns (Archived)</a></li>
+			</ul>
+		  </li>
+		  <li class="dropdown">
+			<a href="#">Blog &darr;</a>
+			<ul class="dropdown-menu">
+				<li><a href="/death_of_downtown_policy_brief.pdf">Hellow I am a wonderful blog post</a></li>
+				<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">I am another fantastic blog post</a></li>
 			</ul>
 		  </li>
 		  <li class="dropdown">
@@ -50,7 +58,6 @@
 			<ul class="dropdown-menu">
 				<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
 				<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
-				<li><a href="/methodology">Methodology</a></li>
 			</ul>
 		  </li>
 		  <li><a href="/team">Team</a></li>
@@ -108,12 +115,6 @@
 		cursor: pointer;
 	}
 
-	#line-chart {
-		position: absolute;
-		top: 10px;
-		left: 550px;
-	}
-
 	#menu {
 		background-color: var(--brandGray90);
 		height: 25px; 
@@ -153,6 +154,7 @@
 
 	.dropdown-menu {
 		display: none;
+		background-color: var(--brandGray90);
 		border-left: solid 1px var(--brandDarkBlue);
 		border-bottom: solid 1px var(--brandDarkBlue);
 		position: absolute;
@@ -160,6 +162,7 @@
 		margin-top: 0px;
 		padding-top: 14px;
 		z-index: 20;
+		max-width: 200px;
 	}
 
 	.dropdown-menu li {
