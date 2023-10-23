@@ -55,6 +55,38 @@
             The imputation model we employed is called Self-Attention-based Imputation for Time Series (SAITS). The <a href="https://doi.org/10.1016/j.eswa.2023.119619">SAITS model</a>, which employs self-attention techniques, identifies relationships within time series data and imputes missing information based on observed trends. The model converts randomly selected observed values into missing values, predicts the missing values, and compares the predicted and original values to evaluate the accuracy of the model.
         </p>
 
+        <h2>
+            Measuring recovery rates
+        </h2>
+
+        <p>
+            Because of the data imputation process, we calculated recovery rates slightly differently for the U.S. and Canada.
+        </p>
+
+        <p>
+            In the US, we measured recovery rates for each city by:
+        </p>
+
+        <p>1) Calculating the sum of daily unique devices both downtown and in the core based statistical area for all of the days in the study period (March through mid-June) in 2019 as well as 2023.</p>
+
+        <p>2) Standardizing the counts for each year by dividing the summed device count in the downtown area by the summed device count in the core based statistical area.</p>
+
+        <p>3) Dividing the standardized count in the 2023 study period by the total count in the 2019 study period for each city.</p>
+
+        <p>
+            In Canada, we measured recovery rates for each city by:
+        </p>
+        
+        <p>1) Calculating the weekly sum of daily unique devices both downtown and in the census metropolitan area. </p>
+
+        <p>2) Standardizing the weekly counts by dividing the weekly summed device count in the downtown area by the weekly summed device count in the census metropolitan area.</p>
+
+        <p>3) Imputing pre-5/17/21 data using these standardized weekly counts (see Data Providers & Imputation section).</p>
+
+        <p>4) Determining weekly recovery rates by dividing the standardized weekly counts in 2023 by the (imputed) standardized weekly counts in the same week in 2019.</p>
+
+        <p>5) Calculating the average weekly recovery rate by city.</p>
+
 
 
         <h2>Website:</h2>

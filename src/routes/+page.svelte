@@ -24,7 +24,7 @@
             Death of Downtown?
         </h1>
         <p>
-            <span class="bold">Exploring Pandemic Recovery Trajectories Across 63 North American Cities</span>
+            <span class="bold">Exploring Pandemic Recovery Trajectories Across North American Cities</span>
         </p>
         <p>
             Updated October 16, 2023
