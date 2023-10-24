@@ -16,7 +16,31 @@
     export let transitVariable;
 
 
+    const modeDictionary = [
+        {
+            "id": "MB",
+            "name": "Bus",
+            "colour": "#6D247A"
+        },
+        {
+            "id": "CR",
+            "name": "Commuter Rail",
+            "colour": "#8DBF2E"
+        },
+        {
+            "id": "LR",
+            "name": "Light Rail",
+            "colour": "#DC4633"
+        },
+        {
+            "id": "HR",
+            "name": "Subway/Metro",
+            "colour": "#6FC7EA"
+        }
+    ];
 
+    let modeName = modeDictionary.filter(item => item.id === transitVariable)[0].name;
+    let modeColour = modeDictionary.filter(item => item.id === transitVariable)[0].colour;
 
     // initial loading data and dynamic filtering
 
@@ -140,13 +164,13 @@
     filteredChartData.length > 0 ? 
         sampleCorrelation(
             filteredChartData.map(obj => parseFloat(obj[xVariable])), 
-            filteredChartData.map(obj => parseFloat(obj.seasonal_average))
+            filteredChartData.map(obj => parseFloat(obj.downtown_recovery))
         ) : 0;
 
     $: dataLinearRegression =
     filteredChartData.length > 0 ? 
         linearRegression(
-            filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+            filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.downtown_recovery)])
         ) : null;
 
     function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
@@ -205,9 +229,11 @@
    
         <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
 
-            <h3>Bus Ridership Recovery</h3>
+            <h3>{modeName} Ridership & Downtown Recovery</h3>
 
             <svg height={chartHeight} width={chartWidth} id="chart">
+
+                
 
                 {#each yAxisIntervals.reverse() as yInterval, i}
 
@@ -257,7 +283,7 @@
 
                 {/each}
 
-                <!-- <line 
+                <line 
                     x1={45 + xScale(
                         [0, maxXaxis],
                         xAxisWidth,
@@ -281,7 +307,7 @@
                     stroke="#D0D1C9"
                     stroke-width="1.5"
                     stroke-dasharray="4 2"
-                /> -->
+                />
 
                 {#each chartData as d, i}
 
@@ -301,9 +327,7 @@
                             r="6" 
                             fill="black"
                             stroke="white"
-                            stroke-width="3"  
-
-                            
+                            stroke-width="3"
                         />
                         
                     {/if}
@@ -326,7 +350,7 @@
                                 d.downtown_recovery
                             )}
                             r="6" 
-                            fill="white"
+                            fill={modeColour}
                             stroke="white"
                             stroke-width="0"
 
@@ -373,6 +397,19 @@
                 </foreignObject>
 
                 {/if}
+
+                <text class="axis-label"
+                        x = {chartWidth / 2 + 14}
+                        y = {chartHeight - 40}
+                        text-anchor="middle"
+                    >{modeName} Ridership Recovery</text>
+
+                <text class="axis-label"
+                    x = 300
+                    y = {375}
+                    text-anchor="middle"
+                    transform="rotate(-90, 60, 375)"
+                >Downtown Recovery</text>
                 
             </svg>
 
@@ -384,6 +421,10 @@
 
 
 <style>
+
+    .text {
+        border: 0px;
+    }
 
 
     #chart-wrapper {
