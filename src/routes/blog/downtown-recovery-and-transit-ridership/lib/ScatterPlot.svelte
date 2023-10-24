@@ -65,7 +65,6 @@
     let chartWidth;
     let chartHeight = 420;
     $: chartHeight = chartWidth * 1 + 20;
-    $: console.log(chartWidth);
 
 
     // y-axis
@@ -129,75 +128,75 @@
 
 
 
-    // // correlation and trend line
+    // correlation and trend line
 
-    // let filteredChartData = [];
-    // $: filteredChartData = chartData.filter(e => !isNaN(parseFloat(e[xVariable])));
+    let filteredChartData = [];
+    $: filteredChartData = chartData.filter(e => !isNaN(parseFloat(e[xVariable])));
 
-    // $: console.log(filteredChartData);
+    $: console.log(filteredChartData);
 
 
-    // $: dataCorrelation =
-    // filteredChartData.length > 0 ? 
-    //     sampleCorrelation(
-    //         filteredChartData.map(obj => parseFloat(obj[xVariable])), 
-    //         filteredChartData.map(obj => parseFloat(obj.seasonal_average))
-    //     ) : 0;
+    $: dataCorrelation =
+    filteredChartData.length > 0 ? 
+        sampleCorrelation(
+            filteredChartData.map(obj => parseFloat(obj[xVariable])), 
+            filteredChartData.map(obj => parseFloat(obj.seasonal_average))
+        ) : 0;
 
-    // $: dataLinearRegression =
-    // filteredChartData.length > 0 ? 
-    //     linearRegression(
-    //         filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
-    //     ) : null;
+    $: dataLinearRegression =
+    filteredChartData.length > 0 ? 
+        linearRegression(
+            filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.seasonal_average)])
+        ) : null;
 
-    // function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
-    //     let x1, y1, x2, y2;
+    function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
+        let x1, y1, x2, y2;
 
-    //     let y_xmin = m * xmin + b;
-    //     if (y_xmin >= ymin && y_xmin <= ymax) {
-    //         x1 = xmin;
-    //         y1 = y_xmin;
-    //     } else if (m > 0) {
-    //         x1 = (ymin - b) / m;
-    //         y1 = ymin;
-    //     } else {
-    //         x1 = (ymax - b) / m;
-    //         y1 = ymax;
-    //     };
+        let y_xmin = m * xmin + b;
+        if (y_xmin >= ymin && y_xmin <= ymax) {
+            x1 = xmin;
+            y1 = y_xmin;
+        } else if (m > 0) {
+            x1 = (ymin - b) / m;
+            y1 = ymin;
+        } else {
+            x1 = (ymax - b) / m;
+            y1 = ymax;
+        };
 
-    //     let y_xmax = m * xmax + b
-    //     if (y_xmax >= ymin && y_xmax <= ymax) {
-    //         x2 = xmax;
-    //         y2 = y_xmax;
-    //     } else if (m > 0) {
-    //         x2 = (ymax - b) / m;
-    //         y2 = ymax;
-    //     } else {
-    //         x2 = (ymin - b) / m;
-    //         y2 = ymin;
-    //     }
+        let y_xmax = m * xmax + b
+        if (y_xmax >= ymin && y_xmax <= ymax) {
+            x2 = xmax;
+            y2 = y_xmax;
+        } else if (m > 0) {
+            x2 = (ymax - b) / m;
+            y2 = ymax;
+        } else {
+            x2 = (ymin - b) / m;
+            y2 = ymin;
+        }
         
-    //     return [[x1, y1], [x2, y2]];
-    // }
+        return [[x1, y1], [x2, y2]];
+    }
 
-    // $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1,1]];
+    $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1,1]];
 
-    // $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
-    // $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
+    $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
+    $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
 
-    // function formatNumber(x) {
-    // const threshold = 0.001; // Threshold for determining when to switch to scientific notation
+    function formatNumber(x) {
+    const threshold = 0.001; // Threshold for determining when to switch to scientific notation
 
-    // if (Math.abs(x) < threshold) {
-    //     return x.toExponential(2); // Use scientific notation with two decimal points
-    // } else if (Math.abs(x) >= 1000) {
-    //     return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
-    // } else if (Math.abs(x) >= 10) {
-    //     return x.toFixed(2);
-    // } else {
-    //     return x.toFixed(4); // Round to two decimal points for other numbers
-    // }
-    // }
+    if (Math.abs(x) < threshold) {
+        return x.toExponential(2); // Use scientific notation with two decimal points
+    } else if (Math.abs(x) >= 1000) {
+        return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+    } else if (Math.abs(x) >= 10) {
+        return x.toFixed(2);
+    } else {
+        return x.toFixed(4); // Round to two decimal points for other numbers
+    }
+    }
 
 </script>
 
@@ -205,6 +204,8 @@
 
    
         <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
+
+            <h3>Bus Ridership Recovery</h3>
 
             <svg height={chartHeight} width={chartWidth} id="chart">
 
@@ -325,7 +326,7 @@
                                 d.downtown_recovery
                             )}
                             r="6" 
-                            fill="black"
+                            fill="white"
                             stroke="white"
                             stroke-width="0"
 
@@ -436,6 +437,20 @@
         padding-top: 0px;
         padding-bottom: 0px;
         margin: 0px;
+    }
+
+    h3 {
+       
+        margin-bottom: -30px;
+        font-family: TradeGothicBold;
+        font-size: 22px;
+        color: var(--brandWhite);
+        text-decoration: none;
+        background-color: var(--brandDarkBlue);
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 
 
