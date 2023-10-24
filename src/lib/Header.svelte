@@ -49,7 +49,7 @@
 		  <li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
-				<li><a href="/death_of_downtown_policy_brief.pdf">Hellow I am a wonderful blog post</a></li>
+				<li><a href="/blog/downtown-recovery-and-transit-ridership">Hellow I am a wonderful blog post</a></li>
 				<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">I am another fantastic blog post</a></li>
 			</ul>
 		  </li>
