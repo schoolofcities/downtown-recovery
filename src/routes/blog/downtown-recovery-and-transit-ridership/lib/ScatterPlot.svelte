@@ -214,31 +214,28 @@
     $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
 
     function formatNumber(x) {
-    const threshold = 0.001; // Threshold for determining when to switch to scientific notation
+    const threshold = 0.001; 
 
     if (Math.abs(x) < threshold) {
-        return x.toExponential(2); // Use scientific notation with two decimal points
+        return x.toExponential(2);
     } else if (Math.abs(x) >= 1000) {
-        return x.toLocaleString(undefined, { maximumFractionDigits: 0 }); // Use locale string with no decimal points for large numbers
+        return x.toLocaleString(undefined, { maximumFractionDigits: 0 });
     } else if (Math.abs(x) >= 10) {
         return x.toFixed(2);
     } else {
-        return x.toFixed(4); // Round to two decimal points for other numbers
+        return x.toFixed(4);
     }
     }
 
 </script>
 
     <div class="text">
-
    
         <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
 
             <h3>{modeName} Ridership & Downtown Recovery</h3>
 
             <svg height={chartHeight} width={chartWidth} id="chart">
-
-                
 
                 {#each yAxisIntervals.reverse() as yInterval, i}
 
@@ -404,10 +401,16 @@
                 {/if}
 
                 <text class="axis-label"
-                        x = {chartWidth / 2 + 14}
-                        y = {chartHeight - 40}
-                        text-anchor="middle"
-                    >{modeName} Ridership Recovery</text>
+                    x = {chartWidth / 2}
+                    y = {20}
+                    text-anchor="middle"
+                >Correlation Coefficient: {dataCorrelation.toFixed(3)}</text>
+
+                <text class="axis-label"
+                    x = {chartWidth / 2 + 14}
+                    y = {chartHeight - 40}
+                    text-anchor="middle"
+                >{modeName} Ridership Recovery</text>
 
                 <text class="axis-label"
                     x = 300
@@ -486,10 +489,10 @@
     }
 
     h3 {
-       
         margin-bottom: -30px;
         font-family: TradeGothicBold;
-        font-size: 22px;
+        text-align: center;
+        font-size: 18px;
         color: var(--brandWhite);
         text-decoration: none;
         background-color: var(--brandDarkBlue);
