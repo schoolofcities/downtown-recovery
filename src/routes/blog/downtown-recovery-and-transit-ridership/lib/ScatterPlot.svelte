@@ -36,6 +36,11 @@
             "id": "HR",
             "name": "Subway/Metro",
             "colour": "#6FC7EA"
+        },
+        {
+            "id": "All",
+            "name": "Transit",
+            "colour": "#6FC7EA"
         }
     ];
 
