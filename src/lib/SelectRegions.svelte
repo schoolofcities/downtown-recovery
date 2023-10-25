@@ -20,7 +20,7 @@
 </script>
 
 
-<p>Select Regions:</p>
+<!-- <p>Select Regions:</p> -->
 
 <div id="buttons">
     {#if europe === "yes"}

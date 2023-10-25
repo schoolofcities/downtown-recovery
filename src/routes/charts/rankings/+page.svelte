@@ -106,6 +106,7 @@
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
         
         <div id="options">
+            <p>Select Regions:</p>
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>

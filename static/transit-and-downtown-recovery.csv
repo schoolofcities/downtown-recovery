@@ -1,113 +1,163 @@
-"city","mode","transit_recovery","downtown_recovery"
-"Albuquerque","CR",74.900326095,0.978607406166667
-"Albuquerque","MB",69.4541846458333,0.978607406166667
-"Atlanta","HR",47.5594322083333,0.821492831666667
-"Atlanta","LR",51.5296131366667,0.821492831666667
-"Atlanta","MB",48.1753166908333,0.821492831666667
-"Austin","CR",63.54694947,0.797647647333333
-"Austin","MB",78.561694465,0.797647647333333
-"Bakersfield","MB",53.1609154516667,0.993697265333333
-"Baltimore","CR",41.156500565,0.839954689833333
-"Baltimore","HR",21.8289503533333,0.839954689833333
-"Baltimore","LR",46.3486007916667,0.839954689833333
-"Baltimore","MB",74.346199695,0.839954689833333
-"Boston","CR",76.58959152,0.670723325
-"Boston","HR",53.60776465,0.670723325
-"Boston","LR",63.6252586816667,0.670723325
-"Boston","MB",77.94971689,0.670723325
-"Calgary","LR",91.2932617633333,0.840352030833333
-"Calgary","MB",73.3683533616667,0.840352030833333
-"Chicago","CR",45.49127064,0.657984723833333
-"Chicago","HR",51.4332802183333,0.657984723833333
-"Chicago","MB",65.80264635,0.657984723833333
-"Cincinnati","MB",97.6688586866667,0.820210449
-"Cleveland","HR",43.6395578666667,0.8427866045
-"Cleveland","LR",50.1834895383333,0.8427866045
-"Cleveland","MB",79.1143649416667,0.8427866045
-"Colorado Springs","MB",79.8141486816667,0.944935456833333
-"Columbus","MB",56.5420208966667,0.761742312166667
-"Dallas","LR",72.91207736,0.8032137675
-"Dallas","MB",68.16099416,0.8032137675
-"Denver","CR",92.5017559633333,0.7790608375
-"Denver","LR",53.9660534333333,0.7790608375
-"Denver","MB",56.7643845866667,0.7790608375
-"Detroit","MB",48.857102755,0.7269543805
-"Edmonton","LR",61.2367469966667,0.758869229833333
-"Edmonton","MB",63.403601785,0.758869229833333
-"El Paso","LR",48.2447982733333,1.22151282883333
-"El Paso","MB",48.5131808766667,1.22151282883333
-"Fort Worth","CR",129.168339461667,0.933283230333334
-"Fort Worth","MB",79.77006597,0.933283230333334
-"Fresno","MB",78.9063381366667,0.8190274195
-"Honolulu","MB",64.4692653066667,0.922027944833333
-"Houston","LR",74.7918065533333,0.818167112166667
-"Houston","MB",81.5052278333333,0.818167112166667
-"Indianapolis","MB",67.8706133416667,0.8382114555
-"Jacksonville","MB",58.7903909833333,0.913567301666667
-"Kansas City","MB",93.0361203683333,0.841574788333333
-"Las Vegas","MB",80.3100429533333,1.09817861283333
-"Los Angeles","CR",43.2771070333333,0.905089587
-"Los Angeles","HR",66.0633378,0.905089587
-"Los Angeles","LR",60.8192332866667,0.905089587
-"Los Angeles","MB",78.4385350883333,0.905089587
-"Louisville","MB",59.67101412,0.796277912833333
-"Memphis","LR",116.325389736667,0.875867596666667
-"Memphis","MB",42.35619027,0.875867596666667
-"Miami","HR",73.4223483033333,0.958402981333333
-"Miami","MB",114.168518266667,0.958402981333333
-"Milwaukee","MB",63.3637983483333,1.026866804
-"Minneapolis","CR",11.53680849,0.601982164833333
-"Minneapolis","LR",58.80516947,0.601982164833333
-"Minneapolis","MB",56.22157862,0.601982164833333
-"Montreal","HR",73.7824994966667,0.835773736333333
-"Montreal","MB",66.719296645,0.8398234545
-"Nashville","CR",33.8125455033333,0.903618105666667
-"Nashville","MB",33.9157526833333,0.903618105666667
-"New Orleans","LR",55.4606818016667,0.8073885415
-"New Orleans","MB",58.8297280516667,0.8073885415
-"New York","CR",67.446881475,0.729153271666667
-"New York","HR",63.8156752258334,0.729153271666667
-"New York","MB",65.16309121,0.729153271666666
-"Oakland","MB",65.4673982166667,0.834998319
-"Oklahoma City","MB",93.0622136966667,0.965686484166667
-"Orlando","CR",68.9765139966667,0.9498259375
-"Orlando","MB",80.3447559383333,0.9498259375
-"Ottawa","MB",65.3774484716667,0.818027158333333
-"Philadelphia","CR",54.7583030316667,0.717597982333333
-"Philadelphia","HR",46.410463425,0.717597982333333
-"Philadelphia","LR",49.3238624766667,0.717597982333333
-"Philadelphia","MB",68.35722707,0.717597982333333
-"Phoenix","LR",71.9395924866667,0.946871226333333
-"Phoenix","MB",51.5160885016667,0.946871226333333
-"Pittsburgh","LR",44.2765456783333,0.825552109
-"Pittsburgh","MB",62.372629325,0.825552109
-"Portland","CR",31.9634249316667,0.552403630166667
-"Portland","LR",57.3720537966667,0.552403630166667
-"Portland","MB",64.2966418316667,0.552403630166667
-"Sacramento","LR",57.1004904883333,0.758668640666667
-"Sacramento","MB",86.31126801,0.758668640666667
-"Saint Louis","LR",51.73060718,0.639795859
-"Saint Louis","MB",56.0028083633333,0.639419003666667
-"Salt Lake City","CR",69.99104151,0.968989844166667
-"Salt Lake City","LR",63.9931016783333,0.968989844166667
-"Salt Lake City","MB",87.356340105,0.968989844166667
-"San Antonio","MB",68.23920515,0.852641266166667
-"San Diego","LR",100.302398286667,1.015193958
-"San Diego","MB",66.0297711366667,1.015193958
-"San Francisco","CR",56.2419383333333,0.631878089166667
-"San Francisco","HR",36.56094185,0.631878089166667
-"San Francisco","LR",47.239299305,0.631878089166667
-"San Francisco","MB",56.6899095391667,0.631878089166667
-"San Jose","LR",51.556627715,1.0256212905
-"San Jose","MB",76.6715590633333,1.0256212905
-"Seattle","CR",33.0591906183333,0.703954811166667
-"Seattle","LR",87.103853155,0.703954811166667
-"Seattle","MB",53.3159308033333,0.703954811166667
-"Tampa","MB",94.6440020616667,0.932925585333333
-"Toronto","HR",61.339302315,0.7557436075
-"Toronto","LR",41.0180695383333,0.7557436075
-"Toronto","MB",87.2361242783333,0.7557436075
-"Tucson","MB",103.188484233333,0.947115792
-"Vancouver","MB",72.7090221266667,0.795008403166667
-"Washington","HR",52.6898036983333,0.752284276333334
-"Washington","MB",100.45237956,0.752284276333334
+"city","mode","transit_recovery","downtown_recovery","display_title","region"
+"Albuquerque","CR",0.749003261,0.687758519,"Albuquerque, NM","Southwest"
+"Albuquerque","MB",0.694541847,0.687758519,"Albuquerque, NM","Southwest"
+"Albuquerque","Total",0.752338904,0.687758519,"Albuquerque, NM","Southwest"
+"Atlanta","HR",0.475594322,0.832311057,"Atlanta, GA","Southeast"
+"Atlanta","LR",0.515296132,0.832311057,"Atlanta, GA","Southeast"
+"Atlanta","MB",0.481753167,0.832311057,"Atlanta, GA","Southeast"
+"Atlanta","Total",0.56443608,0.832311057,"Atlanta, GA","Southeast"
+"Austin","CR",0.635469495,0.727624838,"Austin, TX","Southwest"
+"Austin","MB",0.785616945,0.727624838,"Austin, TX","Southwest"
+"Austin","Total",0.780972988,0.727624838,"Austin, TX","Southwest"
+"Bakersfield","MB",0.531609155,0.959466555,"Bakersfield, CA","Pacific"
+"Bakersfield","Total",0.531609155,0.959466555,"Bakersfield, CA","Pacific"
+"Baltimore","CR",0.411565006,0.717617708,"Baltimore, MD","Northeast"
+"Baltimore","HR",0.218289504,0.717617708,"Baltimore, MD","Northeast"
+"Baltimore","LR",0.463486008,0.717617708,"Baltimore, MD","Northeast"
+"Baltimore","MB",0.743461997,0.717617708,"Baltimore, MD","Northeast"
+"Baltimore","Total",0.648069464,0.717617708,"Baltimore, MD","Northeast"
+"Boston","CR",0.765895915,0.718583421,"Boston, MA","Northeast"
+"Boston","HR",0.536077646,0.718583421,"Boston, MA","Northeast"
+"Boston","LR",0.636252587,0.718583421,"Boston, MA","Northeast"
+"Boston","MB",0.779497169,0.718583421,"Boston, MA","Northeast"
+"Boston","Total",0.648991742,0.718583421,"Boston, MA","Northeast"
+"Calgary","LR",0.912932618,0.842895889,"Calgary, AB","Canada"
+"Calgary","MB",0.733683533,0.842895889,"Calgary, AB","Canada"
+"Calgary","Total",0.830549131,0.842895889,"Calgary, AB","Canada"
+"Chicago","CR",0.454912706,0.649888615,"Chicago, IL","Midwest"
+"Chicago","HR",0.514332802,0.649888615,"Chicago, IL","Midwest"
+"Chicago","MB",0.658026464,0.649888615,"Chicago, IL","Midwest"
+"Chicago","Total",0.57216866,0.649888615,"Chicago, IL","Midwest"
+"Cincinnati","MB",0.976688587,0.667654147,"Cincinnati, OH","Midwest"
+"Cincinnati","Total",0.976688587,0.667654147,"Cincinnati, OH","Midwest"
+"Cleveland","HR",0.436395579,0.806241438,"Cleveland, OH","Midwest"
+"Cleveland","LR",0.501834895,0.806241438,"Cleveland, OH","Midwest"
+"Cleveland","MB",0.79114365,0.806241438,"Cleveland, OH","Midwest"
+"Cleveland","Total",0.700544248,0.806241438,"Cleveland, OH","Midwest"
+"Colorado Springs","MB",0.798141487,0.898789525,"Colorado Springs, CO","Southwest"
+"Colorado Springs","Total",0.798141487,0.898789525,"Colorado Springs, CO","Southwest"
+"Columbus","MB",0.565420209,0.586270138,"Columbus, OH","Midwest"
+"Columbus","Total",0.565420209,0.586270138,"Columbus, OH","Midwest"
+"Dallas","LR",0.729120774,0.724332534,"Dallas, TX","Southwest"
+"Dallas","MB",0.681609942,0.724332534,"Dallas, TX","Southwest"
+"Dallas","Total",0.701137498,0.724332534,"Dallas, TX","Southwest"
+"Denver","CR",0.92501756,0.712908891,"Denver, CO","Southwest"
+"Denver","LR",0.539660534,0.712908891,"Denver, CO","Southwest"
+"Denver","MB",0.567643846,0.712908891,"Denver, CO","Southwest"
+"Denver","Total",0.58956232,0.712908891,"Denver, CO","Southwest"
+"Detroit","MB",0.488571028,0.666372958,"Detroit, MI","Midwest"
+"Detroit","Total",0.488571028,0.666372958,"Detroit, MI","Midwest"
+"Edmonton","LR",0.61236747,0.811278372,"Edmonton, AB","Canada"
+"Edmonton","MB",0.634036018,0.811278372,"Edmonton, AB","Canada"
+"Edmonton","Total",0.62790383,0.811278372,"Edmonton, AB","Canada"
+"El Paso","LR",0.482447983,1.037997438,"El Paso, TX","Southwest"
+"El Paso","MB",0.485131809,1.037997438,"El Paso, TX","Southwest"
+"El Paso","Total",0.484312639,1.037997438,"El Paso, TX","Southwest"
+"Fort Worth","CR",1.291683395,0.824051454,"Fort Worth, TX","Southwest"
+"Fort Worth","MB",0.79770066,0.824051454,"Fort Worth, TX","Southwest"
+"Fort Worth","Total",0.833706159,0.824051454,"Fort Worth, TX","Southwest"
+"Fresno","MB",0.789063381,0.72815149,"Fresno, CA","Pacific"
+"Fresno","Total",0.789063381,0.72815149,"Fresno, CA","Pacific"
+"Honolulu","MB",0.644692653,0.762094564,"Honolulu, HI","Pacific"
+"Honolulu","Total",0.644692653,0.762094564,"Honolulu, HI","Pacific"
+"Houston","LR",0.747918066,0.638332281,"Houston, TX","Southwest"
+"Houston","MB",0.815052278,0.638332281,"Houston, TX","Southwest"
+"Houston","Total",0.800515591,0.638332281,"Houston, TX","Southwest"
+"Indianapolis","MB",0.678706133,0.786102235,"Indianapolis, IN","Midwest"
+"Indianapolis","Total",0.678706133,0.786102235,"Indianapolis, IN","Midwest"
+"Jacksonville","MB",0.58790391,0.704381131,"Jacksonville, FL","Southeast"
+"Jacksonville","Total",0.58790391,0.704381131,"Jacksonville, FL","Southeast"
+"Kansas City","MB",0.930361204,0.757541348,"Kansas City, MO","Midwest"
+"Kansas City","Total",0.930361204,0.757541348,"Kansas City, MO","Midwest"
+"Las Vegas","MB",0.80310043,0.996927934,"Las Vegas, NV","Southwest"
+"Las Vegas","Total",0.80310043,0.996927934,"Las Vegas, NV","Southwest"
+"Los Angeles","CR",0.43277107,0.841628442,"Los Angeles, CA","Pacific"
+"Los Angeles","HR",0.660633378,0.841628442,"Los Angeles, CA","Pacific"
+"Los Angeles","LR",0.608192333,0.841628442,"Los Angeles, CA","Pacific"
+"Los Angeles","MB",0.784385351,0.841628442,"Los Angeles, CA","Pacific"
+"Los Angeles","Total",0.734181388,0.841628442,"Los Angeles, CA","Pacific"
+"Louisville","MB",0.596710141,0.558388669,"Louisville, KY","Midwest"
+"Louisville","Total",0.596710141,0.558388669,"Louisville, KY","Midwest"
+"Memphis","LR",1.163253897,0.755936159,"Memphis, TN","Southeast"
+"Memphis","MB",0.423561903,0.755936159,"Memphis, TN","Southeast"
+"Memphis","Total",0.464554733,0.755936159,"Memphis, TN","Southeast"
+"Miami","HR",0.734223483,0.938283683,"Miami, FL","Southeast"
+"Miami","MB",1.141685183,0.938283683,"Miami, FL","Southeast"
+"Miami","Total",1.031451134,0.938283683,"Miami, FL","Southeast"
+"Milwaukee","MB",0.633637984,0.880846442,"Milwaukee, WI","Midwest"
+"Milwaukee","Total",0.633637984,0.880846442,"Milwaukee, WI","Midwest"
+"Minneapolis","CR",0.115368085,0.574840305,"Minneapolis, MN","Midwest"
+"Minneapolis","LR",0.588051695,0.574840305,"Minneapolis, MN","Midwest"
+"Minneapolis","MB",0.562215786,0.574840305,"Minneapolis, MN","Midwest"
+"Minneapolis","Total",0.565221134,0.574840305,"Minneapolis, MN","Midwest"
+"Montreal","HR",0.737824995,0.65947887,"Montreal, QC","Canada"
+"Montreal","MB",0.222397656,0.65947887,"Montreal, QC","Canada"
+"Montreal","Total",0.520142726,0.65947887,"Montreal, QC","Canada"
+"Nashville","CR",0.338125455,0.905154344,"Nashville, TN","Southeast"
+"Nashville","MB",0.339157527,0.905154344,"Nashville, TN","Southeast"
+"Nashville","Total",0.338420883,0.905154344,"Nashville, TN","Southeast"
+"New Orleans","LR",0.554606818,0.744040327,"New Orleans, LA","Southeast"
+"New Orleans","MB",0.588297281,0.744040327,"New Orleans, LA","Southeast"
+"New Orleans","Total",0.574042966,0.744040327,"New Orleans, LA","Southeast"
+"New York","CR",0.674468815,0.686377451,"New York, NY","Northeast"
+"New York","HR",0.638156752,0.686377451,"New York, NY","Northeast"
+"New York","MB",0.651630912,0.686377451,"New York, NY","Northeast"
+"New York","Total",0.741810205,0.686377451,"New York, NY","Northeast"
+"Oakland","MB",0.654673982,0.731700542,"Oakland, CA","Pacific"
+"Oakland","Total",0.654673982,0.731700542,"Oakland, CA","Pacific"
+"Oklahoma City","MB",0.930622137,0.944010913,"Oklahoma City, OK","Southwest"
+"Oklahoma City","Total",0.930622137,0.944010913,"Oklahoma City, OK","Southwest"
+"Orlando","CR",0.68976514,0.81405654,"Orlando, FL","Southeast"
+"Orlando","MB",0.803447559,0.81405654,"Orlando, FL","Southeast"
+"Orlando","Total",0.795695937,0.81405654,"Orlando, FL","Southeast"
+"Ottawa","MB",0.653774485,0.796079416,"Ottawa, ON","Canada"
+"Ottawa","Total",0.653774485,0.796079416,"Ottawa, ON","Canada"
+"Philadelphia","CR",0.54758303,0.692011934,"Philadelphia, PA","Northeast"
+"Philadelphia","HR",0.464104634,0.692011934,"Philadelphia, PA","Northeast"
+"Philadelphia","LR",0.493238625,0.692011934,"Philadelphia, PA","Northeast"
+"Philadelphia","MB",0.683572271,0.692011934,"Philadelphia, PA","Northeast"
+"Philadelphia","Total",0.58187943,0.692011934,"Philadelphia, PA","Northeast"
+"Phoenix","LR",0.719395925,0.907945223,"Phoenix, AZ","Southwest"
+"Phoenix","MB",0.515160885,0.907945223,"Phoenix, AZ","Southwest"
+"Phoenix","Total",0.54392682,0.907945223,"Phoenix, AZ","Southwest"
+"Pittsburgh","LR",0.442765457,0.68165444,"Pittsburgh, PA","Northeast"
+"Pittsburgh","MB",0.623726293,0.68165444,"Pittsburgh, PA","Northeast"
+"Pittsburgh","Total",0.602826124,0.68165444,"Pittsburgh, PA","Northeast"
+"Portland","CR",0.319634249,0.62403955,"Portland, OR","Pacific"
+"Portland","LR",0.573720538,0.62403955,"Portland, OR","Pacific"
+"Portland","MB",0.642966418,0.62403955,"Portland, OR","Pacific"
+"Portland","Total",0.613945951,0.62403955,"Portland, OR","Pacific"
+"Sacramento","LR",0.571004905,0.666110933,"Sacramento, CA","Pacific"
+"Sacramento","MB",0.86311268,0.666110933,"Sacramento, CA","Pacific"
+"Sacramento","Total",0.706576815,0.666110933,"Sacramento, CA","Pacific"
+"Salt Lake City","CR",0.699910415,0.861435131,"Salt Lake City, UT","Southwest"
+"Salt Lake City","LR",0.639931017,0.861435131,"Salt Lake City, UT","Southwest"
+"Salt Lake City","MB",0.873563401,0.861435131,"Salt Lake City, UT","Southwest"
+"Salt Lake City","Total",0.760419774,0.861435131,"Salt Lake City, UT","Southwest"
+"San Antonio","MB",0.682392052,0.794795155,"San Antonio, TX","Southwest"
+"San Antonio","Total",0.682392052,0.794795155,"San Antonio, TX","Southwest"
+"San Diego","LR",1.003023983,0.809837025,"San Diego, CA","Pacific"
+"San Diego","MB",0.660297711,0.809837025,"San Diego, CA","Pacific"
+"San Diego","Total",0.809325413,0.809837025,"San Diego, CA","Pacific"
+"San Francisco","CR",0.562419383,0.685143323,"San Francisco, CA","Pacific"
+"San Francisco","HR",0.365609418,0.685143323,"San Francisco, CA","Pacific"
+"San Francisco","LR",0.472392993,0.685143323,"San Francisco, CA","Pacific"
+"San Francisco","MB",0.566899095,0.685143323,"San Francisco, CA","Pacific"
+"San Francisco","Total",0.513866106,0.685143323,"San Francisco, CA","Pacific"
+"San Jose","LR",0.515566277,0.98363269,"San Jose, CA","Pacific"
+"San Jose","MB",0.766715591,0.98363269,"San Jose, CA","Pacific"
+"San Jose","Total",0.708243904,0.98363269,"San Jose, CA","Pacific"
+"Seattle","CR",0.330591906,0.583957461,"Seattle, WA","Pacific"
+"Seattle","LR",0.871038532,0.583957461,"Seattle, WA","Pacific"
+"Seattle","MB",0.533159308,0.583957461,"Seattle, WA","Pacific"
+"Seattle","Total",0.654575222,0.583957461,"Seattle, WA","Pacific"
+"Tampa","MB",0.946440021,0.803242934,"Tampa, FL","Southeast"
+"Tampa","Total",0.946440021,0.803242934,"Tampa, FL","Southeast"
+"Toronto","HR",0.613393023,0.697075278,"Toronto, ON","Canada"
+"Toronto","LR",0.410180695,0.697075278,"Toronto, ON","Canada"
+"Toronto","MB",0.872361243,0.697075278,"Toronto, ON","Canada"
+"Toronto","Total",0.682958056,0.697075278,"Toronto, ON","Canada"
+"Tucson","MB",0.515942421,0.941130447,"Tucson, AZ","Southwest"
+"Tucson","Total",0.515942421,0.941130447,"Tucson, AZ","Southwest"
+"Vancouver","MB",0.727090221,0.847538849,"Vancouver, BC","Canada"
+"Vancouver","Total",0.727090221,0.847538849,"Vancouver, BC","Canada"

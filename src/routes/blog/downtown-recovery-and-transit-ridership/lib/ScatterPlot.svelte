@@ -38,7 +38,7 @@
             "colour": "#6FC7EA"
         },
         {
-            "id": "All",
+            "id": "Total",
             "name": "Transit",
             "colour": "#6FC7EA"
         }
@@ -86,6 +86,7 @@
 
     $: chartData = recoveryData
         .filter(item => item.mode === transitVariable)
+        .filter(item => $selectedRegions.includes(item.region))
         .sort((a, b) => b.downtown_recovery - a.downtown_recovery);
 
 
@@ -132,7 +133,7 @@
     let xAxisWidth = 100;
     $: xAxisWidth = chartWidth - 45 - 10;
 
-    let maxXaxis = 140;
+    let maxXaxis = 1.4;
 
     let xIntervalChart = 0.1;
     $: xIntervalChart = xAxisWidth / 7;
@@ -178,6 +179,7 @@
             filteredChartData.map(obj => [parseFloat(obj[xVariable]), parseFloat(obj.downtown_recovery)])
         ) : null;
 
+
     function regressionLineSquare(m, b, xmin, ymin, xmax, ymax) {
         let x1, y1, x2, y2;
 
@@ -208,23 +210,25 @@
         return [[x1, y1], [x2, y2]];
     }
 
-    $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1,1]];
+    $: dataTrendLine = dataLinearRegression !== null ? regressionLineSquare(dataLinearRegression.m, dataLinearRegression.b, 0, 0, maxXaxis, Math.max(...yAxisIntervals)) : [[0,0],[1.4,1.4]];
+
+    $: console.log(dataTrendLine);
 
     $: dataTrendLineSlope = dataLinearRegression !== null ? 100 * dataLinearRegression.m : 0;
     $: dataLinearRegression !== null ?  dataTrendLineIntercept = 100 * dataLinearRegression.b : 0;
 
     function formatNumber(x) {
-    const threshold = 0.001; 
+        const threshold = 0.001; 
 
-    if (Math.abs(x) < threshold) {
-        return x.toExponential(2);
-    } else if (Math.abs(x) >= 1000) {
-        return x.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    } else if (Math.abs(x) >= 10) {
-        return x.toFixed(2);
-    } else {
-        return x.toFixed(4);
-    }
+        if (Math.abs(x) < threshold) {
+            return x.toExponential(2);
+        } else if (Math.abs(x) >= 1000) {
+            return x.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        } else if (Math.abs(x) >= 10) {
+            return x.toFixed(2);
+        } else {
+            return x.toFixed(4);
+        }
     }
 
 </script>
@@ -274,7 +278,7 @@
                         x = {47 + i * xIntervalChart}
                         y = {chartHeight - 10}
                         text-anchor="end"
-                    >{(i * xIntervalUnits).toLocaleString()}%</text>
+                    >{(100 * i * xIntervalUnits).toLocaleString()}%</text>
 
                     <line class="grid-white"
                         x1 = {45 + i * xIntervalChart}
@@ -293,7 +297,7 @@
                         )}
                     y1={30 + yScale(
                         yAxisRange,
-                        chartHeight - 40,
+                        chartHeight - 60,
                         parseFloat(dataTrendLine[0][1])
                     )} 
                     x2={45 + xScale(
@@ -303,7 +307,7 @@
                         )} 
                     y2={30 + yScale(
                         yAxisRange,
-                        chartHeight - 40,
+                        chartHeight - 60,
                         parseFloat(dataTrendLine[1][1])
                     )}  
                     stroke="#D0D1C9"
@@ -352,7 +356,7 @@
                                 d.downtown_recovery
                             )}
                             r="6" 
-                            fill={modeColour}
+                            fill={regionColours.find(region => region.name === d.region).colour}
                             stroke="white"
                             stroke-width="0"
 
@@ -393,7 +397,7 @@
                             <br> 
                             Downtown Recovery: {Math.round(100 *selected_datapoint.downtown_recovery)}%
                             <br>
-                            Transit Recovery: {Math.round((selected_datapoint.transit_recovery).toString())}%
+                            Transit Recovery: {Math.round((100 * selected_datapoint.transit_recovery).toString())}%
                         </p>
                     </div>
                 </foreignObject>
