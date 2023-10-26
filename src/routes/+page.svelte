@@ -8,6 +8,7 @@
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
     import cardImgReport from "../assets/card-img/card-img-report.png";
     import cardImgVideo from "../assets/card-img/card-img-video.png";
+    import cardImgBlog from "../assets/card-img/card-img-blog.png";
 
     const baseUrl = '/downtown-recovery';
 
@@ -103,6 +104,20 @@
 
             </div>
         </a>
+
+        <a href="/blog/sensitivity-analysis">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgBlog}>
+                </div>
+
+                <h2>Blog</h2>
+
+                <p>Explore more in-depth analyses of our activity data.</p>
+
+            </div>
+        </a>        
 
     </div>
 
