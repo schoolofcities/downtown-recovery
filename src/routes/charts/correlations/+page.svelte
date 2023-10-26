@@ -280,11 +280,14 @@
     </div>
 
     <div id="chart-wrapper" bind:offsetWidth={chartWidth}>
+
+        
         
         <div id="options">
             <!-- <div id="options-season">
                 <SelectSeason/>
             </div> -->
+            <p>Select Regions:</p>
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>

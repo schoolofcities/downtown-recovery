@@ -108,6 +108,7 @@
                 <SelectSeason/>
             </div>
             <div id="options-region">
+                <p>Select Regions:</p>
                 <SelectRegions europe={"yes"}/>
             </div>
             <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
@@ -183,8 +184,6 @@
                     text-anchor="end"
                 >{i + 1}</text>
 
-                
-                
                 <text class="bar-label"
                     x = 32
                     y = {56 + i * 24}
