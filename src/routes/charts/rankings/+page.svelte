@@ -92,7 +92,7 @@
             A recovery metric greater than 100% means that for the selected inputs, the mobile device activity increased relative to the 2019 comparison period. A value less than 100% means the opposite, that the city's downtown has not recovered to pre-COVID activity levels.
         </p>
         <p>
-            Our rankings look a little different from our last update for four reasons: (1) we shifted from combining data from two providers (Safegraph and Spectus) to using just one (Spectus); (2) we changed how we define downtown to reflect the central location with the highest concentration of private sector employment (see methodology for more details); (3) we are standardizing now by MSA instead of state/province (see methodology); and (4) we are now showing data through mid-June instead of end of May.
+            Our rankings look a little different from our last update for four reasons: (1) we shifted from combining data from two providers (Safegraph and Spectus) to using just one (Spectus); (2) we changed how we define downtown to reflect the central location with the highest concentration of employment (see methodology for more details); (3) we are standardizing now by MSA instead of state/province (see methodology); and (4) we are now showing data through mid-June instead of end of May.
         </p>
         <p>
             For more information, read our <a href="/methodology">Methodology</a> page. Or click <a href="/recovery_rankings.csv">here</a> to download the data shown on this chart.
