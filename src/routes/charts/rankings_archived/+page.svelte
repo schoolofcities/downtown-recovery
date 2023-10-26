@@ -184,8 +184,6 @@
                     text-anchor="end"
                 >{i + 1}</text>
 
-                
-                
                 <text class="bar-label"
                     x = 32
                     y = {56 + i * 24}
