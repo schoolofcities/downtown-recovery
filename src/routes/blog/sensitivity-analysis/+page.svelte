@@ -2,8 +2,9 @@
 
     import Header from "../../../lib/Header.svelte";
     import "../../../assets/global.css";
-    import ScatterPlot from "./lib/ScatterPlot.svelte";
-    import SelectRegions from "../../../lib/SelectRegions.svelte";
+    // import ScatterPlot from "./lib/ScatterPlot.svelte";
+    // import SelectRegions from "../../../lib/SelectRegions.svelte";
+    import Map from "./lib/Map.svelte";
 
 </script>
 
@@ -14,15 +15,17 @@
 
     <div class="text">
 
-        <h3>Downtown Recovery & Transit Ridership Recovery</h3>
+        <h3>Comparison of recovery rate for different definitions of "downtown"</h3>
 
         <p>
-            In the aftermath of the COVID-19 pandemic, the revival of downtown areas and public transit systems has been a hot topic. As cities all over North America faced pandemic challenges, we decided to explore the connection between downtown recovery and public transit resurgence. Our journey took us across different types of public transport, including Commuter Rail, Heavy Rail, Light Rail, and Buses in cities across North America. 
+            [explanation here] 
         </p>
 
-        <ScatterPlot transitVariable = "Total"/>
+        <Map/>
 
-        <p>
+        <!-- <ScatterPlot transitVariable = "Total"/> -->
+
+        <!-- <p>
             The colours of the dots pertain to the region of the city. Feel free to toggle each region on or off by clicking on each below. You can also hover over each point to view the name of the city and its statistics.
         </p>
 
@@ -30,15 +33,15 @@
             <div id="options-region">
                 <SelectRegions europe={"no"}/>
             </div>
-        </div>
+        </div> -->
 
-        <p>
+        <!-- <p>
             We've also created charts for different modes of transit; busses, light rail, heavy rail (i.e. metro and subway), and commuter rail. Check them out below
-        </p>
+        </p> -->
 
     </div>
 
-    <div class="grid">
+    <!-- <div class="grid">
 
         <div class="grid-cell">
             <ScatterPlot transitVariable = "MB"/>
@@ -53,15 +56,15 @@
             <ScatterPlot transitVariable = "CR"/>
         </div>
 
-    </div>
+    </div> -->
 
-    <div class="text">
+    <!-- <div class="text">
 
         <p>
             Note that the data on these charts for downtown recovery are slightly different than elsewhere on this site. This is because they were calculated for Jan 2023 to June 2023 to align with the ridership data that we had access to. 
         </p>
 
-    </div>
+    </div> -->
 
 
 
