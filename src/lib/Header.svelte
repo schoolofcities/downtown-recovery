@@ -46,12 +46,12 @@
 			  	<li><a href="/charts/patterns">Patterns (Archived)</a></li>
 			</ul>
 		  </li>
-		  <!-- <li class="dropdown">
+		  <li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
 				<li><a href="/blog/downtown-recovery-and-transit-ridership">Downtown Recovery and Transit Ridership Recovery</a></li>
 			</ul>
-		  </li> -->
+		  </li>
 		  <li class="dropdown">
 			<a href="#">Resources &darr;</a>
 			<ul class="dropdown-menu">
