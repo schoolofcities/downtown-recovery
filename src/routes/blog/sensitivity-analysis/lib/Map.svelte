@@ -94,7 +94,7 @@
 		if (map) {
       		map.setPaintProperty('hdbscan_downtowns', 'fill-opacity', showHDBSCANDowntowns ? 0.4 : 0);
       		map.setPaintProperty('old_downtowns', 'fill-opacity', showOldDowntowns ? 0.4 : 0);
-    }
+    	}
 	}	
 
 </script>
@@ -102,20 +102,24 @@
 <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth}/>
 
 <div id="map" style="height: {mapHeight}px"></div>
-<div>
-	<label>
-	  <input type="checkbox" bind:checked={showHDBSCANDowntowns} />
-	  HDBSCAN
-	</label>
-  </div>
-  <div>
-	<label>
-	  <input type="checkbox" bind:checked={showOldDowntowns} />
-	  Zip code (former definition)
-	</label>
-  </div>
 
-<p>Data Sources: OpenStreetMap</p>
+<div id="bottombar">
+	<div>
+		<label>
+		<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
+		HDBSCAN
+		</label>
+	</div>
+	<div>
+		<label>
+		<input type="checkbox" bind:checked={showOldDowntowns} />
+		Zip code (former definition)
+		</label>
+	</div>
+	<p id='data_sources'>Data Sources: OpenStreetMap</p>
+</div>
+
+<!-- <p>Data Sources: OpenStreetMap</p> -->
 
 <style>
 	#map {
@@ -126,11 +130,18 @@
 		border-bottom: 1px solid var(--brandBlack); */
 		background-color: white;
 	}
-	p {
+
+	#bottombar {
+		margin-left: 20px;
+		margin-right: 10px;
+	}
+
+	#data_sources {
 		margin: 0 auto;
 		text-align: right;
-		font-size: 10px;
+		font-size: 12px;
 		max-width: 1200px;
-		color: var(--brandBlack);
+		color: white;		
 	}
+	
 </style>
