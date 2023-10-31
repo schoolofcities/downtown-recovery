@@ -2,11 +2,18 @@
 
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
-	// import downtownsHdbscan from './HDBSCAN_downtowns_with_province.geojson';
+	import hdbscan_downtowns from '../../../../assets/HDBSCAN_downtowns_with_province.geo.json';
+	import old_downtowns from '../../../../assets/old_study_areas.geo.json';
 
 	let pageHeight;
 	let pageWidth;
+	/**
+     * @type {import("maplibre-gl").Map}
+     */
 	let map;
+
+	let showHDBSCANDowntowns = true; // Initial visibility
+	let showOldDowntowns = true; // Initial visibility
 
 	let mapHeight = 600;
 	$: if (pageHeight < 800) {
@@ -19,15 +26,11 @@
 
 		map = new maplibregl.Map({
 			container: 'map',
-			center: [-79.36, 43.715], 
-			zoom: 10.5,
+			center: [-79.386, 43.653], 
+			zoom: 12,
 			minZoom: 9,
 			maxZoom: 13,
 			bearing: 0,
-			// maxBounds: [ 
-			// 	[-80.28, 43.21], 
-			// 	[-77.88, 44.91] 
-			// ],
 			projection: 'globe',
 			scrollZoom: true,
 			attributionControl: false
@@ -36,6 +39,36 @@
 		map.dragRotate.disable();
 		map.touchZoomRotate.disableRotation();
 		// map.scrollZoom.disable();
+
+		map.addSource('hdbscan_downtowns', {
+			'type': 'geojson',
+			'data': hdbscan_downtowns
+		});
+
+		map.addLayer({
+               'id': 'hdbscan_downtowns',
+               'type': 'fill',
+               'source': 'hdbscan_downtowns',
+               'paint': {
+                   'fill-color': 'red',
+                   'fill-opacity': showHDBSCANDowntowns ? 0.4 : 0,
+               }
+        });		
+
+		map.addSource('old_downtowns', {
+			'type': 'geojson',
+			'data': old_downtowns
+		});
+
+		map.addLayer({
+               'id': 'old_downtowns',
+               'type': 'fill',
+               'source': 'old_downtowns',
+               'paint': {
+                   'fill-color': 'orange',
+                   'fill-opacity': showOldDowntowns ? 0.4 : 0,
+               }
+        });	
 
 		map.addSource('osm-raster-tiles', {
 			'type': 'raster',
@@ -52,40 +85,37 @@
 				'raster-saturation': -1,
 				'raster-opacity': 0.42
 			}
-		});		
-		
-		map.addSource('hdbscan-data', {
-			'type': 'geojson',
-			'data': downtownsHdbscan
-			// 'data': 'C:/Users/jpg23/git/website_downtownrecovery/downtown-recovery/src/routes/blog/sensitivity-analysis/lib/HDBSCAN_downtowns_with_province.geo.json'
-			// 'data': 'HDBSCAN_downtowns_with_province.geo.json'
-		});
-		map.addLayer({
-                'id': 'hdbscan-data',
-                'type': 'fill',
-                'source': 'hdbscan-data',
-                'paint': {
-                    'fill-color': '#888888',
-                    'fill-outline-color': 'red',
-                    'fill-opacity': 0.4
-                }
-            });		
+		});			
 		
 	});
 
+	// Watch for changes in layer visibility
+	$: {
+		if (map) {
+      		map.setPaintProperty('hdbscan_downtowns', 'fill-opacity', showHDBSCANDowntowns ? 0.4 : 0);
+      		map.setPaintProperty('old_downtowns', 'fill-opacity', showOldDowntowns ? 0.4 : 0);
+    }
+	}	
+
 </script>
-
-
-
 
 <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth}/>
 
 <div id="map" style="height: {mapHeight}px"></div>
+<div>
+	<label>
+	  <input type="checkbox" bind:checked={showHDBSCANDowntowns} />
+	  HDBSCAN
+	</label>
+  </div>
+  <div>
+	<label>
+	  <input type="checkbox" bind:checked={showOldDowntowns} />
+	  Zip code (former definition)
+	</label>
+  </div>
 
 <p>Data Sources: OpenStreetMap</p>
-
-
-
 
 <style>
 	#map {
