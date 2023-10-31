@@ -14,7 +14,7 @@
 
     <div class="text">
 
-        <h3>Downtown Recovery & Transit Ridership Recovery</h3>
+        <h3>Reviving Downtowns and Transit: A Potential Path to Post-Pandemic Recovery</h3>
 
         <p>By <a href="www.linkedin.com/in/amir-forouhar">Amir Forouhar</a> | October 31, 2023</p> 
 
@@ -162,7 +162,7 @@
     }
 
     h3 {
-        font-size: 25px;
+        font-size: 22.2px;
     }
 
     h4 {
