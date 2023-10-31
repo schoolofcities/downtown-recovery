@@ -4,7 +4,7 @@
     import "../../../assets/global.css";
     // import ScatterPlot from "./lib/ScatterPlot.svelte";
     // import SelectRegions from "../../../lib/SelectRegions.svelte";
-    import Map from "./lib/Map.svelte";
+    import Map from "./lib/Map2.svelte";
 
 </script>
 

@@ -4,6 +4,7 @@
 	import maplibregl from 'maplibre-gl';
 	import hdbscan_downtowns from '../../../../assets/HDBSCAN_downtowns_with_province.geo.json';
 	import old_downtowns from '../../../../assets/old_study_areas.geo.json';
+	import { cityCoordinates } from './city_coords.js';
 
 	let pageHeight;
 	let pageWidth;
@@ -11,6 +12,7 @@
      * @type {import("maplibre-gl").Map}
      */
 	let map;
+	let selectedCity = 'New York NY'; // Default city
 
 	let showHDBSCANDowntowns = true; // Initial visibility
 	let showOldDowntowns = true; // Initial visibility
@@ -26,7 +28,7 @@
 
 		map = new maplibregl.Map({
 			container: 'map',
-			center: [-79.386, 43.653], 
+			center: [cityCoordinates[selectedCity].long, cityCoordinates[selectedCity].lat],
 			zoom: 12,
 			minZoom: 9,
 			maxZoom: 16,
@@ -38,7 +40,6 @@
 
 		map.dragRotate.disable();
 		map.touchZoomRotate.disableRotation();
-		// map.scrollZoom.disable();
 
 		map.addSource('hdbscan_downtowns', {
 			'type': 'geojson',
@@ -74,8 +75,8 @@
 			'type': 'raster',
 			'tiles': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
 			'tileSize': 256,
-			'minzoom': 0,
-			'maxzoom': 19
+			// 'minzoom': 0,
+			// 'maxzoom': 19
 		});
 		map.addLayer({
 			'id': 'osm-raster-tiles',
@@ -97,11 +98,26 @@
     	}
 	}	
 
+	function updateMap() {
+		// Update the map's center and zoom based on the selected city
+		const { lat, long } = cityCoordinates[selectedCity];
+		map.flyTo({ center: [long, lat], zoom: 12, duration: 50 }); // Adjust the zoom level as needed
+  	}	
+
 </script>
 
 <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth}/>
 
 <div id="map" style="height: {mapHeight}px"></div>
+
+<div>
+	<label for="cityDropdown">Select a city:</label>
+	<select id="cityDropdown" bind:value={selectedCity} on:change={updateMap}>
+	  {#each Object.keys(cityCoordinates) as city}
+		<option value={city}>{city}</option>
+	  {/each}
+	</select>
+  </div>
 
 <div id="bottombar">
 	<div>
