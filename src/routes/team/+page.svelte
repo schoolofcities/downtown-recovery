@@ -18,7 +18,7 @@
             <span class="bold">Karen Chapple, Ph.D.</span>, is the Director of the School of Cities/Professor of Geography & Planning at the University of Toronto and Professor Emerita of City & Regional Planning at UC Berkeley. For any questions or enquiries, please contact <a href="karen.chapple@utoronto.ca">karen.chapple@utoronto.ca</a>
         </p>
         <p>
-            <span class="bold">Jeff Allen</span> is a cartographer and urban data scientist. He is the Lead of Data Visualization at the School of Cities. He has a PhD in Geography from the University of Toronto.
+            <span class="bold">Jeff Allen</span> is a cartographer and urban data scientist. He is the Lead of Data Visualization at the School of Cities. He has a PhD in Geography from the University of Toronto. Check out some of his work <a href="https://jamaps.github.io">here</a>.
          </p>
          <p>
             <span class="bold">Hannah Moore</span>, completed a B.A. in Data Science at UC Berkeley and is currently a research data analyst with IGS.

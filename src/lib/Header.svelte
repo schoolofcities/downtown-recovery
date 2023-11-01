@@ -46,17 +46,18 @@
 			  	<li><a href="/charts/patterns">Patterns (Archived)</a></li>
 			</ul>
 		  </li>
-		  <!-- <li class="dropdown">
+		  <li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
 				<li><a href="/blog/downtown-recovery-and-transit-ridership">Downtown Recovery and Transit Ridership Recovery</a></li>
 			</ul>
-		  </li> -->
+		  </li>
 		  <li class="dropdown">
 			<a href="#">Resources &darr;</a>
 			<ul class="dropdown-menu">
 				<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
 				<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
+				<li><a href="https://doi.org/10.1016/j.cities.2023.104588" target="_blank">Journal Article on Pandemic Recovery Trajectories</a></li>
 			</ul>
 		  </li>
 		  <li><a href="/team">Team</a></li>
