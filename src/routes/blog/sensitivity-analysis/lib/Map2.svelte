@@ -12,7 +12,7 @@
      * @type {import("maplibre-gl").Map}
      */
 	let map;
-	let selectedCity = 'New York NY'; // Default city
+	let selectedCity = 'Albuquerque NM'; // Default city
 
 	let showHDBSCANDowntowns = true; // Initial visibility
 	let showOldDowntowns = true; // Initial visibility
@@ -108,56 +108,70 @@
 
 <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth}/>
 
-<div id="map" style="height: {mapHeight}px"></div>
+<div class="container">
+  <div id="map" style="height: {mapHeight}px"></div>
 
-<div>
-	<label for="cityDropdown">Select a city:</label>
-	<select id="cityDropdown" bind:value={selectedCity} on:change={updateMap}>
-	  {#each Object.keys(cityCoordinates) as city}
-		<option value={city}>{city}</option>
-	  {/each}
-	</select>
+  <div>
+	<div>
+		<label for="cityDropdown">Select a city:</label>
+		<select id="cityDropdown" bind:value={selectedCity} on:change={updateMap}>
+		  {#each Object.keys(cityCoordinates) as city}
+			<option value={city}>{city}</option>
+		  {/each}
+		</select>
+	  </div>
+	
+	  <div id="sidebar">
+		<div>
+			<label>
+			<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
+			HDBSCAN
+			</label>
+		</div>
+		<br>
+		<div>
+			<label>
+			<input type="checkbox" bind:checked={showOldDowntowns} />
+			Zip code (former definition)
+			</label>
+		</div>
+		<div>
+			<br><br>
+			<p id='data_sources'>Data Sources:<br>- OpenStreetMap<br>- LEHD</p>
+		</div>
+	  </div>
   </div>
 
-<div id="bottombar">
-	<div>
-		<label>
-		<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
-		HDBSCAN
-		</label>
-	</div>
-	<div>
-		<label>
-		<input type="checkbox" bind:checked={showOldDowntowns} />
-		Zip code (former definition)
-		</label>
-	</div>
-	<p id='data_sources'>Data Sources: OpenStreetMap</p>
 </div>
 
-<!-- <p>Data Sources: OpenStreetMap</p> -->
-
 <style>
-	#map {
-		width: 100%;
-		margin: 0 auto;
-		max-width: 1200px;
-		/* border-top: 1px solid var(--brandBlack);
-		border-bottom: 1px solid var(--brandBlack); */
-		background-color: white;
-	}
+  .container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    justify-content: space-between; /* Align items to the start and end of the container */
+    align-items: flex-start; /* Align items to the top of the container */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-	#bottombar {
-		margin-left: 20px;
-		margin-right: 10px;
-	}
+  #map {
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	max-width: 900px;
+	background-color: white;	
+  }
 
-	#data_sources {
-		margin: 0 auto;
-		text-align: right;
-		font-size: 12px;
-		max-width: 1200px;
-		color: white;		
-	}
-	
+  #sidebar {
+    width: 30%;
+	margin-left: 20px;
+  }
+
+  #data_sources {
+	margin: 0 auto;
+	text-align: left;
+	font-size: 12px;
+	max-width: 1200px;
+	color: white;		
+  }
 </style>
