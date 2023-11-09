@@ -66,7 +66,7 @@
                'type': 'fill',
                'source': 'old_downtowns',
                'paint': {
-                   'fill-color': 'orange',
+                   'fill-color': 'blue',
                    'fill-opacity': showOldDowntowns ? 0.4 : 0,
                }
         });	

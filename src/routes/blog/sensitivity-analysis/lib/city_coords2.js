@@ -1,6 +1,6 @@
 export const cityCoordinates = {
-    'Albuquerque NM': { lat: '35.0844', long: '-106.6504', rq_comm: '0.6294742', rq_zip: '0.9072551', rq_hdbscan: '0.6624530' },
-    'Atlanta GA': { lat: '33.7490', long: '-84.3880', rq_comm: '0.5977573', rq_zip: '0.8477988', rq_hdbscan: '0.8525681' }
+    'Albuquerque NM': { lat: '35.0844', long: '-106.6504', rq_comm: 0.6294742, rq_zip: 0.9072551, rq_hdbscan: 0.6624530 },
+    'Atlanta GA': { lat: '33.7490', long: '-84.3880', rq_comm: 0.5977573, rq_zip: 0.8477988, rq_hdbscan: 0.8525681 }
 };
     // 'Austin TX': { lat: '30.2672', long: '-97.7431' },
     // 'Bakersfield CA': { lat: '35.3733', long: '-119.0187' },
