@@ -2,10 +2,7 @@
 
     import Header from "../../../lib/Header.svelte";
     import "../../../assets/global.css";
-    // import ScatterPlot from "./lib/ScatterPlot.svelte";
-    // import SelectRegions from "../../../lib/SelectRegions.svelte";
-    import MapPlot from "./lib/MapPlot2.svelte";
-    // import Map from "./lib/Map.svelte";
+    import MapPlot from "./lib/MapPlot.svelte";
 
 </script>
 
@@ -13,21 +10,14 @@
 <Header/>
 
 <main>
-
     <div class="text">
-
         <h3>Comparison of recovery rate for different definitions of "downtown"</h3>
-
         <p>
-            [explanation here] 
+            Downtowns' recovery rates look different depending on how the "downtown" is defined. 
         </p>
-
         <MapPlot/>
-
     </div>
-
 </main>
-
 
 <style>
 

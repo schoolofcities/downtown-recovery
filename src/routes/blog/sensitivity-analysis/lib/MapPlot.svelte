@@ -1,193 +1,256 @@
 <script>
-
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import hdbscan_downtowns from '../../../../assets/HDBSCAN_downtowns_with_province.geo.json';
 	import old_downtowns from '../../../../assets/old_study_areas.geo.json';
-	import { cityCoordinates } from './city_coords2.js';
-	import { scaleLinear, scaleBand, select, axisBottom, axisLeft } from 'd3';
-
+	import { cityCoordinates } from './city_coords.js';
+	import { scaleLinear, scaleBand, select, axisBottom, axisLeft, format } from 'd3';
+  
 	let pageHeight;
 	let pageWidth;
+  
 	/**
-     * @type {import("maplibre-gl").Map}
-     */
-	// let map;
-	let selectedCity = 'Albuquerque NM'; // Default city
-
-	let showHDBSCANDowntowns = true; // Initial visibility
-	let showOldDowntowns = true; // Initial visibility
-
-	// let mapHeight = 600;
-	// $: if (pageHeight < 800) {
-	// 	mapHeight = pageHeight - 200;
-	// } else {
-	// 	mapHeight = 600
-	// }
-
-	let chartHeight = 600;
-	$: if (pageHeight < 800) {
-		chartHeight = pageHeight - 200;
+	 * @type {import("maplibre-gl").Map}
+	 */
+	let map;
+  
+	let mapHeight = 400;
+	$: if (pageHeight < 600) {
+	  mapHeight = pageHeight - 200;
 	} else {
-		chartHeight = 600
-	}	
+	  mapHeight = 400;
+	}
+  
+	let selectedCity = 'Albuquerque NM'; // Default city
+  
+	let showHDBSCANDowntowns = true; // Initial visibility
+	let showOldDowntowns = false; // Initial visibility
+  
+	let chartData = [];
+  
+	function updateChartData() {
+	  const selectedData = cityCoordinates[selectedCity];
+	  chartData = [
+		{ label: 'Commercial', value: selectedData.rq_comm },
+		{ label: 'Zip code', value: selectedData.rq_zip },
+		{ label: 'HDBSCAN', value: selectedData.rq_hdbscan },
+	  ];
+	}
 
-	/**
-    * @type {Iterable<any> | import("d3-selection").ValueFn<SVGSVGElement, any, any[] | Iterable<any>>}
-    */
-	let chartData = []; // Initialize chart data	
+	function renderChart() {
+		updateChartData();
+		const margin = { top: 0, right: 20, bottom: 200, left: 0 };
+		const width = 200;
+		const height = 400;
 
-	onMount(() => {
+		const x = scaleLinear()
+			.domain([0, Math.max(...chartData.map((d) => d.value))])
+			.nice()
+			.range([margin.left, width - margin.right]);
 
-		// console.log(chartData)
+		const y = scaleBand()
+			.domain(chartData.map((d) => d.label))
+			.range([height - margin.bottom, margin.top]);
 
-		updateChartData(); // Initialize the chart data based on the selected city
-
-		const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-		const width = 400;
-		const height = 200;
-
-		const x = scaleLinear().domain([0, Math.max(...chartData.map(d => d.value))]).nice().range([margin.left, width - margin.right]);
-		const y = scaleBand().domain(chartData.map(d => d.label)).range([height - margin.bottom, margin.top]);
-
-		const svg = select('.chart-container')
-			.append('svg')
-			.attr('width', width)
-			.attr('height', height);
+		const svg = select('.chart-container > svg');
+		svg.selectAll('*').remove();
 
 		svg
 			.selectAll('rect')
 			.data(chartData)
 			.enter()
 			.append('rect')
-			.attr('x', margin.left) // Fixed x position for horizontal bars
-			.attr('y', d => y(d.label)) // Use y to position horizontally
-			.attr('width', d => x(d.value)) // Use x for the bar width
-			.attr('height', y.bandwidth()) // Use y for the bar height
-			.attr('fill', 'steelblue');
+			.attr('x', margin.left)
+			.attr('y', (d) => y(d.label))
+			.attr('width', (d) => x(d.value))
+			.attr('height', y.bandwidth() * 0.7)
+			.attr('fill', (d) => {
+				// Assign colors based on the label
+				if (d.label === 'HDBSCAN') {
+					return '#DC4633';
+				} else if (d.label === 'Zip code') {
+					return '#007FA3';
+				} else if (d.label === 'Commercial') {
+					return '#8DBF2E'; // Add 'red' color for the 'Commercial' label
+				} else {
+					return 'white';
+				}
+			})
+			.attr('fill-opacity', .5) // Set fill opacity
+			.attr('stroke', (d) => {
+				// Assign colors based on the label
+				if (d.label === 'HDBSCAN') {
+					return '#DC4633';
+				} else if (d.label === 'Zip code') {
+					return '#007FA3';
+				} else if (d.label === 'Commercial') {
+					return '#8DBF2E'; // Add 'red' color for the 'Commercial' label
+				} else {
+					return 'white';
+				}
+			})
+			.attr('stroke-opacity', 1) // Set border opacity	
+			.attr('stroke-width', 3);		
+
+		// Add labels on top of the bars
+		svg
+			.selectAll('text')
+			.data(chartData)
+			.enter()
+			.append('text')
+			.text((d) => `${d.label}: ${format('.0%')(d.value)}`)
+			.attr('x', margin.left + 6)
+			.attr('y', (d) => y(d.label) + y.bandwidth()/3)
+			.attr('dy', '0.35em')
+			.attr('font-size', '12px')
+			.attr('fill', 'white');
 
 		svg
 			.append('g')
 			.attr('transform', `translate(0,${height - margin.bottom})`)
-			.call(axisBottom(x));
+			// .call(xAxis);
 
 		svg
 			.append('g')
 			.attr('transform', `translate(${margin.left},0)`)
-			.call(axisLeft(y));		
+			// .call(axisLeft(y));
+	}
+  
+    onMount(() => {
+	  // Initialize the map
+	  map = new maplibregl.Map({
+		container: 'map',
+		center: [cityCoordinates[selectedCity].long, cityCoordinates[selectedCity].lat],
+		zoom: 12,
+		minZoom: 9,
+		maxZoom: 16,
+		bearing: 0,
+		projection: 'globe',
+		scrollZoom: true,
+		attributionControl: false,
+	  });
+  
+	  map.dragRotate.disable();
+	  map.touchZoomRotate.disableRotation();  
 
-	// 	map = new maplibregl.Map({
-	// 		container: 'map',
-	// 		center: [cityCoordinates[selectedCity].long, cityCoordinates[selectedCity].lat],
-	// 		zoom: 12,
-	// 		minZoom: 9,
-	// 		maxZoom: 16,
-	// 		bearing: 0,
-	// 		projection: 'globe',
-	// 		scrollZoom: true,
-	// 		attributionControl: false
-	// 	});
-
-	// 	map.dragRotate.disable();
-	// 	map.touchZoomRotate.disableRotation();
-
-	// 	map.addSource('hdbscan_downtowns', {
-	// 		'type': 'geojson',
-	// 		'data': hdbscan_downtowns
-	// 	});
-
-	// 	map.addLayer({
-    //            'id': 'hdbscan_downtowns',
-    //            'type': 'fill',
-    //            'source': 'hdbscan_downtowns',
-    //            'paint': {
-    //                'fill-color': 'red',
-    //                'fill-opacity': showHDBSCANDowntowns ? 0.4 : 0,
-    //            }
-    //     });		
-
-	// 	map.addSource('old_downtowns', {
-	// 		'type': 'geojson',
-	// 		'data': old_downtowns
-	// 	});
-
-	// 	map.addLayer({
-    //            'id': 'old_downtowns',
-    //            'type': 'fill',
-    //            'source': 'old_downtowns',
-    //            'paint': {
-    //                'fill-color': 'blue',
-    //                'fill-opacity': showOldDowntowns ? 0.4 : 0,
-    //            }
-    //     });	
-
-	// 	map.addSource('osm-raster-tiles', {
-	// 		'type': 'raster',
-	// 		'tiles': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-	// 		'tileSize': 256,
-	// 		// 'minzoom': 0,
-	// 		// 'maxzoom': 19
-	// 	});
-	// 	map.addLayer({
-	// 		'id': 'osm-raster-tiles',
-	// 		'type': 'raster',
-	// 		'source': 'osm-raster-tiles',
-	// 		'paint': {
-	// 			'raster-saturation': -1,
-	// 			'raster-opacity': 0.42
-	// 		}
-	// 	});			
-		
+	map.addSource('black-and-white-basemap', {
+		type: 'raster',
+		tiles: ['https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png'],
+		tileSize: 256,
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	});
 
-	// Function to update the chart data based on the selected city
-	function updateChartData() {
-		const selectedData = cityCoordinates[selectedCity];
-		chartData = [
-			{ label: 'rq_comm', value: selectedData.rq_comm },
-			{ label: 'rq_zip', value: selectedData.rq_zip },
-			{ label: 'rq_hdbscan', value: selectedData.rq_hdbscan }
-		];
-	}	
+	map.addLayer({
+		id: 'black-and-white-basemap',
+		type: 'raster',
+		source: 'black-and-white-basemap',
+		paint: {
+				'raster-brightness-min': 0.25,
+				'raster-brightness-max': 0.95,
+				'raster-saturation': 0.5,
+				'raster-contrast': 0.25,
+				'raster-opacity': 1
+			}
+	});
 
-	// // Watch for changes in layer visibility
-	// $: {
-	// 	if (map) {
-    //   		map.setPaintProperty('hdbscan_downtowns', 'fill-opacity', showHDBSCANDowntowns ? 0.4 : 0);
-    //   		map.setPaintProperty('old_downtowns', 'fill-opacity', showOldDowntowns ? 0.4 : 0);
-    // 	}
-	// }	
+	  // Add sources and layers
+	  map.addSource('hdbscan_downtowns', {
+		type: 'geojson',
+		data: hdbscan_downtowns,
+	  });
+  
+	  map.addLayer({
+		id: 'hdbscan_downtowns_fill',
+		type: 'fill',
+		source: 'hdbscan_downtowns',
+		paint: {
+		  'fill-color': '#DC4633',
+		  'fill-opacity': showHDBSCANDowntowns ? 0.5 : 0,
+		},
+	  });
 
-	// function updateMap() {
-	// 	// Update the map's center and zoom based on the selected city
-	// 	const { lat, long } = cityCoordinates[selectedCity];
-	// 	map.flyTo({ center: [long, lat], zoom: 12, duration: 50 }); // Adjust the zoom level as needed
-  	// }	
+	  map.addLayer({
+		id: 'hdbscan_downtowns_stroke',
+		type: 'line', // Use 'line' type for the border/stroke
+		source: 'hdbscan_downtowns',
+		paint: {
+			'line-color': '#DC4633', // Set the border color
+			'line-opacity': 1, // Set the border opacity to 1
+			'line-width': 3, // Adjust the border width as needed
+		},
+	  });		  
+  
+	  map.addSource('old_downtowns', {
+		type: 'geojson',
+		data: old_downtowns,
+	  });
+  
+	  map.addLayer({
+		id: 'old_downtowns_fill',
+		type: 'fill',
+		source: 'old_downtowns',
+		paint: {
+		  'fill-color': '#007FA3',
+		  'fill-opacity': showOldDowntowns ? 0.5 : 0,
+		},
+	  });
 
-</script>
+	  map.addLayer({
+		id: 'old_downtowns_stroke',
+		type: 'line', // Use 'line' type for the border/stroke
+		source: 'old_downtowns',
+		paint: {
+			'line-color': '#007FA3', // Set the border color
+			'line-opacity': 1, // Set the border opacity to 1
+			'line-width': 3, // Adjust the border width as needed
+		},
+	  });		
+  
+	  // Call renderChart when the map is initialized
+	  renderChart();
+    });
+  
+	// Function to update the map and chart when the city changes
+	function updateMapAndChart() {
 
-<svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth}/>
+	  const lat = cityCoordinates[selectedCity].lat;
+	  const long = cityCoordinates[selectedCity].long;	  
 
-<div class="container">
+	  map.flyTo({ center: [long, lat], zoom: 12, duration: 50 });
+	  renderChart();
+	}
 
-  <!-- <div class="map" style="height: {mapHeight}px"></div> -->
-
-  <div class="chart-container">
-	<svg width="400" height="200"></svg>
+	  // Watch for changes in layer visibility
+	  $: {
+		if (map) {
+		  map.setPaintProperty('hdbscan_downtowns_fill', 'fill-opacity', showHDBSCANDowntowns ? 0.4 : 0);
+		  map.setLayoutProperty('hdbscan_downtowns_stroke', 'visibility', showHDBSCANDowntowns ? 'visible' : 'none'); 
+		  map.setPaintProperty('old_downtowns_fill', 'fill-opacity', showOldDowntowns ? 0.4 : 0);
+		  map.setLayoutProperty('old_downtowns_stroke', 'visibility', showOldDowntowns ? 'visible' : 'none'); 
+		}
+	  }	
+  </script>
+  
+  <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth} />
+  
+  <div class="dropdown">
+	<label for="cityDropdown">Select a city:</label>
+	<select bind:value={selectedCity} on:change={updateMapAndChart}>
+	  {#each Object.keys(cityCoordinates) as city}
+		<option value={city}>{city}</option>
+	  {/each}
+	</select>
   </div>
 
-  <div>
-	<div>
-		<label for="cityDropdown">Select a city:</label>
-		<!-- <select id="cityDropdown" bind:value={selectedCity} on:change={updateMap}> -->
-		<select bind:value={selectedCity} on:change={updateChartData}>
-			{#each Object.keys(cityCoordinates) as city}
-		  	  <option value={city}>{city}</option>
-			{/each}
-		</select>
-	  </div>
-	
-	  <div id="sidebar">
+  <div class="container">
+  
+	<div class="chart-container" style="max-width: 250px">
+	  <svg width="300" height="400"></svg>
+	</div>
+
+	<div id="map" class="map" style="height: {mapHeight}px"></div>	
+
+	<div id="sidebar">
 		<div>
 			<label>
 			<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
@@ -198,53 +261,46 @@
 		<div>
 			<label>
 			<input type="checkbox" bind:checked={showOldDowntowns} />
-			Zip code (former definition)
+			Zip code
 			</label>
 		</div>
-		<div>
-			<br><br>
-			<p id='data_sources'>Data Sources:<br>- OpenStreetMap<br>- LEHD</p>
-		</div>
-	  </div>
+	</div>	
   </div>
+  
+  <style>
 
-</div>
+	.dropdown {
+		margin-top: 30px; 
+		margin-bottom: 30px; 
+	}
 
-<style>
-  .container {
-    display: flex;
-    flex-direction: row; /* Horizontal layout */
-    justify-content: space-between; /* Align items to the start and end of the container */
-    align-items: flex-start; /* Align items to the top of the container */
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .chart-container {
-	width: 80%;
-	height: 100%;
-	margin: 0 auto;
-	max-width: 900px;
-  }  
-
-  /* .map {
-	width: 80%;
-	height: 100%;
-	margin: 0 auto;
-	max-width: 900px;
-	background-color: white;	
-  } */
-
-  #sidebar {
-    width: 30%;
-	margin-left: 20px;
-  }
-
-  #data_sources {
-	margin: 0 auto;
-	text-align: left;
-	font-size: 12px;
-	max-width: 1200px;
-	color: white;		
-  }
-</style>
+	.container {
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  align-items: flex-start;
+	  max-width: 1200px;
+	  margin: 0 auto;
+	}
+  
+	.chart-container {
+	  width: 60%;
+	  height: 100%;
+	  margin: 0 auto;
+	  max-width: 900px;
+	}
+  
+	.map {
+	  width: 70%;
+	  height: 100%;
+	  /* margin: 20px; */
+	  max-width: 900px;
+	  /* background-color: black; */
+	}
+  
+	#sidebar {
+	  width: 30%;
+	  margin-left: 15px;
+	}
+  </style>
+  
