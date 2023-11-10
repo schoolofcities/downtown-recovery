@@ -11,11 +11,17 @@
 
 <main>
     <div class="text">
-        <h3>Comparison of recovery rate for different definitions of "downtown"</h3>
+        <h3>How does the definition of "downtown" affect its recovery rate?</h3>
         <p>
-            Downtowns' recovery rates look different depending on how the "downtown" is defined. 
+            [Brief intro here - pull text from papers] 
         </p>
         <MapPlot/>
+        <h2>
+            Heading here
+        </h2>
+        <p>
+            [Explain how each was defined]
+        </p>
     </div>
 </main>
 

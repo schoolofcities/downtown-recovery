@@ -39,7 +39,7 @@
 
 	function renderChart() {
 		updateChartData();
-		const margin = { top: 0, right: 20, bottom: 200, left: 0 };
+		const margin = { top: 3, right: 0, bottom: 0, left: 3 };
 		const width = 200;
 		const height = 400;
 
@@ -76,7 +76,7 @@
 					return 'white';
 				}
 			})
-			.attr('fill-opacity', .5) // Set fill opacity
+			.attr('fill-opacity', .2) // Set fill opacity
 			.attr('stroke', (d) => {
 				// Assign colors based on the label
 				if (d.label === 'HDBSCAN') {
@@ -102,7 +102,8 @@
 			.attr('x', margin.left + 6)
 			.attr('y', (d) => y(d.label) + y.bandwidth()/3)
 			.attr('dy', '0.35em')
-			.attr('font-size', '12px')
+			.attr('font-size', '14px')
+			.attr('font-family', 'Roboto')
 			.attr('fill', 'white');
 
 		svg
@@ -165,7 +166,7 @@
 		source: 'hdbscan_downtowns',
 		paint: {
 		  'fill-color': '#DC4633',
-		  'fill-opacity': showHDBSCANDowntowns ? 0.5 : 0,
+		  'fill-opacity': showHDBSCANDowntowns ? 0.2 : 0,
 		},
 	  });
 
@@ -191,7 +192,7 @@
 		source: 'old_downtowns',
 		paint: {
 		  'fill-color': '#007FA3',
-		  'fill-opacity': showOldDowntowns ? 0.5 : 0,
+		  'fill-opacity': showOldDowntowns ? 0.2 : 0,
 		},
 	  });
 
@@ -223,9 +224,9 @@
 	  // Watch for changes in layer visibility
 	  $: {
 		if (map) {
-		  map.setPaintProperty('hdbscan_downtowns_fill', 'fill-opacity', showHDBSCANDowntowns ? 0.4 : 0);
+		  map.setPaintProperty('hdbscan_downtowns_fill', 'fill-opacity', showHDBSCANDowntowns ? 0.2 : 0);
 		  map.setLayoutProperty('hdbscan_downtowns_stroke', 'visibility', showHDBSCANDowntowns ? 'visible' : 'none'); 
-		  map.setPaintProperty('old_downtowns_fill', 'fill-opacity', showOldDowntowns ? 0.4 : 0);
+		  map.setPaintProperty('old_downtowns_fill', 'fill-opacity', showOldDowntowns ? 0.2 : 0);
 		  map.setLayoutProperty('old_downtowns_stroke', 'visibility', showOldDowntowns ? 'visible' : 'none'); 
 		}
 	  }	
@@ -233,13 +234,30 @@
   
   <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth} />
   
-  <div class="dropdown">
-	<label for="cityDropdown">Select a city:</label>
-	<select bind:value={selectedCity} on:change={updateMapAndChart}>
-	  {#each Object.keys(cityCoordinates) as city}
-		<option value={city}>{city}</option>
-	  {/each}
-	</select>
+  <div class="top-container">
+	<div class="dropdown">
+		<label for="cityDropdown">Select a city:</label>
+		<select bind:value={selectedCity} on:change={updateMapAndChart}>
+		  {#each Object.keys(cityCoordinates) as city}
+			<option value={city}>{city}</option>
+		  {/each}
+		</select>
+	</div>
+
+	<div class="sidebar">
+		<div class='hdbscan-check'>
+			<label>
+			<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
+			HDBSCAN
+			</label>
+		</div>
+		<div class='old-check'>
+			<label>
+			<input type="checkbox" bind:checked={showOldDowntowns} />
+			Zip code
+			</label>
+		</div>
+	</div>	
   </div>
 
   <div class="container">
@@ -249,22 +267,6 @@
 	</div>
 
 	<div id="map" class="map" style="height: {mapHeight}px"></div>	
-
-	<div id="sidebar">
-		<div>
-			<label>
-			<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
-			HDBSCAN
-			</label>
-		</div>
-		<br>
-		<div>
-			<label>
-			<input type="checkbox" bind:checked={showOldDowntowns} />
-			Zip code
-			</label>
-		</div>
-	</div>	
   </div>
   
   <style>
@@ -273,6 +275,28 @@
 		margin-top: 30px; 
 		margin-bottom: 30px; 
 	}
+
+    select {
+        padding: 5px;
+        background-color: var(--brandGray90);
+        border: 1px solid var(--brandDarkBlue);
+        color: white; 
+		font-family: 'Roboto';
+    }
+  
+    select option {
+        background-color: var(--brandGray90);
+        color: white;
+    }
+	
+	.top-container {
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  align-items: flex-start;
+	  max-width: 1200px;
+	  margin: 0 auto;
+	}	
 
 	.container {
 	  display: flex;
@@ -298,9 +322,13 @@
 	  /* background-color: black; */
 	}
   
-	#sidebar {
+	.sidebar {
 	  width: 30%;
-	  margin-left: 15px;
+	  margin: 15px;
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  align-items: flex-end;
+	  margin-top: 30px;
 	}
   </style>
-  
