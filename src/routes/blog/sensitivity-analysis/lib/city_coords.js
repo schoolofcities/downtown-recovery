@@ -150,7 +150,7 @@ export const cityCoordinates =
     'Honolulu HI': {
         'lat': '21.3069',
         'long': '-157.8583',
-        'rq_comm': 0, // GET THIS NUMBER FROM BYEONGHWA!!!
+        'rq_comm': 0.9647397,
         'rq_zip': 0.919192243,
         'rq_hdbscan': 0.75818201
     },
@@ -197,8 +197,8 @@ export const cityCoordinates =
         'rq_hdbscan': 0.790509862
     },
     'Los Angeles CA': {
-        'lat': '34.052394',
-        'long': '-118.251841',
+        'lat': '34.040191',
+        'long': '-118.253543',
         'rq_comm': 0.910935556,
         'rq_zip': 0.867965999,
         'rq_hdbscan': 0.83190507

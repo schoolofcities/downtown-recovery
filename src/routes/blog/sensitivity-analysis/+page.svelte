@@ -6,7 +6,6 @@
 
 </script>
 
-
 <Header/>
 
 <main>
@@ -16,12 +15,12 @@
             [Brief intro here - pull text from papers] 
         </p>
         <MapPlot/>
-        <h2>
+        <!-- <h2>
             Heading here
         </h2>
         <p>
             [Explain how each was defined]
-        </p>
+        </p> -->
     </div>
 </main>
 
