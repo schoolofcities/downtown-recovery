@@ -6,6 +6,7 @@
 	import comm_downtowns from '../../../../assets/all_commercial.geo.json';
 	import citydefined_downtowns from '../../../../assets/city_defined_sarah.geo.json';
 	import { cityCoordinates } from './city_coords.js';
+	import { csvParse } from "d3-dsv";
 	import { scaleLinear, scaleBand, select, axisBottom, axisLeft, format } from 'd3';
   
 	let pageHeight;
@@ -31,11 +32,20 @@
 	let showCityDowntowns = false;
   
 	let chartData = [];
+
+    /**
+     * @type {any[]}
+     */
+    let data = [];
+    /**
+     * @type {any}
+     */
+    let cityURL = '';
   
 	function updateChartData() {
 	  const selectedData = cityCoordinates[selectedCity];
 	  chartData = [
-		{ label: 'Commercial', value: selectedData.rq_comm },
+		{ label: 'Office/retail', value: selectedData.rq_comm },
 		{ label: 'Zip code', value: selectedData.rq_zip },
 		{ label: 'HDBSCAN', value: selectedData.rq_hdbscan },
 	  ];
@@ -45,7 +55,7 @@
 		updateChartData();
 		const margin = { top: 3, right: 0, bottom: 0, left: 3 };
 		const width = 200;
-		const height = 400;
+		const height = 350;
 
 		const x = scaleLinear()
 			.domain([0, Math.max(...chartData.map((d) => d.value))])
@@ -74,8 +84,8 @@
 					return '#F1C500';
 				} else if (d.label === 'Zip code') {
 					return '#6FC7EA';
-				} else if (d.label === 'Commercial') {
-					return '#AB1368'; // Add 'red' color for the 'Commercial' label
+				} else if (d.label === 'Office/retail') {
+					return '#AB1368'; // Add 'red' color for the 'Office/retail' label
 				} else {
 					return 'white';
 				}
@@ -87,8 +97,8 @@
 					return '#F1C500';
 				} else if (d.label === 'Zip code') {
 					return '#6FC7EA';
-				} else if (d.label === 'Commercial') {
-					return '#AB1368'; // Add 'red' color for the 'Commercial' label
+				} else if (d.label === 'Office/retail') {
+					return '#AB1368'; // Add 'red' color for the 'Office/retail' label
 				} else {
 					return 'white';
 				}
@@ -120,8 +130,34 @@
 			.attr('transform', `translate(${margin.left},0)`)
 			// .call(axisLeft(y));
 	}
+
+    async function loadURL(selectedCity) {
+        try {
+            const response = await fetch('../citydefined_list.csv');
+            const csvData = await response.text();
+            data = csvParse(csvData);
+			console.log('Successfully loaded CSV data: ', data)
+        } catch (error) {
+            console.error('Error loading CSV data:', error);
+        }
+
+		// Filter to selectedCity
+		const filteredData = data.filter(row => row.City === selectedCity);
+		
+		// Check if there is a matching row
+		if (filteredData.length > 0) {
+			// Assign the value in the 'Link' column to cityURL
+			cityURL = filteredData[0].Link;
+			console.log('URL: ', cityURL)
+		} else {
+			console.error('No data found for that city.');
+		}		
+    }
   
     onMount(() => {
+
+	  loadURL(selectedCity);
+
 	  // Initialize the map
 	  map = new maplibregl.Map({
 		container: 'map',
@@ -268,7 +304,9 @@
     });
   
 	// Function to update the map and chart when the city changes
-	function updateMapAndChart() {
+	async function updateMapAndChart() {
+
+	  await loadURL(selectedCity);
 
 	  const lat = cityCoordinates[selectedCity].lat;
 	  const long = cityCoordinates[selectedCity].long;	  
@@ -320,7 +358,7 @@
 		<div class='comm-check'>
 			<label>
 			<input type="checkbox" bind:checked={showCommDowntowns} />
-			Commercial
+			Office/retail
 			</label>
 		</div>	
 		<div class='city-check'>
@@ -333,14 +371,51 @@
   </div>
 
   <div class="container">
-  
 	<div class="chart-container" style="max-width: 250px">
+	  <p class="rec_label">Recovery rate:</p>
 	  <svg width="300" height="400"></svg>
 	</div>
 
 	<div id="map" class="map" style="height: {mapHeight}px"></div>	
   </div>
-  
+
+  <br>
+  <h2>How are downtowns usually defined?</h2>
+  <p>Since there is no standard spatial definition of "downtown," researchers have relied on a variety of methods to create geographic boundaries for this area. Downtowns, which typically include the oldest, most established parts of a city, can be as small as a few city blocks or as large as several square miles.<a href="#footnote-1">[1]</a></p>
+  <p>Since the US Census Bureau stopped collecting data for “central business districts” – another term for downtowns – in 1984, these boundaries have often been constructed using existing spatial units like census tracts.<a href="#footnote-2">[2]</a> For example, researchers at the Brookings Institution defined the central business district in US cities as the census block with the highest job density and number of jobs in the region, and then identified the "commercial core" as the neighboring block groups with high density development and high ratios of jobs to residents.<a href="#footnote-3">[3]</a></p>
+  <p>Other methods for defining downtown include using a specific distance threshold from the "100 percent corner" (the urban intersection with the highest land value), examining historic maps and street grids, and asking city officials and leaders for their local expertise.<a href="#footnote-1">[1,</a><a href="#footnote-2">2]</a></p>
+  <p>All of these methodologies have their shortcomings; for example, they generally do not account for the fact that some cities are polycentric and have multiple downtown areas.<a href="#footnote-4">[4]</a> Given the heterogeneity of urban regions – with tremendous variety in their economic context, built environment, and geographic scale – there also may not be a standard definition of downtown that works well for multiple cities.</p>
+  <p>Because it is so challenging to come up with a single definition of downtown, we created multiple downtown polygons for each city. Use the drop-down menu above to select a city and compare the “recovery rates” of the different downtown boundaries (see our <a href='https://downtownrecovery.com/methodology' target='_blank'>methodology page</a> to learn more about how these rates were calculated).</p>
+  <br>
+  <h2>How did we define downtown?</h2>
+  <h4>HDBSCAN</h4>   
+  <p class="indented-paragraph">
+    The <i>HDBSCAN</i> polygons are used to determine our current <a href='https://downtownrecovery.com/charts/rankings' target='_blank'>recovery rankings</a>. Read the <i>Downtown Geography Selection</i> section of our <a href='https://downtownrecovery.com/methodology' target='_blank'>Methodology page</a> to learn about how the 'HDBSCAN' polygons were created.
+  </p>   
+  <h4>Zip code</h4> 
+  <p class="indented-paragraph">
+    The <i>Zip code</i> polygons, which were used to determine our previous <a href='https://downtownrecovery.com/charts/rankings_archived' target='_blank'>recovery rankings</a>, were created by selecting the zip code (in the US) or group of dissemination areas (in Canada) in each city with the highest job density. Read the <i>SafeGraph and Spectus Data and Downtown Definitions</i> section of our <a href='https://downtownrecovery.com/death_of_downtown_policy_brief.pdf' target='_blank'>policy brief</a> to learn more.
+  </p> 
+  <h4>Office/retail</h4> 
+  <p class="indented-paragraph">
+    The <i>Office/retail</i> polygons represent areas of high commercial and economic activity in the urban core. These boundaries were created using an unsupervised image segmentation model that combines office and retail data from OpenStreetMap with jobs data from 2019 (<a href='https://lehd.ces.census.gov/data/'>in the U.S.</a>) and 2016 (<a href='http://odesi2.scholarsportal.info/documentation/CENSUS/2016/cen16labour.html'>in Canada</a>). The model results in multiple spatial clusters in each city, which were assigned scores based on their size as well as their level of retail, job and office density. The cluster with the highest score that also overlapped with the original zip code-level downtown boundary was selected as the final polygon.
+  </p> 
+  <h4>City-defined</h4> 
+  <p class="indented-paragraph">
+	The <i>City-defined</i> polygons represent cities' own definitions of their downtown boundaries. The shapefiles were either downloaded directly from public websites, like open data portals, or created manually in GIS based on static maps.
+  </p>  
+  <p class="indented-paragraph">
+	<i>Click <a href={cityURL} target='_blank'>here</a> for the source of {selectedCity.replace(/\s\w{2}$/, '')}'s downtown boundary.</i>   
+  <p class="indented-paragraph">
+	<i>Click <a href="../citydefined_list.csv">here</a> to download a list of sources for all city-defined downtown polygons.</i>
+  </p>
+
+  <br><br>
+  <p id="footnote-1" class="footnotes">[1] <a href='https://books.google.com/books?hl=en&lr=&id=817RDAAAQBAJ&oi=fnd&pg=PA63&dq=downtown+definition&ots=UFs6KoHQF_&sig=IZmIngj2QEsdRx9lGR_RFIdQ_CI#v=onepage&q=downtown%20definition&f=false'>Sohmer, Rebecca R, and Robert E Lang. "Downtown Rebound." Redefining Urban and Suburban America: Evidence from Census 2000, Brookings Institution Press, Washington, D.C., 2006.</a></p>
+  <p id="footnote-2" class="footnotes">[2] <a href='https://static1.squarespace.com/static/5bc02d0d7a1fbd0d56ea7ec7/t/5bc8ebdfb208fc74126a6b82/1539894240627/Birch_2005_Who_Lives_Downtown.pdf'>Birch, Eugenie L. 2005, Who Lives Downtown.</a></p>
+  <p id="footnote-3" class="footnotes">[3] <a href='https://www.brookings.edu/articles/breaking-the-urban-doom-loop-the-future-of-downtowns-is-shared-prosperity/'>Hadden Loh, Tracy, and Hanna Love. Breaking the 'Urban Doom Loop': The Future of Downtowns Is Shared Prosperity.</a></p>
+  <p id="footnote-4" class="footnotes">[4] <a href='https://journals.sagepub.com/doi/epdf/10.1177/0002716209344169'>Birch, Eugenie L. "Downtown in the new American city." The annals of the American academy of political and social science 626.1 (2009): 134-153.</a></p>	  
+
   <style>
 
 	.dropdown {
@@ -395,12 +470,29 @@
 	}
   
 	.sidebar {
-	  width: 65%;
+	  width: 60%;
 	  margin: 15px;
 	  display: flex;
 	  flex-direction: row;
 	  justify-content: space-between;
 	  align-items: flex-end;
 	  margin-top: 30px;
+	}
+
+    .indented-paragraph {
+	  margin-left: .6em;
+    }	
+
+    .authors {
+	  font-size: 12px;
+    }		
+
+	.rec_label {
+		margin-bottom: 20px;
+		margin-top: 0px;
+	}
+
+	.footnotes {
+		font-size: 11px;
 	}
   </style>
