@@ -7,18 +7,18 @@
 	import citydefined_downtowns from '../../../../assets/city_defined_sarah.geo.json';
 	import { cityCoordinates } from './city_coords.js';
 	import { csvParse } from "d3-dsv";
-	import { scaleLinear, scaleBand, select, axisBottom, axisLeft, format } from 'd3';
   
 	let pageHeight;
 	let pageWidth;
+	let svgWidth;
   
 	let map;
   
 	let mapHeight = 400;
 	$: if (pageHeight < 600) {
-	  mapHeight = pageHeight - 200;
+	  	mapHeight = pageHeight - 200;
 	} else {
-	  mapHeight = 400;
+	  	mapHeight = 400;
 	}
   
 	let selectedCity = 'Albuquerque NM'; // Default city
@@ -34,15 +34,13 @@
     let cityURL = '';
   
 	function updateChartData() {
-	  const selectedData = cityCoordinates[selectedCity];
-	  chartData = [
-		{ label: 'Office/retail', value: selectedData.rq_comm },
-		{ label: 'Zip code', value: selectedData.rq_zip },
-		{ label: 'HDBSCAN', value: selectedData.rq_hdbscan },
-	  ];
+		const selectedData = cityCoordinates[selectedCity];
+		chartData = [
+			{ label: 'Office/retail', value: selectedData.rq_comm },
+			{ label: 'Zip code', value: selectedData.rq_zip },
+			{ label: 'HDBSCAN', value: selectedData.rq_hdbscan },
+		];
 	}
-
-
 
     async function loadURL(selectedCity) {
         try {
@@ -69,181 +67,174 @@
   
     onMount(() => {
 
-	  loadURL(selectedCity);
+		loadURL(selectedCity);
 
-	  // Initialize the map
-	  map = new maplibregl.Map({
-		container: 'map',
-		center: [cityCoordinates[selectedCity].long, cityCoordinates[selectedCity].lat],
-		zoom: 12,
-		minZoom: 9,
-		maxZoom: 16,
-		bearing: 0,
-		scrollZoom: true,
-		attributionControl: false,
-	  });
-  
-	  map.dragRotate.disable();
-	  map.touchZoomRotate.disableRotation();  
+		// Initialize the map
+		map = new maplibregl.Map({
+			container: 'map',
+			center: [cityCoordinates[selectedCity].long, cityCoordinates[selectedCity].lat],
+			zoom: 12,
+			minZoom: 9,
+			maxZoom: 16,
+			bearing: 0,
+			scrollZoom: true,
+			attributionControl: false,
+		});
 
-	map.addSource('black-and-white-basemap', {
-		type: 'raster',
-		tiles: ['https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png'],
-		tileSize: 256,
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	});
+		map.dragRotate.disable();
+		map.touchZoomRotate.disableRotation();  
 
-	map.addLayer({
-		id: 'black-and-white-basemap',
-		type: 'raster',
-		source: 'black-and-white-basemap',
-		paint: {
-				'raster-brightness-min': 0.2,
-				'raster-brightness-max': 0.9,
-				'raster-saturation': 0.5,
-				'raster-contrast': 0.25,
-				'raster-opacity': 1
-			}
-	});
+		map.addSource('black-and-white-basemap', {
+			type: 'raster',
+			tiles: ['https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png'],
+			tileSize: 256,
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+		});
 
-	  // Add sources and layers
-	  map.addSource('hdbscan_downtowns', {
-		type: 'geojson',
-		data: hdbscan_downtowns,
-	  });
-  
-	  map.addLayer({
-		id: 'hdbscan_downtowns_fill',
-		type: 'fill',
-		source: 'hdbscan_downtowns',
-		paint: {
-		  'fill-color': '#F1C500',
-		  'fill-opacity': showHDBSCANDowntowns ? 0.2 : 0,
-		},
-	  });
+		map.addLayer({
+			id: 'black-and-white-basemap',
+			type: 'raster',
+			source: 'black-and-white-basemap',
+			paint: {
+					'raster-brightness-min': 0.2,
+					'raster-brightness-max': 0.9,
+					'raster-saturation': 0.5,
+					'raster-contrast': 0.25,
+					'raster-opacity': 1
+				}
+		});
 
-	  map.addLayer({
-		id: 'hdbscan_downtowns_stroke',
-		type: 'line', // Use 'line' type for the border/stroke
-		source: 'hdbscan_downtowns',
-		paint: {
-			'line-color': '#F1C500', // Set the border color
-			'line-opacity': 1, // Set the border opacity to 1
-			'line-width': 3, // Adjust the border width as needed
-		},
-	  });		  
-  
-	  map.addSource('old_downtowns', {
-		type: 'geojson',
-		data: old_downtowns,
-	  });
-  
-	  map.addLayer({
-		id: 'old_downtowns_fill',
-		type: 'fill',
-		source: 'old_downtowns',
-		paint: {
-		  'fill-color': '#6FC7EA',
-		  'fill-opacity': showOldDowntowns ? 0.2 : 0,
-		},
-	  });
+		// Add sources and layers
+		map.addSource('hdbscan_downtowns', {
+			type: 'geojson',
+			data: hdbscan_downtowns,
+		});
 
-	  map.addLayer({
-		id: 'old_downtowns_stroke',
-		type: 'line', // Use 'line' type for the border/stroke
-		source: 'old_downtowns',
-		paint: {
-			'line-color': '#6FC7EA', // Set the border color
-			'line-opacity': 1, // Set the border opacity to 1
-			'line-width': 3, // Adjust the border width as needed
-		},
-	  });
-	  
-	  map.addSource('comm_downtowns', {
-		type: 'geojson',
-		data: comm_downtowns,
-	  });
-  
-	  map.addLayer({
-		id: 'comm_downtowns_fill',
-		type: 'fill',
-		source: 'comm_downtowns',
-		paint: {
-		  'fill-color': '#AB1368',
-		  'fill-opacity': showCommDowntowns ? 0.2 : 0,
-		},
-	  });
+		map.addLayer({
+			id: 'hdbscan_downtowns_fill',
+			type: 'fill',
+			source: 'hdbscan_downtowns',
+			paint: {
+				'fill-color': '#F1C500',
+				'fill-opacity': showHDBSCANDowntowns ? 0.2 : 0,
+			},
+		});
 
-	  map.addLayer({
-		id: 'comm_downtowns_stroke',
-		type: 'line', // Use 'line' type for the border/stroke
-		source: 'comm_downtowns',
-		paint: {
-			'line-color': '#AB1368', // Set the border color
-			'line-opacity': 1, // Set the border opacity to 1
-			'line-width': 3, // Adjust the border width as needed
-		},
-	  });	
-	  
-	  map.addSource('citydefined_downtowns', {
-		type: 'geojson',
-		data: citydefined_downtowns,
-	  });
-  
-	  map.addLayer({
-		id: 'citydefined_downtowns_fill',
-		type: 'fill',
-		source: 'citydefined_downtowns',
-		paint: {
-		  'fill-color': '#00A189',
-		  'fill-opacity': showCommDowntowns ? 0.2 : 0,
-		},
-	  });
+		map.addLayer({
+			id: 'hdbscan_downtowns_stroke',
+			type: 'line', // Use 'line' type for the border/stroke
+			source: 'hdbscan_downtowns',
+			paint: {
+				'line-color': '#F1C500', // Set the border color
+				'line-opacity': 1, // Set the border opacity to 1
+				'line-width': 3, // Adjust the border width as needed
+			},
+		});		  
 
-	  map.addLayer({
-		id: 'citydefined_downtowns_stroke',
-		type: 'line', // Use 'line' type for the border/stroke
-		source: 'citydefined_downtowns',
-		paint: {
-			'line-color': '#00A189', // Set the border color
-			'line-opacity': 1, // Set the border opacity to 1
-			'line-width': 3, // Adjust the border width as needed
-		},
-	  });		  
-  
+		map.addSource('old_downtowns', {
+			type: 'geojson',
+			data: old_downtowns,
+		});
 
+		map.addLayer({
+			id: 'old_downtowns_fill',
+			type: 'fill',
+			source: 'old_downtowns',
+			paint: {
+				'fill-color': '#6FC7EA',
+				'fill-opacity': showOldDowntowns ? 0.2 : 0,
+			},
+		});
+
+		map.addLayer({
+			id: 'old_downtowns_stroke',
+			type: 'line', // Use 'line' type for the border/stroke
+			source: 'old_downtowns',
+			paint: {
+				'line-color': '#6FC7EA', // Set the border color
+				'line-opacity': 1, // Set the border opacity to 1
+				'line-width': 3, // Adjust the border width as needed
+			},
+		});
+		
+		map.addSource('comm_downtowns', {
+			type: 'geojson',
+			data: comm_downtowns,
+		});
+
+		map.addLayer({
+			id: 'comm_downtowns_fill',
+			type: 'fill',
+			source: 'comm_downtowns',
+			paint: {
+				'fill-color': '#AB1368',
+				'fill-opacity': showCommDowntowns ? 0.2 : 0,
+			},
+		});
+
+		map.addLayer({
+			id: 'comm_downtowns_stroke',
+			type: 'line', // Use 'line' type for the border/stroke
+			source: 'comm_downtowns',
+			paint: {
+				'line-color': '#AB1368', // Set the border color
+				'line-opacity': 1, // Set the border opacity to 1
+				'line-width': 3, // Adjust the border width as needed
+			},
+		});	
+		
+		map.addSource('citydefined_downtowns', {
+			type: 'geojson',
+			data: citydefined_downtowns,
+		});
+
+		map.addLayer({
+			id: 'citydefined_downtowns_fill',
+			type: 'fill',
+			source: 'citydefined_downtowns',
+			paint: {
+				'fill-color': '#00A189',
+				'fill-opacity': showCommDowntowns ? 0.2 : 0,
+			},
+		});
+
+		map.addLayer({
+			id: 'citydefined_downtowns_stroke',
+			type: 'line', // Use 'line' type for the border/stroke
+			source: 'citydefined_downtowns',
+			paint: {
+				'line-color': '#00A189', // Set the border color
+				'line-opacity': 1, // Set the border opacity to 1
+				'line-width': 3, // Adjust the border width as needed
+			},
+		});		  
     });
   
 	// Function to update the map and chart when the city changes
 	async function updateMapAndChart() {
 
-	  await loadURL(selectedCity);
+		await loadURL(selectedCity);
 
-	  const lat = cityCoordinates[selectedCity].lat;
-	  const long = cityCoordinates[selectedCity].long;	  
+		const lat = cityCoordinates[selectedCity].lat;
+		const long = cityCoordinates[selectedCity].long;	  
 
-	  map.flyTo({ center: [long, lat], zoom: 12, duration: 50 });
+		map.flyTo({ center: [long, lat], zoom: 12, duration: 50 });
 
 	}
 
-	  // Watch for changes in layer visibility
-	  $: {
+	// Watch for changes in layer visibility
+	$: {
 		if (map) {
-		  map.setPaintProperty('hdbscan_downtowns_fill', 'fill-opacity', showHDBSCANDowntowns ? 0.2 : 0);
-		  map.setLayoutProperty('hdbscan_downtowns_stroke', 'visibility', showHDBSCANDowntowns ? 'visible' : 'none'); 
-		  map.setPaintProperty('old_downtowns_fill', 'fill-opacity', showOldDowntowns ? 0.2 : 0);
-		  map.setLayoutProperty('old_downtowns_stroke', 'visibility', showOldDowntowns ? 'visible' : 'none'); 
-		  map.setPaintProperty('comm_downtowns_fill', 'fill-opacity', showCommDowntowns ? 0.2 : 0);
-		  map.setLayoutProperty('comm_downtowns_stroke', 'visibility', showCommDowntowns ? 'visible' : 'none'); 
-		  map.setPaintProperty('citydefined_downtowns_fill', 'fill-opacity', showCityDowntowns ? 0.2 : 0);
-		  map.setLayoutProperty('citydefined_downtowns_stroke', 'visibility', showCityDowntowns ? 'visible' : 'none'); 		  
+			map.setPaintProperty('hdbscan_downtowns_fill', 'fill-opacity', showHDBSCANDowntowns ? 0.2 : 0);
+			map.setLayoutProperty('hdbscan_downtowns_stroke', 'visibility', showHDBSCANDowntowns ? 'visible' : 'none'); 
+			map.setPaintProperty('old_downtowns_fill', 'fill-opacity', showOldDowntowns ? 0.2 : 0);
+			map.setLayoutProperty('old_downtowns_stroke', 'visibility', showOldDowntowns ? 'visible' : 'none'); 
+			map.setPaintProperty('comm_downtowns_fill', 'fill-opacity', showCommDowntowns ? 0.2 : 0);
+			map.setLayoutProperty('comm_downtowns_stroke', 'visibility', showCommDowntowns ? 'visible' : 'none'); 
+			map.setPaintProperty('citydefined_downtowns_fill', 'fill-opacity', showCityDowntowns ? 0.2 : 0);
+			map.setLayoutProperty('citydefined_downtowns_stroke', 'visibility', showCityDowntowns ? 'visible' : 'none'); 		  
 		}
-	  }
-
-	  
-
-	let svgWidth;
-	$: console.log(selectedCity);
+	}
 
 </script>
   
