@@ -14,36 +14,12 @@
         <p>
             By <a href='https://www.urbandisplacement.org/team/julia-greenberg/' target='_blank'>Julia Greenberg</a>, <a href='https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/' target='_blank'>Byeonghwa Jeong</a>, <a href='https://schoolofcities.utoronto.ca/people/jeff-allen/' target='_blank'>Jeff Allen</a>, <a href='https://www.geography.utoronto.ca/people/directories/all-faculty/karen-chapple' target='_blank'>Karen Chapple</a>, and Sarah Smith | [DATE]
         </p>
+        <p>I think we need a couple high-level sentences here that describe the purpose of this page</p>
         <MapPlot/>
     </div>
 </main>
 
 <style>
-
-    .grid {
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; /* Center the cells horizontally */
-        max-width: 1100px;
-    }
-
-    .grid-cell {
-        width: 50%;
-        box-sizing: border-box;
-    }
-
-    @media (max-width: 1000px) {
-        .grid-cell {
-            width: 100%;
-        }
-    }
-
-    #options {
-        margin: 0 auto;
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
 
     .text {
         border: 0px;

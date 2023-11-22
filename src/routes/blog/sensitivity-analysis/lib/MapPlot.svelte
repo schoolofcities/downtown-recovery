@@ -12,9 +12,6 @@
 	let pageHeight;
 	let pageWidth;
   
-	/**
-	 * @type {import("maplibre-gl").Map}
-	 */
 	let map;
   
 	let mapHeight = 400;
@@ -33,13 +30,7 @@
   
 	let chartData = [];
 
-    /**
-     * @type {any[]}
-     */
     let data = [];
-    /**
-     * @type {any}
-     */
     let cityURL = '';
   
 	function updateChartData() {
@@ -166,7 +157,6 @@
 		minZoom: 9,
 		maxZoom: 16,
 		bearing: 0,
-		projection: 'globe',
 		scrollZoom: true,
 		attributionControl: false,
 	  });
@@ -327,55 +317,138 @@
 		  map.setPaintProperty('citydefined_downtowns_fill', 'fill-opacity', showCityDowntowns ? 0.2 : 0);
 		  map.setLayoutProperty('citydefined_downtowns_stroke', 'visibility', showCityDowntowns ? 'visible' : 'none'); 		  
 		}
-	  }	
+	  }
+
+	  
+
+	let svgWidth;
+	$: console.log(selectedCity);
+
   </script>
   
   <svelte:window bind:innerHeight={pageHeight} bind:innerWidth={pageWidth} />
   
   <div class="top-container">
 	<div class="dropdown">
-		<label for="cityDropdown">Select a city:</label>
+		<p>Select a city:</p>
 		<select bind:value={selectedCity} on:change={updateMapAndChart}>
-		  {#each Object.keys(cityCoordinates) as city}
-			<option value={city}>{city}</option>
-		  {/each}
+			{#each Object.keys(cityCoordinates) as city}
+				<option value={city}>{city}</option>
+			{/each}
 		</select>
-	</div>
 
-	<div class="sidebar">
-		<div class='hdbscan-check'>
+		<p>Select boundary:</p>
+
+		<div class='check'>
 			<label>
-			<input type="checkbox" bind:checked={showHDBSCANDowntowns} />
+			<input type="checkbox" bind:checked={showHDBSCANDowntowns} style="{showHDBSCANDowntowns ? 'background-color: #F1C500;' : ''}"/>
 			HDBSCAN
 			</label>
 		</div>
-		<div class='old-check'>
+		<div class='check'>
 			<label>
-			<input type="checkbox" bind:checked={showOldDowntowns} />
-			Zip code
+			<input type="checkbox" bind:checked={showOldDowntowns} style="{showOldDowntowns ? 'background-color: #6FC7EA;' : ''}"/>
+			Zip Code
 			</label>
 		</div>
-		<div class='comm-check'>
+		<div class='check'>
 			<label>
-			<input type="checkbox" bind:checked={showCommDowntowns} />
-			Office/retail
+			<input type="checkbox" bind:checked={showCommDowntowns} style="{showCommDowntowns ? 'background-color: #AB1368;' : ''}"/>
+			Office/Retail
 			</label>
 		</div>	
-		<div class='city-check'>
+		<div class='check'>
 			<label>
-			<input type="checkbox" bind:checked={showCityDowntowns} />
+			<input type="checkbox" bind:checked={showCityDowntowns} style="{showCityDowntowns ? 'background-color: #00A189;' : ''}"/>
 			City-defined
 			</label>
 		</div>				
-	</div>	
+	</div>
+
+	<div class="svg-chart-container" bind:clientWidth={svgWidth}>
+		<p>Recovery Rate:</p>
+		<svg height="100" width="100%" >
+			{#if showHDBSCANDowntowns}
+				<rect 
+					x="1" 
+					y="1" 
+					width={svgWidth * cityCoordinates[selectedCity].rq_hdbscan / 1.3}
+					height="20px" 
+					stroke="#F1C500" 
+					stroke-width="2" 
+					fill="#F1C500" 
+					fill-opacity=0.2 
+				/>
+				<text
+					x={8 + svgWidth * cityCoordinates[selectedCity].rq_hdbscan / 1.3}
+					y="16"
+					class="svg-data-label">
+					{Math.round(100 * cityCoordinates[selectedCity].rq_hdbscan)}%
+				</text>
+			{/if}
+			{#if showOldDowntowns}
+				<rect 
+					x="1" 
+					y="26" 
+					width={svgWidth * cityCoordinates[selectedCity].rq_zip / 1.3}
+					height="20px" 
+					stroke="#6FC7EA" 
+					stroke-width="2" 
+					fill="#6FC7EA" 
+					fill-opacity=0.2 
+				/>
+				<text
+					x={8 + svgWidth * cityCoordinates[selectedCity].rq_zip / 1.3}
+					y="41"
+					class="svg-data-label">
+					{Math.round(100 * cityCoordinates[selectedCity].rq_zip)}%
+				</text>
+			{/if}
+			{#if showCommDowntowns}
+				<rect 
+					x="1" 
+					y="51"
+					width={svgWidth * cityCoordinates[selectedCity].rq_comm / 1.3}
+					height="20px" 
+					stroke="#AB1368" 
+					stroke-width="2" 
+					fill="#AB1368" 
+					fill-opacity=0.2 
+				/>
+				<text
+					x={8 + svgWidth * cityCoordinates[selectedCity].rq_comm / 1.3}
+					y="66"
+					class="svg-data-label">
+					{Math.round(100 * cityCoordinates[selectedCity].rq_comm)}%
+				</text>
+			{/if}
+			{#if showCityDowntowns}
+				<rect 
+					x="1"
+					y="76" 
+					width={svgWidth * 0.8 / 1.3}
+					height="20px" 
+					stroke="#00A189" 
+					stroke-width="2" 
+					fill="#00A189" 
+					fill-opacity=0.2 
+				/>
+				<text
+					x={8 + svgWidth * 0.8 / 1.3}
+					y="91"
+					class="svg-data-label">
+					{Math.round(100 * 0.8)}%
+				</text>
+			{/if}
+		</svg>
+	</div>
+	<!-- <div class="chart-container" style="max-width: 250px">
+		<p class="rec_label">Recovery rate:</p>
+		<svg width="300" height="400"></svg>
+	  </div> -->
   </div>
 
   <div class="container">
-	<div class="chart-container" style="max-width: 250px">
-	  <p class="rec_label">Recovery rate:</p>
-	  <svg width="300" height="400"></svg>
-	</div>
-
 	<div id="map" class="map" style="height: {mapHeight}px"></div>	
   </div>
 
@@ -419,8 +492,8 @@
   <style>
 
 	.dropdown {
-		margin-top: 30px; 
-		margin-bottom: 30px; 
+		width: 160px;
+		height: 260px;
 	}
 
     select {
@@ -435,23 +508,54 @@
         background-color: var(--brandGray90);
         color: white;
     }
-	
+
+	input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--brandDarkBlue);
+      background-color: var(--brandBlack);
+      outline: none;
+	  margin: 0px;
+	  margin-right: 2px;
+    }
+
+    input[type="checkbox"]:checked {
+      border: 1px solid var(--brandDarkBlue);
+      background-color: var(--brandWhite);
+    }
+
+	input[type="checkbox"]:hover {
+		cursor: pointer;
+	}
+
 	.top-container {
-	  display: flex;
-	  flex-direction: row;
-	  justify-content: space-between;
-	  align-items: flex-start;
+		display: flex;
 	  max-width: 1200px;
 	  margin: 0 auto;
 	}	
 
 	.container {
-	  display: flex;
-	  flex-direction: row;
-	  justify-content: space-between;
-	  align-items: flex-start;
 	  max-width: 1200px;
 	  margin: 0 auto;
+	}
+
+	.check {
+		margin-bottom: 5px;
+	}
+
+	.svg-chart-container {
+		flex: 1;
+		height: calc(240px - 85px);
+		/* background-color: black; */
+		padding-top: 85px;
+	}
+	.svg-data-label {
+		fill: white;
+		font-family: Roboto;
+		font-size: 15px;
 	}
   
 	.chart-container {
@@ -462,20 +566,21 @@
 	}
   
 	.map {
-	  width: 70%;
+	  width: 100%;
 	  height: 100%;
 	  /* margin: 20px; */
 	  max-width: 900px;
+	  border: solid 1px var(--brandDarkBlue);
 	  /* background-color: black; */
 	}
   
 	.sidebar {
 	  width: 60%;
 	  margin: 15px;
-	  display: flex;
+	  /* display: flex;
 	  flex-direction: row;
 	  justify-content: space-between;
-	  align-items: flex-end;
+	  align-items: flex-end; */
 	  margin-top: 30px;
 	}
 
