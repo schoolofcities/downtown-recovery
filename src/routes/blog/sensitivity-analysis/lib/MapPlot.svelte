@@ -7,6 +7,7 @@
 	import citydefined_downtowns from '../../../../assets/city_defined_sarah.geo.json';
 	import { cityCoordinates } from './city_coords.js';
 	import { csvParse } from "d3-dsv";
+    import { pointer } from 'd3';
   
 	let pageHeight;
 	let pageWidth;
@@ -236,6 +237,13 @@
 		}
 	}
 
+	function zoomIn() {
+		map.zoomIn();
+	}
+	function zoomOut() {
+		map.zoomOut();
+	}
+
 </script>
   
 
@@ -360,8 +368,17 @@
 </div>
 
 <div class="container">
-	<div id="map" class="map" style="height: {mapHeight}px"></div>	
+	
+	<div id="map" class="map" style="height: {mapHeight}px">
+		<div class="map-zoom-wrapper">
+			<span on:click={zoomOut} class="map-zoom">–</span>
+			<span on:click={zoomIn} class="map-zoom">+</span>
+		</div>
+	</div>	
+
+	<p>Base Map Data Sources: CARTO, OpenStreetMap</p>
 </div>
+
 
 <br>
 <br>
@@ -448,10 +465,7 @@ The <i>City-defined</i> polygons represent cities' own definitions of their down
 	  margin: 0 auto;
 	}	
 
-	.container {
-	  max-width: 1200px;
-	  margin: 0 auto;
-	}
+	
 
 	.check {
 		margin-bottom: 5px;
@@ -469,16 +483,51 @@ The <i>City-defined</i> polygons represent cities' own definitions of their down
 		font-size: 15px;
 	}
 
-	.map {
-	  width: 100%;
-	  height: 100%;
-	  max-width: 900px;
-	  border: solid 1px var(--brandDarkBlue);
+	.container {
+		position: relative;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.container p {
+		font-size: 12px;
+		margin-top: 0px;
+		color: gray;
+		position: absolute;
+		right: 0px;
+
 	}
 
+	.map {
+		position: relative; 
+		width: 100%;
+		height: 100%;
+		max-width: 900px;
+		border: solid 1px var(--brandDarkBlue);
+	}
+	.map-zoom-wrapper {
+		margin-top: 5px;
+		margin-left: 5px;
+		right: 5px;
+		position: absolute;
+	}
+	.map-zoom {
+		display: inline-block;
+		font-size: 25px;
+		max-width: 25px;
+		min-width: 25px;
+		background-color: var(--brandDarkBlue);
+		color: white;
+		border: solid 1px var(--brandGray90);
+		text-align: center;
+		margin: 0 auto;
+	}
+	.map-zoom:hover {
+		cursor: pointer;
+		background-color: var(--brandGray90);
+	}
 
     .indented-paragraph {
-	  margin-left: .6em;
+	  	margin-left: 25px;
     }	
 
 	.footnotes {
