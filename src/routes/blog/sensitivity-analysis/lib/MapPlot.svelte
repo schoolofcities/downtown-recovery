@@ -408,15 +408,6 @@ The <i>City-defined</i> polygons represent cities' own definitions of their down
 <i>Click <a href="../citydefined_list.csv">here</a> to download a list of sources for all city-defined downtown polygons.</i>
 </p>
 
-<br><br>
-<p id="footnote-1" class="footnotes">[1] <a href='https://books.google.com/books?hl=en&lr=&id=817RDAAAQBAJ&oi=fnd&pg=PA63&dq=downtown+definition&ots=UFs6KoHQF_&sig=IZmIngj2QEsdRx9lGR_RFIdQ_CI#v=onepage&q=downtown%20definition&f=false'>Sohmer, Rebecca R, and Robert E Lang. "Downtown Rebound." Redefining Urban and Suburban America: Evidence from Census 2000, Brookings Institution Press, Washington, D.C., 2006.</a></p>
-<p id="footnote-2" class="footnotes">[2] <a href='https://static1.squarespace.com/static/5bc02d0d7a1fbd0d56ea7ec7/t/5bc8ebdfb208fc74126a6b82/1539894240627/Birch_2005_Who_Lives_Downtown.pdf'>Birch, Eugenie L. 2005, Who Lives Downtown.</a></p>
-<p id="footnote-3" class="footnotes">[3] <a href='https://www.brookings.edu/articles/breaking-the-urban-doom-loop-the-future-of-downtowns-is-shared-prosperity/'>Hadden Loh, Tracy, and Hanna Love. Breaking the 'Urban Doom Loop': The Future of Downtowns Is Shared Prosperity.</a></p>
-<p id="footnote-4" class="footnotes">[4] <a href='https://journals.sagepub.com/doi/epdf/10.1177/0002716209344169'>Birch, Eugenie L. "Downtown in the new American city." The annals of the American academy of political and social science 626.1 (2009): 134-153.</a></p>	  
-
-
-
-
 <style>
 
 	.dropdown {
