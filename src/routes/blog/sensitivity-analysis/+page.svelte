@@ -39,7 +39,7 @@
             All of these methodologies have their shortcomings; for example, they generally do not account for the fact that some cities are polycentric and have multiple downtown areas (<a href="https://journals.sagepub.com/doi/epdf/10.1177/0002716209344169" target="_blank">Birch, 2009</a>). Given the heterogeneity of urban regions – with tremendous variety in their economic context, built environment, and geographic scale – there also may not be a standard definition of downtown that works well for multiple cities.
         </p>
         <p>
-            Because it is so challenging to come up with a single definition of downtown, we created multiple downtown polygons for each city. Use the drop-down menu below to select a city and compare the “recovery rates” of the different downtown boundaries (see our <a href='https://downtownrecovery.com/methodology' target='_blank'>methodology page</a> to learn more about how these rates were calculated).
+            Because it is so challenging to come up with a single definition of downtown, we created multiple downtown polygons for each city. Use the drop-down menu below to select a city and compare the “recovery rates” of the different downtown boundaries by checking the boxes next to each boundary type. See our <a href='https://downtownrecovery.com/methodology' target='_blank'>methodology page</a> to learn more about how these rates were calculated.
         </p>
     
     </div>
