@@ -385,7 +385,7 @@
 
 <h4 style="border-bottom: solid 2px #F1C500;">HDBSCAN</h4>   
 <p class="indented-paragraph">
-The <i>HDBSCAN</i> polygons are used to determine our current <a href='https://downtownrecovery.com/charts/rankings' target='_blank'>recovery rankings</a>. Read the <i>Downtown Geography Selection</i> section of our <a href='https://downtownrecovery.com/methodology' target='_blank'>Methodology page</a> to learn about how the 'HDBSCAN' polygons were created.
+The <i>HDBSCAN</i> polygons are used to determine our current <a href='https://downtownrecovery.com/charts/rankings' target='_blank'>recovery rankings</a>. To create these polygons, we used jobs data to identify concentrations of jobs in individual city blocks (or dissemination areas, in Canada) and then drew a polygon around these clusters to represent downtown. For more details, read the <i>Downtown Geography Selection</i> section of our <a href='https://downtownrecovery.com/methodology' target='_blank'>Methodology page</a>.
 </p>
 
 <h4 style="border-bottom: solid 2px #6FC7EA;">Zip Code</h4> 
@@ -395,7 +395,7 @@ The <i>Zip code</i> polygons, which were used to determine our previous <a href=
 
 <h4 style="border-bottom: solid 2px #AB1368;">Office/Retail</h4> 
 <p class="indented-paragraph">
-The <i>Office/retail</i> polygons represent areas of high commercial and economic activity in the urban core. These boundaries were created using an unsupervised image segmentation model that combines office and retail data from OpenStreetMap with jobs data from 2019 (<a href='https://lehd.ces.census.gov/data/'>in the U.S.</a>) and 2016 (<a href='http://odesi2.scholarsportal.info/documentation/CENSUS/2016/cen16labour.html'>in Canada</a>). The model results in multiple spatial clusters in each city, which were assigned scores based on their size as well as their level of retail, job and office density. The cluster with the highest score that also overlapped with the original zip code-level downtown boundary was selected as the final polygon.
+The <i>Office/retail</i> polygons represent areas of high commercial and economic activity in the urban core. These boundaries were created using an unsupervised image segmentation model that combines office and retail data from OpenStreetMap with jobs data from 2019 (<a href='https://lehd.ces.census.gov/data/' target='_blank'>in the U.S.</a>) and 2016 (<a href='http://odesi2.scholarsportal.info/documentation/CENSUS/2016/cen16labour.html' target='_blank'>in Canada</a>). The model results in multiple spatial clusters in each city, which were assigned scores based on their size as well as their level of retail, job and office density. The cluster with the highest score that also overlapped with the original zip code-level downtown boundary was selected as the final polygon.
 </p> 
 
 <h4 style="border-bottom: solid 2px #00A189;">City-Defined</h4> 
