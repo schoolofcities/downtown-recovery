@@ -1,10 +1,10 @@
 <script>
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
-	import hdbscan_downtowns from '../../../../assets/HDBSCAN_downtowns_with_province.geo.json';
-	import old_downtowns from '../../../../assets/old_study_areas.geo.json';
-	import comm_downtowns from '../../../../assets/all_commercial.geo.json';
-	import citydefined_downtowns from '../../../../assets/city_defined_sarah.geo.json';
+	import hdbscan_downtowns from '../../../../assets/HDBSCAN.geo.json';
+	import old_downtowns from '../../../../assets/zip_code.geo.json';
+	import comm_downtowns from '../../../../assets/office_retail.geo.json';
+	import citydefined_downtowns from '../../../../assets/city_defined.geo.json';
 	import { cityCoordinates } from './city_coords.js';
 	import { csvParse } from "d3-dsv";
     import { pointer } from 'd3';
@@ -378,6 +378,11 @@
 
 	<p>Base Map Data Sources: CARTO, OpenStreetMap</p>
 </div>
+
+<br>
+<p>
+	<i>Click <a href='../all_shapefiles_download.zip'>here</a> to download the polygons (in geojson format) for all four types of boundaries.</i>
+</p>
 
 
 <br>
