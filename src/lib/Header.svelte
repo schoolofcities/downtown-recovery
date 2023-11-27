@@ -49,8 +49,8 @@
 		  <li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
-				<li><a href="/blog/downtown-recovery-and-transit-ridership">Downtown Recovery and Transit Ridership Recovery</a></li>
-				<li><a href="/blog/sensitivity-analysis">How Does the Definition of Downtown Affect Its Recovery Rate?</a></li>
+				<li><a href="/blog/downtown-definitions">How Does The Definition of Downtown Affect Its Recovery Rate?</a></li>
+				<li><a href="/blog/downtown-recovery-and-transit-ridership">Downtown Recovery & Transit Ridership Recovery</a></li>
 			</ul>
 		  </li>
 		  <li class="dropdown">
