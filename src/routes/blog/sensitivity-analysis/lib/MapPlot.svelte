@@ -348,7 +348,7 @@
 				<rect 
 					x="1"
 					y="76" 
-					width={svgWidth * 0.8 / 1.3}
+					width={svgWidth * cityCoordinates[selectedCity].rq_city / 1.3}
 					height="20px" 
 					stroke="#00A189" 
 					stroke-width="2" 
@@ -356,10 +356,10 @@
 					fill-opacity=0.2 
 				/>
 				<text
-					x={8 + svgWidth * 0.8 / 1.3}
+					x={8 + svgWidth * cityCoordinates[selectedCity].rq_city / 1.3}
 					y="91"
 					class="svg-data-label">
-					{Math.round(100 * 0.8)}%
+					{Math.round(100 * cityCoordinates[selectedCity].rq_city)}%
 				</text>
 			{/if}
 		</svg>
