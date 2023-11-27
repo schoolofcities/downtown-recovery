@@ -30,6 +30,9 @@
             <span class="bold">Julia Greenberg</span> is the research manager for the Urban Displacement Project at UC Berkeley, where she focuses on data analysis and visualization. She has a degree in Urban Studies from Cornell University and an Master of Public Policy from George Washington University.
          </p>
          <p>
+            <span class="bold">Byeonghwa Jeong</span> is Postdoctoral Fellow of the School of Cities at the University of Toronto and was awarded a Ph.D. at the University College London. His Ph.D. thesis is to predict gentrified high streets based on the changes in the retail, residential and footfall properties. He is interested in analyzing social phenomena resulting from interactions among diverse entities in our society using big data achieved from various sources and state-of-the-art methodologies.
+         </p>
+         <p>
             <span class="bold">Laura Schmahmann</span> is a Ph.D. student in the Department of City & Regional Planning, UC Berkeley.
          </p>
          <p>
