@@ -77,20 +77,6 @@
             </div>
         </a>
 
-        <a href="/blog/downtown-recovery-and-transit-ridership">
-            <div class="card">
-
-                <div class="card-img"> 
-                    <img src={cardImgTransitRidership}>
-                </div>
-
-                <h2>Downtown Recovery & Transit</h2>
-
-                <p>Blog post on how downtown recovery is related to recovery in transit ridership.</p>
-
-            </div>
-        </a>
-
         <a href="/blog/downtown-definitions">
             <div class="card">
 
@@ -101,6 +87,20 @@
                 <h2>Downtown Definition</h2>
 
                 <p>Interactive map and blog post on how recovery varies for different definitions of downtowns.</p>
+
+            </div>
+        </a>
+
+        <a href="/blog/downtown-recovery-and-transit-ridership">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgTransitRidership}>
+                </div>
+
+                <h2>Downtown Recovery & Transit</h2>
+
+                <p>Blog post on how downtown recovery is related to recovery in transit ridership.</p>
 
             </div>
         </a>
