@@ -244,6 +244,8 @@
 		map.zoomOut();
 	}
 
+	let barMaxWidth = 1.2;
+
 </script>
   
 
@@ -294,7 +296,7 @@
 				<rect 
 					x="1" 
 					y="1" 
-					width={svgWidth * cityCoordinates[selectedCity].rq_hdbscan / 1.3}
+					width={svgWidth * cityCoordinates[selectedCity].rq_hdbscan / barMaxWidth}
 					height="20px" 
 					stroke="#F1C500" 
 					stroke-width="2" 
@@ -302,8 +304,9 @@
 					fill-opacity=0.2 
 				/>
 				<text
-					x={8 + svgWidth * cityCoordinates[selectedCity].rq_hdbscan / 1.3}
+					x={8 + svgWidth * (cityCoordinates[selectedCity].rq_hdbscan / 2) / barMaxWidth}
 					y="16"
+					text-anchor="middle"
 					class="svg-data-label">
 					{Math.round(100 * cityCoordinates[selectedCity].rq_hdbscan)}%
 				</text>
@@ -312,7 +315,7 @@
 				<rect 
 					x="1" 
 					y="26" 
-					width={svgWidth * cityCoordinates[selectedCity].rq_zip / 1.3}
+					width={svgWidth * cityCoordinates[selectedCity].rq_zip / barMaxWidth}
 					height="20px" 
 					stroke="#6FC7EA" 
 					stroke-width="2" 
@@ -320,8 +323,9 @@
 					fill-opacity=0.2 
 				/>
 				<text
-					x={8 + svgWidth * cityCoordinates[selectedCity].rq_zip / 1.3}
+					x={8 + svgWidth * (cityCoordinates[selectedCity].rq_zip / 2)/ barMaxWidth}
 					y="41"
+					text-anchor="middle"
 					class="svg-data-label">
 					{Math.round(100 * cityCoordinates[selectedCity].rq_zip)}%
 				</text>
@@ -330,7 +334,7 @@
 				<rect 
 					x="1" 
 					y="51"
-					width={svgWidth * cityCoordinates[selectedCity].rq_comm / 1.3}
+					width={svgWidth * cityCoordinates[selectedCity].rq_comm / barMaxWidth}
 					height="20px" 
 					stroke="#AB1368" 
 					stroke-width="2" 
@@ -338,8 +342,9 @@
 					fill-opacity=0.2 
 				/>
 				<text
-					x={8 + svgWidth * cityCoordinates[selectedCity].rq_comm / 1.3}
+					x={8 + svgWidth * (cityCoordinates[selectedCity].rq_comm / 2) / barMaxWidth}
 					y="66"
+					text-anchor="middle"
 					class="svg-data-label">
 					{Math.round(100 * cityCoordinates[selectedCity].rq_comm)}%
 				</text>
@@ -348,7 +353,7 @@
 				<rect 
 					x="1"
 					y="76" 
-					width={svgWidth * cityCoordinates[selectedCity].rq_city / 1.3}
+					width={svgWidth * cityCoordinates[selectedCity].rq_city / barMaxWidth}
 					height="20px" 
 					stroke="#00A189" 
 					stroke-width="2" 
@@ -356,8 +361,9 @@
 					fill-opacity=0.2 
 				/>
 				<text
-					x={8 + svgWidth * cityCoordinates[selectedCity].rq_city / 1.3}
+					x={8 + (svgWidth * cityCoordinates[selectedCity].rq_city / 2) / barMaxWidth}
 					y="91"
+					text-anchor="middle"
 					class="svg-data-label">
 					{Math.round(100 * cityCoordinates[selectedCity].rq_city)}%
 				</text>
