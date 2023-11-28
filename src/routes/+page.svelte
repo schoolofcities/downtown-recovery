@@ -6,6 +6,10 @@
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
+
+    import cardImgTransitRidership from "../assets/card-img/card-img-transit-ridership.png";
+    import cardImgDowntownDefinition from "../assets/card-img/card-img-downtown-definition.png";
+
     import cardImgReport from "../assets/card-img/card-img-report.png";
     import cardImgVideo from "../assets/card-img/card-img-video.png";
 
@@ -24,7 +28,7 @@
             Death of Downtown?
         </h1>
         <p>
-            <span class="bold">Exploring Pandemic Recovery Trajectories Across North American Cities</span>
+            <span class="bold">Exploring Pandemic Recovery Across North American Downtowns</span>
         </p>
 
     </div>
@@ -69,6 +73,34 @@
                 <h2>Correlations</h2>
 
                 <p>Visualize how downtown recovery is (or is not) related to a range of other urban data. Updated October, 2023.</p>
+
+            </div>
+        </a>
+
+        <a href="/blog/downtown-recovery-and-transit-ridership">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgTransitRidership}>
+                </div>
+
+                <h2>Downtown Recovery & Transit</h2>
+
+                <p>Blog post on how downtown recovery is related to recovery in transit ridership.</p>
+
+            </div>
+        </a>
+
+        <a href="/blog/downtown-definitions">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgDowntownDefinition}>
+                </div>
+
+                <h2>Downtown Definition</h2>
+
+                <p>Interactive map and blog post on how recovery varies for different definitions of downtowns.</p>
 
             </div>
         </a>
