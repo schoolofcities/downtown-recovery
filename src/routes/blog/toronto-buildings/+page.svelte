@@ -5,6 +5,8 @@
 
     import MapTorontoRecovery from "./lib/MapTorontoRecovery.svelte";
 
+    import DotDistribution from "./lib/DotDistribution.svelte";
+
 </script>
 
 
@@ -37,11 +39,13 @@
             The building that recorded the highest rate of change was CIBC Square (Phase I with 3026%) followed by Wildeboer Dellelce Place and the building at 9 Temperance St (369% and 344% respectively). In the case of CIBC Square, it was under construction during the before-pandemic period and opened in 2021, which led to a unique increase in recovery rates. It also has a regional bus terminal on it's ground floor. The building that recorded the lowest recovery rate was the HSBC Building at 70 York St (7%) followed by the Lumsden Building at 6 Adelaide St E (7%). These buildings (WHAT CAN WE SAY ABOUT THEM?)
         </p>
 
-        <h2>Are some types of buildings recoverying more than others?</h2>
+        <h2>Recovery Rates By Building Type</h2>
 
         <p>
-            
+            meow
         </p>
+
+        <DotDistribution/>
 
         <h2>Cluster Analysis</h2>
 
