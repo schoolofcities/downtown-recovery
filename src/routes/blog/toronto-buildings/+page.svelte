@@ -42,7 +42,10 @@
         <h2>Recovery Rates By Building Type</h2>
 
         <p>
-            meow
+            Below we create dot distribution charts of building recovery rates by the four most prominent building types. Each dot represents a single building, place on the X-axis pertaining to it's recovery rate.
+        </p>
+        <p>
+            The vast majority of office and retail buildings have not recovered to their pre-pandemic level of activity, likely due to hybrid work arrangements. While there are only 8 hospitality buildings in the district, 6 of them have a recovery rate of more than 100%, indicating a strong return and increase in activity in hotels and related establishments.
         </p>
 
         <DotDistribution/>
