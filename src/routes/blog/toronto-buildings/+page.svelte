@@ -103,13 +103,13 @@
 <style>
 
     .mapImg {
-        max-width: 740px;
+        max-width: 600px;
         margin: 0 auto; /* Center the container */
     }
     img {
 		border: solid 1px var(--brandDarkBlue);
 		min-width: 350px;
-		max-width: 600px; /* Set maximum width to 100% of the container */
+		max-width: 100%; /* Set maximum width to 100% of the container */
 		height: auto; /* Maintain aspect ratio */
 		display: block; /* Remove default image spacing */
 		margin: 0 auto; /* Center the image within the container */
