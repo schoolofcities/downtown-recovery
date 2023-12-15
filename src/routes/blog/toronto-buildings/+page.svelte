@@ -7,6 +7,8 @@
     import DotDistribution from "./lib/DotDistribution.svelte";
     import ClusterResult from "./lib/ClusterResult.svelte";
 
+    import mapRecovery from "./data/map-cluster.png";
+
 </script>
 
 
@@ -22,21 +24,21 @@
 
 
         <p>
-            On this site, we've tracked post-pandemic recovery patterns in the downtowns of many North American cities, based on location-based mobility data from cell phones supplied by Spectus. While we've compared recovery across different cities, and users to explore different definitions of downtown, policymakers often need more fine-grained data to determine how recovery is progressing at the city block or individual building level.
+            On this website, we've tracked post-pandemic recovery patterns in the downtowns of many North American cities, based on location-based mobility data from cell phones supplied by Spectus. While we've <a href="/charts/rankings">compared recovery across different cities</a>, as well as created a tool to <a href="/blog/downtown-definitions">explore how results vary for different definitions of downtown</a>, policymakers often need more fine-grained data to determine how recovery is progressing at the city block or individual building level.
         </p>
         <p>
-            Here we examine recovery rates (comparing activity in spring 2023 to spring 2019) for 119 buildings located in the Toronto Financial District Business Improvement Area (BIA); most are either office (45%), office plus retail (33%), or retail only (11%) buildings. The map below reveals substantial variation in recovery across the area: the darker the red, the lower activity in 2023 compared to 2019, and the darker the blue, the higher the rate of recovery.
+            On this page, we examine recovery rates (comparing activity in Spring 2023 to Spring 2019) for 119 buildings located in the Toronto Financial District Business Improvement Area (BIA). Most buildngs in this BIA are either office (45%), mixed-use office plus retail (33%), or retail only (11%) buildings. The map below reveals substantial variation in recovery across the area. The darker the red, the lower activity in 2023 compared to 2019, and the darker the blue, the higher the rate of recovery.
         </p>
         
 
         <MapTorontoRecovery/>
 
         <p>
-            Specifically, to estimate the recovery rate of each building, we counted the total unique daily visitors from March to May 2023, dividing it by the total unique daily visitors in corresponding months in 2019. Before dividing, both totals were normalized by the total number of unique devices in the City of Toronto, to account for changing sampling rates over time. A recovery rate lower than 100% indicates that the number of visitors from March to May 2023 had not yet recovered to the same period in 2019. For more details on how we are measuring recovery from this data, view our  <a href="/methodology">methodology</a> page.
+            Specifically, to estimate the recovery rate of each building, we counted the total unique daily visitors from March to May 2023, dividing it by the total unique daily visitors in corresponding months in 2019. Before dividing, both totals were normalized by the total number of unique devices in the City of Toronto, to account for changing sampling rates over time. For more details on how we are measuring recovery from Spectus data, view our  <a href="/methodology">methodology</a> page.
         </p>
 
         <p>  
-            The building that recorded the highest rate of change was CIBC Square (Phase I with 3026%) followed by Wildeboer Dellelce Place and the building at 9 Temperance St (369% and 344% respectively). In the case of CIBC Square, it was under construction during the before-pandemic period and opened in 2021, which led to a massive increase in recovery rates. It also has a regional bus terminal on it's ground floor. The building that recorded the lowest recovery rate was the HSBC Building at 70 York St (7%) and the Lumsden Building at 6 Adelaide St E (7%). These buildings likely had tenants that moved out during the pandemic and have not had their spaces refilled by spring 2023.
+            The building that recorded the highest rate of change was CIBC Square Phase I with 3026% followed by Wildeboer Dellelce Place and the building at 9 Temperance St (369% and 344% respectively). In the case of CIBC Square, it was under construction in 2019 and opened in 2021. It also has a regional bus terminal on its ground floor. The building that recorded the lowest recovery rate was the HSBC Building at 70 York St (7%) and the Lumsden Building at 6 Adelaide St E (7%). These buildings likely had tenants that moved out during the pandemic and have not had their spaces refilled by Spring 2023.
         </p>
 
         <h2>Recovery Rates By Building Type</h2>
@@ -58,26 +60,39 @@
         <h2>Cluster Analysis</h2>
 
         <p>
-            Based on the recovery rate results, we conducted a clustering analysis to identify building typologies related to their recovery rates and other attributes such as building type (e.g. retail, office, etc.), building class (A, B, or C, which is a ranking of building quality, often reflective in rental rates) and usable space of the building (i.e. the total floor area to account for different building sizes). Specifically, we ran a <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means cluster analysis</a> on all office, retail, and mixed use office/retail buildings in the district. The categorical variables were converted to dummy variables (0 or 1) and the numeric variables on usable space and recovery rate were log scaled and normalized to a range from 0 to 1 prior to clustering. The number of clusters was based on analyzing the within-cluster sum of squares for different numbers of clusters.
+            Based on the recovery rate results, we conducted a clustering analysis to identify building typologies related to their recovery rates and other attributes such as building type (e.g. retail, office, etc.), building class (A, B, or C, which is a ranking of building quality, often reflective in rental rates) and usable space of the building (i.e. the total floor area to account for different building sizes). Specifically, we ran a <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means cluster analysis</a> on all office, retail, and mixed use office/retail buildings in the district. The categorical variables were converted to dummy variables (0 or 1) and the numeric variables on usable space and recovery rate were log scaled and normalized to a range from 0 to 1 prior to clustering. The number of clusters was based on analyzing the within-cluster sum of squares.
         </p>
         <p>
-            Based on our analysis, we find that there are 4 clusters, or types, of buildings.
-            It is our hope that based on this typology, policy-makers and related stakeholders can see how different types of buildings are recovering more than others, and can design effective recovery strategies for downtown’s diverse sub-areas, in Toronto.
+            Based on our analysis, we find that there are 4 clusters (i.e. types) of buildings.
         </p>       
 
     </div>
 
     <ClusterResult/>
 
-       
-
     <div class="text">
 
-        <h2>Data & Methods</h2>
+        <p>Below is a map of the cluster results. A large number of buildings were identified in the third cluster, predominantly Class A mixed-use buildings with lower recovery rates, which we see are located in the centre of the BIA. These buildings make up most of the tall skyscrapers in the district. Buildings in the other clusters are scattered more around the periphery of the BIA.</p>
+
+        <p>It is our hope that based on this typology, policy-makers and related stakeholders can see how different types of buildings are recovering more than others, and can design effective recovery strategies based on building-level attributes.</p>
+
+        <div class="mapImg">
+
+            <img src={mapRecovery} alt="Map ...">
+        
+        </div>
+
+        <p>
+            While our analysis was focused on Toronto's downtown, the same type of analysis could be applied to other areas as well that have building level data or other sub-geographies (e.g. sets of city blocks, BIAs, neighbourhoods) with distinct characteristics. If you're interested in seeing something similar for your city or neighbourhood, please reach out to us!
+        </p>
+
+        <br><br><br>
+
+        <!-- <h2>Data & Methods</h2>
 
         <p>
             For details on the downtown recovery metrics, check out our <a href="../methodology">methodology</a>. The charts on this page were made by <a href="https://jamaps.github.io">Jeff Allen</a> using D3 and Svelte.
-        </p>
+        </p> -->
 
     </div>
 
@@ -87,30 +102,18 @@
 
 <style>
 
-    .grid {
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; /* Center the cells horizontally */
-        max-width: 1100px;
+    .mapImg {
+        max-width: 740px;
+        margin: 0 auto; /* Center the container */
     }
-
-    .grid-cell {
-        width: 50%;
-        box-sizing: border-box;
-    }
-
-    @media (max-width: 1000px) {
-        .grid-cell {
-            width: 100%;
-        }
-    }
-
-    #options {
-        margin: 0 auto;
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
+    img {
+		border: solid 1px var(--brandDarkBlue);
+		min-width: 350px;
+		max-width: 600px; /* Set maximum width to 100% of the container */
+		height: auto; /* Maintain aspect ratio */
+		display: block; /* Remove default image spacing */
+		margin: 0 auto; /* Center the image within the container */
+	}
 
     .text {
         border: 0px;

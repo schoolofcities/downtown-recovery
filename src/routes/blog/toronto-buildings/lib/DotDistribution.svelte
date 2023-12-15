@@ -131,17 +131,34 @@
 
 				{/each}
 
-				{#each bins(type) as t}
+				{#each bins(type) as t, i}
 
-					{#if t.length > 0}
+					{#if i > 0}
 
-						{#each Array.from({ length: t.length }, (_, index) => index) as c}
+						{#if t.length > 0}
 
-							<circle cx="{xScale(t.x0 + 5)}" cy="{94 - c * 9}" r="4" fill={colours(t.x0 + 0.01)}/>
+							{#each Array.from({ length: t.length }, (_, index) => index) as c}
 
-						{/each}
+								<circle cx="{xScale(t.x0 + 5)}" cy="{94 - c * 9}" r="4" fill={colours(t.x0 + 0.01)}/>
+
+							{/each}
+
+						{/if}
+
+					{:else}
+
+						{#if t.length > 0}
+
+							{#each Array.from({ length: t.length }, (_, index) => index) as c}
+
+								<circle cx="{xScale(t.x1 - 5)}" cy="{94 - c * 9}" r="4" fill={colours(t.x0 + 0.01)}/>
+
+							{/each}
+
+						{/if}
 
 					{/if}
+					
 
 				{/each}
 

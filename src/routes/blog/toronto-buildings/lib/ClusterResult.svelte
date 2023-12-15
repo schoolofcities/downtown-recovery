@@ -16,7 +16,8 @@
 			"Class A": 0,
 			"Class B": 0.7272727272727273,
 			"Class C": 0.2727272727272727,
-			"Recovery Rate": 0.7261625560245528
+			"Recovery Rate": 0.7261625560245528,
+			"n": 22
 		},
 		{
 			"cluster": 2,
@@ -29,11 +30,12 @@
 			"Class A": 0.23333333333333334,
 			"Class B": 0.7666666666666667,
 			"Class C": 0,
-			"Recovery Rate": 0.5793544678022642
+			"Recovery Rate": 0.5793544678022642,
+			"n": 30
 		},
 		{
 			"cluster": 3,
-			"colour": "#AB1368",
+			"colour": "#6D247A",
 			"name": "Low Recovery, Class A & Retail Mix",
 			"Useable Space": 0.7604600977897897,
 			"Office & Retail": 0.71875,
@@ -42,11 +44,12 @@
 			"Class A": 0.9375,
 			"Class B": 0.0625,
 			"Class C": 0,
-			"Recovery Rate": 0.4851078200226867
+			"Recovery Rate": 0.4851078200226867,
+			"n": 32
 		},
 		{
 			"cluster": 4,
-			"colour": "#F1C500",
+			"colour": "#AB1368",
 			"name": "Very Low Recovery, Class B",
 			"Useable Space": 0.45203298849205176,
 			"Office & Retail": 0.2,
@@ -55,7 +58,8 @@
 			"Class A": 0,
 			"Class B": 0.95,
 			"Class C": 0.05,
-			"Recovery Rate": 0.34098280832331385
+			"Recovery Rate": 0.34098280832331385,
+			"n": 20
 		}
 	]
 
@@ -84,7 +88,8 @@
 					width="30" 
 					height="15" 
 					fill="{cluster.colour}"
-					stroke-width="0"
+					stroke-width="1"
+					stroke="white"
 				/>
 
 				<line 
@@ -105,6 +110,17 @@
 					font-family="Roboto"
 					>
 					{cluster.name}			
+				</text>
+
+				<text
+					x="390" 
+					y="23" 
+					fill="white"
+					font-size="12"
+					text-anchor="end"
+					font-family="Roboto"
+					>
+					n = {cluster.n}			
 				</text>
 				
 				{#each categories as category, index}

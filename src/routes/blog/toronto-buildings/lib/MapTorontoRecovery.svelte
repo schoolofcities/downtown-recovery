@@ -53,7 +53,7 @@
 <style>
 
 	.mapImg {
-		max-width: 740px;
+		max-width: 600px;
 		margin: 0 auto; /* Center the container */
 	}
 
@@ -70,7 +70,7 @@
 		padding-top: 10px;
 		/* background-color: red; */
 		border-top: solid 1px var(--brandDarkBlue);
-		max-width: 740px;
+		max-width: 600px;
 		margin: 0 auto;
 		padding-bottom: 10px;
 	}
