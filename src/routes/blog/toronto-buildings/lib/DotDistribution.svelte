@@ -8,7 +8,7 @@
 	let height = 150;
 
 	let typeNames = ["Office", "Retail", "Mixed Office & Retail", "Hospitality"]
-	let typeRecovery = ["56%", "34%", "59%", "110%"]
+	let typeRecovery = ["69%", "55%", "56%", "133%"]
 
 	let data = [
 		buildingData.features.filter(d => d.properties.Type === "('Office',)"),
@@ -57,7 +57,7 @@
 			<svg width="{width}" height="{height}">
 
 				<text
-						x="{marginLeft}" 
+						x="{marginLeft - 4}" 
 						y="20" 
 						fill="white"
 						font-size="13"
@@ -68,14 +68,14 @@
 				</text>
 
 				<text
-						x="{width - marginRight}" 
+						x="{width - marginRight + 4}" 
 						y="20" 
 						fill="white"
 						font-size="13"
 						text-anchor="end"
 						font-family="Roboto"
 					>
-					Average Recovery Rate = {typeRecovery[index]}			
+					Median Recovery Rate = {typeRecovery[index]}			
 				</text>
 
 				<line 
@@ -158,15 +158,14 @@
 
 <style>
 
-	/* Container div for the grid */
 	.chartWrapper {
+		max-width: 825px;
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr); /* Default 2x2 grid */
-		gap: 15px; /* Adjust the gap as needed */
+		grid-template-columns: repeat(2, 1fr); 
+		gap: 25px;
 	}
 
-	/* Individual divs inside the grid */
 	.chart {
 		background-color: #161616;
 		margin: 0 auto;
@@ -176,10 +175,9 @@
 		border: solid 1px #2a2a2a
 	}
 
-	/* Media query for screens less than 800px wide */
 	@media screen and (max-width: 800px) {
 		.chartWrapper {
-			grid-template-columns: 1fr; /* Switch to a single column */
+			grid-template-columns: 1fr; 
 		}
 	}
 
