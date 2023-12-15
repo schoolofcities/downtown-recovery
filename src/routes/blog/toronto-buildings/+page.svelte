@@ -63,8 +63,8 @@
             Based on the recovery rate results, we conducted a clustering analysis to identify building typologies related to their recovery rates and other attributes such as building type (e.g. retail, office, etc.), building class (A, B, or C, which is a ranking of building quality, often reflective in rental rates) and usable space of the building (i.e. the total floor area to account for different building sizes). Specifically, we ran a <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means cluster analysis</a> on all office, retail, and mixed use office/retail buildings in the district. The categorical variables were converted to dummy variables (0 or 1) and the numeric variables on usable space and recovery rate were log scaled and normalized to a range from 0 to 1 prior to clustering. The number of clusters was based on analyzing the within-cluster sum of squares.
         </p>
         <p>
-            Based on our analysis, we find that there are 4 clusters (i.e. types) of buildings.
-        </p>       
+            Based on our analysis, we find that there are 4 clusters (i.e. types) of buildings. Generally, Class A buildings and large-size office and retail mix-used buildings tend to have lower recovery rates, whereas smaller-sized Class B and C office and retail buildings show higher recovery rates.
+        </p>
 
     </div>
 
