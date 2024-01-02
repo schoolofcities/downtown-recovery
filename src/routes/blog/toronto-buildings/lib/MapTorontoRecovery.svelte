@@ -11,7 +11,7 @@
 
 <div class="legendContainer">
 	<h2>Toronto Financial District BIA</h2>
-	<p>Recovery Rate % (2019 to 2023)</p>
+	<p>Recovery Rate % (2023 versus 2019)</p>
 	<svg class="legend" width="350" height="35" xmlns="http://www.w3.org/2000/svg">
 		{#each legendColours as colour, index}
 			<rect

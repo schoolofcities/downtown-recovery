@@ -20,8 +20,7 @@
 
         <h3>Understanding post-pandemic recovery for individual buildings </h3>
 
-        <p>By <a href="">Byeonghwa Jeong</a>, <a href="">Karen Chapple</a> & <a href="">Jeff Allen</a> | December 15, 2023</p> 
-
+        <p>By <a href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/">Byeonghwa Jeong</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a> & <a href="http://jamaps.github.io/">Jeff Allen</a> | December 15, 2023</p> 
 
         <p>
             On this website, we've tracked post-pandemic recovery patterns in the downtowns of many North American cities, based on location-based mobility data from cell phones supplied by Spectus. While we've <a href="/charts/rankings">compared recovery across different cities</a>, as well as created a tool to <a href="/blog/downtown-definitions">explore how results vary for different definitions of downtown</a>, policymakers often need more fine-grained data to determine how recovery is progressing at the city block or individual building level.
@@ -44,7 +43,7 @@
         <h2>Recovery Rates By Building Type</h2>
 
         <p>
-            Below we create dot distribution charts of building recovery rates by the four most prominent building types. Each dot represents a single building, placed on the X-axis pertaining to its recovery rate.
+            Below we create dot distribution charts of building recovery rates by the four most prominent building types. Each dot represents a single building, placed on the X-axis pertaining to its recovery rate. The data on building type was provided by the Financial District BIA.
         </p>
         <p>
             The vast majority of office and retail buildings have not recovered to their pre-pandemic level of activity, likely due to hybrid work arrangements. While there are only 8 hospitality buildings in the district, 6 of them have a recovery rate of more than 100%, indicating a strong return and increase in activity in hotels and related establishments.
@@ -60,7 +59,7 @@
         <h2>Cluster Analysis</h2>
 
         <p>
-            Based on the recovery rate results, we conducted a clustering analysis to identify building typologies related to their recovery rates and other attributes such as building type (e.g. retail, office, etc.), building class (A, B, or C, which is a ranking of building quality, often reflective in rental rates) and usable space of the building (i.e. the total floor area to account for different building sizes). Specifically, we ran a <a href="https://en.wikipedia.org/wiki/K-means_clustering">k-means cluster analysis</a> on all office, retail, and mixed use office/retail buildings in the district. The categorical variables were converted to dummy variables (0 or 1) and the numeric variables on usable space and recovery rate were log scaled and normalized to a range from 0 to 1 prior to clustering. The number of clusters was based on analyzing the within-cluster sum of squares.
+            Based on the recovery rate results, we conducted a clustering analysis to identify building typologies related to their recovery rates and other attributes such as building type (e.g. retail, office, etc.), building class (A, B, or C, which is a ranking of building quality, often reflective in rental rates) and usable space of the building (i.e. the total floor area to account for different building sizes). Specifically, we ran a cluster analysis that's a <a href="http://cran.fhcrc.org/web/packages/kmed/vignettes/kmedoid.html#gower">combination of Gower's distance and k-medoids method</a> on all office, retail, and mixed use office/retail buildings in the district. The categorical variables were converted to dummy variables (0 or 1) and the numeric variables on usable space and recovery rate were log scaled and normalized to a range from 0 to 1 prior to clustering. The number of clusters was based on analyzing the within-cluster sum of squares.
         </p>
         <p>
             Based on our analysis, we find that there are 4 clusters (i.e. types) of buildings. Generally, Class A buildings and large-size office and retail mix-used buildings tend to have lower recovery rates, whereas smaller-sized Class B and C office and retail buildings show higher recovery rates.
