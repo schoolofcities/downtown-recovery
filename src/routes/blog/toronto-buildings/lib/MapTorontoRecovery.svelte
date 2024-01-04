@@ -46,9 +46,18 @@
 		<rect
 			x="0"
 			y="45"
-			width="50"
+			width="25"
 			height="15"
-			fill="#eeeeee"
+			fill="#e27e71"
+			stroke="#191919"
+			stroke-width="1"
+		/>
+		<rect
+			x="25"
+			y="45"
+			width="25"
+			height="15"
+			fill="#9bd5eb"
 			stroke="#191919"
 			stroke-width="1"
 		/>
