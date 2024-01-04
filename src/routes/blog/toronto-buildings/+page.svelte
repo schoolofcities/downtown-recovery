@@ -20,7 +20,7 @@
 
         <h3>Understanding post-pandemic recovery for individual buildings </h3>
 
-        <p>By <a href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/">Byeonghwa Jeong</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a> & <a href="http://jamaps.github.io/">Jeff Allen</a> | December 15, 2023</p> 
+        <p>By <a href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/">Byeonghwa Jeong</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a> & <a href="http://jamaps.github.io/">Jeff Allen</a> | January 4, 2024</p> 
 
         <p>
             On this website, we've tracked post-pandemic recovery patterns in the downtowns of many North American cities, based on location-based mobility data from cell phones supplied by Spectus. While we've <a href="/charts/rankings">compared recovery across different cities</a>, as well as created a tool to <a href="/blog/downtown-definitions">explore how results vary for different definitions of downtown</a>, policymakers often need more fine-grained data to determine how recovery is progressing at the city block or individual building level.
@@ -29,11 +29,10 @@
             On this page, we examine recovery rates (comparing activity in Spring 2023 to Spring 2019) for 119 buildings located in the Toronto Financial District Business Improvement Area (BIA). Most buildngs in this BIA are either office (45%), mixed-use office plus retail (33%), or retail only (11%) buildings. The map below reveals substantial variation in recovery across the area. The darker the red, the lower activity in 2023 compared to 2019, and the darker the blue, the higher the rate of recovery.
         </p>
         
-
         <MapTorontoRecovery/>
 
         <p>
-            Specifically, to estimate the recovery rate of each building, we counted the total unique daily visitors from March to May 2023, dividing it by the total unique daily visitors in corresponding months in 2019. Before dividing, both totals were normalized by the total number of unique devices in the City of Toronto, to account for changing sampling rates over time. For more details on how we are measuring recovery from Spectus data, view our  <a href="/methodology">methodology</a> page.
+            Specifically, to estimate the recovery rate of each building, we counted the total unique daily visitors from March to May 2023, dividing it by the total unique daily visitors in corresponding months in 2019. Before dividing, both totals were normalized by the total number of unique devices in the City of Toronto, to account for changing sampling rates over time. For both time periods, the average daily sampling rate was in the range of 1-2% of the overall population. For more details on how we are measuring recovery from Spectus data, view our  <a href="/methodology">methodology</a> page.
         </p>
 
         <p>  

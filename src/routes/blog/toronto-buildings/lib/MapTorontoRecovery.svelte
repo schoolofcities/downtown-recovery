@@ -12,7 +12,7 @@
 <div class="legendContainer">
 	<h2>Toronto Financial District BIA</h2>
 	<p>Recovery Rate % (2023 versus 2019)</p>
-	<svg class="legend" width="350" height="35" xmlns="http://www.w3.org/2000/svg">
+	<svg class="legend" width="370" height="65" xmlns="http://www.w3.org/2000/svg">
 		{#each legendColours as colour, index}
 			<rect
 				x={index * 50}
@@ -37,6 +37,41 @@
 				{text}
 			</text>
 		{/each}
+
+		<defs>
+			<pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(-45)">
+				<line x1="0" y1="0" x2="0" y2="4" style="stroke:#1E3765;stroke-width:2" />
+			</pattern>
+		</defs>		
+		<rect
+			x="0"
+			y="45"
+			width="50"
+			height="15"
+			fill="#eeeeee"
+			stroke="#191919"
+			stroke-width="1"
+		/>
+		<rect
+			x="0"
+			y="45"
+			width="50"
+			height="15"
+			fill="url(#diagonalHatch)"
+			stroke="#191919"
+			stroke-width="0"
+		/>
+		<text
+			x="55" 
+			y="58"
+			fill="#ffffff"
+			font-size="14"
+			text-anchor="start"
+			font-family="Roboto"
+			opacity="0.7"
+			>
+			Building with low sample, treat result with caution
+		</text>
 	</svg>
 </div>
 
