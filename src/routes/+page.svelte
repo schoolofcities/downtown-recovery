@@ -7,6 +7,7 @@
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
 
+    import cardImgTorontoBuildings from "../assets/card-img/card-img-toronto-buildings.png";
     import cardImgTransitRidership from "../assets/card-img/card-img-transit-ridership.png";
     import cardImgDowntownDefinition from "../assets/card-img/card-img-downtown-definition.png";
 
@@ -73,6 +74,20 @@
                 <h2>Correlations</h2>
 
                 <p>Visualize how downtown recovery is (or is not) related to a range of other urban data. Updated October, 2023.</p>
+
+            </div>
+        </a>
+
+        <a href="/blog/toronto-buildings">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgTorontoBuildings}>
+                </div>
+
+                <h2>Building-By-Building Recovery</h2>
+
+                <p>Understanding post-pandemic recovery for individual buildings. A Toronto case-study.</p>
 
             </div>
         </a>
