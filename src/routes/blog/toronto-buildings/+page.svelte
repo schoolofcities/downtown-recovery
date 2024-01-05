@@ -36,7 +36,7 @@
         </p>
 
         <p>  
-            The building that recorded the highest rate of change was CIBC Square Phase I with 3026% followed by Wildeboer Dellelce Place and the building at 9 Temperance St (369% and 344% respectively). In the case of CIBC Square, it was under construction in 2019 and opened in 2021. It also has a regional bus terminal on its ground floor. The building that recorded the lowest recovery rate was the HSBC Building at 70 York St (7%) and the Lumsden Building at 6 Adelaide St E (7%). These buildings likely had tenants that moved out during the pandemic and have not had their spaces refilled by Spring 2023.
+            The building that recorded the highest rate of change was CIBC Square Phase I with 3026% followed by Wildeboer Dellelce Place and the building at 9 Temperance St (369% and 344% respectively). In the case of CIBC Square, it was under construction in 2019 and opened in 2021. It also has a regional bus terminal on its ground floor. 
         </p>
 
         <h2>Recovery Rates By Building Type</h2>
