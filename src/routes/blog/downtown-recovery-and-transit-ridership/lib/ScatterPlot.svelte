@@ -1,15 +1,10 @@
 <script>
 
-    import Header from "../../../../lib/Header.svelte";
-    import SelectSeason from "../../../../lib/SelectSeason.svelte";
-    import SelectRegions from "../../../../lib/SelectRegions.svelte";
-    import SelectVariable from "../../../../lib/SelectVariable.svelte";
-
     import { onMount } from 'svelte';
     import { csvParse } from 'd3-dsv';
     import { sampleCorrelation, linearRegression } from 'simple-statistics';
 
-    import { season, selectedRegions, regions, selectedVariable, cities } from '../../../../lib/stores.js';
+    import { selectedRegions, regions, cities } from '../../../../lib/stores.js';
 
     import "../../../../assets/global.css";
 
