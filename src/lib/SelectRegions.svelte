@@ -8,10 +8,10 @@
     let selectedButtons = $selectedRegions;
 
     function handleClick(name) {
-        if (selectedButtons.includes(name)) {
-            selectedButtons = selectedButtons.filter(region => region !== name);
+        if ($selectedRegions.includes(name)) {
+            $selectedRegions = $selectedRegions.filter(region => region !== name);
         } else {
-            selectedButtons = [...selectedButtons, name];
+            $selectedRegions = [...$selectedRegions, name];
         }
     }
 
@@ -28,7 +28,7 @@
             <div
             class="button"
             on:click={() => handleClick(region.name)}
-            style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
+            style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
             >
                 <div class="box" style="background-color: {region.colour}"></div>
                 <div class="name" >
@@ -44,7 +44,7 @@
                 <div
                 class="button"
                 on:click={() => handleClick(region.name)}
-                style="color: white; opacity: {selectedButtons.includes(region.name) ? 1 : 0.333}"
+                style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
                 >
                     <div class="box" style="background-color: {region.colour}"></div>
                     <div class="name" >
