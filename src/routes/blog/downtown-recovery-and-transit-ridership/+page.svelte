@@ -161,10 +161,6 @@
         border: 0px;
     }
 
-    h3 {
-        font-size: 22.2px;
-    }
-
     h4 {
         text-decoration: underline;
     }

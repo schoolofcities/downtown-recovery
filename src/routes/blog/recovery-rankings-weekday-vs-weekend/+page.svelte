@@ -13,7 +13,7 @@
 
 	// colour vars
 
-	let weekdayColour = "#1E3765";
+	let weekdayColour = "#8DBF2E";
 	let weekendColour = "#007FA3";
 	let overallColour = "#D0D1C9";
 	let circleRadius = 6;
@@ -382,7 +382,7 @@
 						"
 					></circle>
 				</svg>
-				Recovery outside of working hours
+				Recovery outside of working hours (6pm-8am, M-F)
 			</p>
 
 			<p>Select Regions:</p>
@@ -555,10 +555,6 @@
 <style>
 	.text {
 		border: 0px;
-	}
-
-	h3 {
-		font-size: 25px;
 	}
 
 	p {
