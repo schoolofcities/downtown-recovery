@@ -12,7 +12,7 @@
 
 
     // initial loading data and dynamic filtering
-
+    
     let data = [];
     let filteredData = [];
 
@@ -20,7 +20,8 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../recovery_rankings.csv');
+            // const response = await fetch('../recovery_rankings.csv');
+            const response = await fetch('/src/routes/blog/recovery-rankings-weekday-vs-weekend/data/working_hours_NEW.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {
@@ -34,7 +35,7 @@
 
     $: filteredData = data
         .filter(item => $selectedRegions.includes(item.region))
-        .sort((a, b) => b.seasonal_average - a.seasonal_average);
+        .sort((a, b) => b.Recovery_Rate_weekends - a.Recovery_Rate_weekends);
 
 
     // chart parameters
@@ -44,7 +45,7 @@
     $: chartHeight = 24 * filteredData.length + 50;
 
     let maxValue = 1; // for x-axis scale
-    $: maxValue = filteredData.length !== 0 ? filteredData[0].seasonal_average : 1;
+    $: maxValue = filteredData.length !== 0 ? filteredData[0].Recovery_Rate_weekends : 1;
     $: maxValue = maxValue < 1 ? 1 : maxValue;
 
     function generateXaxisIntervals(maxValue, interval) {
@@ -97,122 +98,113 @@
 
         <svg height={chartHeight} width={chartWidth} id="chart">
 
-            {#each xAxisIntervals as xInterval, i}
-
-                <line class="grid"
-                    x1 = {29 + i * xAxisIntervalSpacing}
-                    y1 = 34
-                    x2 = {29 + i * xAxisIntervalSpacing}
-                    y2 = {chartHeight}
-                ></line>
-
-                <line class="grid-white"
-                    x1 = {29 + i * xAxisIntervalSpacing}
-                    y1 = 34
-                    x2 = {29 + i * xAxisIntervalSpacing}
-                    y2 = 38
-                ></line>
-
-                <text class="axis-label"
-                    x = {35 + i * xAxisIntervalSpacing}
-                    y = 30
-                    text-anchor="end"
-                >{(100 * xInterval).toFixed(0)}%</text>
-
-            {/each}
-
             {#each filteredData as d, i}
-
-                {#if regionColours.find(region => region.name === d.region).text === "#000"}
-                    <text class="bar-label"
-                    x = 32
-                    y = {56 + i * 24}
-                    style = "
-                        fill: #000;
-                        fill-opacity: 0;
-                        stroke: white;
-                        stroke-width: 3px;
-                        stroke-opacity: 0.62;
-                    "
-                    >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
-                {/if}
-
-                <line class="bar"
-                    x1 = {29}
-                    y1 = {52 + i * 24}
-                    x2 = {29 + ((chartWidth - 50) * d.seasonal_average / Math.max(... xAxisIntervals))}
-                    y2 = {52 + i * 24}
-                    style = "
+                <!-- <line class="bar"
+                    x1={30}
+                    y1={52 + i * 24}
+                    x2={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals))}
+                    y2={52 + i * 24}
+                    style="
                         stroke: white;
                         stroke-width: 20
                     "
                 ></line>
-
+        
                 <line class="bar"
-                    x1 = {30}
-                    y1 = {52 + i * 24}
-                    x2 = {29 + ((chartWidth - 50) * d.seasonal_average / Math.max(... xAxisIntervals)) - 1}
-                    y2 = {52 + i * 24}
-                    style = "
+                    x1={30}
+                    y1={52 + i * 24}
+                    x2={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals)) - 1}
+                    y2={52 + i * 24}
+                    style="
                         stroke: {regionColours.find(region => region.name === d.region).colour};
                         stroke-width: 18
                     "
+                ></line> -->
+
+                <!-- Add connecting line for dumbbell chart -->
+                <line class="connecting-line"
+                    x1={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
+                    y1={52 + i * 24}
+                    x2={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals)) - 1}
+                    y2={52 + i * 24}
+                    style="
+                        stroke: {regionColours.find(region => region.name === d.region).colour};
+                        stroke-width: 5
+                    "
                 ></line>
+        
+                <!-- Add middle circle -->
+                <circle class="circle-mid"
+                    cx={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
+                    cy={52 + i * 24}
+                    r={10}
+                    style="
+                        fill: gray;
+                        stroke: {regionColours.find(region => region.name === d.region).colour};
+                        stroke-width: 5
+                    "
+                ></circle>
 
-                <text class="axis-label"
-                    x = 25
-                    y = {57 + i * 24}
-                    text-anchor="end"
-                >{i + 1}</text>
-
-                
-                
-                <text class="bar-label"
-                    x = 32
-                    y = {56 + i * 24}
-                    style = "
+                <text class="circle-label"
+                    x={17 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
+                    y={56 + i * 24}
+                    style="
                         fill: {regionColours.find(region => region.name === d.region).text};
                     "
-                >{d.display_title} - {Math.round(100 * d.seasonal_average)}%</text>
-
+                >{Math.round(100 * d.Recovery_Rate_after_working_hours)}%</text>
+        
+                <!-- Add right circle -->
+                <circle class="circle-end"
+                    cx={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals))}
+                    cy={52 + i * 24}
+                    r={10}
+                    style="
+                        fill: white;
+                        stroke: {regionColours.find(region => region.name === d.region).colour};
+                        stroke-width: 5
+                    "
+                ></circle>
+        
+                <text class="bar-label"
+                    x={32}
+                    y={56 + i * 24}
+                    style="
+                        fill: {regionColours.find(region => region.name === d.region).text};
+                    "
+                >{d.display_title} - {Math.round(100 * d.Recovery_Rate_weekends)}%</text>
             {/each}
-
+        
+            <!-- Add horizontal grid lines and labels -->
+        
             {#each xAxisIntervals as xInterval, i}
-
                 <line class="grid"
-                    x1 = {29 + i * xAxisIntervalSpacing}
-                    y1 = 34
-                    x2 = {29 + i * xAxisIntervalSpacing}
-                    y2 = {chartHeight}
-                    stroke-opacity="0.21"
+                    x1={29}
+                    y1={34 + i * xAxisIntervalSpacing}
+                    x2={chartWidth}
+                    y2={34 + i * xAxisIntervalSpacing}
                 ></line>
-
-                {#if xInterval === 1}
-
-                    <line class="grid-white"
-                        x1 = {29 + i * xAxisIntervalSpacing}
-                        y1 = 34
-                        x2 = {29 + i * xAxisIntervalSpacing}
-                        y2 = {chartHeight}
-                        stroke-opacity=0.75
-                        stroke-dasharray="2 2"
-                    ></line>
-
-                {/if}
-
+        
+                <line class="grid-white"
+                    x1={29}
+                    y1={34 + i * xAxisIntervalSpacing}
+                    x2={33}
+                    y2={34 + i * xAxisIntervalSpacing}
+                ></line>
+        
+                <text class="axis-label"
+                    x={25}
+                    y={38 + i * xAxisIntervalSpacing}
+                    text-anchor="end"
+                >{(100 * xInterval).toFixed(0)}%</text>
             {/each}
-
         </svg>
-
+    
     </div>
-
 
 </main>
 
 
 <style>
-
-
     .text {
         border: 0px;
     }
@@ -267,6 +259,10 @@
     .bar-label {
         /* fill: var(--brandWhite); */
         font-size: 13px;
+    }
+
+    .circle-label{
+        font-size: 11px;
     }
 
 </style>
