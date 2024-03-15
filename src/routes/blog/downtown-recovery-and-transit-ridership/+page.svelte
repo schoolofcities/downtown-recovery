@@ -37,7 +37,7 @@
 
         <div id="options">
             <div id="options-region">
-                <SelectRegions europe={"no"}/>
+                <SelectRegions europe={"no"} canada={"yes"}/>
             </div>
         </div>
 

@@ -11,6 +11,13 @@
 	import { selectedRegions, regions } from '../../../lib/stores.js';
 
 
+	// colour vars
+
+	let weekdayColour = "#1E3765";
+	let weekendColour = "#007FA3";
+	let overallColour = "#D0D1C9";
+	let circleRadius = 6;
+
 	// initial loading data and dynamic filtering
 	
 	let data = [];
@@ -103,10 +110,58 @@
 	</div>
 
 	<div id="chart-wrapper" bind:offsetWidth={chartWidth}>
-
-		<p>Weekend vs. Weekday</p>
 		
 		<div id="options">
+			<h2>Downtown Recovery: Weekends vs. Weekdays</h2>
+
+			<p>
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {overallColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Overall Recovery Rate
+				
+				<br>
+
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {weekdayColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Recovery Rate on Weekdays
+
+				<br>
+
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {weekendColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Recovery Rate on Weekends
+			</p>
+
 			<p>Select Regions:</p>
 			<div id="options-region">
 				<SelectRegions europe={"no"}/>
@@ -227,20 +282,20 @@
 				<circle class="circle-left"
 					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_weekdays / Math.max(...xAxisIntervals))}
 					cy={52 + i * 24}
-					r={5}
+					r={circleRadius}
 					style="
-						fill: #DC4633;
+						fill: {weekdayColour};
 						stroke: #edf0f5;
 						stroke-width: 2
 					"
 				></circle>
 
-				<circle class="circle-right"
+				<circle class="circle-weekend"
 					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals))}
 					cy={52 + i * 24}
-					r={5}
+					r={circleRadius}
 					style="
-						fill: #007FA3;
+						fill: {weekendColour};
 						stroke: #edf0f5;
 						stroke-width: 2
 					"
@@ -249,9 +304,9 @@
 				<circle class="circle-mid"
 					cx={29 + ((chartWidth - 50) * d.Recovery_rate_total / Math.max(...xAxisIntervals))}
 					cy={52 + i * 24}
-					r={5}
+					r={circleRadius}
 					style="
-						fill: #1E3765;
+						fill: {overallColour};
 						stroke: #edf0f5;
 						stroke-width: 2
 					"
@@ -284,6 +339,12 @@
 	
 	</div>
 
+	<div class="text">
+
+		etc. etc.
+
+	</div>
+
 </main>
 
 
@@ -308,7 +369,7 @@
 
 	#options {
 		margin: 0 auto;
-		max-width: 650px;
+		max-width: 760px;
 	}
 
 	#options-season {
