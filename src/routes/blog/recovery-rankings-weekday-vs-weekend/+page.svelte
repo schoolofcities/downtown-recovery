@@ -127,7 +127,7 @@
 						"
 					></circle>
 				</svg>
-				Overall Recovery Rate
+				Overall recovery rate
 				
 				<br>
 
@@ -143,7 +143,7 @@
 						"
 					></circle>
 				</svg>
-				Recovery Rate on Weekdays
+				Recovery rate on weekdays
 
 				<br>
 
@@ -159,7 +159,7 @@
 						"
 					></circle>
 				</svg>
-				Recovery Rate on Weekends
+				Recovery rate on weekends
 			</p>
 
 			<p>Select Regions:</p>
@@ -312,19 +312,6 @@
 					"
 				></circle>
 
-				<!-- <text class="circle-label"
-					x={17 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
-					y={56 + i * 24}
-					style="
-						fill: {regionColours.find(region => region.name === d.region).text};
-					"
-				>{Math.round(100 * d.Recovery_Rate_after_working_hours)}%</text>
-		 -->
-
-		 <!-- {regionColours.find(region => region.name === d.region).colour} -->
-
-				
-		
 				<text class="bar-label"
 					x={34}
 					y={56 + i * 24}
@@ -343,6 +330,223 @@
 
 		etc. etc.
 
+	</div>
+
+	<div id="chart-wrapper" bind:offsetWidth={chartWidth}>
+		
+		<div id="options">
+			<h2>Downtown Recovery: Working Hours vs. After-Work Hours</h2>
+
+			<p>
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {overallColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Overall recovery rate
+				
+				<br>
+
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {weekdayColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Recovery rate during typical working hours (8am-6pm, M-F)
+
+				<br>
+
+				<svg height=16 width=16>
+					<circle
+						cx=9
+						cy=9
+						r={circleRadius}
+						style="
+							fill: {weekendColour};
+							stroke: #edf0f5;
+							stroke-width: 2
+						"
+					></circle>
+				</svg>
+				Recovery outside of working hours
+			</p>
+
+			<p>Select Regions:</p>
+			<div id="options-region">
+				<SelectRegions europe={"no"}/>
+			</div>
+		</div>
+
+		<svg height={chartHeight} width={chartWidth} id="chart">
+
+			<!-- x axis grid and labels -->
+
+			{#each xAxisIntervals as xInterval, i}
+
+                <line class="grid"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = {chartHeight}
+                ></line>
+
+                <line class="grid-white"
+                    x1 = {29 + i * xAxisIntervalSpacing}
+                    y1 = 34
+                    x2 = {29 + i * xAxisIntervalSpacing}
+                    y2 = 38
+                ></line>
+
+                <text class="axis-label"
+                    x = {35 + i * xAxisIntervalSpacing}
+                    y = 30
+                    text-anchor="end"
+                >{(100 * xInterval).toFixed(0)}%</text>
+
+            {/each}
+		
+			{#each xAxisIntervals as xInterval, i}
+
+				<line class="grid"
+					x1 = {29 + i * xAxisIntervalSpacing}
+					y1 = 34
+					x2 = {29 + i * xAxisIntervalSpacing}
+					y2 = {chartHeight}
+					stroke-opacity="0.91"
+				></line>
+
+				{#if xInterval === 1}
+
+					<line class="grid-white"
+						x1 = {29 + i * xAxisIntervalSpacing}
+						y1 = 34
+						x2 = {29 + i * xAxisIntervalSpacing}
+						y2 = {chartHeight}
+						stroke-opacity=0.75
+						stroke-dasharray="2 2"
+					></line>
+
+				{/if}
+
+				{#if xInterval === 0}
+
+					<line class="grid-white"
+						x1 = {29 + i * xAxisIntervalSpacing}
+						y1 = 34
+						x2 = {29 + i * xAxisIntervalSpacing}
+						y2 = {chartHeight}
+						stroke-opacity=0.5
+					></line>
+
+				{/if}
+
+			{/each}
+
+
+			<!-- data points labels and dumbbells -->
+
+			{#each filteredData as d, i}
+		
+				<line class="bar"
+					x1={30}
+					y1={52 + i * 24}
+					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals)) - 1}
+					y2={52 + i * 24}
+					style="
+						stroke: white;
+						stroke-width: 16;
+						stroke-opacity: 0.08
+					"
+				></line>
+
+				<line class="bar"
+					x1={0}
+					y1={52 + i * 24}
+					x2={4}
+					y2={52 + i * 24}
+					style="
+						stroke: {regionColours.find(region => region.name === d.region).colour};
+						stroke-width: 16;
+						stroke-opacity: 1
+					"
+				></line>
+
+				<text class="axis-label"
+                    x = 8
+                    y = {57 + i * 24}
+                    text-anchor="start"
+                >{i + 1}</text>
+
+				<line class="connecting-line"
+					x1={29 + ((chartWidth - 50) * d.Recovery_Rate_Working_Hours / Math.max(...xAxisIntervals))}
+					y1={52 + i * 24}
+					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals)) - 1}
+					y2={52 + i * 24}
+					style="
+						stroke: #edf0f5;
+						stroke-width: 2
+					"
+				></line>
+
+				<circle class="circle-left"
+					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_Working_Hours / Math.max(...xAxisIntervals))}
+					cy={52 + i * 24}
+					r={circleRadius}
+					style="
+						fill: {weekdayColour};
+						stroke: #edf0f5;
+						stroke-width: 2
+					"
+				></circle>
+
+				<circle class="circle-weekend"
+					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
+					cy={52 + i * 24}
+					r={circleRadius}
+					style="
+						fill: {weekendColour};
+						stroke: #edf0f5;
+						stroke-width: 2
+					"
+				></circle>
+		
+				<circle class="circle-mid"
+					cx={29 + ((chartWidth - 50) * d.Recovery_rate_total / Math.max(...xAxisIntervals))}
+					cy={52 + i * 24}
+					r={circleRadius}
+					style="
+						fill: {overallColour};
+						stroke: #edf0f5;
+						stroke-width: 2
+					"
+				></circle>
+
+				<text class="bar-label"
+					x={34}
+					y={56 + i * 24}
+					style="
+						fill: white;
+					"
+				>{d.display_title}</text>
+
+			{/each}
+			
+		</svg>
+	
 	</div>
 
 </main>
@@ -364,7 +568,10 @@
 	#chart-wrapper {
 		margin: 0 auto;
 		max-width: 1080px;
-		border-top: solid 1px var(--brandGray70);
+		border-top: solid 1px var(--brandDarkBlue);
+		border-bottom: solid 1px var(--brandDarkBlue);
+		padding-bottom: 10px;
+		margin-bottom: 20px;
 	}
 
 	#options {
