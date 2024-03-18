@@ -85,10 +85,12 @@
 
 	<div class="text">
 
-		<h3>Attracting activity to American downtowns: Understanding downtown recovery across the course of a week</h3>
-
-		<p><a href="http://localhost:5173/blog/www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="http://jamaps.github.io/">Jeff Allen</a> | March, 2024</p> 
-
+		<h3>
+			Attracting activity to American downtowns: Understanding downtown recovery across the course of a week
+		</h3>
+		<p>
+			<a href="http://localhost:5173/blog/www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="http://jamaps.github.io/">Jeff Allen</a> | March, 2024
+		</p>
 		<p>
 			As downtowns adjust to a new normal of hybrid and remote work, many seek to recover by attracting different types of activity. When downtowns serve as hubs for entertainment, food, retail, and tourism, they can attract visitors and shoppers around the clock. In this analysis, we show how cities recover during working hours (8 AM to 6 PM, Monday to Friday) compared to after-work hours (weeknights 6 PM to 8 AM and the entire weekend), as well as weekdays versus weekends. This provides invaluable insights into how cities can best bring back their downtowns.
 		</p>
@@ -134,7 +136,7 @@
 				<svg height=16 width=16>
 					<polygon 
 						points="9,3 15,9 9,15 3,9" 
-						fill="black" 
+						fill="{weekendColour}" 
 						stroke="white" 
 						stroke-width="2" 
 					/>
@@ -152,7 +154,7 @@
 
 			<polygon id="diamond" points="0,-6 6,0 0,6 -6,0" fill="black" stroke="white" stroke-width="2" />
 
-			<polygon points="0,-6 6,0 0,6 -6,0" fill="#191919" stroke="#191919" stroke-width="4" />
+			<polygon points="0,-6 6,0 0,6 -6,0" fill="{weekendColour}" stroke="#191919" stroke-width="4" />
 
 			<!-- x axis grid and labels -->
 

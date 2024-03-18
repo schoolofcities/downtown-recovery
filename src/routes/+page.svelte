@@ -7,6 +7,7 @@
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
 
+    import cardImgWeekly from "../assets/card-img/card-img-weekly.png";
     import cardImgTorontoBuildings from "../assets/card-img/card-img-toronto-buildings.png";
     import cardImgTransitRidership from "../assets/card-img/card-img-transit-ridership.png";
     import cardImgDowntownDefinition from "../assets/card-img/card-img-downtown-definition.png";
@@ -63,6 +64,7 @@
 
             </div>
         </a> -->
+        
 
         <a href="/charts/correlations">
             <div class="card">
@@ -74,6 +76,20 @@
                 <h2>Correlations</h2>
 
                 <p>Visualize how downtown recovery is (or is not) related to a range of other urban data. Updated October, 2023.</p>
+
+            </div>
+        </a>
+
+        <a href="/blog/recovery-rankings-during-the-week">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgWeekly}>
+                </div>
+
+                <h2>Weekly Recovery</h2>
+
+                <p>How does downtown recovery vary for working and non-working hours?</p>
 
             </div>
         </a>

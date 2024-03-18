@@ -35,34 +35,35 @@
 
 <div id="menu">
 	<nav>
-		<ul>
-		  <li class="dropdown">
-			<a href="#">Charts &darr;</a>
-			<ul class="dropdown-menu">
-				<li><a href="/charts/rankings">Rankings</a></li>
-			  	<li><a href="/charts/correlations">Correlations</a></li>
-				<li><a href="/methodology">Methodology</a></li>
-			  	<li><a href="/charts/rankings_archived">Rankings (Archived)</a></li>
-			  	<li><a href="/charts/patterns">Patterns (Archived)</a></li>
-			</ul>
-		  </li>
-		  <li class="dropdown">
+	<ul>
+		<li class="dropdown">
+		<a href="#">Charts &darr;</a>
+		<ul class="dropdown-menu">
+			<li><a href="/charts/rankings">Rankings</a></li>
+			<li><a href="/charts/correlations">Correlations</a></li>
+			<li><a href="/methodology">Methodology</a></li>
+			<li><a href="/charts/rankings_archived">Rankings (Archived)</a></li>
+			<li><a href="/charts/patterns">Patterns (Archived)</a></li>
+		</ul>
+		</li>
+		<li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
+				<li><a href="/blog/recovery-rankings-during-the-week">Downtown recovery over the course of a week</a></li>
 				<li><a href="/blog/toronto-buildings">Understanding post-pandemic recovery for individual buildings</a></li>
 				<li><a href="/blog/downtown-definitions">How Does The Definition of Downtown Affect Its Recovery Rate?</a></li>
 				<li><a href="/blog/downtown-recovery-and-transit-ridership">Downtown Recovery & Transit Ridership Recovery</a></li>
 			</ul>
-		  </li>
-		  <li class="dropdown">
-			<a href="#">Resources &darr;</a>
-			<ul class="dropdown-menu">
-				<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
-				<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
-				<li><a href="https://doi.org/10.1016/j.cities.2023.104588" target="_blank">Journal Article on Pandemic Recovery Trajectories</a></li>
-			</ul>
-		  </li>
-		  <li><a href="/team">Team</a></li>
+		</li>
+		<li class="dropdown">
+		<a href="#">Resources &darr;</a>
+		<ul class="dropdown-menu">
+			<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
+			<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
+			<li><a href="https://doi.org/10.1016/j.cities.2023.104588" target="_blank">Journal Article on Pandemic Recovery Trajectories</a></li>
+		</ul>
+		</li>
+		<li><a href="/team">Team</a></li>
 		</ul>
 	</nav> 
 </div>
