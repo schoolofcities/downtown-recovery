@@ -104,7 +104,6 @@
 			<h2>Downtown Recovery: Working Hours vs. After-Work Hours</h2>
 
 			<p>
-				
 				<svg height=16 width=16>
 					<circle
 						cx=9
@@ -118,10 +117,7 @@
 					></circle>
 				</svg>
 				Overall downtown recovery rate
-				
 				<br>
-
-				
 				<svg height=16 width=16>
 					<rect 
 						x="4" 
@@ -134,9 +130,7 @@
 					/>
 				</svg>
 				Recovery rate during typical working hours (8am-6pm, Monday to Friday)
-
 				<br>
-
 				<svg height=16 width=16>
 					<polygon 
 						points="9,3 15,9 9,15 3,9" 
@@ -346,42 +340,33 @@
 						r={circleRadius}
 						style="
 							fill: {overallColour};
-							stroke: #edf0f5;
+							stroke: #4d4d4d;
 							stroke-width: 2
 						"
 					></circle>
 				</svg>
 				Overall downtown recovery rate
-				
 				<br>
-
 				<svg height=16 width=16>
-					<circle
-						cx=9
-						cy=9
-						r={circleRadius}
-						style="
-							fill: {weekdayColour};
-							stroke: #edf0f5;
-							stroke-width: 2
-						"
-					></circle>
+					<rect 
+						x="4" 
+						y="5" 
+						width="10" 
+						height="10" 
+						fill="{weekdayColour}" 
+						stroke="#edf0f5" 
+						stroke-width="2"
+					/>
 				</svg>
 				Recovery rate on weekdays
-
 				<br>
-
 				<svg height=16 width=16>
-					<circle
-						cx=9
-						cy=9
-						r={circleRadius}
-						style="
-							fill: {weekendColour};
-							stroke: #edf0f5;
-							stroke-width: 2
-						"
-					></circle>
+					<polygon 
+						points="9,3 15,9 9,15 3,9" 
+						fill="black" 
+						stroke="white" 
+						stroke-width="2" 
+					/>
 				</svg>
 				Recovery rate on weekends
 			</p>
