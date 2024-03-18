@@ -13,9 +13,9 @@
 
 	// colour vars
 
-	let weekdayColour = "#8DBF2E";
-	let weekendColour = "#007FA3";
-	let overallColour = "#D0D1C9";
+	let weekdayColour = "#999999";
+	let weekendColour = "#191919";
+	let overallColour = "#ffffff";
 	let circleRadius = 6;
 
 	// initial loading data and dynamic filtering
@@ -107,6 +107,7 @@
 			<h2>Downtown Recovery: Working Hours vs. After-Work Hours</h2>
 
 			<p>
+				
 				<svg height=16 width=16>
 					<circle
 						cx=9
@@ -114,44 +115,40 @@
 						r={circleRadius}
 						style="
 							fill: {overallColour};
-							stroke: #edf0f5;
+							stroke: #4d4d4d;
 							stroke-width: 2
 						"
 					></circle>
 				</svg>
-				Overall recovery rate
+				Overall downtown recovery rate
 				
 				<br>
 
+				
 				<svg height=16 width=16>
-					<circle
-						cx=9
-						cy=9
-						r={circleRadius}
-						style="
-							fill: {weekdayColour};
-							stroke: #edf0f5;
-							stroke-width: 2
-						"
-					></circle>
+					<rect 
+						x="4" 
+						y="5" 
+						width="10" 
+						height="10" 
+						fill="{weekdayColour}" 
+						stroke="#edf0f5" 
+						stroke-width="2"
+					/>
 				</svg>
-				Recovery rate during typical working hours (8am-6pm, M-F)
+				Recovery rate during typical working hours (8am-6pm, Monday to Friday)
 
 				<br>
 
 				<svg height=16 width=16>
-					<circle
-						cx=9
-						cy=9
-						r={circleRadius}
-						style="
-							fill: {weekendColour};
-							stroke: #edf0f5;
-							stroke-width: 2
-						"
-					></circle>
+					<polygon 
+						points="9,3 15,9 9,15 3,9" 
+						fill="black" 
+						stroke="white" 
+						stroke-width="2" 
+					/>
 				</svg>
-				Recovery outside of working hours (6pm-8am, M-F)
+				Recovery rate outside of working hours
 			</p>
 
 			<p>Select Regions:</p>
@@ -161,6 +158,10 @@
 		</div>
 
 		<svg height={chartHeight} width={chartWidth} id="chart">
+
+			<polygon id="diamond" points="0,-6 6,0 0,6 -6,0" fill="black" stroke="white" stroke-width="2" />
+
+			<polygon points="0,-6 6,0 0,6 -6,0" fill="#191919" stroke="#191919" stroke-width="4" />
 
 			<!-- x axis grid and labels -->
 
@@ -233,7 +234,7 @@
 				<line class="bar"
 					x1={30}
 					y1={52 + i * 24}
-					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals)) - 1}
+					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours_weekdaynights_wholeweekends / Math.max(...xAxisIntervals)) - 1}
 					y2={52 + i * 24}
 					style="
 						stroke: white;
@@ -263,7 +264,7 @@
 				<line class="connecting-line"
 					x1={29 + ((chartWidth - 50) * d.Recovery_Rate_Working_Hours / Math.max(...xAxisIntervals))}
 					y1={52 + i * 24}
-					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals)) - 1}
+					x2={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours_weekdaynights_wholeweekends / Math.max(...xAxisIntervals)) - 1}
 					y2={52 + i * 24}
 					style="
 						stroke: #edf0f5;
@@ -271,27 +272,22 @@
 					"
 				></line>
 
-				<circle class="circle-left"
-					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_Working_Hours / Math.max(...xAxisIntervals))}
-					cy={52 + i * 24}
-					r={circleRadius}
-					style="
-						fill: {weekdayColour};
-						stroke: #edf0f5;
-						stroke-width: 2
-					"
-				></circle>
 
-				<circle class="circle-weekend"
-					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours / Math.max(...xAxisIntervals))}
-					cy={52 + i * 24}
-					r={circleRadius}
-					style="
-						fill: {weekendColour};
-						stroke: #edf0f5;
-						stroke-width: 2
-					"
-				></circle>
+				<rect 
+					x="{-5 + 29 + ((chartWidth - 50) * d.Recovery_Rate_Working_Hours / Math.max(...xAxisIntervals))}" 
+					y="{-5 + 52 + i * 24}" 
+					width="10" 
+					height="10" 
+					fill="{weekdayColour}" 
+					stroke="#edf0f5" 
+					stroke-width="2"
+				/>
+
+				<use 
+					href="#diamond" 
+					x="{29 + ((chartWidth - 50) * d.Recovery_Rate_after_working_hours_weekdaynights_wholeweekends / Math.max(...xAxisIntervals))}" 
+					y="{52 + i * 24}" 
+				/>
 		
 				<circle class="circle-mid"
 					cx={29 + ((chartWidth - 50) * d.Recovery_rate_total / Math.max(...xAxisIntervals))}
@@ -299,10 +295,11 @@
 					r={circleRadius}
 					style="
 						fill: {overallColour};
-						stroke: #edf0f5;
+						stroke: #4d4d4d;
 						stroke-width: 2
 					"
 				></circle>
+
 
 				<text class="bar-label"
 					x={34}
@@ -563,7 +560,7 @@
 		</p>
 		<h2>Data & Methods</h2>
 		<p>
-			Check out our <a href="../methodology">methodology</a> page for a descritpion on how we measure downtown recovery. For the data on this page, we followed the same process, but filtered the data just for the time periods noted in the charts. You can download the data displayed on these chartes <a href="">here</a>.
+			Check out our <a href="../methodology">methodology</a> page for a descritpion on how we measure downtown recovery. For the data on this page, we followed the same process, but filtered the data just for the time periods noted in the charts. You can download the data displayed on these chartes <a href="../time_of_week_rankings.csv">here</a>.
 			<br>
 			<br>
 			<br>
@@ -576,6 +573,7 @@
 <style>
 	.text {
 		border: 0px;
+		min-width: 375px;
 	}
 
 	p {
@@ -585,10 +583,12 @@
 	#chart-wrapper {
 		margin: 0 auto;
 		max-width: 1080px;
+		min-width: 375px;
 		border-top: solid 1px var(--brandDarkBlue);
-		border-bottom: solid 1px var(--brandDarkBlue);
+		/* border-bottom: solid 1px var(--brandDarkBlue); */
 		padding-bottom: 10px;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
+		padding-left: 10px;
 	}
 
 	#options {
