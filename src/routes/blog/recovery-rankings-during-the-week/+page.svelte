@@ -95,9 +95,6 @@
 		<p>
 			During working hours, downtown areas typically function as commercial and financial hubs. Our findings shared below reveal that all American downtowns have exhibited a greater decrease in activity levels during working hours, reflecting a trend towards remote work and flexible schedules. 
 		</p>
-		<p>
-			Our previous research has found that the downtowns that house sectors like education, health care, entertainment, accommodations, and manufacturing, where workers are on-site every day, tend to recover fastest, while those with longer commute times and higher densities fare the worst. Not surprisingly, then, looking just at working hours, Las Vegas (specializing in entertainment) and Bakersfield (health care and administrative support) top the list of downtowns (at 97% and 90%, respectively), while Minneapolis and Seattle, with long commutes and a disproportionate share of jobs in tech and management, are at the bottom (44% and 47%, respectively).
-		</p>
 
 	</div>
 
@@ -318,11 +315,20 @@
 	<div class="text">
 
 		<p>
+			Our previous research has found that the downtowns that house sectors like education, health care, entertainment, accommodations, and manufacturing, where workers are on-site every day, tend to recover fastest, while those with longer commute times and higher densities fare the worst. Not surprisingly, then, looking just at working hours, Las Vegas (specializing in entertainment) and Bakersfield (health care and administrative support) top the list of downtowns (at 97% and 90%, respectively), while Minneapolis and Seattle, with long commutes and a disproportionate share of jobs in tech and management, are at the bottom (44% and 47%, respectively).
+		</p>
+		<p>
 			But after work-hour activity is surging in many downtowns. Almost a third of downtowns have more activity on weeknights and weekends than they did before the Covid-19 pandemic. Almost all of these downtowns are in the warmer regions of the U.S. (the Southwest, Pacific, or Southeast), suggesting that pleasant weather helps attract visitors and shoppers downtown. 
 		</p><p>
 			Notably, many large downtowns struggling to bring back activity during the workweek are booming after hours. San Francisco, Chicago, Detroit, Minneapolis, Houston, and Dallas all experience after-hour activity at least 35% higher than during the workweek. 
 		</p><p>
 			Interestingly, a few cities, including Las Vegas, Raleigh, New Orleans, and Wichita, see little difference between workweek and after-hour activity. This may be because they consistently attract one type of activity throughout the week (e.g., gambling in Las Vegas), or because their economy is balanced between workers and visitors.
+		</p>
+		<p style="text-align: center;">
+			- - -
+		</p>
+		<p>
+			The question remains whether downtowns are attracting new visitors and shoppers, or simply benefitting from the workers who stay downtown after hours, or even just downtown residents. To examine this, we also analyzed weekend activity. Weekends may be a particular draw because they offer special festivals, events, recreation, brunch and dining, and cultural attractions.
 		</p>
 
 	</div>
@@ -497,27 +503,22 @@
 					"
 				></line>
 
-				<circle class="circle-left"
-					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_weekdays / Math.max(...xAxisIntervals))}
-					cy={52 + i * 24}
-					r={circleRadius}
-					style="
-						fill: {weekdayColour};
-						stroke: #edf0f5;
-						stroke-width: 2
-					"
-				></circle>
 
-				<circle class="circle-weekend"
-					cx={29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals))}
-					cy={52 + i * 24}
-					r={circleRadius}
-					style="
-						fill: {weekendColour};
-						stroke: #edf0f5;
-						stroke-width: 2
-					"
-				></circle>
+				<rect 
+					x="{-5 + 29 + ((chartWidth - 50) * d.Recovery_Rate_weekdays / Math.max(...xAxisIntervals))}" 
+					y="{-5 + 52 + i * 24}" 
+					width="10" 
+					height="10" 
+					fill="{weekdayColour}" 
+					stroke="#edf0f5" 
+					stroke-width="2"
+				/>
+
+				<use 
+					href="#diamond" 
+					x="{29 + ((chartWidth - 50) * d.Recovery_Rate_weekends / Math.max(...xAxisIntervals))}" 
+					y="{52 + i * 24}" 
+				/>
 		
 				<circle class="circle-mid"
 					cx={29 + ((chartWidth - 50) * d.Recovery_rate_total / Math.max(...xAxisIntervals))}
@@ -525,10 +526,12 @@
 					r={circleRadius}
 					style="
 						fill: {overallColour};
-						stroke: #edf0f5;
+						stroke: #4d4d4d;
 						stroke-width: 2
 					"
 				></circle>
+
+				
 
 				<text class="bar-label"
 					x={34}
@@ -547,8 +550,6 @@
 	<div class="text">
 
 		<p>
-			The question remains whether downtowns are attracting new visitors and shoppers, or simply benefitting from the workers who stay downtown after hours, or even just downtown residents. To examine this, we also analyzed weekend activity. Weekends may be a particular draw because they offer special festivals, events, recreation, brunch and dining, and cultural attractions.
-		</p><p>
 			The downtowns with high levels of activity on weekends are generally similar to those that flourish after work hours. But a couple exceptions stand out. Jacksonville, Tulsa, and Las Vegas all experience activity levels 13% higher on weekends than after hours generally, suggesting that they may have special weekend events that bring visitors from out of town. On the other end of the spectrum, San Jose and Phoenix see higher activity throughout the after-hour period than on weekends in particular.
 		</p>
 		<h2>Attracting Activity to Downtowns</h2>
