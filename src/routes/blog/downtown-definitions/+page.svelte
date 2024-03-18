@@ -56,8 +56,5 @@
 
 <style>
 
-    h3 {
-        font-size: 25px;
-    }
 
 </style>

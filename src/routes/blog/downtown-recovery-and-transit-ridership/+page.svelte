@@ -37,7 +37,7 @@
 
         <div id="options">
             <div id="options-region">
-                <SelectRegions europe={"no"}/>
+                <SelectRegions europe={"no"} canada={"yes"}/>
             </div>
         </div>
 
@@ -159,10 +159,6 @@
 
     .text {
         border: 0px;
-    }
-
-    h3 {
-        font-size: 22.2px;
     }
 
     h4 {

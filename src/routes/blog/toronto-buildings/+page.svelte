@@ -117,9 +117,6 @@
         border: 0px;
     }
 
-    h3 {
-        font-size: 25px;
-    }
 
     h4 {
         text-decoration: underline;

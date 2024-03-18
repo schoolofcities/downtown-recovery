@@ -50,14 +50,15 @@ h2 {
 
 h3 {
     font-family: TradeGothicBold;
-    font-size: 18px;
-    color: var(--brandBlack);
+    font-size: 27px;
+    color: var(--brandWhite);
     text-decoration: none;
-    background-color: var(--brandYellow);
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px var(--brandYellow);
+    /* background-color: var(--brandYellow); */
+    /* padding-left: 5px; */
+    /* padding-right: 5px; */
 }
-
 
 p {
     font-family: Roboto;

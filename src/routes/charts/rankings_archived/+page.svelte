@@ -109,7 +109,7 @@
             </div>
             <div id="options-region">
                 <p>Select Regions:</p>
-                <SelectRegions europe={"yes"}/>
+                <SelectRegions europe={"yes"}  canada={"yes"}/>
             </div>
             <p id="note">*Data for Europe is only available from 12/2021 to 02/2023</p>
         </div>
