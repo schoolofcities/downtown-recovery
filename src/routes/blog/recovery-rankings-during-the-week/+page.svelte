@@ -87,7 +87,7 @@
 
 		<h3>Attracting activity to American downtowns: Understanding downtown recovery across the course of a week</h3>
 
-		<p>Amir Forouhar, Karen Chapple, Jeff Allen | March, 2024</p> 
+		<p><a href="http://localhost:5173/blog/www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="http://jamaps.github.io/">Jeff Allen</a> | March, 2024</p> 
 
 		<p>
 			As downtowns adjust to a new normal of hybrid and remote work, many seek to recover by attracting different types of activity. When downtowns serve as hubs for entertainment, food, retail, and tourism, they can attract visitors and shoppers around the clock. In this analysis, we show how cities recover during working hours (8 AM to 6 PM, Monday to Friday) compared to after-work hours (weeknights 6 PM to 8 AM and the entire weekend), as well as weekdays versus weekends. This provides invaluable insights into how cities can best bring back their downtowns.
@@ -315,7 +315,7 @@
 	<div class="text">
 
 		<p>
-			Our previous research has found that the downtowns that house sectors like education, health care, entertainment, accommodations, and manufacturing, where workers are on-site every day, tend to recover fastest, while those with longer commute times and higher densities fare the worst. Not surprisingly, then, looking just at working hours, Las Vegas (specializing in entertainment) and Bakersfield (health care and administrative support) top the list of downtowns (at 97% and 90%, respectively), while Minneapolis and Seattle, with long commutes and a disproportionate share of jobs in tech and management, are at the bottom (44% and 47%, respectively).
+			Our <a href="../charts/correlations">previous research</a> has found that the downtowns that house sectors like education, health care, entertainment, accommodations, and manufacturing, where workers are on-site every day, tend to recover fastest, while those with longer commute times and higher densities fare the worst. Not surprisingly, then, looking just at working hours, Las Vegas (specializing in entertainment) and Bakersfield (health care and administrative support) top the list of downtowns (at 97% and 90%, respectively), while Minneapolis and Seattle, with long commutes and a disproportionate share of jobs in tech and management, are at the bottom (44% and 47%, respectively).
 		</p>
 		<p>
 			But after work-hour activity is surging in many downtowns. Almost a third of downtowns have more activity on weeknights and weekends than they did before the Covid-19 pandemic. Almost all of these downtowns are in the warmer regions of the U.S. (the Southwest, Pacific, or Southeast), suggesting that pleasant weather helps attract visitors and shoppers downtown. 
