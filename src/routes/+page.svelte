@@ -87,7 +87,7 @@
                     <img src={cardImgWeekly}>
                 </div>
 
-                <h2>Weekly Recovery</h2>
+                <h2>Recovery After Hours</h2>
 
                 <p>How does downtown recovery vary for working and non-working hours?</p>
 
