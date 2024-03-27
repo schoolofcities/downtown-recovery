@@ -47,13 +47,12 @@
     const parseDate = timeParse("%Y-%m-%d");
 
     let charts = []; // to hold chart data for each city
-    
 
     function createCharts(data) {
         charts = thecities.map(city => {
             // figure out city's min and max 
-            let min = Math.min(parseFloat(data.filter(item => item.city === city).normalized_distinct_clean));
-            let max = Math.max(parseFloat(data.filter(item => item.city === city).normalized_distinct_clean));
+            // let min = Math.min(parseFloat(data.filter(item => item.city === city).normalized_distinct_clean));
+            // let max = Math.max(parseFloat(data.filter(item => item.city === city).normalized_distinct_clean));
             
             // // Filter data for March 2023
             // const march2023Data = data.filter(item => {
@@ -73,6 +72,18 @@
             const uniqueCities = [...new Set(data.map(item => item.city))]; // Get unique city names
 
             uniqueCities.forEach(city => {
+                // let min = [];
+                // let max = [];
+                const cityData = data.filter(item => item.city === city);
+                const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
+                
+                // Calculate min and max for the current city
+                const min = Math.min(...normalizedDistinctCleanValues);
+                const max = Math.max(...normalizedDistinctCleanValues);
+                
+                console.log(`Minimum value for ${city}:`, min);
+                console.log(`Maximum value for ${city}:`, max);
+
                 // Filter data for March 2023 for the current city
                 const march2023City = data.filter(item => {
                     const date = new Date(item.date);
@@ -104,7 +115,6 @@
             // let march2023 = parseFloat(data.find(item => item.date === "2023-03-01")?.normalized_distinct_clean);
             // let march2024 = parseFloat(data.find(item => item.date === "2024-03-01")?.normalized_distinct_clean);
             const cityData = data.filter(item => item.city === city);
-            console.log(min)
             if (cityData.length > 0) {
                 const xScale = scaleTime()
                     .domain([new Date("2023-03-01"), new Date("2024-03-01")])
@@ -205,3 +215,4 @@
         font-size: 18px;
     }
 </style>
+
