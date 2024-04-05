@@ -20,7 +20,7 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../recovery_rankings.csv');
+            const response = await fetch('/recovery_rankings.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {

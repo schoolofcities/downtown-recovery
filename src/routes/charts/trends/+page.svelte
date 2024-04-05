@@ -17,7 +17,7 @@
 
 	async function loadData() {
 		try {
-			const response = await fetch('../stopuplevelled_mar2023_mar2024.csv');
+			const response = await fetch('/stopuplevelled_mar2023_mar2024.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -235,7 +235,7 @@
 						x="235"
 						y="35"
 						class="textLabel"
-					>03/2023 > 02/2024</text>
+					>Feb 2024 vs Mar 2023</text>
 
 					<text
 						x="{469}"
