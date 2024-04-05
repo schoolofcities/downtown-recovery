@@ -36,7 +36,7 @@
 
     async function loadDataRecovery() {
         try {
-            const response = await fetch('../recovery_rankings.csv');
+            const response = await fetch('/recovery_rankings.csv');
             const csvData = await response.text();
             recoveryData = csvParse(csvData);
         } catch (error) {
@@ -46,7 +46,7 @@
 
     async function loadDataVariables() {
         try {
-            const response = await fetch('../variables_data.csv');
+            const response = await fetch('/variables_data.csv');
             const csvData = await response.text();
             variablesData = csvParse(csvData);
         } catch (error) {
@@ -56,7 +56,7 @@
 
     async function loadDataDictionary() {
         try {
-            const response = await fetch('../variables_data_dictionary.csv');
+            const response = await fetch('/variables_data_dictionary.csv');
             const csvData = await response.text();
             dataDictionary = csvParse(csvData);
         } catch (error) {

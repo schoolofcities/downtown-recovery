@@ -56,7 +56,7 @@ cities.forEach((j1) => {
 
     async function loadData() {
         try {
-            const response = await fetch("../pattern_data.csv");
+            const response = await fetch("/pattern_data.csv");
             const csvData = await response.text();
             data = csvParse(csvData)
                     .filter((item) => !['Dallas, TX', 'Orlando, FL', 'Oklahoma City, OK'].includes(item.display_title));

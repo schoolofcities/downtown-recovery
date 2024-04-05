@@ -10,8 +10,8 @@
 	import { regions, selectedRegions, cities } from '../../../lib/stores.js';
 	const regionColours = $regions;
 
-	import upArrow from '/src/assets/green-arrow.svg';
-	import downArrow from '/src/assets/red-arrow.svg';
+	import upArrow from '../../../assets/green-arrow.svg';
+	import downArrow from '../../../assets/red-arrow.svg';
 	// import upArrow from '/src/assets/green-arrow-circle.svg';
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
