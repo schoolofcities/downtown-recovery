@@ -60,6 +60,17 @@ h3 {
     /* padding-right: 5px; */
 }
 
+h4 {
+    font-family: TradeGothicBold;
+    font-size: 23px;
+    color: var(--brandWhite);
+    text-decoration: none;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-top: solid 1px var(--brandDarkBlue);
+    border-bottom: solid 3px var(--brandDarkBlue);
+}
+
 p {
     font-family: Roboto;
     color: var(--brandWhite);

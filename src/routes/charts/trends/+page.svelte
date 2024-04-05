@@ -198,16 +198,85 @@
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		</p>
 
+		<h4>Visits to Downtown (March 1, 2023 to March 1, 2024)</h4>
+
 		<p>
 			Select Regions:
 		</p>
 
 		<SelectRegions europe={"no"} canada={"yes"}/>
 
-		<br>
-		<br>
+		<p style="padding-top: 10px; padding-bottom: 10px;">
+			<svg height="10" width="50">
+				<line x1="0" y1="5" x2="50" y2="5" stroke="white" stroke-width="1" stroke-dasharray="4"/>
+			</svg>
+			March 2023 average
+		</p>
+
 
 	</div>
+
+		<div class="chart-wrapper">
+
+			<div class="left">
+				<svg width="760" height="{chartHeight}" class="region-bar">
+					<text
+						x="12"
+						y="35"
+						class="textCity"
+					>City</text>
+
+					<text
+						x="235"
+						y="15"
+						class="textLabel"
+					>Percent Change</text>
+					<text
+						x="235"
+						y="35"
+						class="textLabel"
+					>03/2023 > 02/2024</text>
+
+					<text
+						x="{469}"
+						y="15"
+						class="textMonth"
+					>2023</text>
+
+					<text
+						x="{719}"
+						y="15"
+						class="textMonth"
+					>2024</text>
+
+					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
+
+					{#each [3,4,5,6,7,8,9,10,11,12,1,2] as l, i}
+						<line x1={260 + i * chartWidth / 12} y1={45} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+
+						{#if l === 1}
+
+							<line x1={260 + i * chartWidth / 12} y1={5} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+
+						{/if}
+
+						<text
+							x="{260 + i * chartWidth / 12 + 0.5 * chartWidth / 12}"
+							y="40"
+							class="textMonth"
+						>{l}</text>
+					{/each}
+
+					<line x1={259 + chartWidth} y1={45} x2={259 + chartWidth} y2={40} stroke="white" stroke-width="1" />
+
+					
+
+				</svg>
+				
+				
+			</div>
+
+		</div>
 
 		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange}, i}
 			<div class="chart-wrapper" bind:clientWidth={width}>
@@ -256,10 +325,17 @@
 				
 				<div class="chart-container" style="width: {chartWidth};">
 					<svg height={chartHeight} width={chartWidth} class="chart">
+
+						{#each [1,2,3,4,5,6,7,8,9,10,11] as l, i}
+						
+						<line x1={l * chartWidth / 12} y1={5} x2={l * chartWidth / 12} y2={45} stroke="#333333" stroke-width="1" />
+
+						{/each}
+						
 						<!-- Top line -->
 						<!-- <line x1="0" y1="0" x2={chartWidth} y2="0" stroke="gray" stroke-width="1"/>  -->
 						<!-- Middle line -->
-						<line x1="0" y1={meanLine} x2={chartWidth} y2={meanLine} stroke="gray" stroke-width="1" stroke-dasharray="4"/>
+						<line x1="0" y1={meanLine} x2={chartWidth} y2={meanLine} stroke="#D0D1C9" stroke-width="1" stroke-dasharray="4"/>
 						<!-- Bottom line -->
 						<!-- <line x1="0" y1={chartHeight} x2={chartWidth} y2={chartHeight} stroke="gray" stroke-width="1"/> -->
 						<!-- <path d={regressionLine} stroke={getRegionColor(city)} stroke-width="2" fill="none"/> -->
@@ -268,6 +344,8 @@
 						<circle cx={startCircle.cx} cy={startCircle.cy} r="2" fill="white"/>
 						<!-- Last point -->
 						<circle cx={endCircle.cx} cy={endCircle.cy} r="2" fill="white" stroke="white" />
+
+						
 					</svg>
 				</div>
 
@@ -296,7 +374,21 @@
 		max-width: 760px;
 		height: 53px;
 		background-color: var(--brandGray90);
-		border-bottom: solid 1px var(--brandGray80);
+		border-bottom: solid 1px var(--brandDarkBlue);
+	}
+
+	.textLabel {
+		font-family: Roboto;
+		font-size: 15px;
+		text-anchor: end;
+		fill: var(--brandWhite);
+	}
+
+	.textMonth {
+		font-family: Roboto;
+		font-size: 14px;
+		text-anchor: middle;
+		fill: var(--brandWhite);
 	}
 
 	.left {
