@@ -1,0 +1,1 @@
+function d(t,l){let i,n;if(l===void 0)for(const e of t)e!=null&&(i===void 0?e>=e&&(i=n=e):(i>e&&(i=e),n<e&&(n=e)));else{let e=-1;for(let f of t)(f=l(f,++e,t))!=null&&(i===void 0?f>=f&&(i=n=f):(i>f&&(i=f),n<f&&(n=f)))}return[i,n]}function u(t){return t}export{d as e,u as i};
