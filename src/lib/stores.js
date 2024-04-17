@@ -128,9 +128,21 @@ export const cities = [
     
   },
   {
+    city: "Cleveland",
+    display_title: "Cleveland, OH",
+    region: "Midwest",
+    
+  },
+  {
     city: "Columbus",
     display_title: "Columbus, OH",
     region: "Midwest",
+    
+  },
+  {
+    city: "Dallas",
+    display_title: "Dallas, TX",
+    region: "Southwest",
     
   },
   {
@@ -167,6 +179,12 @@ export const cities = [
     city: "Minneapolis",
     display_title: "Minneapolis, MN",
     region: "Midwest",
+    
+  },
+  {
+    city: "Oklahoma City",
+    display_title: "Oklahoma City, OK",
+    region: "Southwest",
     
   },
   {
@@ -334,6 +352,11 @@ export const cities = [
   {
     city: "Raleigh",
     display_title: "Raleigh, NC",
+    region: "Southeast",
+    
+  },{
+    city: "Orlando",
+    display_title: "Orlando, FL",
     region: "Southeast",
     
   },

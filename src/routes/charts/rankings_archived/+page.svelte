@@ -21,7 +21,7 @@
 
     async function loadData() {
         try {
-            const response = await fetch('../ranking_data_archived.csv');
+            const response = await fetch('/ranking_data_archived.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
         } catch (error) {

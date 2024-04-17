@@ -66,7 +66,7 @@
 
     async function loadDataRecovery() {
         try {
-            const response = await fetch('../transit-and-downtown-recovery.csv');
+            const response = await fetch('/transit-and-downtown-recovery.csv');
             const csvData = await response.text();
             recoveryData = csvParse(csvData);
             console.log(recoveryData);

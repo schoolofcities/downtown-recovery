@@ -3,6 +3,7 @@
     import Header from "../lib/Header.svelte";
     import "../assets/global.css";
 
+    import cardImgTrends from "../assets/card-img/card-img-trends.png";
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
@@ -36,6 +37,20 @@
     </div>
 
     <div id="cards-wrapper">
+
+        <a href="/charts/trends">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgTrends}>
+                </div>
+
+                <h2>Recovery Trends</h2>
+
+                <p>Charting downtown recovery across North America from March 1, 2023 through February 29, 2024</p>
+
+            </div>
+        </a>
 
         <a href="/charts/rankings">
             <div class="card">
@@ -75,7 +90,7 @@
 
                 <h2>Correlations</h2>
 
-                <p>Visualize how downtown recovery is (or is not) related to a range of other urban data. Updated October, 2023.</p>
+                <p>Visualize how downtown recovery is (or is not) related to a range of other urban data.</p>
 
             </div>
         </a>

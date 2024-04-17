@@ -1,6 +1,6 @@
 # Downtown Recovery Website
 
-This repo contains the code and data used to build https://downtownrecovery.com/
+This repo contains the code and data used to build https://downtownrecovery.com
 
 To run and develop locally:
 

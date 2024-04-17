@@ -45,7 +45,7 @@
 
     async function loadURL(selectedCity) {
         try {
-            const response = await fetch('../citydefined_list.csv');
+            const response = await fetch('/citydefined_list.csv');
             const csvData = await response.text();
             data = csvParse(csvData);
 			console.log('Successfully loaded CSV data: ', data)
