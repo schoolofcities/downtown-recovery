@@ -197,9 +197,9 @@
 		<p>
 			The dotted line provides a baseline of the average level of activity in March 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in March 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the March baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
 		</p>
-		<p>
-			<u>Key Findings</u>
-		</p>
+		<h5>
+			Key Findings
+		</h5>
 		<p>
 			Overall, the median rate of change is 9.3% over the year, meaning that the median downtown in the U.S. and Canada’s largest metropolitan areas are gradually seeing more activity. Fifty downtowns are in an upward trajectory, while just 14 are trending downwards.
 		</p>
