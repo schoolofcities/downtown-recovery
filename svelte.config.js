@@ -23,8 +23,7 @@ const config = {
 		}),
 		paths: {
 		    // change below to your repo name
-		    base: dev ? "" : "",
-			relative: false
+		    base: dev ? "" : ""
 		}
 	}
 };
