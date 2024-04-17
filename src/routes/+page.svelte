@@ -61,7 +61,7 @@
 
                 <h2>Recovery Rankings</h2>
 
-                <p>Comparison of overall recovery in activity levels across different cities and time periods.</p>
+                <p>Comparison of overall recovery in activity levels across different cities and time periods. Updated October, 2023.</p>
 
             </div>
         </a>
@@ -90,7 +90,7 @@
 
                 <h2>Correlations</h2>
 
-                <p>Visualize how downtown recovery is (or is not) related to a range of other urban data. Updated October, 2023.</p>
+                <p>Visualize how downtown recovery is (or is not) related to a range of other urban data.</p>
 
             </div>
         </a>
