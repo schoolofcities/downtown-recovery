@@ -61,7 +61,7 @@
 
                 <h2>Recovery Rankings</h2>
 
-                <p>Comparison of overall recovery in activity levels across different cities and time periods. Updated October, 2023.</p>
+                <p>Comparison of overall recovery in activity levels across different cities and time periods.</p>
 
             </div>
         </a>
