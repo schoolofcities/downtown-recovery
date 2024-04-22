@@ -200,7 +200,7 @@
 			On the other hand, for the 14 cities where recovery is faltering, we see three types of patterns. For a handful of cities that previously topped our rankings, such as Las Vegas, Colorado Springs, San Antonio, Fort Worth, Tampa, Wichita, Oklahoma City, activity rates are slowing (albeit slightly for most) and changing very little since March 2023. On the other hand, Dallas and San Francisco are both quite volatile, with significant new activity in summer 2023 decreasing below the baseline by fall and winter. A few downtowns, including Houston, Memphis, and Nashville, have basically stalled at the March 2023 activity rate.
 		</p>
 		<p>
-			To the extent possible, we will update this data on a monthly basis through 2024. You can download the data shown on the chart <a href="/stopuplevelled_mar2023_mar2024.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
+			To the extent possible, we will update this data on a monthly basis through 2024. 
 		</p>
 
 		<h4>Visits to Downtown (March 1, 2023 to March 1, 2024)</h4>
@@ -363,6 +363,10 @@
 
 		<br>
 
+		<p>
+			You can download the data shown on the chart <a href="/stopuplevelled_mar2023_mar2024.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
+		</p>
+		
 		<br>
 
 	</div>
