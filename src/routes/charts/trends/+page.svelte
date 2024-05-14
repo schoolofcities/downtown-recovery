@@ -372,6 +372,18 @@
 	<div class="text">
 
 		<br>
+		<br>
+		
+
+		<h4>
+			More Information
+		</h4>
+
+		<p>
+			You can download the data shown on the chart <a href="/stopuplevelled_mar2023_mar2024.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
+			</p>
+
+		<br>
 
 		<br>
 
