@@ -15,9 +15,18 @@
 	// import upArrow from '/src/assets/green-arrow-circle.svg';
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
+	let selection = {
+		"monthName": "April",
+		"monthNumber": 4,
+		"year1": 2023,
+		"year2": 2024,
+		"day1": "2023-04-01",
+		"day2": "2024-04-30"
+	}
+
 	async function loadData() {
 		try {
-			const response = await fetch('/stopuplevelled_mar2023_mar2024.csv');
+			const response = await fetch('/trends.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -62,6 +71,16 @@
 			if (filteredCities.includes(city)) {
 				const cityData = data.filter(item => item.city === city);
 				if (cityData.length > 0) {
+
+					console.log(
+						cityData.filter(item => {
+							const date = new Date(item.date);
+							const day1 = new Date(selection.day1);
+							const day2 = new Date(selection.day2);
+							return date >= day1 && date <= day2;
+						})
+					);
+
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
 					// Calculate min and max for the current city
@@ -189,13 +208,13 @@
 			By <a href="https://">Karen Chapple</a>, <a href="https://">Julia Greenberg</a>, <a href="https://">Jeff Allen</a>, <a href="https://">Irene Chang</a> 
 		</p>
 		<p>
-			<i>Updated April 2024</i>
+			<i>Updated May 2024</i>
 		</p>
 		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at trends from March 1, 2023 through February 29, 2024. Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in February 2024 relative to March 2023. 
+			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at trends from {selection.monthName}, 2023 through {selection.monthName}, 2024. Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in {selection.monthName} 2024 relative to {selection.monthName} 2023. 
 		</p>
 		<p>
-			The dotted line provides a baseline of the average level of activity in March 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in March 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the March baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
+			The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
 		</p>
 		<h5>
 			Key Findings
@@ -213,7 +232,7 @@
 			To the extent possible, we will update this data on a monthly basis through 2024.
 		</p>
 
-		<h4>Visits to Downtown (March 1, 2023 to March 1, 2024)</h4>
+		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 30, 2024)</h4>
 
 		<p>
 			Select Regions:
@@ -225,7 +244,7 @@
 			<svg height="10" width="50">
 				<line x1="0" y1="5" x2="50" y2="5" stroke="white" stroke-width="1" stroke-dasharray="4"/>
 			</svg>
-			March 2023 average
+			{selection.monthName} 2023 average
 		</p>
 
 
