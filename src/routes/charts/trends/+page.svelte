@@ -86,8 +86,6 @@
 
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
-					
-
 					// Filter data for March 2023 for the current city
 					const month1data = data.filter(item => {
 						const date = new Date(item.date);
@@ -284,16 +282,16 @@
 					>{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text>
 
 					<text
-						x="{469}"
+						x="{260 + ((13 - selection.monthNumber) / 2) * chartWidth / 13}"
 						y="15"
 						class="textMonth"
-					>2023</text>
+					>{selection.year1}</text>
 
 					<text
-						x="{719}"
+						x="{260 + (((13 - selection.monthNumber)) * chartWidth / 13) + ((selection.monthNumber) / 2) * chartWidth / 13}"
 						y="15"
 						class="textMonth"
-					>2024</text>
+					>{selection.year2}</text>
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
