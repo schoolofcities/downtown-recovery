@@ -68,63 +68,75 @@
 	// function createCharts(data) {
 
 	$: charts = thecities.map(city => {
+
 			if (filteredCities.includes(city)) {
-				const cityData = data.filter(item => item.city === city);
+
+				const cityData = data.filter(
+					item => {
+						const date = new Date(item.date);
+						const day1 = new Date(selection.day1);
+						const day2 = new Date(selection.day2);
+						return item.city === city && date >= day1 && date <= day2
+					}
+				);
+
 				if (cityData.length > 0) {
 
-					console.log(
-						cityData.filter(item => {
-							const date = new Date(item.date);
-							const day1 = new Date(selection.day1);
-							const day2 = new Date(selection.day2);
-							return date >= day1 && date <= day2;
-						})
-					);
+					console.log("cityData");
 
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
-					// Calculate min and max for the current city
-					const cityMin = min(normalizedDistinctCleanValues);
-					const cityMax = max(normalizedDistinctCleanValues);
+					
 
 					// Filter data for March 2023 for the current city
-					const march2023City = data.filter(item => {
+					const month1data = data.filter(item => {
 						const date = new Date(item.date);
-						return date.getFullYear() === 2023 && date.getMonth() === 2 && item.city === city;
+						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
 					// Calculate mean for March 2023 for the current city
-					const march2023 = mean(march2023City, d => parseFloat(d.normalized_distinct_clean));
+					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
 					
 					// Filter data for Feb 2024 for the current city
-					const feb2024City = data.filter(item => {
+					const month2data = data.filter(item => {
 						const date = new Date(item.date);
-						return date.getFullYear() === 2024 && date.getMonth() === 1 && item.city === city;
+						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
 					// Calculate mean for Feb 2024 for the current city
-					const feb2024 = mean(feb2024City, d => parseFloat(d.normalized_distinct_clean));
+					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
+
+					const regressionGenerator = regressionLoess()
+						.x((d) => parseDate(d.date))
+						.y((d) => parseFloat(d.normalized_distinct_clean))
+						.bandwidth(0.03);
+
+					// Calculate min and max for the current city
+					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
+					const cityMax = Math.max(...regressionGenerator(cityData).map(subarray => subarray[1]), max(normalizedDistinctCleanValues));
 		
 					const xScale = scaleTime()
-						.domain([new Date("2023-03-01"), new Date("2024-03-01")])
+						.domain([new Date(selection.day1), new Date(selection.day2)])
 						.range([marginLeft, chartWidth - marginRight]);
 
 					const yScale = scaleLinear()
 						.domain([cityMin, cityMax])
 						.range([chartHeight - marginBottom, marginTop]);
 
-					const regressionGenerator = regressionLoess()
-						.x((d) => parseDate(d.date))
-						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.05);
-
+					
 					const lineGenerator = line()
 						.x(d => xScale(d[0]))
 						.y(d => yScale(d[1]));
 
 					const regressionLine = lineGenerator(regressionGenerator(cityData));
 
-					const percentageChange = (((feb2024-march2023)/march2023)*100);
+					if (city === "Quebec") {
+						console.log(cityData);
+						console.log(regressionGenerator(cityData));
+						console.log(cityMax);
+					}
+
+					const percentageChange = (((month2 - month1) / month1)*100);
 					const perChangeDisplay = percentageChange.toFixed(1) + "%";
 
 					// Start circle
@@ -139,7 +151,7 @@
 					};
 
 					// End circle
-					const endPoint = regressionGenerator(cityData)[366]; // total length = 367
+					const endPoint = regressionGenerator(cityData)[395]; // total length = 367
 					const endCircle = {
 						cx: xScale(endPoint[0]), 
 						cy: yScale(endPoint[1]),
@@ -149,7 +161,7 @@
 						"stroke-width": 2
 					};
 
-					const meanLine = yScale(march2023);
+					const meanLine = yScale(month1);
 
 					return {
 						city: city,
@@ -244,7 +256,7 @@
 			<svg height="10" width="50">
 				<line x1="0" y1="5" x2="50" y2="5" stroke="white" stroke-width="1" stroke-dasharray="4"/>
 			</svg>
-			{selection.monthName} 2023 average
+			{selection.monthName} {selection.year1} average
 		</p>
 
 
@@ -269,7 +281,7 @@
 						x="235"
 						y="35"
 						class="textLabel"
-					>Feb 2024 vs Mar 2023</text>
+					>{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text>
 
 					<text
 						x="{469}"
@@ -285,17 +297,17 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [3,4,5,6,7,8,9,10,11,12,1,2] as l, i}
-						<line x1={260 + i * chartWidth / 12} y1={45} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+					{#each [4,5,6,7,8,9,10,11,12,1,2,3,4] as l, i}
+						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
 
-							<line x1={260 + i * chartWidth / 12} y1={5} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+							<line x1={260 + i * chartWidth / 13} y1={5} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{/if}
 
 						<text
-							x="{260 + i * chartWidth / 12 + 0.5 * chartWidth / 12}"
+							x="{260 + i * chartWidth / 13 + 0.5 * chartWidth / 13}"
 							y="40"
 							class="textMonth"
 						>{l}</text>
@@ -312,7 +324,7 @@
 
 		</div>
 
-		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange}, i}
+		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange }, i}
 			<div class="chart-wrapper" bind:clientWidth={width}>
 				<div class="left">
 					<svg width="150" height="{chartHeight}" class="region-bar">
