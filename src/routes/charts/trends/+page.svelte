@@ -263,7 +263,9 @@
 		<div class="chart-wrapper">
 
 			<div class="left">
+
 				<svg width="760" height="{chartHeight}" class="region-bar">
+					
 					<text
 						x="12"
 						y="35"
@@ -275,6 +277,7 @@
 						y="15"
 						class="textLabel"
 					>Percent Change in Visits</text>
+
 					<text
 						x="235"
 						y="35"
@@ -313,11 +316,8 @@
 
 					<line x1={259 + chartWidth} y1={45} x2={259 + chartWidth} y2={40} stroke="white" stroke-width="1" />
 
-					
-
 				</svg>
-				
-				
+								
 			</div>
 
 		</div>
@@ -409,7 +409,7 @@
 		</h4>
 
 		<p>
-			You can download the data shown on the chart <a href="/stopuplevelled_mar2023_mar2024.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
+			You can download the data shown on the chart <a href="/trends.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
 			</p>
 
 		<br>
