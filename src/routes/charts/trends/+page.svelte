@@ -215,13 +215,13 @@
 			Recovery Trends
 		</h1>
 		<p>
-			By <a href="https://">Karen Chapple</a>, <a href="https://">Julia Greenberg</a>, <a href="https://">Jeff Allen</a>, <a href="https://">Irene Chang</a> 
+			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://www.urbandisplacement.org/team/julia-greenberg/">Julia Greenberg</a>, <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/">Jeff Allen</a>, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a> 
 		</p>
 		<p>
-			<i>Updated May 2024</i>
+			<i>Updated {selection.day2}</i>
 		</p>
 		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at trends from {selection.monthName}, 2023 through {selection.monthName}, 2024. Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in {selection.monthName} 2024 relative to {selection.monthName} 2023. 
+			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
 		</p>
 		<p>
 			The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
@@ -230,16 +230,16 @@
 			Key Findings
 		</h5>
 		<p>
-			Overall, the median rate of change is 9.3% over the year, meaning that the median downtown in the U.S. and Canada’s largest metropolitan areas are gradually seeing more activity. Fifty downtowns are in an upward trajectory, while just 14 are trending downwards.
+			Median rate of change = 9.35%
 		</p>
 		<p>
-			With a couple exceptions, the downtowns that are seeing the highest rates of activity increase, consistently higher relative to 2023, are the ones that were below 80% in our <a href="/charts/rankings">2023 rankings</a>.  These cities seem to be trending towards recovery: Minneapolis, Montreal, Ottawa, Chicago, Louisville, Pittsburgh, Cincinnati, Boston, Washington DC, and Toronto. In other words, their recovery may now be converging with the downtowns that largely recovered in 2023.
+			52 downtowns are in an upward trajectory, while 12 are trending downwards
 		</p>
 		<p>
-			On the other hand, for the 14 cities where recovery is faltering, we see three types of patterns. For a handful of cities that previously topped our rankings, such as Las Vegas, Colorado Springs, San Antonio, Fort Worth, Tampa, Wichita, Oklahoma City, activity rates are slowing (albeit slightly for most) and changing very little since March 2023. On the other hand, Dallas and San Francisco are both quite volatile, with significant new activity in summer 2023 decreasing below the baseline by fall and winter. A few downtowns, including Houston, Memphis, and Nashville, have basically stalled at the March 2023 activity rate.
+			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our 2023 rankings
 		</p>
 		<p>
-			To the extent possible, we will update this data on a monthly basis through 2024.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our <a href="/charts/rankings">rankings</a> analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in 2024 versus the same month in 2023.
 		</p>
 
 		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 30, 2024)</h4>
