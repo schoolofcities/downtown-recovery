@@ -230,16 +230,16 @@
 			Key Findings
 		</h5>
 		<p>
-			Median rate of change = 9.35%
+			Median rate of change = +9.35%
 		</p>
 		<p>
 			52 downtowns are in an upward trajectory, while 12 are trending downwards
 		</p>
 		<p>
-			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our 2023 rankings
+			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
 		</p>
 		<p>
-			Note: Trends are based on data from Spectus, but use different cell phone data providers from our <a href="/charts/rankings">rankings</a> analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in 2024 versus the same month in 2023.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in 2024 versus the same month in 2023.
 		</p>
 
 		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 30, 2024)</h4>
