@@ -370,9 +370,9 @@
 				<div class="chart-container" style="width: {chartWidth};">
 					<svg height={chartHeight} width={chartWidth} class="chart">
 
-						{#each [1,2,3,4,5,6,7,8,9,10,11] as l, i}
+						{#each [1,2,3,4,5,6,7,8,9,10,11,12] as l, i}
 						
-						<line x1={l * chartWidth / 12} y1={5} x2={l * chartWidth / 12} y2={45} stroke="#333333" stroke-width="1" />
+						<line x1={l * chartWidth / 13} y1={5} x2={l * chartWidth / 13} y2={45} stroke="#333333" stroke-width="1" />
 
 						{/each}
 						
