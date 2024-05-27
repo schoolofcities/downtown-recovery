@@ -47,7 +47,7 @@
 
                 <h2>Recovery Trends</h2>
 
-                <p>Charting downtown recovery across North America from March 1, 2023 through February 29, 2024</p>
+                <p>Charting downtown recovery across North America from April, 2023 through April, 2024</p>
 
             </div>
         </a>
@@ -61,7 +61,7 @@
 
                 <h2>Recovery Rankings</h2>
 
-                <p>Comparison of overall recovery in activity levels across different cities and time periods. Updated October, 2023.</p>
+                <p>Comparison of overall recovery in activity levels across several cities. Comparing 2019 to 2023.</p>
 
             </div>
         </a>
