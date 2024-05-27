@@ -15,9 +15,18 @@
 	// import upArrow from '/src/assets/green-arrow-circle.svg';
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
+	let selection = {
+		"monthName": "April",
+		"monthNumber": 4,
+		"year1": 2023,
+		"year2": 2024,
+		"day1": "2023-04-01",
+		"day2": "2024-04-30"
+	}
+
 	async function loadData() {
 		try {
-			const response = await fetch('/stopuplevelled_mar2023_mar2024.csv');
+			const response = await fetch('/trends.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -59,53 +68,73 @@
 	// function createCharts(data) {
 
 	$: charts = thecities.map(city => {
+
 			if (filteredCities.includes(city)) {
-				const cityData = data.filter(item => item.city === city);
+
+				const cityData = data.filter(
+					item => {
+						const date = new Date(item.date);
+						const day1 = new Date(selection.day1);
+						const day2 = new Date(selection.day2);
+						return item.city === city && date >= day1 && date <= day2
+					}
+				);
+
 				if (cityData.length > 0) {
+
+					console.log("cityData");
+
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
-					// Calculate min and max for the current city
-					const cityMin = min(normalizedDistinctCleanValues);
-					const cityMax = max(normalizedDistinctCleanValues);
-
 					// Filter data for March 2023 for the current city
-					const march2023City = data.filter(item => {
+					const month1data = data.filter(item => {
 						const date = new Date(item.date);
-						return date.getFullYear() === 2023 && date.getMonth() === 2 && item.city === city;
+						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
 					// Calculate mean for March 2023 for the current city
-					const march2023 = mean(march2023City, d => parseFloat(d.normalized_distinct_clean));
+					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
 					
 					// Filter data for Feb 2024 for the current city
-					const feb2024City = data.filter(item => {
+					const month2data = data.filter(item => {
 						const date = new Date(item.date);
-						return date.getFullYear() === 2024 && date.getMonth() === 1 && item.city === city;
+						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
 					// Calculate mean for Feb 2024 for the current city
-					const feb2024 = mean(feb2024City, d => parseFloat(d.normalized_distinct_clean));
+					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
+
+					const regressionGenerator = regressionLoess()
+						.x((d) => parseDate(d.date))
+						.y((d) => parseFloat(d.normalized_distinct_clean))
+						.bandwidth(0.03);
+
+					// Calculate min and max for the current city
+					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
+					const cityMax = Math.max(...regressionGenerator(cityData).map(subarray => subarray[1]), max(normalizedDistinctCleanValues));
 		
 					const xScale = scaleTime()
-						.domain([new Date("2023-03-01"), new Date("2024-03-01")])
+						.domain([new Date(selection.day1), new Date(selection.day2)])
 						.range([marginLeft, chartWidth - marginRight]);
 
 					const yScale = scaleLinear()
 						.domain([cityMin, cityMax])
 						.range([chartHeight - marginBottom, marginTop]);
 
-					const regressionGenerator = regressionLoess()
-						.x((d) => parseDate(d.date))
-						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.05);
-
+					
 					const lineGenerator = line()
 						.x(d => xScale(d[0]))
 						.y(d => yScale(d[1]));
 
 					const regressionLine = lineGenerator(regressionGenerator(cityData));
 
-					const percentageChange = (((feb2024-march2023)/march2023)*100);
+					if (city === "Quebec") {
+						console.log(cityData);
+						console.log(regressionGenerator(cityData));
+						console.log(cityMax);
+					}
+
+					const percentageChange = (((month2 - month1) / month1)*100);
 					const perChangeDisplay = percentageChange.toFixed(1) + "%";
 
 					// Start circle
@@ -120,7 +149,7 @@
 					};
 
 					// End circle
-					const endPoint = regressionGenerator(cityData)[366]; // total length = 367
+					const endPoint = regressionGenerator(cityData)[395]; // total length = 367
 					const endCircle = {
 						cx: xScale(endPoint[0]), 
 						cy: yScale(endPoint[1]),
@@ -130,7 +159,7 @@
 						"stroke-width": 2
 					};
 
-					const meanLine = yScale(march2023);
+					const meanLine = yScale(month1);
 
 					return {
 						city: city,
@@ -186,34 +215,34 @@
 			Recovery Trends
 		</h1>
 		<p>
-			By <a href="https://">Karen Chapple</a>, <a href="https://">Julia Greenberg</a>, <a href="https://">Jeff Allen</a>, <a href="https://">Irene Chang</a> 
+			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://www.urbandisplacement.org/team/julia-greenberg/">Julia Greenberg</a>, <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/">Jeff Allen</a>, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a> 
 		</p>
 		<p>
-			<i>Updated April 2024</i>
+			<i>Updated {selection.day2}</i>
 		</p>
 		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at trends from March 1, 2023 through February 29, 2024. Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in February 2024 relative to March 2023. 
+			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
 		</p>
 		<p>
-			The dotted line provides a baseline of the average level of activity in March 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in March 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the March baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
+			The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. The solid line represents the average level of activity by week. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
 		</p>
 		<h5>
 			Key Findings
 		</h5>
 		<p>
-			Overall, the median rate of change is 9.3% over the year, meaning that the median downtown in the U.S. and Canada’s largest metropolitan areas are gradually seeing more activity. Fifty downtowns are in an upward trajectory, while just 14 are trending downwards.
+			Median rate of change = +9.35%
 		</p>
 		<p>
-			With a couple exceptions, the downtowns that are seeing the highest rates of activity increase, consistently higher relative to 2023, are the ones that were below 80% in our <a href="/charts/rankings">2023 rankings</a>.  These cities seem to be trending towards recovery: Minneapolis, Montreal, Ottawa, Chicago, Louisville, Pittsburgh, Cincinnati, Boston, Washington DC, and Toronto. In other words, their recovery may now be converging with the downtowns that largely recovered in 2023.
+			52 downtowns are in an upward trajectory, while 12 are trending downwards
 		</p>
 		<p>
-			On the other hand, for the 14 cities where recovery is faltering, we see three types of patterns. For a handful of cities that previously topped our rankings, such as Las Vegas, Colorado Springs, San Antonio, Fort Worth, Tampa, Wichita, Oklahoma City, activity rates are slowing (albeit slightly for most) and changing very little since March 2023. On the other hand, Dallas and San Francisco are both quite volatile, with significant new activity in summer 2023 decreasing below the baseline by fall and winter. A few downtowns, including Houston, Memphis, and Nashville, have basically stalled at the March 2023 activity rate.
+			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
 		</p>
 		<p>
-			To the extent possible, we will update this data on a monthly basis through 2024.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in 2024 versus the same month in 2023.
 		</p>
 
-		<h4>Visits to Downtown (March 1, 2023 to March 1, 2024)</h4>
+		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 30, 2024)</h4>
 
 		<p>
 			Select Regions:
@@ -225,7 +254,7 @@
 			<svg height="10" width="50">
 				<line x1="0" y1="5" x2="50" y2="5" stroke="white" stroke-width="1" stroke-dasharray="4"/>
 			</svg>
-			March 2023 average
+			{selection.monthName} {selection.year1} average
 		</p>
 
 
@@ -234,7 +263,9 @@
 		<div class="chart-wrapper">
 
 			<div class="left">
+
 				<svg width="760" height="{chartHeight}" class="region-bar">
+					
 					<text
 						x="12"
 						y="35"
@@ -246,37 +277,38 @@
 						y="15"
 						class="textLabel"
 					>Percent Change in Visits</text>
+
 					<text
 						x="235"
 						y="35"
 						class="textLabel"
-					>Feb 2024 vs Mar 2023</text>
+					>{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text>
 
 					<text
-						x="{469}"
+						x="{260 + ((13 - selection.monthNumber) / 2) * chartWidth / 13}"
 						y="15"
 						class="textMonth"
-					>2023</text>
+					>{selection.year1}</text>
 
 					<text
-						x="{719}"
+						x="{260 + (((13 - selection.monthNumber)) * chartWidth / 13) + ((selection.monthNumber) / 2) * chartWidth / 13}"
 						y="15"
 						class="textMonth"
-					>2024</text>
+					>{selection.year2}</text>
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [3,4,5,6,7,8,9,10,11,12,1,2] as l, i}
-						<line x1={260 + i * chartWidth / 12} y1={45} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+					{#each [4,5,6,7,8,9,10,11,12,1,2,3,4] as l, i}
+						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
 
-							<line x1={260 + i * chartWidth / 12} y1={5} x2={260 + i * chartWidth / 12} y2={40} stroke="white" stroke-width="1" />
+							<line x1={260 + i * chartWidth / 13} y1={5} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{/if}
 
 						<text
-							x="{260 + i * chartWidth / 12 + 0.5 * chartWidth / 12}"
+							x="{260 + i * chartWidth / 13 + 0.5 * chartWidth / 13}"
 							y="40"
 							class="textMonth"
 						>{l}</text>
@@ -284,16 +316,13 @@
 
 					<line x1={259 + chartWidth} y1={45} x2={259 + chartWidth} y2={40} stroke="white" stroke-width="1" />
 
-					
-
 				</svg>
-				
-				
+								
 			</div>
 
 		</div>
 
-		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange}, i}
+		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange }, i}
 			<div class="chart-wrapper" bind:clientWidth={width}>
 				<div class="left">
 					<svg width="150" height="{chartHeight}" class="region-bar">
@@ -380,7 +409,7 @@
 		</h4>
 
 		<p>
-			You can download the data shown on the chart <a href="/stopuplevelled_mar2023_mar2024.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
+			You can download the data shown on the chart <a href="/trends.csv">here</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">here</a>)
 			</p>
 
 		<br>
