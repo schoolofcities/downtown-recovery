@@ -541,7 +541,7 @@
 		</p>
 		<h2>Attracting Activity to Downtowns</h2>
 		<p>
-			These patterns suggest a clear path forward for America’s downtowns. Of course, not all downtowns can benefit from balmy weather as Tucson and Charlotte have. But we can learn from the experience of the big cities experiencing lively weekends and weeknights despite low recovery during the workweek. Even if remote and hybrid work in high-skill economic sectors is keeping half of their workforce at home during the week, the downtowns in San Francisco, Chicago, and Minneapolis benefit from their mixture of uses (particularly restaurants, bars, and entertainment venues), transit accessibility, and ongoing event programming. Cities like Louisville and St. Louis that are struggling to attract visitors and shoppers, in addition to workers, will most likely experience a longer road to recovery.
+			These patterns suggest a clear path forward for North America’s downtowns. Of course, not all downtowns can benefit from balmy weather as Tucson and Charlotte have. But we can learn from the experience of the big cities experiencing lively weekends and weeknights despite low recovery during the workweek. Even if remote and hybrid work in high-skill economic sectors is keeping half of their workforce at home during the week, the downtowns in San Francisco, Chicago, and Minneapolis benefit from their mixture of uses (particularly restaurants, bars, and entertainment venues), transit accessibility, and ongoing event programming. Cities like Louisville and St. Louis that are struggling to attract visitors and shoppers, in addition to workers, will most likely experience a longer road to recovery.
 			<br>
 			<br>
 			<br>
