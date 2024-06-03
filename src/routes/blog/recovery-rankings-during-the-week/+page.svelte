@@ -86,7 +86,7 @@
 	<div class="text">
 
 		<h3>
-			Attracting activity to American downtowns: Understanding downtown recovery across the course of a week
+			Attracting activity to North American downtowns: Understanding downtown recovery across the course of a week
 		</h3>
 		<p>
 			<a href="https://www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="http://jamaps.github.io/">Jeff Allen</a> | March, 2024
@@ -95,7 +95,7 @@
 			As downtowns adjust to a new normal of hybrid and remote work, many seek to recover by attracting different types of activity. When downtowns serve as hubs for entertainment, food, retail, and tourism, they can attract visitors and shoppers around the clock. In this analysis, we show how cities recover during working hours (8 AM to 6 PM, Monday to Friday) compared to after-work hours (weeknights 6 PM to 8 AM and the entire weekend), as well as weekdays versus weekends. This provides invaluable insights into how cities can best bring back their downtowns.
 		</p>
 		<p>
-			During working hours, downtown areas typically function as commercial and financial hubs. Our findings shared below reveal that all American downtowns have exhibited a greater decrease in activity levels during working hours, reflecting a trend towards remote work and flexible schedules. 
+			During working hours, downtown areas typically function as commercial and financial hubs. Our findings shared below reveal that all North American downtowns have exhibited a greater decrease in activity levels during working hours, reflecting a trend towards remote work and flexible schedules. 
 		</p>
 
 	</div>
@@ -146,7 +146,7 @@
 
 			<p>Select Regions:</p>
 			<div id="options-region">
-				<SelectRegions europe={"no"}/>
+				<SelectRegions europe={"no"} canada={"yes"}/>
 			</div>
 		</div>
 
@@ -541,7 +541,7 @@
 		</p>
 		<h2>Attracting Activity to Downtowns</h2>
 		<p>
-			These patterns suggest a clear path forward for America’s downtowns. Of course, not all downtowns can benefit from balmy weather as Tucson and Charlotte have. But we can learn from the experience of the big cities experiencing lively weekends and weeknights despite low recovery during the workweek. Even if remote and hybrid work in high-skill economic sectors is keeping half of their workforce at home during the week, the downtowns in San Francisco, Chicago, and Minneapolis benefit from their mixture of uses (particularly restaurants, bars, and entertainment venues), transit accessibility, and ongoing event programming. Cities like Louisville and St. Louis that are struggling to attract visitors and shoppers, in addition to workers, will most likely experience a longer road to recovery.
+			These patterns suggest a clear path forward for North America’s downtowns. Of course, not all downtowns can benefit from balmy weather as Tucson and Charlotte have. But we can learn from the experience of the big cities experiencing lively weekends and weeknights despite low recovery during the workweek. Even if remote and hybrid work in high-skill economic sectors is keeping half of their workforce at home during the week, the downtowns in San Francisco, Chicago, and Minneapolis benefit from their mixture of uses (particularly restaurants, bars, and entertainment venues), transit accessibility, and ongoing event programming. Cities like Louisville and St. Louis that are struggling to attract visitors and shoppers, in addition to workers, will most likely experience a longer road to recovery.
 			<br>
 			<br>
 			<br>
