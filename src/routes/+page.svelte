@@ -47,7 +47,7 @@
 
                 <h2>Recovery Trends</h2>
 
-                <p>Charting downtown recovery across North America from April, 2023 through April, 2024</p>
+                <p>Charting downtown recovery across North America from May, 2023 through May, 2024</p>
 
             </div>
         </a>

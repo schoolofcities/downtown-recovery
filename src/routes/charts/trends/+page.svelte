@@ -16,12 +16,12 @@
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
 	let selection = {
-		"monthName": "April",
-		"monthNumber": 4,
+		"monthName": "May",
+		"monthNumber": 5,
 		"year1": 2023,
 		"year2": 2024,
-		"day1": "2023-04-01",
-		"day2": "2024-04-30"
+		"day1": "2023-05-01",
+		"day2": "2024-05-28"
 	}
 
 	async function loadData() {
@@ -107,7 +107,7 @@
 					const regressionGenerator = regressionLoess()
 						.x((d) => parseDate(d.date))
 						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.03);
+						.bandwidth(0.028);
 
 					// Calculate min and max for the current city
 					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
@@ -149,9 +149,9 @@
 					};
 
 					// End circle
-					const endPoint = regressionGenerator(cityData)[395]; // total length = 367
+					const endPoint = regressionGenerator(cityData)[393]; // total length = 367
 					const endCircle = {
-						cx: xScale(endPoint[0]), 
+						cx: xScale(endPoint[0]),
 						cy: yScale(endPoint[1]),
 						radius: 6,
 						fill: "red",
@@ -230,10 +230,12 @@
 			Key Findings
 		</h5>
 		<p>
-			Median rate of change = +9.35%
-		</p>
-		<p>
-			52 downtowns are in an upward trajectory, while 12 are trending downwards
+			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
+			<br>
+	
+			‣ <span class="bold">27</span> downtowns are in an upward trajectory, while <span class="bold">37</span> are trending downwards. 
+			<br>
+			‣ The median rate of change is <span class="bold">-3.1%</span>.
 		</p>
 		<p>
 			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
@@ -242,7 +244,7 @@
 			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of stops in 2024 versus the same month in 2023.
 		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 30, 2024)</h4>
+		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
 
 		<p>
 			Select Regions:
@@ -298,7 +300,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [4,5,6,7,8,9,10,11,12,1,2,3,4] as l, i}
+					{#each [5,6,7,8,9,10,11,12,1,2,3,4,5] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
@@ -358,7 +360,7 @@
 				<div class="number">
 					<svg width="50" height="{chartHeight}" class="region-bar">
 						<text
-							x="46"
+							x="50"
 							y="45"
 							class="textPercent"
 						>{perChangeDisplay}</text>
