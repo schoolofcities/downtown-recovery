@@ -233,9 +233,9 @@
 			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
 			<br>
 	
-			• <span class="bold">27</span> downtowns are in an upward trajectory, while <span class="bold">37</span> are trending downwards. 
+			‣ <span class="bold">27</span> downtowns are in an upward trajectory, while <span class="bold">37</span> are trending downwards. 
 			<br>
-			• The median rate of change is <span class="bold">-3.1%</span>.
+			‣ The median rate of change is <span class="bold">-3.1%</span>.
 		</p>
 		<p>
 			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
