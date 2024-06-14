@@ -114,7 +114,7 @@ h3 a {
 
 .bold {
     font-family: TradeGothicBold;
-    font-size: 24px;
+    /* font-size: 24px; */
     color: var(--brandYellow);
 }
 
