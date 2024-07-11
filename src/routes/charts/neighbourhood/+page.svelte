@@ -12,6 +12,17 @@
         unit: "metric",
     });
 
+
+	// Normalized stops values
+	const stopValues = GeoJSON.features.map(feature => feature.properties.stops);
+	const maxStop = Math.max(...stopValues);
+
+	GeoJSON.features.forEach(feature => {
+		const stops = feature.properties.stops;
+		const normalizedStops = stops/maxStop ;
+		feature.properties.normalizedStops = normalizedStops;
+	});
+
 	// const maxBounds = [
 	// 	[-80.1, 35.9], // SW coords
 	// 	[-79.9, 36.1] // NE coords
@@ -24,7 +35,7 @@
 
 		map = new maplibregl.Map({
 			container: "map",
-			style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json', // Carto dark style URL
+			style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json", // Carto dark style URL
             center: [-79.997, 35.9615],
             zoom: 8.5,
             pitch: 60,
@@ -40,7 +51,7 @@
 		});
 
 		map.addControl(scale, "bottom-left");
-		map.addControl(new maplibregl.NavigationControl(), 'top-left');
+		map.addControl(new maplibregl.NavigationControl(), "top-left");
 
 		map.on("load", () => {
 
@@ -49,18 +60,19 @@
 			data: GeoJSON,
 			});
 
+			// Example with colour gradient and minimum threshold
 			map.addLayer({
 			id: "base-layer",
 			type: "fill-extrusion",
 			source: "GeoJSON-Grid",
 			paint: {
-          		"fill-extrusion-color": "rgba(211, 169, 40, 1)",
-          		"fill-extrusion-height": ["*", ["get", "stops"], 0.1],
+          		"fill-extrusion-color": ["interpolate", ["linear"], ["get", "normalizedStops"], 0, "rgba(211, 169, 40, 1)", 0.6, "rgba(211, 84, 40, 1)"],
+				"fill-extrusion-opacity": 1,
+          		"fill-extrusion-height": ["*", ["get", "normalizedStops"], 50000],
 				"fill-extrusion-base": 0,
 			},
 		});
 		
-	
 	});
 
 });
