@@ -16,12 +16,12 @@
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
 	let selection = {
-		"monthName": "May",
-		"monthNumber": 5,
+		"monthName": "June",
+		"monthNumber": 6,
 		"year1": 2023,
 		"year2": 2024,
-		"day1": "2023-05-01",
-		"day2": "2024-05-28"
+		"day1": "2023-06-01",
+		"day2": "2024-06-30"
 	}
 
 	async function loadData() {
@@ -107,7 +107,7 @@
 					const regressionGenerator = regressionLoess()
 						.x((d) => parseDate(d.date))
 						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.028);
+						.bandwidth(0.03);
 
 					// Calculate min and max for the current city
 					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
@@ -229,7 +229,7 @@
 		<h5>
 			Key Findings:
 		</h5>
-		<p>
+		<!-- <p>
 			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
 			<br>
 	
@@ -239,7 +239,7 @@
 		</p>
 		<p>
 			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
-		</p>
+		</p> -->
 		<p>
 			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
 		</p>
@@ -300,7 +300,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [5,6,7,8,9,10,11,12,1,2,3,4,5] as l, i}
+					{#each [6,7,8,9,10,11,12,1,2,3,4,5,6] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
