@@ -9,6 +9,7 @@
 	import { tweened } from "svelte/motion";
 	import { cubicOut } from 'svelte/easing';
 	import { writable } from "svelte/store";
+	import CameraLogger from "./lib/CameraLogger.svelte";
 
 	let map;
 	let scale = new maplibregl.ScaleControl({
@@ -17,12 +18,12 @@
     });
 
 	const tweenedValue = tweened(0, {
-      duration: 800,
+      duration: 300,
       easing: cubicOut,
     });
 
-	const tweenedStore = writable(0);
-	tweenedValue.subscribe(value => tweenedStore.set(value));
+	const tweenStore = writable(0);
+	tweenedValue.subscribe(value => tweenStore.set(value));
 
 	let isOn;
   
@@ -51,28 +52,19 @@
 		map = new maplibregl.Map({
 			container: "map",
 			style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json", // Carto dark style URL
-            center: [-79.8526, 36.1145],
-            zoom: 8.544,
-            pitch: 60,
+            center: [-79.81007479731534, 36.03345131099759],
+            zoom: 9.15,
+            pitch: 0,
             // maxPitch: 85,
             // maxZoom: 30,
             // minZoom: 10,
-            bearing: -55.519,
+            bearing: 0,
             projection: "globe",
             scrollZoom: true,
             // maxBounds: maxBounds,
             attributionControl: true,
             antialias: true,
 		});
-
-
-		// Log initial camera parameters
-		// logCurrentCameraParameters();
-
-		// camera parameters
-		// map.on('moveend', () => {
-		// logCurrentCameraParameters();
-		// });
 
 		// Add controls
 		map.addControl(scale, "bottom-left");
@@ -94,16 +86,16 @@
           		"fill-extrusion-color": [
 					'step',
 					['get', 'dailyStops'],
-						"#D3A928",
+						"#FFCB30",
 						500,
-						"#D38D28",
+						"#FFA930",
 						2500,
-						"#D37028",
+						"#FF8730",
 						5000,
-						"#D35428",
+						"#FF6430",
 				],
-				"fill-extrusion-opacity": 1,
-          		"fill-extrusion-height": ["*", ["get", "dailyStops"], $tweenedStore],
+				"fill-extrusion-opacity": 0.85,
+          		"fill-extrusion-height": ["*", ["get", "dailyStops"], $tweenStore],
 				"fill-extrusion-base": 0,
 			},
 			filter: ['>', ['get', 'dailyStops'], -1] // Threshold filter
@@ -113,24 +105,10 @@
 
 });
 
-// Log current camera parameters
-// function logCurrentCameraParameters() {
-//     const center = map.getCenter();
-//     const zoom = map.getZoom();
-//     const bearing = map.getBearing();
-//     const pitch = map.getPitch();
-
-//     console.log('Current Camera Parameters:');
-//     console.log('Center:', center);
-//     console.log('Zoom:', zoom);
-//     console.log('Bearing:', bearing);
-//     console.log('Pitch:', pitch);
-//   }
-
   $: if (map) {
         const layer = map.getLayer('data-layer');
         if (layer) {
-            map.setPaintProperty('data-layer', 'fill-extrusion-height', ["*", ["get", "dailyStops"], $tweenedStore]);
+            map.setPaintProperty('data-layer', 'fill-extrusion-height', ["*", ["get", "dailyStops"], $tweenStore]);
         }
     }
 
@@ -157,9 +135,14 @@
 			Praesent varius rhoncus libero eu gravida. Suspendisse vestibulum tellus a pharetra lobortis. Phasellus pulvinar nunc et ligula blandit, a suscipit tortor blandit. Ut eget molestie mi. Morbi non dictum erat. Mauris vehicula tempor nulla, porta dignissim libero ullamcorper a. Aenean vestibulum congue turpis, non consequat tellus egestas ut. Fusce fermentum vulputate dui, lacinia blandit ipsum semper et. Nunc et sollicitudin erat, sit amet egestas lectus. Fusce vulputate ex convallis sollicitudin faucibus.
 		</p>
 	<h5>High Point Visits Per Day</h5>
+
 	<div id="map"/>
 
-	<button on:click={toggle}>{$tweenedValue}</button>
+	<button on:click={toggle}>
+		{isOn ? "3D" : "2D"}
+	</button>
+
+	<CameraLogger { map }/>
 
 	<div id="legend">
 		<svg width="300" height="40" xmlns="http://www.w3.org/2000/svg">
