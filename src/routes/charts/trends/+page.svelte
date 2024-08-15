@@ -16,12 +16,12 @@
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
 	let selection = {
-		"monthName": "June",
-		"monthNumber": 6,
+		"monthName": "July",
+		"monthNumber": 7,
 		"year1": 2023,
 		"year2": 2024,
-		"day1": "2023-06-01",
-		"day2": "2024-06-30"
+		"day1": "2023-07-01",
+		"day2": "2024-07-31"
 	}
 
 	async function loadData() {
@@ -107,7 +107,7 @@
 					const regressionGenerator = regressionLoess()
 						.x((d) => parseDate(d.date))
 						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.03);
+						.bandwidth(0.00001);
 
 					// Calculate min and max for the current city
 					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
@@ -149,7 +149,7 @@
 					};
 
 					// End circle
-					const endPoint = regressionGenerator(cityData)[393]; // total length = 367
+					const endPoint = regressionGenerator(cityData)[1]; // total length = 367
 					const endCircle = {
 						cx: xScale(endPoint[0]),
 						cy: yScale(endPoint[1]),
@@ -300,7 +300,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [6,7,8,9,10,11,12,1,2,3,4,5,6] as l, i}
+					{#each [7,8,9,10,11,12,1,2,3,4,5,6,7] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
