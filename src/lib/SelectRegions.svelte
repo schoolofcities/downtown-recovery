@@ -5,6 +5,11 @@
 
 	export let europe;
 	export let canada;
+	// export let midwest;
+	// export let northeast;
+	// export let southwest;
+	// export let southeast;
+	// export let pacific;
 
 	let selectedButtons = $selectedRegions;
 
@@ -19,43 +24,6 @@
 	$: selectedRegions.set(selectedButtons)
 	
 </script>
-
-
-<!-- <p>Select Regions:</p> -->
-
-<!-- <div id="buttons">
-	{#if europe === "yes"}
-		{#each $regions as region}
-			<div
-			class="button"
-			on:click={() => handleClick(region.name)}
-			style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
-			>
-				<div class="box" style="background-color: {region.colour}"></div>
-				<div class="name" >
-					{region.name}
-				</div>
-			</div>
-		{/each}
-	{/if}
-
-	{#if europe === "no"}
-		{#each $regions as region}
-			{#if region.name !== "Europe"}
-				<div
-				class="button"
-				on:click={() => handleClick(region.name)}
-				style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
-				>
-					<div class="box" style="background-color: {region.colour}"></div>
-					<div class="name" >
-						{region.name}
-					</div>
-				</div>
-			{/if}
-		{/each}
-	{/if}
-</div> -->
 
 <div id="buttons">
 
@@ -94,6 +62,91 @@
 				</div>
 
 			{/if}
+
+		<!-- {:else if region.name === "Pacific"}
+
+			{#if pacific === "yes"}
+
+				<div
+					class="button"
+					on:click={() => handleClick(region.name)}
+					style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
+					>
+						<div class="box" style="background-color: {region.colour}"></div>
+						<div class="name" >
+							{region.name}
+						</div>
+				</div>
+
+			{/if}
+			
+		{:else if region.name === "Southeast"}
+
+			{#if southeast === "yes"}
+
+				<div
+					class="button"
+					on:click={() => handleClick(region.name)}
+					style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
+					>
+						<div class="box" style="background-color: {region.colour}"></div>
+						<div class="name" >
+							{region.name}
+						</div>
+				</div>
+
+			{/if}
+			
+		{:else if region.name === "Southwest"}
+
+			{#if southwest === "yes"}
+
+				<div
+					class="button"
+					on:click={() => handleClick(region.name)}
+					style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
+					>
+						<div class="box" style="background-color: {region.colour}"></div>
+						<div class="name" >
+							{region.name}
+						</div>
+				</div>
+
+			{/if}
+			
+		{:else if region.name === "Northeast"}
+
+			{#if northeast === "yes"}
+
+				<div
+					class="button"
+					on:click={() => handleClick(region.name)}
+					style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
+					>
+						<div class="box" style="background-color: {region.colour}"></div>
+						<div class="name" >
+							{region.name}
+						</div>
+				</div>
+
+			{/if}
+			
+		{:else if region.name === "Midwest"}
+
+			{#if midwest === "yes"}
+
+				<div
+					class="button"
+					on:click={() => handleClick(region.name)}
+					style="color: white; opacity: {$selectedRegions.includes(region.name) ? 1 : 0.333}"
+					>
+						<div class="box" style="background-color: {region.colour}"></div>
+						<div class="name" >
+							{region.name}
+						</div>
+				</div>
+
+			{/if}				 -->
 
 		{:else}
 

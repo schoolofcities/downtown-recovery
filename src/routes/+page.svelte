@@ -4,6 +4,7 @@
     import "../assets/global.css";
 
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
+    import cardImgCanadaTrends from "../assets/card-img/card-img-trends.png"; // need to upload this!
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
@@ -37,6 +38,20 @@
     </div>
 
     <div id="cards-wrapper">
+
+        <a href="/charts/canada_trends">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardImgCanadaTrends}>
+                </div>
+
+                <h2>Canada Recovery Trends</h2>
+
+                <p>Charting downtown recovery across Canada from May, 2023 through November, 2024</p>
+
+            </div>
+        </a>        
 
         <a href="/charts/trends">
             <div class="card">
