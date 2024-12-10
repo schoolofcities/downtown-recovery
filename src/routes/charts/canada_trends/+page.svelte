@@ -85,22 +85,30 @@
 
 					// Filter data for first month for the current city
 					const month1data = data.filter(item => {
-						const date = new Date(item.date);
-						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
+						const date = new Date(item.date + 'T00:00:00Z'); // Ensure correct parsing
+						return (
+							date.getUTCFullYear() === selection.year1 &&
+							date.getUTCMonth() === selection.monthNumber - 1 &&
+							item.city === city
+						);
 					});
 
-					// console.log('month1data: ', month1data);
+					console.log('month1data: ', month1data);
 
 					// Calculate mean for first month for the current city
 					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
 					
 					// Filter data for second to last month for the current city
 					const month2data = data.filter(item => {
-						const date = new Date(item.date);
-						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
+						const date = new Date(item.date + 'T00:00:00Z'); // Ensure correct parsing
+						return (
+							date.getUTCFullYear() === selection.year2 &&
+							date.getUTCMonth() === selection.monthNumber - 1 &&
+							item.city === city
+						);
 					});
 
-					// console.log('month2data: ', month2data);
+					console.log('month2data: ', month2data);
 
 					// Calculate mean for second to last month for the current city
 					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
