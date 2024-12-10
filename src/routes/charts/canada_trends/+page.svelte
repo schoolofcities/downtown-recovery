@@ -1,33 +1,27 @@
 <script>
 	import Header from "../../../lib/Header.svelte";
-	// import SelectRegions from "../../../lib/SelectRegions.svelte";
 	import { onMount } from 'svelte';
 	import { csvParse } from 'd3-dsv';
 	import { scaleTime, scaleLinear, timeParse, line} from "d3";
 	import { regressionLoess } from "d3-regression";
 	import { min, max, mean} from 'd3-array';
-
-	// import { regions, selectedRegions, cities } from '../../../lib/stores.js';
 	import { cities } from '../../../lib/stores.js';
-	// const regionColours = $regions;
 
 	import upArrow from '../../../assets/green-arrow.svg';
 	import downArrow from '../../../assets/red-arrow.svg';
-	// import upArrow from '/src/assets/green-arrow-circle.svg';
-	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
 	let selection = {
-		"monthName": "May",
-		"monthNumber": 5,
+		"monthName": "October",
+		"monthNumber": 10,
 		"year1": 2023,
 		"year2": 2024,
-		"day1": "2023-05-01",
-		"day2": "2024-12-09" // UPDATE
+		"day1": "2023-10-01",
+		"day2": "2024-10-31"
 	}
 
 	async function loadData() {
 		try {
-			const response = await fetch('/trends.csv');
+			const response = await fetch('/trend_canada_oct23_oct24.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -89,22 +83,26 @@
 
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
-					// Filter data for March 2023 for the current city
+					// Filter data for first month for the current city
 					const month1data = data.filter(item => {
 						const date = new Date(item.date);
 						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
-					// Calculate mean for March 2023 for the current city
+					// console.log('month1data: ', month1data);
+
+					// Calculate mean for first month for the current city
 					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
 					
-					// Filter data for Feb 2024 for the current city
+					// Filter data for second to last month for the current city
 					const month2data = data.filter(item => {
 						const date = new Date(item.date);
 						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
-					// Calculate mean for Feb 2024 for the current city
+					// console.log('month2data: ', month2data);
+
+					// Calculate mean for second to last month for the current city
 					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
 
 					const regressionGenerator = regressionLoess()
@@ -136,6 +134,10 @@
 						console.log(regressionGenerator(cityData));
 						console.log(cityMax);
 					}
+
+					console.log('city: ', city);
+					console.log('month1: ', month1);
+					console.log('month2: ', month2);
 
 					const percentageChange = (((month2 - month1) / month1)*100);
 					const perChangeDisplay = percentageChange.toFixed(1) + "%";
@@ -185,26 +187,8 @@
 
 	// Sort charts based on percentageChange descending order
 	$: sortedCharts = charts.slice().sort((a,b) => b.percentageChange - a.percentageChange);
-
-	// // Get the region colour for each city
-	// function getRegionColor(city) {
-	// 	const cityData = cities.filter(item => item.city === city);
-	// 	if (cityData) {
-	// 		const regionName = cityData[0].region;
-	// 		const regionData = regionColours.find(region => region.name === regionName);
-	// 		if (regionData) {
-	// 			return regionData.colour;
-	// 		}
-	// 	}       
-	// 	else {
-	// 		return 'white'
-	// 	};
-	// }
 	
 </script>
-
-
-
 
 
 <Header />
@@ -213,45 +197,39 @@
 	<div class="text">
 
 		<h1>
-			Canadian Recovery Trends
+			Canada Recovery Trends
 		</h1>
 		<p>
 			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://www.urbandisplacement.org/team/julia-greenberg/">Julia Greenberg</a>, <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/">Jeff Allen</a>, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a> 
 		</p>
-		<!-- <p>
+		<p>
 			<i>Updated {selection.day2}</i>
 		</p>
 		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
+			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how Canadian downtowns are faring. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
 		</p>
 		<p>
-			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
-		</p> -->
+			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing.
+		</p>
 		<h5>
 			Key Findings:
 		</h5>
-		<!-- <p>
+		<p>
 			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
 			<br>
 	
-			‣ <span class="bold">27</span> downtowns are in an upward trajectory, while <span class="bold">37</span> are trending downwards. 
+			‣ <span class="bold">5</span> downtowns are in an upward trajectory, while <span class="bold">5</span> are trending downwards. 
 			<br>
-			‣ The median rate of change is <span class="bold">-3.1%</span>.
+			‣ The median rate of change is <span class="bold">1.9%</span>.
 		</p>
-		<p>
-			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
-		</p>
+		<!-- <p>
+			???
+		</p> -->
 		<p>
 			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
-		</p> -->
+		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to November 21, 2024)</h4>
-
-		<!-- <p>
-			Select Regions:
-		</p> -->
-
-		<!-- <SelectRegions europe={"no"} canada={"yes"} midwest={"no"} northeast={"no"} southwest={"no"} southeast={"no"} pacific={"no"} /> -->
+		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 31, 2024)</h4>
 
 		<p style="padding-top: 10px; padding-bottom: 10px;">
 			<svg height="10" width="50">
@@ -301,7 +279,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [5,6,7,8,9,10,11,12,1,2,3,4,5] as l, i}
+					{#each [10,11,12,1,2,3,4,5,6,7,8,9,10] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
@@ -339,15 +317,6 @@
 						>{i + 1}. {city}</text>
 
 					</svg>
-					
-					<!-- <div class="arrow-indicator">
-						{#if percentageChange > 0}
-							<img src={upArrow} alt="Up arrow" class="arrow-icon"/>
-						{:else if percentageChange < 0}
-							<img src={downArrow} alt="Down arrow" class="arrow-icon"/>
-						{/if}
-					</div>
-					<h5>{perChangeDisplay}</h5> -->
 				</div>
 
 				<div class="arrow">
@@ -367,7 +336,6 @@
 						>{perChangeDisplay}</text>
 					
 					</svg>
-					<!-- <h5>{perChangeDisplay}</h5> -->
 				</div>
 				
 				<div class="chart-container" style="width: {chartWidth};">
@@ -412,7 +380,7 @@
 		</h4>
 
 		<p>
-			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trends.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">GitHub</a>)
+			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trend_canada_oct23_oct24.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte" target="_blank">GitHub</a>)
 			</p>
 
 		<br>

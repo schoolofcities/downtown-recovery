@@ -4,7 +4,7 @@
     import "../assets/global.css";
 
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
-    import cardImgCanadaTrends from "../assets/card-img/card-img-trends.png"; // need to upload this!
+    import cardImgCanadaTrends from "../assets/card-img/card-img-canada-trends.png";
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
@@ -48,7 +48,7 @@
 
                 <h2>Canada Recovery Trends</h2>
 
-                <p>Charting downtown recovery across Canada from May, 2023 through November, 2024</p>
+                <p>Charting downtown recovery across Canada from October, 2023 through October, 2024</p>
 
             </div>
         </a>        
