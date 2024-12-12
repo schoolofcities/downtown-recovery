@@ -10,6 +10,8 @@
 	import upArrow from '../../../assets/green-arrow.svg';
 	import downArrow from '../../../assets/red-arrow.svg';
 
+	import "../../../assets/global.css";
+
 	let selection = {
 		"monthName": "October",
 		"monthNumber": 10,
