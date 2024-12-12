@@ -86,22 +86,22 @@
 
 					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
 
-					// Filter data for March 2023 for the current city
+					// Filter data for first month for the current city
 					const month1data = data.filter(item => {
 						const date = new Date(item.date);
 						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
-					// Calculate mean for March 2023 for the current city
+					// Calculate mean for first month for the current city
 					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
 					
-					// Filter data for Feb 2024 for the current city
+					// Filter data for last month for the current city
 					const month2data = data.filter(item => {
 						const date = new Date(item.date);
 						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
 					});
 
-					// Calculate mean for Feb 2024 for the current city
+					// Calculate mean for last month for the current city
 					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
 
 					const regressionGenerator = regressionLoess()
