@@ -150,7 +150,7 @@
 					console.log('month2: ', month2);
 
 					const percentageChange = (((month2 - month1) / month1)*100);
-					const perChangeDisplay = percentageChange.toFixed(1) + "%";
+					const perChangeDisplay = percentageChange.toFixed(2) + "%";
 
 					// Start circle
 					const startPoint = regressionGenerator(cityData)[0];
@@ -230,7 +230,7 @@
 	
 			‣ <span class="bold">5</span> downtowns are in an upward trajectory, while <span class="bold">5</span> are trending downwards. 
 			<br>
-			‣ The median rate of change is <span class="bold">1.9%</span>.
+			‣ The median rate of change is <span class="bold">2.35%</span>.
 		</p>
 		<!-- <p>
 			???
@@ -318,7 +318,7 @@
 				<div class="left">
 					<svg width="150" height="{chartHeight}" class="region-bar">
 						
-						<line x1="5" y1="15" x2="5" y2="{chartHeight - 15}" stroke="#DC4633" stroke-width= "5"/>
+						<line x1="5" y1="15" x2="5" y2="{chartHeight - 15}" stroke="#fff" stroke-width= "5"/>
 						
 						<text
 							x="12"
