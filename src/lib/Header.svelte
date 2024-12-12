@@ -39,6 +39,7 @@
 		<li class="dropdown">
 		<a href="#">Charts &darr;</a>
 		<ul class="dropdown-menu">
+			<li><a href="/charts/canada_trends">Trends (Canada update)</a></li>
 			<li><a href="/charts/trends">Trends</a></li>
 			<li><a href="/charts/rankings">Rankings</a></li>
 			<li><a href="/charts/correlations">Correlations</a></li>
