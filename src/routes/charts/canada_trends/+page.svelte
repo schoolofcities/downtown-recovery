@@ -13,17 +13,20 @@
 	import "../../../assets/global.css";
 
 	let selection = {
-		"monthName": "October",
-		"monthNumber": 10,
-		"year1": 2023,
-		"year2": 2024,
-		"day1": "2023-10-01",
-		"day2": "2024-10-31"
+		"monthName": "February",
+		"monthNumber": 2,
+		"year1": 2024,
+		"year2": 2025,
+		"day1": "2024-02-01",
+		"day2": "2025-02-28",
+		"day1_num": 1,
+		"day2_num": 28,
+		"update_date": "2025-03-24" // change this to whenever website is updated
 	}
 
 	async function loadData() {
 		try {
-			const response = await fetch('/trend_canada_oct23_oct24.csv');
+			const response = await fetch('/trend_canada_feb1_2024_to_feb28_2025.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -118,7 +121,7 @@
 					const regressionGenerator = regressionLoess()
 						.x((d) => parseDate(d.date))
 						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.028);
+						.bandwidth(0.031); // was 0.028 but it made some lines tick up too much
 
 					// Calculate min and max for the current city
 					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
@@ -152,6 +155,8 @@
 					const percentageChange = (((month2 - month1) / month1)*100);
 					const perChangeDisplay = percentageChange.toFixed(2) + "%";
 
+					console.log('percentageChange: ', percentageChange);
+
 					// Start circle
 					const startPoint = regressionGenerator(cityData)[0];
 					const startCircle = {
@@ -163,8 +168,10 @@
 						"stroke-width": 2
 					};
 
+					console.log('cityData length:', cityData.length);
+
 					// End circle
-					const endPoint = regressionGenerator(cityData)[393]; // total length = 367
+					const endPoint = regressionGenerator(cityData)[391]; // length - 1
 					const endCircle = {
 						cx: xScale(endPoint[0]),
 						cy: yScale(endPoint[1]),
@@ -213,33 +220,31 @@
 			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://www.urbandisplacement.org/team/julia-greenberg/">Julia Greenberg</a>, <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/">Jeff Allen</a>, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a> 
 		</p>
 		<p>
-			<i>Updated {selection.day2}</i>
+			<i>Updated {selection.update_date}</i>
 		</p>
 		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how Canadian downtowns are faring. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
+			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how Canadian downtowns are faring. We look here at year-over-year ({selection.year2} vs. {selection.year1}) trends.
 		</p>
 		<p>
-			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing.
+			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} {selection.year1}, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} {selection.year1}. When it dips below the dotted line, activity is on a downswing.
 		</p>
-		<h5>
+		<!-- <h5>
 			Key Findings:
-		</h5>
-		<p>
-			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
+		</h5> -->
+		<!-- <p>
+			Comparing {selection.monthName} {selection.year1} to {selection.monthName} {selection.year2}:
 			<br>
 	
-			‣ <span class="bold">5</span> downtowns are in an upward trajectory, while <span class="bold">5</span> are trending downwards. 
-			<br>
-			‣ The median rate of change is <span class="bold">2.35%</span>.
-		</p>
-		<!-- <p>
-			???
+			‣ <span class="bold">All 10</span> downtowns are in an upward trajectory.  -->
+			<!-- , while <span class="bold">???</span> are trending downwards.  -->
+			<!-- <br>
+			‣ The median rate of change is <span class="bold">???%</span>.
 		</p> -->
 		<p>
-			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in {selection.year2} versus the same month in {selection.year1}.
 		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 31, 2024)</h4>
+		<h4>Visits to Downtown ({selection.monthName} {selection.day1_num}, {selection.year1} to {selection.monthName} {selection.day2_num}, {selection.year2})</h4>
 
 		<p style="padding-top: 10px; padding-bottom: 10px;">
 			<svg height="10" width="50">
@@ -289,7 +294,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [10,11,12,1,2,3,4,5,6,7,8,9,10] as l, i}
+					{#each [2,3,4,5,6,7,8,9,10,11,12,1,2] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
@@ -390,7 +395,7 @@
 		</h4>
 
 		<p>
-			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trend_canada_oct23_oct24.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte" target="_blank">GitHub</a>)
+			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trend_canada_feb1_2024_to_feb28_2025.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte" target="_blank">GitHub</a>)
 			</p>
 
 		<br>
