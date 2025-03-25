@@ -387,7 +387,7 @@
 
 <br>
 <p>
-	<i>Click <a href='../all_shapefiles_download.zip'>here</a> to download the polygons (in geojson format) for all four types of boundaries.</i>
+	<i><a href='../downtown-polygons.zip'>Click here to download the polygons</a> (in geojson format) for all four types of boundaries.</i>
 </p>
 
 
