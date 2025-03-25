@@ -48,7 +48,7 @@
 
                 <h2>Canada Recovery Trends</h2>
 
-                <p>Charting downtown recovery across Canada from October, 2023 through October, 2024</p>
+                <p>Charting downtown recovery across Canada from February, 2024 through February, 2025</p>
 
             </div>
         </a>        
