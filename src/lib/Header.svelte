@@ -60,6 +60,7 @@
 		<li class="dropdown">
 		<a href="#">Resources &darr;</a>
 		<ul class="dropdown-menu">
+			<li><a href="https://doi.org/10.1016/j.jtrangeo.2025.104327" target="_blank">Journal Article on Recovery of Transit Oriented Communities</a></li>
 			<li><a href="https://journals.sagepub.com/doi/10.1177/00420980241270987" target="_blank">Journal Article on Determinants of Downtown Recovery</a></li>
 			<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
 			<li><a href="https://www.youtube.com/watch?v=K2E1uvWqSH8&feature=youtu.be" target="_blank">Explainer Video</a></li>
