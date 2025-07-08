@@ -38,7 +38,7 @@
 
     <div id="cards-wrapper">
 
-        <a href="/charts/canada_trends">
+        <a href="/blog/transit-resilience">
             <div class="card">
 
                 <div class="card-img"> 
