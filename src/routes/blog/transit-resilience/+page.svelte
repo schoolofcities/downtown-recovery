@@ -35,10 +35,10 @@
 
 	</div>
 
-	<div class="chartImg">
+	<div class="chartImg" style="max-width: 1080px;">
 
 		<span class="img-click">Click on image for higher resolution.</span>
-		<a href={mapRecovery} target="_blank"><img src={mapRecovery} alt="Map of Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods"></a>
+		<a href={mapRecovery} target="_blank"><img src={mapRecovery} alt="Map of Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods" style="max-width: 1080px;"></a>
 		
 	</div>
 	
@@ -75,8 +75,8 @@
 
 	<div class="chartImg">
 
-		<span class="img-click">Click on image for higher resolution.</span>
-		<a href={chartRecovery} target="_blank"><img src={chartRecovery} alt="List transit stations in Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods"></a>
+		<span class="img-click" style="max-width: 720px;">Click on image for higher resolution.</span>
+		<a href={chartRecovery} target="_blank"><img src={chartRecovery} style="max-width: 720px;" alt="List transit stations in Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods"></a>
 		
 	</div>
 
@@ -87,7 +87,6 @@
 <style>
 
 	.chartImg {
-		max-width: 1080px;
 		min-height: 300px;
 		background-color: none;
 		padding-top: 25px;

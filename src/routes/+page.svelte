@@ -3,17 +3,16 @@
     import Header from "../lib/Header.svelte";
     import "../assets/global.css";
 
+    import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
     import cardImgCanadaTrends from "../assets/card-img/card-img-canada-trends.png";
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
-
     import cardImgWeekly from "../assets/card-img/card-img-weekly.png";
     import cardImgTorontoBuildings from "../assets/card-img/card-img-toronto-buildings.png";
     import cardImgTransitRidership from "../assets/card-img/card-img-transit-ridership.png";
     import cardImgDowntownDefinition from "../assets/card-img/card-img-downtown-definition.png";
-
     import cardImgReport from "../assets/card-img/card-img-report.png";
     import cardImgVideo from "../assets/card-img/card-img-video.png";
 
@@ -31,13 +30,27 @@
         <h1>
             Death of Downtown?
         </h1>
-        <p>
+        <h2>
             <span class="bold">Exploring Pandemic Recovery Across North American Downtowns</span>
-        </p>
+        </h2>
 
     </div>
 
     <div id="cards-wrapper">
+
+        <a href="/charts/canada_trends">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardTransitResilience}>
+                </div>
+
+                <h2>Transit Resilience</h2>
+
+                <p>Transit-oriented communities and post-pandemic urban resilience in Toronto</p>
+
+            </div>
+        </a>      
 
         <a href="/charts/canada_trends">
             <div class="card">
