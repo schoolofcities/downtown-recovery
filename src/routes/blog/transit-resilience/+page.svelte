@@ -3,6 +3,9 @@
 	import Header from "../../../lib/Header.svelte";
 	import "../../../assets/global.css";
 
+	import mapRecovery from "./assets/resilience_transit-inTO-Conemap.png";
+	import chartRecovery from "./assets/resilience_transit-chart.png";
+
 </script>
 
 
@@ -14,7 +17,7 @@
 
 		<h3>Transit-oriented communities and post-pandemic urban resilience in Toronto</h3>
 
-		<p><i>Research:</i> <a href="https://www.linkedin.com/in/amir-forouhar/">Amir Forouhar</a>, <a href="https://www.linkedin.com/in/ramesh-pokharel/">Ramesh Pokharel</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://jamaps.github.io/">Jeff Allen</a><br><i>Graphics:</i> Isabeaux Graham, Jeff Allen<br>July, 2025<br><br>
+		<p><i>Research:</i> <a href="https://www.linkedin.com/in/amir-forouhar/" target="_blank">Amir Forouhar</a>, <a href="https://www.linkedin.com/in/ramesh-pokharel/" target="_blank">Ramesh Pokharel</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/" target="_blank">Karen Chapple</a>, <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a><br><i>Graphics:</i> Isabeaux Graham, Jeff Allen<br>July, 2025<br><br>
 		</p>
 		<p>
 			The COVID-19 pandemic disrupted urban mobility, work, and social interaction. But how resilient were our neighbourhoods? <a href="https://doi.org/10.1016/j.jtrangeo.2025.104327" target="_blank">Our study, published in the Journal of Transport Geography (2025)</a>, investigates how transit-oriented communities (TOCs) – dense, mixed-use neighbourhoods near frequent public transit – fostered recovery in Toronto. By analyzing mobile phone data and a range of socioeconomic and land-use variables, our research reveals that TOCs exhibit greater resilience compared to non-transit-proximal neighbourhoods.
@@ -34,7 +37,8 @@
 
 	<div class="chartImg">
 
-			<!-- <img src={mapRecovery} alt="Map ..."> -->
+		<span class="img-click">Click on image for higher resolution.</span>
+		<a href={mapRecovery} target="_blank"><img src={mapRecovery} alt="Map of Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods"></a>
 		
 	</div>
 	
@@ -66,8 +70,14 @@
 			For details, see our open-access article in the Journal of Transport Geography (https://doi.org/10.1016/j.jtrangeo.2025.104327).
 		</p>
 
-		<br><br><br>
 
+	</div>
+
+	<div class="chartImg">
+
+		<span class="img-click">Click on image for higher resolution.</span>
+		<a href={chartRecovery} target="_blank"><img src={chartRecovery} alt="List transit stations in Toronto showing difference in pandemic recovery rates of transit station areas compared to similar neighbourhoods"></a>
+		
 	</div>
 
 
@@ -77,19 +87,28 @@
 <style>
 
 	.chartImg {
-		max-width: 1000px;
+		max-width: 1080px;
 		min-height: 300px;
-		background-color: black;
-		margin: 0 auto; /* Center the container */
+		background-color: none;
+		padding-top: 25px;
+		padding-bottom: 20px;
+		margin: 0 auto; 
+		text-align: center;
 	}
 
 	img {
 		border: solid 1px var(--brandDarkBlue);
 		min-width: 350px;
-		max-width: 100%; /* Set maximum width to 100% of the container */
-		height: auto; /* Maintain aspect ratio */
-		display: block; /* Remove default image spacing */
-		margin: 0 auto; /* Center the image within the container */
+		max-width: 100%; 
+		height: auto;
+		display: block;
+		margin: 0 auto;
+	}
+
+	.img-click {
+		font-family: Roboto;
+		color: rgb(109, 109, 109);
+		font-size: 12px;
 	}
 
 	.text {
@@ -103,6 +122,8 @@
 		font-family: TradeGothicBold;
 		font-size: 20px;
 	}
+
+	
 
 	p {
 		line-height: 25px;
