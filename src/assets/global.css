@@ -45,7 +45,7 @@ h2 {
     font-family: TradeGothicBold;
     font-size: 24px;
     color: var(--brandWhite);
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 h3 {

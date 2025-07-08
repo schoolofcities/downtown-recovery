@@ -16,7 +16,7 @@
 
         <h3>Reviving Downtowns and Transit: A Potential Path to Post-Pandemic Recovery</h3>
 
-        <p>By <a href="www.linkedin.com/in/amir-forouhar">Amir Forouhar</a> | October 31, 2023</p> 
+        <p>By <a href="https://www.linkedin.com/in/amir-forouhar/">Amir Forouhar</a> | October 31, 2023</p> 
 
         <p>
             The Covid-19 pandemic significantly impacted our vibrant city life and downtown areas. As cities aim to recover, the role of public transit in this process has garnered our attention. So, we decided to explore the interplay between recovery of downtown areas and rebound of transit ridership- an exploration that includes commuter rail, heavy rail, light rail, and buses in cities across North America.  

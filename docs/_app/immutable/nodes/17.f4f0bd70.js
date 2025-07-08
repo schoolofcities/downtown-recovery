@@ -1,0 +1,1 @@
+import{L as l}from"../chunks/layout.55e635be.js";const e=!0,o=!1,t="never",r=Object.freeze(Object.defineProperty({__proto__:null,csr:e,ssr:o,trailingSlash:t},Symbol.toStringTag,{value:"Module"}));export{l as component,r as universal};

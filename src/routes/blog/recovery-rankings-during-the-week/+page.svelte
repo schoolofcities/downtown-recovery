@@ -89,7 +89,7 @@
 			Attracting activity to North American downtowns: Understanding downtown recovery across the course of a week
 		</h3>
 		<p>
-			<a href="https://www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="http://jamaps.github.io/">Jeff Allen</a> | March, 2024
+			<a href="https://www.linkedin.com/in/amir-forouhar">Amir Forouhar</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, & <a href="https://jamaps.github.io/">Jeff Allen</a> | March, 2024
 		</p>
 		<p>
 			As downtowns adjust to a new normal of hybrid and remote work, many seek to recover by attracting different types of activity. When downtowns serve as hubs for entertainment, food, retail, and tourism, they can attract visitors and shoppers around the clock. In this analysis, we show how cities recover during working hours (8 AM to 6 PM, Monday to Friday) compared to after-work hours (weeknights 6 PM to 8 AM and the entire weekend), as well as weekdays versus weekends. This provides invaluable insights into how cities can best bring back their downtowns.
