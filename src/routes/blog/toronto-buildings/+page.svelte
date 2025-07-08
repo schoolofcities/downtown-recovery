@@ -20,7 +20,7 @@
 
         <h3>Understanding post-pandemic recovery for individual buildings </h3>
 
-        <p>By <a href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/">Byeonghwa Jeong</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a> & <a href="http://jamaps.github.io/">Jeff Allen</a> | January 4, 2024</p> 
+        <p>By <a href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/">Byeonghwa Jeong</a>, <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a> & <a href="https://jamaps.github.io/">Jeff Allen</a> | January 4, 2024</p> 
 
         <p>
             On this website, we've tracked post-pandemic recovery patterns in the downtowns of many North American cities, based on location-based mobility data from cell phones supplied by Spectus. While we've <a href="/charts/rankings">compared recovery across different cities</a>, as well as created a tool to <a href="/blog/downtown-definitions">explore how results vary for different definitions of downtown</a>, policymakers often need more fine-grained data to determine how recovery is progressing at the city block or individual building level.
