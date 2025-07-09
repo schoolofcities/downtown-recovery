@@ -67,7 +67,7 @@
 			Policymakers should prioritize walkability, support local businesses, and ensure equitable transit access, while engaging communities to align developments with local needs and mitigate gentrification risks. Monitoring socioeconomic impacts enables adaptive strategies to support resilient urban recovery.
 		</p>
 		<p>
-			For details, see our open-access article in the Journal of Transport Geography (https://doi.org/10.1016/j.jtrangeo.2025.104327).
+			For details, see our open-access article in the Journal of Transport Geography (<a href="https://doi.org/10.1016/j.jtrangeo.2025.104327" target="_blank">https://doi.org/10.1016/j.jtrangeo.2025.104327</a>).
 		</p>
 
 
