@@ -87,7 +87,7 @@
 <style>
 
 	.chartImg {
-		min-height: 300px;
+		/* min-height: 300px; */
 		background-color: none;
 		padding-top: 25px;
 		padding-bottom: 20px;
@@ -99,6 +99,7 @@
 		border: solid 1px var(--brandDarkBlue);
 		min-width: 350px;
 		max-width: 100%; 
+		width: 100%;
 		height: auto;
 		display: block;
 		margin: 0 auto;
