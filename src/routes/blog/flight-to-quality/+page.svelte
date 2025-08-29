@@ -22,7 +22,6 @@
                 href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/"
                 target="_blank">Byeonghwa Jeong</a
             >
-            <br /><i>Graphics:</i> Name(s)<br />Month, 2025<br /><br />
         </p>
         <p>
             As the Covid-19 pandemic waned, <a
