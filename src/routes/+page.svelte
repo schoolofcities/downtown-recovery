@@ -3,6 +3,7 @@
     import Header from "../lib/Header.svelte";
     import "../assets/global.css";
 
+    import cardFlightToQuality from "../assets/card-img/card-flight-to-quality.png";
     import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
     import cardImgCanadaTrends from "../assets/card-img/card-img-canada-trends.png";
@@ -37,6 +38,21 @@
     </div>
 
     <div id="cards-wrapper">
+
+                <a href="/blog/flight-to-quality">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardFlightToQuality}>
+                </div>
+
+                <h2>Flight to Quality?</h2>
+
+                <p>Did activity in high-end office and commercial buildings withstand the pandemic?</p>
+
+            </div>
+        </a>      
+
 
         <a href="/blog/transit-resilience">
             <div class="card">
@@ -262,5 +278,11 @@
     @media (min-width: 1200px) {
         #cards-wrapper { grid-template-columns: repeat(2, 1fr); }
     }
+
+    .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 </style>
