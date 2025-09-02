@@ -16,17 +16,17 @@
 	// import downArrow from '/src/assets/red-arrow-circle.svg';
 
 	let selection = {
-		"monthName": "May",
-		"monthNumber": 5,
-		"year1": 2023,
-		"year2": 2024,
-		"day1": "2023-05-01",
-		"day2": "2024-05-28"
+		"monthName": "June",
+		"monthNumber": 6,
+		"year1": 2024,
+		"year2": 2025,
+		"day1": "2024-06-01",
+		"day2": "2025-06-30"
 	}
 
 	async function loadData() {
 		try {
-			const response = await fetch('/trends.csv');
+			const response = await fetch('/trends_update_2425.csv');
 			const csvData = await response.text();
 			data = csvParse(csvData);
 			thecities = [...new Set(data.map(item => item.city))];
@@ -244,7 +244,7 @@
 			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
 		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
+		<h4>Visits to Downtown ({selection.monthName} 1, 2024 to {selection.monthName} 30, 2025)</h4>
 
 		<p>
 			Select Regions:
@@ -300,7 +300,7 @@
 
 					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
 
-					{#each [5,6,7,8,9,10,11,12,1,2,3,4,5] as l, i}
+					{#each [6,7,8,9,10,11,12,1,2,3,4,5,6] as l, i}
 						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
 
 						{#if l === 1}
