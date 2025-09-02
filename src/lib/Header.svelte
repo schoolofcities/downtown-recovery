@@ -51,6 +51,7 @@
 		<li class="dropdown">
 			<a href="#">Blog &darr;</a>
 			<ul class="dropdown-menu">
+				<li><a href="/blog/flight-to-quality">A “Flight to Quality”? Not So Fast.</a></li>
 				<li><a href="/blog/transit-resilience">Transit-oriented communities and post-pandemic urban resilience in Toronto</a></li>
 				<li><a href="/blog/recovery-rankings-during-the-week">Downtown recovery over the course of a week</a></li>
 				<li><a href="/blog/toronto-buildings">Understanding post-pandemic recovery for individual buildings</a></li>

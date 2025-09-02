@@ -46,8 +46,7 @@
             > for the office construction sector.
         </p>
         <p>
-            At the Downtown Recovery Project, run by researchers at the
-            University of Toronto's School of Cities, we began wondering whether
+            As part of our Downtown Recovery Project, we began wondering whether
             we could corroborate this flight to quality using footfall data. If
             this “flight” is indeed occurring, we should see consistently more
             activity (as measured by cell phone data) at these A+ buildings than
@@ -74,9 +73,8 @@
             diversity in activity levels. Figure 1 shows recovery rates
             throughout the week (left panel) and during working hours only
             (Monday-Friday, 8 AM – 6 PM) (right panel). The mean recovery rate
-            among these buildings is 56% overall and 55% during working hours,
-            compared to 77% and 78% for all buildings. Recovery rates range from
-            15% to over 200%.
+            among these buildings is <span style="padding: 2px; background-color:#6FC7EA; color: black; font-family: TradeGothicBold;">56%</span> overall and <span style="padding: 2px; background-color:#F1C500; color: black; font-family: TradeGothicBold;">55%</span> during working hours,
+            compared to <span style="padding: 2px; background-color:#6FC7EA; color: black; font-family: TradeGothicBold;">77%</span> and <span style="padding: 2px; background-color:#F1C500; color: black;  font-family: TradeGothicBold;">78%</span> for all buildings. Recovery rates for individual buildings range from 15% to over 200%.
         </p>
     </div>
 
