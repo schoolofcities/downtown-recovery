@@ -1,8 +1,8 @@
 <script>
     import Header from "../../../lib/Header.svelte";
     import "../../../assets/global.css";
-    import rentChangesSvg760 from "../../../../src/assets/rent-changes-760px.svg";
-    import recoveryRates from "../../../../src/assets/recovery_rates_760px.svg";
+    import rentChangesSvg760 from "./assets/rent-changes-760px.png";
+    import recoveryRates from "./assets/recovery_rates_760px.png";
 </script>
 
 <Header />
@@ -22,9 +22,14 @@
                 href="https://schoolofcities.utoronto.ca/people/byeonghwa-jeong/"
                 target="_blank">Byeonghwa Jeong</a
             >
+            <br>
+            <i>Graphics:</i>
+            Scott McCallum, Byeonghwa Jeong, Jeff Allen<br>
+            August 2025
         </p>
+        <br>
         <p>
-            As the Covid-19 pandemic waned, <a
+            As the COVID-19 pandemic waned, <a
                 href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4238253"
                 target="_blank">economists began writing</a
             >
@@ -151,6 +156,8 @@
             levels as described here, even the future of A+ buildings remains
             uncertain.
         </p>
+
+        <br><br><br><br>
     </div>
 </main>
 
