@@ -62,6 +62,7 @@
 		<li class="dropdown">
 		<a href="#">Resources &darr;</a>
 		<ul class="dropdown-menu">
+			<li><a href="https://journals.sagepub.com/doi/full/10.1177/23998083251326128" target="_blank">Journal Article on Pandemic Recovery by Building Typology</a></li>
 			<li><a href="https://doi.org/10.1016/j.jtrangeo.2025.104327" target="_blank">Journal Article on Recovery of Transit Oriented Communities</a></li>
 			<li><a href="https://journals.sagepub.com/doi/10.1177/00420980241270987" target="_blank">Journal Article on Determinants of Downtown Recovery</a></li>
 			<li><a href="/death_of_downtown_policy_brief.pdf">Policy Brief</a></li>
