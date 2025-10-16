@@ -380,8 +380,8 @@
       </div>
 
       <div class="number">
-        <svg width="50" height={chartHeight} class="region-bar">
-          <text x="50" y="45" class="textPercent">{perChangeDisplay}</text>
+        <svg width="55" height={chartHeight} class="region-bar">
+          <text x="55" y="45" class="textPercent">{perChangeDisplay}</text>
         </svg>
       </div>
 
