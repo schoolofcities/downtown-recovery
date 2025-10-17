@@ -306,7 +306,7 @@
 					stroke-width="1"
 				/>
 
-				{#each [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2] as l, i}
+				{#each [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9] as l, i}
 					<line
 						x1={260 + (i * chartWidth) / 13}
 						y1={45}
@@ -316,7 +316,7 @@
 						stroke-width="1"
 					/>
 
-					{#if l === 1}
+					{#if i === 4}
 						<line
 							x1={260 + (i * chartWidth) / 13}
 							y1={5}
@@ -433,7 +433,7 @@
 			<a
 				href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte"
 				target="_blank">GitHub</a
-			>)
+			>). Note: Quebec & Montreal data is limited to September 26, 2025.
 		</p>
 
 		<br />
