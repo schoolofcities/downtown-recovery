@@ -11,17 +11,20 @@
   import downArrow from "../../../assets/red-arrow.svg";
 
   import "../../../assets/global.css";
+  import { xlink_attr } from "svelte/internal";
 
   let selection = {
     monthName: "September",
     monthNumber: 9,
-    year1: 2024,
-    year2: 2025,
-    day1: "2024-09-01",
-    day2: "2025-09-30",
+    year1: 2023,
+    year2: 2024,
+    year3: 2025,
+    day1: "2023-09-01",
+    day2: "2024-09-01",
+    day3: "2025-09-30",
     day1_num: 1,
     day2_num: 30,
-    update_date: "2025-10-16", // change this to whenever website is updated
+    update_date: "2025-10-29", // change this to whenever website is updated
   };
 
   async function loadData() {
@@ -49,7 +52,7 @@
   let width;
 
   let chartWidth = 500;
-  const chartHeight = 50;
+  const chartHeight = 80;
 
   const marginTop = 0;
   const marginRight = 5;
@@ -83,7 +86,7 @@
           console.log("cityData");
 
           const normalizedDistinctCleanValues = cityData.map((item) =>
-            parseFloat(item.normalized_distinct_clean)
+            parseFloat(item.normalized_distinct_clean),
           );
 
           // Filter data for first month for the current city
@@ -100,7 +103,7 @@
 
           // Calculate mean for first month for the current city
           const month1 = mean(month1data, (d) =>
-            parseFloat(d.normalized_distinct_clean)
+            parseFloat(d.normalized_distinct_clean),
           );
 
           // Filter data for second to last month for the current city
@@ -117,7 +120,7 @@
 
           // Calculate mean for second to last month for the current city
           const month2 = mean(month2data, (d) =>
-            parseFloat(d.normalized_distinct_clean)
+            parseFloat(d.normalized_distinct_clean),
           );
 
           const regressionGenerator = regressionLoess()
@@ -128,11 +131,11 @@
           // Calculate min and max for the current city
           const cityMin = Math.min(
             ...regressionGenerator(cityData).map((subarray) => subarray[1]),
-            min(normalizedDistinctCleanValues)
+            min(normalizedDistinctCleanValues),
           );
           const cityMax = Math.max(
             ...regressionGenerator(cityData).map((subarray) => subarray[1]),
-            max(normalizedDistinctCleanValues)
+            max(normalizedDistinctCleanValues),
           );
 
           const xScale = scaleTime()
@@ -263,21 +266,39 @@
       {selection.day2_num}, {selection.year2})
     </h4>
 
-    <p style="padding-top: 10px; padding-bottom: 10px;">
-      <svg height="10" width="50">
-        <line
-          x1="0"
-          y1="5"
-          x2="50"
-          y2="5"
-          stroke="white"
-          stroke-width="1"
-          stroke-dasharray="4"
-        />
-      </svg>
-      {selection.monthName}
-      {selection.year1} average
-    </p>
+    <div
+      style="display: flex; align-items: center; gap: 20px; padding: 10px 0;"
+    >
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <svg height="10" width="50">
+          <line
+            x1="0"
+            y1="5"
+            x2="50"
+            y2="5"
+            stroke="white"
+            stroke-width="1"
+            stroke-dasharray="3"
+          />
+        </svg>
+        {selection.monthName}
+        {selection.year1} average
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <svg height="10" width="50">
+          <line x1="0" y1="5" x2="50" y2="5" stroke="red" stroke-width="1" />
+        </svg>
+        {selection.year2}
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <svg height="10" width="50">
+          <line x1="0" y1="5" x2="50" y2="5" stroke="orange" stroke-width="1" />
+        </svg>
+        {selection.year3}
+      </div>
+    </div>
   </div>
 
   <div class="chart-wrapper">
@@ -288,21 +309,21 @@
         <text x="235" y="15" class="textLabel">Percent Change in Visits</text>
 
         <text x="235" y="35" class="textLabel"
+          >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year2},
+        </text>
+
+        <!-- line here in between the two percentages -->
+        <!-- <line
+          x1="170"
+          y1="32"
+          x2="170"
+          y2="100"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3,3"
+        /> -->
+        <text x="235" y="55" class="textLabel"
           >{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text
-        >
-
-        <text
-          x={260 + (((13 - selection.monthNumber) / 2) * chartWidth) / 13}
-          y="15"
-          class="textMonth">{selection.year1}</text
-        >
-
-        <text
-          x={260 +
-            ((13 - selection.monthNumber) * chartWidth) / 13 +
-            ((selection.monthNumber / 2) * chartWidth) / 13}
-          y="15"
-          class="textMonth">{selection.year2}</text
         >
 
         <line
@@ -341,15 +362,6 @@
             class="textMonth">{l}</text
           >
         {/each}
-
-        <line
-          x1={259 + chartWidth}
-          y1={45}
-          x2={259 + chartWidth}
-          y2={40}
-          stroke="white"
-          stroke-width="1"
-        />
       </svg>
     </div>
   </div>
@@ -474,6 +486,7 @@
     height: 53px;
     background-color: var(--brandGray90);
     border-bottom: solid 1px var(--brandDarkBlue);
+    padding-bottom: 6px;
   }
 
   .textLabel {
