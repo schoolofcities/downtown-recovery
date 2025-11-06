@@ -149,7 +149,7 @@
           const regressionGenerator2024 = regressionLoess()
             .x((d) => parseDate(d.date))
             .y((d) => parseFloat(d.normalized_distinct_clean))
-            .bandwidth(0.062);
+            .bandwidth(0.031);
 
           const regressionData2024 = regressionGenerator2024(cityData2024);
 
@@ -157,7 +157,7 @@
           const regressionGenerator2025 = regressionLoess()
             .x((d) => parseDate(d.date))
             .y((d) => parseFloat(d.normalized_distinct_clean))
-            .bandwidth(0.062);
+            .bandwidth(0.031);
 
           const regressionData2025 = regressionGenerator2025(cityData2025);
 
@@ -608,23 +608,21 @@
 
   .chart-container {
     width: 400px;
-    /* background-color: var(--brandMedBlue); */
   }
   .chart {
-    margin-left: 10px; /* tighter to match header composite offset */
+    margin-left: 10px;
   }
 
   .number {
     width: 65px;
     margin-top: -12px;
     margin-right: 0px;
-    margin-left: 12px; /* keeps alignment with header labels */
+    margin-left: 12px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
     gap: 2px;
-    /* background-color: var(--brandDarkBlue); */
   }
   .percent-main {
     font-family: Roboto;
@@ -643,18 +641,18 @@
   }
 
   .arrow {
-    margin: auto 4px auto -13px; /* keep a little overlap without affecting layout */
+    margin: auto 4px auto -13px;
     width: 32px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateX(-8px); /* additional left shift */
+    transform: translateX(-8px);
     flex-shrink: 0;
   }
   .arrow-icon {
     margin: auto 0;
-    width: 40px; /* slightly smaller to fit better */
+    width: 40px;
     height: 40px;
     align-items: center;
   }
