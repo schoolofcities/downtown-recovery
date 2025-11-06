@@ -24,7 +24,7 @@
     day3: "2025-09-30",
     day1_num: 1,
     day2_num: 30,
-    update_date: "2025-10-29", // change this to whenever website is updated
+    update_date: "2025-11-06", // change this to whenever website is updated
   };
 
   async function loadData() {
@@ -292,20 +292,20 @@
       Data on cell phone activity (a.k.a. footfall) trends for the last two
       years provide a picture of how Canadian downtowns are faring. We look here
       at year-over-year trends comparing September {selection.year3} vs. {selection.year2}
-      and September {selection.year2} vs. {selection.year1}.
+      vs. {selection.year1}.
     </p>
     <p>
       The solid lines represent the number of daily unique visitors in the
       downtown area, both displayed on the same September-to-September timeline
-      for direct comparison. The red line shows the {selection.year2} period (Sept
-      {selection.year1} to Sept {selection.year2}) and the orange line shows the {selection.year3}
-      period (Sept {selection.year2} to Sept {selection.year3}), with the {selection.year3}
-      data shifted back one year to align with the same months as {selection.year2}.
+      for direct comparison. The red line shows the Sept
+      {selection.year1} to Sept {selection.year2} period and the orange line shows
+      the Sept
+      {selection.year2} to Sept {selection.year3} period, with the {selection.year3}.
       The dotted line provides a baseline of the average level of activity in
-      September {selection.year1}, allowing for comparison to subsequent years.
-      When the solid lines extend above the dotted baseline, downtown activity
-      is greater compared to September {selection.year1}. When they dip below
-      the dotted line, activity is on a downswing.
+      September {selection.year1}, allowing for comparison to the following
+      years. When the solid lines extend above the dotted baseline, downtown
+      activity is greater compared to September {selection.year1}. When they dip
+      below the dotted line, activity is on a downswing.
     </p>
     <!-- <h5>
 			Key Findings:
@@ -324,7 +324,7 @@
       data providers from our rankings analysis. The trendlines measure the
       average level of activity over the course of the year, while the ranking
       metric shows the percent difference in the average number of unique
-      visitors in {selection.year2} versus the same month in {selection.year1}.
+      visitors in {selection.year3} versus the same month in {selection.year2}.
     </p>
 
     <h4>
@@ -377,7 +377,7 @@
           >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year2},
         </text>
 
-        <text x="235" y="55" class="textLabelSmall"
+        <text x="235" y="50" class="textLabelSmall"
           >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year1}</text
         >
 
@@ -542,7 +542,7 @@
         href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a
       >
       curve. You can download the raw daily data shown to fit these curves
-      <a href="/trend_canada_sep1_2024_to_sep30_2025.csv">from this link</a>.
+      <a href="/trend_canada_sep1_2023_to_sep30_2025.csv">from this link</a>.
       The data on the charts are based on the `normalized_distinct_clean`
       column, which pertains to the number of unique daily visitors normalized
       by the total number in the metro area. The trend-line and summary
@@ -632,6 +632,7 @@
     color: var(--brandWhite);
     line-height: 1.2;
     margin-right: 15px;
+    padding-top: 15px;
   }
   .percent-secondary {
     font-family: Roboto;
