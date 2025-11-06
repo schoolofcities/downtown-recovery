@@ -29,7 +29,9 @@
 
   async function loadData() {
     try {
-      const response = await fetch("/trend_canada_sep1_2024_to_sep30_2025.csv");
+      const response = await fetch(
+        "/trend_canada_us_sep1_2023_to_sep30_2025.csv",
+      );
       const csvData = await response.text();
       data = csvParse(csvData);
       thecities = [...new Set(data.map((item) => item.city))];
@@ -75,146 +77,195 @@
   $: charts = thecities
     .map((city) => {
       if (filteredCities.includes(city)) {
-        const cityData = data.filter((item) => {
+        // ===== 2024 DATA (Sept 2023 to Sept 2024) =====
+        const cityData2024 = data.filter((item) => {
           const date = new Date(item.date);
-          const day1 = new Date(selection.day1);
-          const day2 = new Date(selection.day2);
-          return item.city === city && date >= day1 && date <= day2;
+          const start2023 = new Date(selection.day1);
+          const end2024 = new Date("2024-09-30");
+          return item.city === city && date >= start2023 && date <= end2024;
         });
 
-        if (cityData.length > 0) {
-          console.log("cityData");
+        // ===== 2025 DATA (Sept 2024 to Sept 2025) =====
+        const cityData2025 = data.filter((item) => {
+          const date = new Date(item.date);
+          const start2024 = new Date(selection.day2);
+          const end2025 = new Date(selection.day3);
+          return item.city === city && date >= start2024 && date <= end2025;
+        });
 
-          const normalizedDistinctCleanValues = cityData.map((item) =>
-            parseFloat(item.normalized_distinct_clean),
-          );
+        if (cityData2024.length > 0 && cityData2025.length > 0) {
+          // ===== CALCULATE MONTHLY AVERAGES FOR 3 SEPTEMBERS =====
 
-          // Filter data for first month for the current city
-          const month1data = data.filter((item) => {
-            const date = new Date(item.date + "T00:00:00Z"); // Ensure correct parsing
+          // September 2023 average
+          const sept2023data = data.filter((item) => {
+            const date = new Date(item.date + "T00:00:00Z");
             return (
               date.getUTCFullYear() === selection.year1 &&
               date.getUTCMonth() === selection.monthNumber - 1 &&
               item.city === city
             );
           });
-
-          console.log("month1data: ", month1data);
-
-          // Calculate mean for first month for the current city
-          const month1 = mean(month1data, (d) =>
+          const sept2023avg = mean(sept2023data, (d) =>
             parseFloat(d.normalized_distinct_clean),
           );
 
-          // Filter data for second to last month for the current city
-          const month2data = data.filter((item) => {
-            const date = new Date(item.date + "T00:00:00Z"); // Ensure correct parsing
+          // September 2024 average
+          const sept2024data = data.filter((item) => {
+            const date = new Date(item.date + "T00:00:00Z");
             return (
               date.getUTCFullYear() === selection.year2 &&
               date.getUTCMonth() === selection.monthNumber - 1 &&
               item.city === city
             );
           });
-
-          console.log("month2data: ", month2data);
-
-          // Calculate mean for second to last month for the current city
-          const month2 = mean(month2data, (d) =>
+          const sept2024avg = mean(sept2024data, (d) =>
             parseFloat(d.normalized_distinct_clean),
           );
 
-          const regressionGenerator = regressionLoess()
+          // September 2025 average
+          const sept2025data = data.filter((item) => {
+            const date = new Date(item.date + "T00:00:00Z");
+            return (
+              date.getUTCFullYear() === selection.year3 &&
+              date.getUTCMonth() === selection.monthNumber - 1 &&
+              item.city === city
+            );
+          });
+          const sept2025avg = mean(sept2025data, (d) =>
+            parseFloat(d.normalized_distinct_clean),
+          );
+
+          // ===== CALCULATE PERCENTAGE CHANGES =====
+
+          // 9/2024 vs 9/2023
+          const percentageChange2025vs2023 =
+            ((sept2025avg - sept2023avg) / sept2023avg) * 100;
+
+          // 9/2025 vs 9/2024
+          const percentageChange2025vs2024 =
+            ((sept2025avg - sept2024avg) / sept2024avg) * 100;
+
+          // ===== REGRESSION FOR 2024 LINE =====
+          const regressionGenerator2024 = regressionLoess()
             .x((d) => parseDate(d.date))
             .y((d) => parseFloat(d.normalized_distinct_clean))
-            .bandwidth(0.031); // was 0.028 but it made some lines tick up too much
+            .bandwidth(0.062);
 
-          // Calculate min and max for the current city
-          const cityMin = Math.min(
-            ...regressionGenerator(cityData).map((subarray) => subarray[1]),
-            min(normalizedDistinctCleanValues),
-          );
-          const cityMax = Math.max(
-            ...regressionGenerator(cityData).map((subarray) => subarray[1]),
-            max(normalizedDistinctCleanValues),
-          );
+          const regressionData2024 = regressionGenerator2024(cityData2024);
 
+          // ===== REGRESSION FOR 2025 LINE =====
+          const regressionGenerator2025 = regressionLoess()
+            .x((d) => parseDate(d.date))
+            .y((d) => parseFloat(d.normalized_distinct_clean))
+            .bandwidth(0.062);
+
+          const regressionData2025 = regressionGenerator2025(cityData2025);
+
+          // ===== NORMALIZE 2025 DATES TO OVERLAP WITH 2024 =====
+          // Shift 2025 dates back by one year so they align September-to-September
+          const regressionData2025Normalized = regressionData2025.map((d) => {
+            const originalDate = new Date(d[0]);
+            const normalizedDate = new Date(originalDate);
+            normalizedDate.setFullYear(originalDate.getFullYear() - 1);
+            return [normalizedDate, d[1]];
+          });
+
+          // ===== SCALES (12-month Sept-Sept range) =====
+          const allRegressionValues2024 = regressionData2024.map((d) => d[1]);
+          const allRegressionValues2025 = regressionData2025.map((d) => d[1]);
+
+          const allRegressionValues = [
+            ...allRegressionValues2024,
+            ...allRegressionValues2025,
+          ];
+
+          const cityMin = Math.min(...allRegressionValues);
+          const cityMax = Math.max(...allRegressionValues);
+
+          // Add padding to prevent lines from going out of bounds (10% padding)
+          const yRange = cityMax - cityMin;
+          const yPadding = yRange * 0.7;
+          const paddedMin = cityMin - yPadding;
+          const paddedMax = cityMax + yPadding;
+
+          // X scale spans Sept 2023 to Sept 2024 (12 months + September 2024)
+          // Add padding to prevent dots from being cut off at edges
+          const xPadding = 5; // removed padding to align with header ticks
           const xScale = scaleTime()
-            .domain([new Date(selection.day1), new Date(selection.day2)])
-            .range([marginLeft, chartWidth - marginRight]);
+            .domain([new Date(selection.day1), new Date("2024-09-30")])
+            .range([xPadding, chartWidth - xPadding]); // horizontal padding
 
           const yScale = scaleLinear()
-            .domain([cityMin, cityMax])
+            .domain([paddedMin, paddedMax])
             .range([chartHeight - marginBottom, marginTop]);
 
           const lineGenerator = line()
             .x((d) => xScale(d[0]))
             .y((d) => yScale(d[1]));
 
-          const regressionData = regressionGenerator(cityData);
-          const regressionLine = lineGenerator(regressionData);
+          // ===== CREATE LINE PATHS =====
+          const regressionLine2024 = lineGenerator(regressionData2024);
+          const regressionLine2025 = lineGenerator(
+            regressionData2025Normalized,
+          );
 
-          if (city === "Quebec") {
-            console.log(cityData);
-            console.log(regressionGenerator(cityData));
-            console.log(cityMax);
-          }
-
-          console.log("city: ", city);
-          console.log("month1: ", month1);
-          console.log("month2: ", month2);
-
-          const percentageChange = ((month2 - month1) / month1) * 100;
-          const perChangeDisplay = percentageChange.toFixed(2) + "%";
-
-          console.log("percentageChange: ", percentageChange);
-
-          // Start circle
-          const startPoint = regressionGenerator(cityData)[0];
-          const startCircle = {
-            cx: xScale(startPoint[0]),
-            cy: yScale(startPoint[1]),
-            radius: 6,
-            fill: "red",
-            stroke: "red",
-            "stroke-width": 2,
+          // ===== CIRCLES FOR START AND END POINTS =====
+          // 2024 line circles (red)
+          const startCircle2024 = {
+            cx: xScale(regressionData2024[0][0]),
+            cy: yScale(regressionData2024[0][1]),
+          };
+          const endCircle2024 = {
+            cx: xScale(regressionData2024[regressionData2024.length - 1][0]),
+            cy: yScale(regressionData2024[regressionData2024.length - 1][1]),
           };
 
-          console.log("cityData length:", cityData.length);
-
-          // End circle
-          const endPoint = regressionData[regressionData.length - 1];
-          const endCircle = {
-            cx: xScale(endPoint[0]),
-            cy: yScale(endPoint[1]),
-            radius: 6,
-            fill: "red",
-            stroke: "#6aa687",
-            "stroke-width": 2,
+          // 2025 line circles (orange) - using normalized dates
+          const startCircle2025 = {
+            cx: xScale(regressionData2025Normalized[0][0]),
+            cy: yScale(regressionData2025Normalized[0][1]),
+          };
+          const endCircle2025 = {
+            cx: xScale(
+              regressionData2025Normalized[
+                regressionData2025Normalized.length - 1
+              ][0],
+            ),
+            cy: yScale(
+              regressionData2025Normalized[
+                regressionData2025Normalized.length - 1
+              ][1],
+            ),
           };
 
-          const meanLine = yScale(month1);
+          // ===== BASELINE (Sept 2023 average) =====
+          const meanLine = yScale(sept2023avg);
 
           return {
             city: city,
-            regressionLine: regressionLine,
+            regressionLine2024: regressionLine2024,
+            regressionLine2025: regressionLine2025,
+            startCircle2024: startCircle2024,
+            endCircle2024: endCircle2024,
+            startCircle2025: startCircle2025,
+            endCircle2025: endCircle2025,
             meanLine: meanLine,
-            startCircle: startCircle,
-            endCircle: endCircle,
-            perChangeDisplay: perChangeDisplay,
-            percentageChange: percentageChange,
+            percentageChange2025vs2023: percentageChange2025vs2023,
+            percentageChange2025vs2024: percentageChange2025vs2024,
+            perChange2025Display: percentageChange2025vs2023.toFixed(2) + "%",
+            perChange2024Display: percentageChange2025vs2024.toFixed(2) + "%",
           };
         }
       }
-      // });
     })
     .filter((value) => value !== undefined);
 
-  console.log("thecities: ", thecities);
-
-  // Sort charts based on percentageChange descending order
+  // Sort by 2025 vs 2024 change (greatest positive change first)
   $: sortedCharts = charts
     .slice()
-    .sort((a, b) => b.percentageChange - a.percentageChange);
+    .sort(
+      (a, b) => b.percentageChange2025vs2024 - a.percentageChange2025vs2024,
+    );
 </script>
 
 <Header />
@@ -238,20 +289,23 @@
       <i>Updated {selection.update_date}</i>
     </p>
     <p>
-      Data on cell phone activity (a.k.a. footfall) trends for the last year
-      provide a picture of how Canadian downtowns are faring. We look here at
-      year-over-year ({selection.year2} vs.
-      {selection.year1}) trends.
+      Data on cell phone activity (a.k.a. footfall) trends for the last two
+      years provide a picture of how Canadian downtowns are faring. We look here
+      at year-over-year trends comparing September {selection.year3} vs. {selection.year2}
+      and September {selection.year2} vs. {selection.year1}.
     </p>
     <p>
-      The solid line represents the number of daily unique visitors in the
-      downtown area. The dotted line provides a baseline of the average level of
-      activity in {selection.monthName}
-      {selection.year1}, allowing for comparison to subsequent months. When the
-      solid line extends above the dotted baseline, downtown activity is greater
-      compared to in {selection.monthName}
-      {selection.year1}. When it dips below the dotted line, activity is on a
-      downswing.
+      The solid lines represent the number of daily unique visitors in the
+      downtown area, both displayed on the same September-to-September timeline
+      for direct comparison. The red line shows the {selection.year2} period (Sept
+      {selection.year1} to Sept {selection.year2}) and the orange line shows the {selection.year3}
+      period (Sept {selection.year2} to Sept {selection.year3}), with the {selection.year3}
+      data shifted back one year to align with the same months as {selection.year2}.
+      The dotted line provides a baseline of the average level of activity in
+      September {selection.year1}, allowing for comparison to subsequent years.
+      When the solid lines extend above the dotted baseline, downtown activity
+      is greater compared to September {selection.year1}. When they dip below
+      the dotted line, activity is on a downswing.
     </p>
     <!-- <h5>
 			Key Findings:
@@ -274,9 +328,7 @@
     </p>
 
     <h4>
-      Visits to Downtown ({selection.monthName}
-      {selection.day1_num}, {selection.year1} to {selection.monthName}
-      {selection.day2_num}, {selection.year2})
+      Visits to Downtown (September {selection.year1} to September {selection.year3})
     </h4>
 
     <div
@@ -300,16 +352,16 @@
 
       <div style="display: flex; align-items: center; gap: 8px;">
         <svg height="10" width="50">
-          <line x1="0" y1="5" x2="50" y2="5" stroke="red" stroke-width="1" />
+          <line x1="0" y1="5" x2="50" y2="5" stroke="red" stroke-width="2" />
         </svg>
-        {selection.year2}
+        {selection.year1} to {selection.year2}
       </div>
 
       <div style="display: flex; align-items: center; gap: 8px;">
         <svg height="10" width="50">
-          <line x1="0" y1="5" x2="50" y2="5" stroke="orange" stroke-width="1" />
+          <line x1="0" y1="5" x2="50" y2="5" stroke="orange" stroke-width="2" />
         </svg>
-        {selection.year3}
+        {selection.year2} to {selection.year3}
       </div>
     </div>
   </div>
@@ -325,18 +377,8 @@
           >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year2},
         </text>
 
-        <!-- line here in between the two percentages -->
-        <!-- <line
-          x1="170"
-          y1="32"
-          x2="170"
-          y2="100"
-          stroke="white"
-          stroke-width="1"
-          stroke-dasharray="3,3"
-        /> -->
-        <text x="235" y="55" class="textLabel"
-          >{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text
+        <text x="235" y="55" class="textLabelSmall"
+          >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year1}</text
         >
 
         <line
@@ -379,7 +421,7 @@
     </div>
   </div>
 
-  {#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange }, i}
+  {#each sortedCharts as { city, regressionLine2024, regressionLine2025, startCircle2024, endCircle2024, startCircle2025, endCircle2025, meanLine, perChange2024Display, perChange2025Display, percentageChange2025vs2024 }, i}
     <div class="chart-wrapper" bind:clientWidth={width}>
       <div class="left">
         <svg width="150" height={chartHeight} class="region-bar">
@@ -387,7 +429,7 @@
             x1="5"
             y1="15"
             x2="5"
-            y2={chartHeight - 15}
+            y2={chartHeight - 45}
             stroke="#fff"
             stroke-width="5"
           />
@@ -397,17 +439,16 @@
       </div>
 
       <div class="arrow">
-        {#if percentageChange > 0}
+        {#if percentageChange2025vs2024 > 0}
           <img src={upArrow} alt="Up arrow" class="arrow-icon" />
-        {:else if percentageChange < 0}
+        {:else if percentageChange2025vs2024 < 0}
           <img src={downArrow} alt="Down arrow" class="arrow-icon" />
         {/if}
       </div>
 
       <div class="number">
-        <svg width="55" height={chartHeight} class="region-bar">
-          <text x="55" y="45" class="textPercent">{perChangeDisplay}</text>
-        </svg>
+        <span class="percent-main">{perChange2024Display},</span>
+        <span class="percent-secondary">{perChange2025Display}</span>
       </div>
 
       <div class="chart-container" style="width: {chartWidth};">
@@ -423,9 +464,7 @@
             />
           {/each}
 
-          <!-- Top line -->
-          <!-- <line x1="0" y1="0" x2={chartWidth} y2="0" stroke="gray" stroke-width="1"/>  -->
-          <!-- Middle line -->
+          <!-- Baseline -->
           <line
             x1="0"
             y1={meanLine}
@@ -435,24 +474,57 @@
             stroke-width="1"
             stroke-dasharray="4"
           />
-          <!-- Bottom line -->
-          <!-- <line x1="0" y1={chartHeight} x2={chartWidth} y2={chartHeight} stroke="gray" stroke-width="1"/> -->
-          <!-- <path d={regressionLine} stroke={getRegionColor(city)} stroke-width="2" fill="none"/> -->
+
+          <!-- 2024 regression line (red) -->
           <path
-            d={regressionLine}
-            stroke="white"
+            d={regressionLine2024}
+            stroke="red"
             stroke-width="2"
             fill="none"
           />
-          <!-- First point -->
-          <circle cx={startCircle.cx} cy={startCircle.cy} r="2" fill="white" />
-          <!-- Last point -->
+
+          <!-- 2025 regression line (orange) -->
+          <path
+            d={regressionLine2025}
+            stroke="orange"
+            stroke-width="2"
+            fill="none"
+          />
+
+          <!-- Start and end circles for 2024 line -->
           <circle
-            cx={endCircle.cx}
-            cy={endCircle.cy}
-            r="2"
-            fill="white"
-            stroke="white"
+            cx={startCircle2024.cx}
+            cy={startCircle2024.cy}
+            r="1"
+            fill="red"
+            stroke="red"
+            stroke-width="2"
+          />
+          <circle
+            cx={endCircle2024.cx}
+            cy={endCircle2024.cy}
+            r="1"
+            fill="red"
+            stroke="red"
+            stroke-width="2"
+          />
+
+          <!-- Start and end circles for 2025 line -->
+          <circle
+            cx={startCircle2025.cx}
+            cy={startCircle2025.cy}
+            r="1"
+            fill="orange"
+            stroke="orange"
+            stroke-width="2"
+          />
+          <circle
+            cx={endCircle2025.cx}
+            cy={endCircle2025.cy}
+            r="1"
+            fill="orange"
+            stroke="orange"
+            stroke-width="2"
           />
         </svg>
       </div>
@@ -509,6 +581,13 @@
     fill: var(--brandWhite);
   }
 
+  .textLabelSmall {
+    font-family: Roboto;
+    font-size: 13px;
+    text-anchor: end;
+    fill: var(--brandWhite);
+  }
+
   .textMonth {
     font-family: Roboto;
     font-size: 14px;
@@ -532,31 +611,49 @@
     /* background-color: var(--brandMedBlue); */
   }
   .chart {
-    margin-left: 20px;
+    margin-left: 10px; /* tighter to match header composite offset */
   }
 
   .number {
-    width: 50px;
+    width: 65px;
     margin-top: -12px;
+    margin-right: 0px;
+    margin-left: 12px; /* keeps alignment with header labels */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
     /* background-color: var(--brandDarkBlue); */
   }
-  .textPercent {
+  .percent-main {
     font-family: Roboto;
     font-size: 16px;
-    text-anchor: end;
-    fill: var(--brandWhite);
+    color: var(--brandWhite);
+    line-height: 1.2;
+    margin-right: 15px;
+  }
+  .percent-secondary {
+    font-family: Roboto;
+    font-size: 13px;
+    color: var(--brandWhite);
+    line-height: 1.2;
+    margin-right: 15px;
   }
 
   .arrow {
-    margin: auto 0;
-    width: 40px;
+    margin: auto 4px auto -13px; /* keep a little overlap without affecting layout */
+    width: 32px;
     height: 40px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    /* background-color: var(--brandDarkGreen); */
+    transform: translateX(-8px); /* additional left shift */
+    flex-shrink: 0;
   }
   .arrow-icon {
     margin: auto 0;
-    width: 40px;
+    width: 40px; /* slightly smaller to fit better */
     height: 40px;
     align-items: center;
   }
