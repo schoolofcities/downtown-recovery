@@ -39,6 +39,33 @@
     HOME: "#4ECDC4", // teal
     NEITHER: "#FFE66D", // yellow
   };
+  const activityLabels = {
+    WORK: "Work",
+    HOME: "Home",
+    NEITHER: "Visitor",
+  };
+
+  // Activity selection state (all selected by default)
+  let selectedActivities = [...activityTypes];
+
+  // Comparison mode toggle for activity view
+  let activityCompareMode = "2025vs2023"; // "2025vs2023" or "2025vs2024"
+
+  function toggleActivity(activity) {
+    if (selectedActivities.includes(activity)) {
+      selectedActivities = selectedActivities.filter((a) => a !== activity);
+    } else {
+      selectedActivities = [...selectedActivities, activity];
+    }
+  }
+
+  function selectAllActivities() {
+    selectedActivities = [...activityTypes];
+  }
+
+  function clearAllActivities() {
+    selectedActivities = [];
+  }
 
   let data = []; // aggregated data for overall view
   let activityData = []; // activity-level data for breakdown view
@@ -567,12 +594,53 @@
               .x((d) => getXPosition(d[0], 2025))
               .y((d) => yScale(d[1]));
 
+            // Calculate start and end circles for each year
+            const startCircle2023 = {
+              cx: getXPosition(res.regression2023[0][0], 2023),
+              cy: yScale(res.regression2023[0][1]),
+            };
+            const endCircle2023 = {
+              cx: getXPosition(
+                res.regression2023[res.regression2023.length - 1][0],
+                2023,
+              ),
+              cy: yScale(res.regression2023[res.regression2023.length - 1][1]),
+            };
+            const startCircle2024 = {
+              cx: getXPosition(res.regression2024[0][0], 2024),
+              cy: yScale(res.regression2024[0][1]),
+            };
+            const endCircle2024 = {
+              cx: getXPosition(
+                res.regression2024[res.regression2024.length - 1][0],
+                2024,
+              ),
+              cy: yScale(res.regression2024[res.regression2024.length - 1][1]),
+            };
+            const startCircle2025 = {
+              cx: getXPosition(res.regression2025[0][0], 2025),
+              cy: yScale(res.regression2025[0][1]),
+            };
+            const endCircle2025 = {
+              cx: getXPosition(
+                res.regression2025[res.regression2025.length - 1][0],
+                2025,
+              ),
+              cy: yScale(res.regression2025[res.regression2025.length - 1][1]),
+            };
+
             activityLines[activity] = {
               line2023: lineGen2023(res.regression2023),
               line2024: lineGen2024(res.regression2024),
               line2025: lineGen2025(res.regression2025),
               percentChange2025vs2023: res.percentChange2025vs2023,
               percentChange2025vs2024: res.percentChange2025vs2024,
+              startCircle2023,
+              endCircle2023,
+              startCircle2024,
+              endCircle2024,
+              startCircle2025,
+              endCircle2025,
             };
           }
 
@@ -582,9 +650,17 @@
             (a) => activityResults[a].percentChange2025vs2023,
           );
 
+          // Calculate baseline (average of all activities in 2023)
+          const overallAvg2023 = mean(
+            activityTypes,
+            (a) => activityResults[a].avg2023,
+          );
+          const meanLine = yScale(overallAvg2023);
+
           return {
             city,
             activityLines,
+            meanLine,
             percentageChange2025vs2023: avgPercentChange2025vs2023,
           };
         }
@@ -596,18 +672,37 @@
   $: charts = viewMode === "overall" ? overallCharts : activityCharts;
 
   // Sort by 2025 vs 2023 change (greatest positive change first)
-  $: sortedCharts = charts
-    .slice()
-    .sort(
-      (a, b) => b.percentageChange2025vs2023 - a.percentageChange2025vs2023,
-    );
+  // For breakdown view, maintain the same order as overall view
+  $: sortedCharts =
+    viewMode === "overall"
+      ? charts
+          .slice()
+          .sort(
+            (a, b) =>
+              b.percentageChange2025vs2023 - a.percentageChange2025vs2023,
+          )
+      : (() => {
+          const overallOrder = overallCharts
+            .slice()
+            .sort(
+              (a, b) =>
+                b.percentageChange2025vs2023 - a.percentageChange2025vs2023,
+            )
+            .map((c) => c.city);
+          return activityCharts
+            .slice()
+            .sort(
+              (a, b) =>
+                overallOrder.indexOf(a.city) - overallOrder.indexOf(b.city),
+            );
+        })();
 </script>
 
 <Header />
 
 <main>
   <div class="text">
-    <h1>Canada Recovery Trends</h1>
+    <h1>US Recovery Trends</h1>
     <p>
       By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/"
         >Karen Chapple</a
@@ -625,22 +720,22 @@
     </p>
     <p>
       Data on cell phone activity (a.k.a. footfall) trends for the last two
-      years provide a picture of how Canadian downtowns are faring. We look here
-      at year-over-year trends comparing September {selection.year3} vs. {selection.year2}
+      years provide a picture of how US downtowns are faring. We look here at
+      year-over-year trends comparing September {selection.year3} vs. {selection.year2}
       vs. {selection.year1}.
     </p>
     <p>
-      The solid lines represent the number of daily unique visitors in the
-      downtown area, both displayed on the same September-to-September timeline
-      for direct comparison. The red line shows the Sept
+      The solid lines represent the number of daily unique stops in the downtown
+      area, both displayed on the same September-to-September timeline for
+      direct comparison. The red line shows the Sept
       {selection.year1} to Sept {selection.year2} period and the orange line shows
       the Sept
       {selection.year2} to Sept {selection.year3} period, with the {selection.year3}.
       The dotted line provides a baseline of the average level of activity in
-      September {selection.year1}, allowing for comparison to the following
-      years. When the solid lines extend above the dotted baseline, downtown
-      activity is greater compared to September {selection.year1}. When they dip
-      below the dotted line, activity is on a downswing.
+      {selection.year1}, allowing for comparison to the following years. When
+      the solid lines extend above the dotted baseline, downtown activity is
+      greater compared to {selection.year1} months. When they dip below the dotted
+      line, activity is on a downswing.
     </p>
     <!-- <h5>
 			Key Findings:
@@ -705,6 +800,24 @@
       >
         By Activity
       </button>
+
+      {#if viewMode === "breakdown"}
+        <span class="toggle-label" style="margin-left: 20px;">Compare:</span>
+        <button
+          class="toggle-btn"
+          class:active={activityCompareMode === "2025vs2023"}
+          on:click={() => (activityCompareMode = "2025vs2023")}
+        >
+          2025 vs 2023
+        </button>
+        <button
+          class="toggle-btn"
+          class:active={activityCompareMode === "2025vs2024"}
+          on:click={() => (activityCompareMode = "2025vs2024")}
+        >
+          2025 vs 2024
+        </button>
+      {/if}
     </div>
 
     <!-- Legend for Overall mode -->
@@ -756,9 +869,9 @@
         </div>
       </div>
     {:else}
-      <!-- Legend for Activity breakdown mode -->
+      <!-- Legend for Activity breakdown mode - selectable -->
       <div
-        style="display: flex; align-items: center; gap: 20px; padding: 10px 0; flex-wrap: wrap;"
+        style="display: flex; align-items: center; gap: 10px; padding: 10px 0; flex-wrap: wrap;"
       >
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg height="10" width="50">
@@ -767,40 +880,41 @@
               y1="5"
               x2="50"
               y2="5"
-              stroke={activityColors.WORK}
-              stroke-width="2"
+              stroke="white"
+              stroke-width="1"
+              stroke-dasharray="3"
             />
           </svg>
-          Work
+          {selection.year1} average
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <svg height="10" width="50">
-            <line
-              x1="0"
-              y1="5"
-              x2="50"
-              y2="5"
-              stroke={activityColors.HOME}
-              stroke-width="2"
-            />
-          </svg>
-          Home
-        </div>
+        {#each activityTypes as activity}
+          <button
+            class="activity-legend-btn"
+            class:active={selectedActivities.includes(activity)}
+            style="--activity-color: {activityColors[activity]};"
+            on:click={() => toggleActivity(activity)}
+          >
+            <svg height="10" width="30">
+              <line
+                x1="0"
+                y1="5"
+                x2="30"
+                y2="5"
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+            </svg>
+            {activityLabels[activity]}
+          </button>
+        {/each}
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <svg height="10" width="50">
-            <line
-              x1="0"
-              y1="5"
-              x2="50"
-              y2="5"
-              stroke={activityColors.NEITHER}
-              stroke-width="2"
-            />
-          </svg>
-          Visitor
-        </div>
+        <button class="filter-btn" on:click={selectAllActivities}>All</button>
+        <button class="filter-btn" on:click={clearAllActivities}>Clear</button>
+        <h2 class="textLabelTiny">
+          Note: Activity percentages do not add up to the overall percentage as
+          activities are weighted equally.
+        </h2>
       </div>
     {/if}
   </div>
@@ -821,25 +935,9 @@
         {:else}
           <text x="235" y="20" class="textLabel">% Change by Activity</text>
           <text x="235" y="38" class="textLabelSmall"
-            >{selection.year3} vs. {selection.year1}</text
-          >
-          <text
-            x="175"
-            y="52"
-            class="textActivityLabel"
-            fill={activityColors.WORK}>Work</text
-          >
-          <text
-            x="205"
-            y="52"
-            class="textActivityLabel"
-            fill={activityColors.HOME}>Home</text
-          >
-          <text
-            x="235"
-            y="52"
-            class="textActivityLabel"
-            fill={activityColors.NEITHER}>Visitor</text
+            >{activityCompareMode === "2025vs2023"
+              ? `${selection.year3} vs. ${selection.year1}`
+              : `${selection.year3} vs. ${selection.year2}`}</text
           >
         {/if}
 
@@ -928,19 +1026,21 @@
           <span class="percent-secondary">{chartData.perChange2024Display}</span
           >
         {:else}
-          <!-- Activity breakdown percentages -->
-          <div class="activity-percents">
-            {#each activityTypes as activity}
-              <span
-                class="activity-percent"
-                style="color: {activityColors[activity]}"
-              >
-                {chartData.activityLines[
-                  activity
-                ].percentChange2025vs2023.toFixed(1)}%
-              </span>
-            {/each}
-          </div>
+          <!-- Activity breakdown: show average percentage of selected activities based on compare mode -->
+          <span class="percent-main"
+            >{selectedActivities.length > 0
+              ? (
+                  selectedActivities.reduce(
+                    (sum, a) =>
+                      sum +
+                      (activityCompareMode === "2025vs2023"
+                        ? chartData.activityLines[a].percentChange2025vs2023
+                        : chartData.activityLines[a].percentChange2025vs2024),
+                    0,
+                  ) / selectedActivities.length
+                ).toFixed(1) + "%"
+              : "N/A"}</span
+          >
         {/if}
       </div>
 
@@ -1062,15 +1162,26 @@
               stroke-width="2"
             />
           {:else}
-            <!-- ACTIVITY BREAKDOWN VIEW: Activity-based lines -->
-            {#each activityTypes as activity}
+            <!-- ACTIVITY BREAKDOWN VIEW -->
+            <!-- Baseline (2023 average) -->
+            <line
+              x1="0"
+              y1={chartData.meanLine}
+              x2={chartWidth}
+              y2={chartData.meanLine}
+              stroke="#D0D1C9"
+              stroke-width="1"
+              stroke-dasharray="4"
+            />
+
+            <!-- Activity-based lines - only show selected activities -->
+            {#each selectedActivities as activity}
               <!-- 2023 line for this activity -->
               <path
                 d={chartData.activityLines[activity].line2023}
                 stroke={activityColors[activity]}
                 stroke-width="2"
                 fill="none"
-                opacity="0.5"
               />
               <!-- 2024 line for this activity -->
               <path
@@ -1078,7 +1189,6 @@
                 stroke={activityColors[activity]}
                 stroke-width="2"
                 fill="none"
-                opacity="0.7"
               />
               <!-- 2025 line for this activity -->
               <path
@@ -1086,6 +1196,60 @@
                 stroke={activityColors[activity]}
                 stroke-width="2"
                 fill="none"
+              />
+
+              <!-- Start and end circles for 2023 line -->
+              <circle
+                cx={chartData.activityLines[activity].startCircle2023.cx}
+                cy={chartData.activityLines[activity].startCircle2023.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+              <circle
+                cx={chartData.activityLines[activity].endCircle2023.cx}
+                cy={chartData.activityLines[activity].endCircle2023.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+
+              <!-- Start and end circles for 2024 line -->
+              <circle
+                cx={chartData.activityLines[activity].startCircle2024.cx}
+                cy={chartData.activityLines[activity].startCircle2024.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+              <circle
+                cx={chartData.activityLines[activity].endCircle2024.cx}
+                cy={chartData.activityLines[activity].endCircle2024.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+
+              <!-- Start and end circles for 2025 line -->
+              <circle
+                cx={chartData.activityLines[activity].startCircle2025.cx}
+                cy={chartData.activityLines[activity].startCircle2025.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
+              />
+              <circle
+                cx={chartData.activityLines[activity].endCircle2025.cx}
+                cy={chartData.activityLines[activity].endCircle2025.cy}
+                r="1"
+                fill={activityColors[activity]}
+                stroke={activityColors[activity]}
+                stroke-width="2"
               />
             {/each}
           {/if}
@@ -1105,15 +1269,15 @@
         href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a
       >
       curve. You can download the raw daily data shown to fit these curves
-      <a href="/trend_canada_sep1_2023_to_sep30_2025.csv">from this link</a>.
-      The data on the charts are based on the `normalized_distinct_clean`
-      column, which pertains to the number of unique daily visitors normalized
-      by the total number in the metro area. The trend-line and summary
-      statistics shown are calculated in JavaScript (code is on
+      <a href="/trend_sep_to_dec_2023_.csv">from this link</a>. The data on the
+      charts are based on the `normalized_distinct_clean` column, which pertains
+      to the number of unique daily visitors normalized by the total number in
+      the metro area. The trend-line and summary statistics shown are calculated
+      in JavaScript (code is on
       <a
         href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte"
         target="_blank">GitHub</a
-      >). Note: Quebec & Montreal data is limited to September 26, 2025.
+      >).
     </p>
 
     <br />
@@ -1151,11 +1315,11 @@
     fill: var(--brandWhite);
   }
 
-  .textActivityLabel {
+  .textLabelTiny {
     font-family: Roboto;
-    font-size: 11px;
-    font-weight: bold;
+    font-size: 10px;
     text-anchor: end;
+    fill: var(--brandWhite);
   }
 
   .textMonth {
@@ -1254,21 +1418,49 @@
     border-color: var(--brandLightBlue, #4a90d9);
   }
 
-  /* Activity percentage styles */
-  .activity-percents {
+  /* Activity legend button styles */
+  .activity-legend-btn {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0;
-    margin-right: 10px;
-    padding-top: 5px;
+    align-items: center;
+    gap: 6px;
+    font-family: Roboto;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    opacity: 0.4;
   }
 
-  .activity-percent {
+  .activity-legend-btn:hover {
+    background-color: #444;
+  }
+
+  .activity-legend-btn.active {
+    opacity: 1;
+    border-color: var(--activity-color);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Filter buttons (All/Clear) */
+  .filter-btn {
     font-family: Roboto;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 1.3;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid #666;
+    background-color: #444;
+    color: #ddd;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background-color: #555;
+    border-color: #888;
   }
 
   .arrow {
@@ -1278,7 +1470,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateX(-8px);
+    transform: translateX(8px);
     flex-shrink: 0;
   }
   .arrow-icon {
