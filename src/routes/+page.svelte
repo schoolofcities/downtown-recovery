@@ -2,6 +2,8 @@
     import Header from "../lib/Header.svelte";
     import "../assets/global.css";
 
+
+    import cardDoomLoop from "../assets/card-img/card-img-doom-loop.png";
     import cardFlightToQuality from "../assets/card-img/card-flight-to-quality.png";
     import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
@@ -33,6 +35,25 @@
     </div>
 
     <div id="cards-wrapper">
+
+        <a href="/blog/doom-loop">
+            <div class="card">
+
+                <div class="card-img"> 
+                    <img src={cardDoomLoop}>
+                </div>
+
+                <h2>
+                    Want to Prevent a Doom Loop?
+                </h2>
+
+                <p>
+                    Maps and comparative local economic analysis of U.S. and Canadian cities.
+                </p>
+
+            </div>
+        </a>  
+
         <a href="/blog/flight-to-quality">
             <div class="card">
                 <div class="card-img">
