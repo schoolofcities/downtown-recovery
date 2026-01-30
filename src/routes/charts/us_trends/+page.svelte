@@ -13,14 +13,14 @@
   import { regressionLoess } from "d3-regression";
   import { min, max, mean } from "d3-array";
   import { cities } from "../../../lib/stores.js";
-  import maplibregl from "maplibre-gl";
+  //import maplibregl from "maplibre-gl";
 
   import upArrow from "../../../assets/green-arrow.svg";
   import downArrow from "../../../assets/red-arrow.svg";
 
   import "../../../assets/global.css";
-  import "maplibre-gl/dist/maplibre-gl.css";
-  import { xlink_attr } from "svelte/internal";
+  //import "maplibre-gl/dist/maplibre-gl.css";
+  //import { xlink_attr } from "svelte/internal";
 
   let selection = {
     monthNames: "September to December",
@@ -49,7 +49,7 @@
   let selectedActivities = [...activityTypes];
 
   // Comparison mode toggle for activity view
-  let activityCompareMode = "2025vs2023"; // "2025vs2023" or "2025vs2024"
+  let compareMode = "2025vs2023"; // "2025vs2023" or "2025vs2024"
 
   function toggleActivity(activity) {
     if (selectedActivities.includes(activity)) {
@@ -69,19 +69,7 @@
 
   let data = []; // aggregated data for overall view
   let activityData = []; // activity-level data for breakdown view
-  let cityCoords = []; // city coordinates for map
-  let mapContainer; // map container element
-  let map; // maplibre map instance
 
-  async function loadCityCoords() {
-    try {
-      const response = await fetch("/all_city_coords.csv");
-      const csvData = await response.text();
-      cityCoords = csvParse(csvData);
-    } catch (error) {
-      console.error("Error loading city coordinates:", error);
-    }
-  }
   async function loadData() {
     try {
       // Load aggregated data (one row per city/date with agg_norm_distinct)
@@ -109,113 +97,11 @@
 
   onMount(async () => {
     await loadData();
-    await loadCityCoords();
     loadActivityData();
     filteredCities = cities
       .filter((item) => item.region !== "Canada")
       .map((item) => item.city);
   });
-
-  // Initialize map when sortedCharts is ready
-  $: if (
-    sortedCharts.length > 0 &&
-    cityCoords.length > 0 &&
-    mapContainer &&
-    !map
-  ) {
-    initMap();
-  }
-
-  function initMap() {
-    map = new maplibregl.Map({
-      container: mapContainer,
-      style: {
-        version: 8,
-        sources: {
-          "carto-dark": {
-            type: "raster",
-            tiles: [
-              "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-              "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-              "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-            ],
-            tileSize: 256,
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-          },
-        },
-        layers: [
-          {
-            id: "carto-dark-layer",
-            type: "raster",
-            source: "carto-dark",
-            minzoom: 0,
-            maxzoom: 19,
-          },
-        ],
-      },
-      center: [-98, 39], // Center of US
-      zoom: 3.5,
-    });
-
-    map.on("load", () => {
-      addCityMarkers();
-    });
-  }
-
-  function addCityMarkers() {
-    // Find min/max percent change for color scale
-    const changes = sortedCharts.map((c) => c.percentageChange2025vs2023);
-    const minChange = Math.min(...changes);
-    const maxChange = Math.max(...changes);
-
-    // Create symmetric scale around 0
-    const maxAbs = Math.max(Math.abs(minChange), Math.abs(maxChange));
-    const colorScale = scaleSequential(interpolateRdYlGn).domain([
-      -maxAbs,
-      maxAbs,
-    ]);
-
-    sortedCharts.forEach((chart) => {
-      // Find coordinates for this city
-      const coords = cityCoords.find((c) => c.city === chart.city);
-      if (!coords) return;
-
-      const lng = parseFloat(coords.long);
-      const lat = parseFloat(coords.lat);
-      const change = chart.percentageChange2025vs2023;
-      const color = colorScale(change);
-
-      // Create marker element
-      const el = document.createElement("div");
-      el.className = "city-marker";
-      el.style.backgroundColor = color;
-      el.style.width = "24px";
-      el.style.height = "24px";
-      el.style.borderRadius = "50%";
-      el.style.border = "2px solid white";
-      el.style.cursor = "pointer";
-      el.style.display = "flex";
-      el.style.alignItems = "center";
-      el.style.justifyContent = "center";
-      el.style.fontSize = "10px";
-      el.style.fontWeight = "bold";
-      el.style.color = change > 30 ? "#000" : "#fff";
-
-      // Create popup
-      const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
-        `<div style="color: #333; font-family: Roboto;">
-          <strong>${chart.city}</strong><br/>
-          2025 vs 2023: <span style="color: ${change >= 0 ? "green" : "red"}; font-weight: bold;">${change >= 0 ? "+" : ""}${change.toFixed(1)}%</span>
-        </div>`,
-      );
-
-      new maplibregl.Marker({ element: el })
-        .setLngLat([lng, lat])
-        .setPopup(popup)
-        .addTo(map);
-    });
-  }
 
   let chartWidth = 500;
   const chartHeight = 80;
@@ -649,6 +535,10 @@
             activityTypes,
             (a) => activityResults[a].percentChange2025vs2023,
           );
+          const avgPercentChange2025vs2024 = mean(
+            activityTypes,
+            (a) => activityResults[a].percentChange2025vs2024,
+          );
 
           // Calculate baseline (average of all activities in 2023)
           const overallAvg2023 = mean(
@@ -662,6 +552,9 @@
             activityLines,
             meanLine,
             percentageChange2025vs2023: avgPercentChange2025vs2023,
+            percentageChange2025vs2024: avgPercentChange2025vs2024,
+            perChange2025Display: avgPercentChange2025vs2023.toFixed(1) + "%",
+            perChange2024Display: avgPercentChange2025vs2024.toFixed(1) + "%",
           };
         }
       }
@@ -671,31 +564,18 @@
   // Choose which charts to display based on viewMode
   $: charts = viewMode === "overall" ? overallCharts : activityCharts;
 
-  // Sort by 2025 vs 2023 change (greatest positive change first)
-  // For breakdown view, maintain the same order as overall view
-  $: sortedCharts =
-    viewMode === "overall"
-      ? charts
-          .slice()
-          .sort(
-            (a, b) =>
-              b.percentageChange2025vs2023 - a.percentageChange2025vs2023,
-          )
-      : (() => {
-          const overallOrder = overallCharts
-            .slice()
-            .sort(
-              (a, b) =>
-                b.percentageChange2025vs2023 - a.percentageChange2025vs2023,
-            )
-            .map((c) => c.city);
-          return activityCharts
-            .slice()
-            .sort(
-              (a, b) =>
-                overallOrder.indexOf(a.city) - overallOrder.indexOf(b.city),
-            );
-        })();
+  // Sort by selected compare mode (greatest positive change first)
+  $: sortedCharts = charts.slice().sort((a, b) => {
+    const aChange =
+      compareMode === "2025vs2023"
+        ? a.percentageChange2025vs2023
+        : a.percentageChange2025vs2024;
+    const bChange =
+      compareMode === "2025vs2023"
+        ? b.percentageChange2025vs2023
+        : b.percentageChange2025vs2024;
+    return bChange - aChange;
+  });
 </script>
 
 <Header />
@@ -721,21 +601,24 @@
     <p>
       Data on cell phone activity (a.k.a. footfall) trends for the last two
       years provide a picture of how US downtowns are faring. We look here at
-      year-over-year trends comparing September {selection.year3} vs. {selection.year2}
+      year-over-year trends comparing September to December {selection.year3} vs.
+      {selection.year2}
       vs. {selection.year1}.
     </p>
     <p>
       The solid lines represent the number of daily unique stops in the downtown
-      area, both displayed on the same September-to-September timeline for
-      direct comparison. The red line shows the Sept
-      {selection.year1} to Sept {selection.year2} period and the orange line shows
-      the Sept
-      {selection.year2} to Sept {selection.year3} period, with the {selection.year3}.
-      The dotted line provides a baseline of the average level of activity in
+      area, split by the 3 years for comparison. The dotted line provides a
+      baseline of the average level of activity in
       {selection.year1}, allowing for comparison to the following years. When
       the solid lines extend above the dotted baseline, downtown activity is
       greater compared to {selection.year1} months. When they dip below the dotted
       line, activity is on a downswing.
+    </p>
+    <p>
+      There are 2 toggles at the top, one for view mode (Overall vs. By
+      Activity) and one for the percent change comparison. When by activity is
+      selected, you can also select which activity types to show/hide using the
+      buttons in the legend.
     </p>
     <!-- <h5>
 			Key Findings:
@@ -753,34 +636,14 @@
       Note: Trends are based on data from Spectus, but use different cell phone
       data providers from our rankings analysis. The trendlines measure the
       average level of activity over the course of the year, while the ranking
-      metric shows the percent difference in the average number of unique
-      visitors in {selection.year3} versus the same month in {selection.year2}.
+      metric shows the percent difference in the average number of unique stops
+      in {selection.year3} versus the same month in {selection.year2}.
     </p>
-
-    <h4>Map: 2025 vs 2023 Percent Change by City</h4>
-    <p>
-      Click on a city marker to see details. Green indicates positive change,
-      red indicates negative change.
-    </p>
-  </div>
-
-  <!-- Map container -->
-  <div class="map-wrapper">
-    <div bind:this={mapContainer} class="map-container"></div>
-    <div class="map-legend">
-      <div class="legend-title">% Change (2025 vs 2023)</div>
-      <div class="legend-gradient"></div>
-      <div class="legend-labels">
-        <span>−15%</span>
-        <span>0%</span>
-        <span>+50%</span>
-      </div>
-    </div>
   </div>
 
   <div class="text">
     <h4>
-      Visits to Downtown (September to December from {selection.year1} to {selection.year3})
+      Stops to Downtown (September to December from {selection.year1} to {selection.year3})
     </h4>
 
     <!-- View Mode Toggle -->
@@ -801,23 +664,21 @@
         By Activity
       </button>
 
-      {#if viewMode === "breakdown"}
-        <span class="toggle-label" style="margin-left: 20px;">Compare:</span>
-        <button
-          class="toggle-btn"
-          class:active={activityCompareMode === "2025vs2023"}
-          on:click={() => (activityCompareMode = "2025vs2023")}
-        >
-          2025 vs 2023
-        </button>
-        <button
-          class="toggle-btn"
-          class:active={activityCompareMode === "2025vs2024"}
-          on:click={() => (activityCompareMode = "2025vs2024")}
-        >
-          2025 vs 2024
-        </button>
-      {/if}
+      <span class="toggle-label" style="margin-left: 20px;">Compare:</span>
+      <button
+        class="toggle-btn"
+        class:active={compareMode === "2025vs2023"}
+        on:click={() => (compareMode = "2025vs2023")}
+      >
+        2025 vs 2023
+      </button>
+      <button
+        class="toggle-btn"
+        class:active={compareMode === "2025vs2024"}
+        on:click={() => (compareMode = "2025vs2024")}
+      >
+        2025 vs 2024
+      </button>
     </div>
 
     <!-- Legend for Overall mode -->
@@ -926,16 +787,15 @@
 
         {#if viewMode === "overall"}
           <text x="235" y="15" class="textLabel">Percent Change in Visits</text>
-          <text x="235" y="35" class="textLabel"
-            >{selection.year3} vs. {selection.year1}</text
+          <text x="235" y="38" class="textLabelSmall">
+            {compareMode === "2025vs2023"
+              ? `${selection.year3} vs. ${selection.year1}`
+              : `${selection.year3} vs. ${selection.year2}`}</text
           >
-          <text x="235" y="50" class="textLabelSmall"
-            >{selection.year3} vs. {selection.year2}
-          </text>
         {:else}
           <text x="235" y="20" class="textLabel">% Change by Activity</text>
           <text x="235" y="38" class="textLabelSmall"
-            >{activityCompareMode === "2025vs2023"
+            >{compareMode === "2025vs2023"
               ? `${selection.year3} vs. ${selection.year1}`
               : `${selection.year3} vs. ${selection.year2}`}</text
           >
@@ -1013,18 +873,26 @@
       </div>
 
       <div class="arrow">
-        {#if chartData.percentageChange2025vs2023 > 0}
+        {#if compareMode === "2025vs2023"}
+          {#if chartData.percentageChange2025vs2023 >= 0}
+            <img src={upArrow} alt="Up arrow" class="arrow-icon" />
+          {:else}
+            <img src={downArrow} alt="Down arrow" class="arrow-icon" />
+          {/if}
+        {:else if chartData.percentageChange2025vs2024 >= 0}
           <img src={upArrow} alt="Up arrow" class="arrow-icon" />
-        {:else if chartData.percentageChange2025vs2023 < 0}
+        {:else}
           <img src={downArrow} alt="Down arrow" class="arrow-icon" />
         {/if}
       </div>
 
       <div class="number">
         {#if viewMode === "overall"}
-          <span class="percent-main">{chartData.perChange2025Display},</span>
-          <span class="percent-secondary">{chartData.perChange2024Display}</span
-          >
+          <span class="percent-main">
+            {compareMode === "2025vs2023"
+              ? chartData.perChange2025Display
+              : chartData.perChange2024Display}
+          </span>
         {:else}
           <!-- Activity breakdown: show average percentage of selected activities based on compare mode -->
           <span class="percent-main"
@@ -1033,7 +901,7 @@
                   selectedActivities.reduce(
                     (sum, a) =>
                       sum +
-                      (activityCompareMode === "2025vs2023"
+                      (compareMode === "2025vs2023"
                         ? chartData.activityLines[a].percentChange2025vs2023
                         : chartData.activityLines[a].percentChange2025vs2024),
                     0,
@@ -1269,13 +1137,18 @@
         href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a
       >
       curve. You can download the raw daily data shown to fit these curves
-      <a href="/trend_sep_to_dec_2023_.csv">from this link</a>. The data on the
-      charts are based on the `normalized_distinct_clean` column, which pertains
-      to the number of unique daily visitors normalized by the total number in
-      the metro area. The trend-line and summary statistics shown are calculated
-      in JavaScript (code is on
+      <a href="/trend_sep_to_dec_2023_23_24_25_activity_deduped.csv"
+        >from this link for the activity page</a
+      >
+      and
+      <a href="/trend_sep_to_dec_agg_only.csv"
+        >from this link for the overall page</a
+      >. The data on the charts are based on the `normalized_distinct_clean`
+      column, which pertains to the number of unique daily visitors normalized
+      by the total number in the metro area. The trend-line and summary
+      statistics shown are calculated in JavaScript (code is on
       <a
-        href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte"
+        href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/us_trends/%2Bpage.svelte"
         target="_blank">GitHub</a
       >).
     </p>
@@ -1373,13 +1246,6 @@
     line-height: 1.2;
     margin-right: 15px;
     padding-top: 15px;
-  }
-  .percent-secondary {
-    font-family: Roboto;
-    font-size: 13px;
-    color: var(--brandWhite);
-    line-height: 1.2;
-    margin-right: 15px;
   }
 
   /* Toggle button styles */
@@ -1479,67 +1345,9 @@
     height: 40px;
     align-items: center;
   }
-  /* @media (max-width: 490px) {
-		.chart-wrapper {
-			flex-direction: column; 
-			align-items: center;
-		}
-		.chart-container {
-			margin-top: 0;
-		}
-	} */
 
   .text {
     border-bottom: none;
-  }
-
-  /* Map styles */
-  .map-wrapper {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 0 20px;
-    position: relative;
-  }
-
-  .map-container {
-    width: 100%;
-    height: 500px;
-    border-radius: 8px;
-    border: 1px solid #333;
-  }
-
-  .map-legend {
-    position: absolute;
-    bottom: 30px;
-    right: 40px;
-    background: rgba(30, 30, 30, 0.9);
-    padding: 10px 15px;
-    border-radius: 6px;
-    border: 1px solid #444;
-  }
-
-  .legend-title {
-    font-family: Roboto;
-    font-size: 12px;
-    color: #fff;
-    margin-bottom: 8px;
-    text-align: center;
-  }
-
-  .legend-gradient {
-    width: 150px;
-    height: 12px;
-    background: linear-gradient(to right, #6c0601, #db4126, #1a9850);
-    border-radius: 2px;
-  }
-
-  .legend-labels {
-    display: flex;
-    justify-content: space-between;
-    font-family: Roboto;
-    font-size: 10px;
-    color: #ccc;
-    margin-top: 4px;
   }
 
   :global(.maplibregl-popup-content) {
@@ -1553,14 +1361,4 @@
     font-size: 18px;
     padding: 5px 10px;
   }
-
-  /* h5 {
-		font-size: 18px;
-		text-align: right;
-		font-family: Roboto;
-		color: var(--brandGray);
-		padding-left: 0px;
-		padding-bottom: 40px;;
-		text-decoration: none;
-	} */
 </style>
