@@ -1,499 +1,818 @@
 <script>
-	import Header from "../../../lib/Header.svelte";
-	import SelectRegions from "../../../lib/SelectRegions.svelte";
-	import { onMount } from 'svelte';
-	import { csvParse } from 'd3-dsv';
-	import { scaleTime, scaleLinear, timeParse, line} from "d3";
-	import { regressionLoess } from "d3-regression";
-	import { min, max, mean} from 'd3-array';
+  import Header from "../../../lib/Header.svelte";
+  import SelectRegions from "../../../lib/SelectRegions.svelte";
+  import { onMount } from "svelte";
+  import { csvParse } from "d3-dsv";
+  import { scaleTime, scaleLinear, timeParse, line } from "d3";
+  import { regressionLoess } from "d3-regression";
+  import { min, max, mean } from "d3-array";
 
-	import { regions, selectedRegions, cities } from '../../../lib/stores.js';
-	const regionColours = $regions;
+  import { regions, selectedRegions, cities } from "../../../lib/stores.js";
+  const regionColours = $regions;
 
-	import upArrow from '../../../assets/green-arrow.svg';
-	import downArrow from '../../../assets/red-arrow.svg';
-	// import upArrow from '/src/assets/green-arrow-circle.svg';
-	// import downArrow from '/src/assets/red-arrow-circle.svg';
+  import upArrow from "../../../assets/green-arrow.svg";
+  import downArrow from "../../../assets/red-arrow.svg";
 
-	let selection = {
-		"monthName": "May",
-		"monthNumber": 5,
-		"year1": 2023,
-		"year2": 2024,
-		"day1": "2023-05-01",
-		"day2": "2024-05-28"
-	}
+  import "../../../assets/global.css";
+  import { xlink_attr } from "svelte/internal";
 
-	async function loadData() {
-		try {
-			const response = await fetch('/trends.csv');
-			const csvData = await response.text();
-			data = csvParse(csvData);
-			thecities = [...new Set(data.map(item => item.city))];
-		} catch (error) {
-			console.error('Error loading CSV data:', error);
-		}
-	}
+  let selection = {
+    monthName: "September",
+    monthNumber: 9,
+    year1: 2023,
+    year2: 2024,
+    year3: 2025,
+    day1: "2023-09-01",
+    day2: "2025-09-30",
+    update_date: "2025-12-29", // change this to whenever website is updated
+  };
 
-	let data = [];
+  // Toggle between Overall and Breakdown view
+  let viewMode = "overall"; // "overall" or "breakdown"
+  const activityTypes = ["WORK", "HOME", "NEITHER"];
+  const activityColors = {
+    WORK: "#FF6B6B", // red
+    HOME: "#4ECDC4", // teal
+    NEITHER: "#FFE66D", // yellow
+  };
 
-	onMount(() => {
-		loadData();
-		filteredCities = cities
-			.filter(item => $selectedRegions.includes(item.region))
-			.map(item => item.city);
-	});
+  async function loadData() {
+    try {
+      const response = await fetch("/SONmonths.csv");
+      const csvData = await response.text();
+      data = csvParse(csvData);
+      thecities = [...new Set(data.map((item) => item.city))];
+    } catch (error) {
+      console.error("Error loading CSV data:", error);
+    }
+  }
 
-	let width; 
+  let data = [];
 
-	let chartWidth = 500;
-	const chartHeight = 50;
+  onMount(() => {
+    loadData();
+    filteredCities = cities
+      .filter((item) => $selectedRegions.includes(item.region))
+      .map((item) => item.city);
+  });
 
-	const marginTop = 0;
-	const marginRight = 5;
-	const marginBottom = 0;
-	const marginLeft = 5;
+  let width;
 
-	const parseDate = timeParse("%Y-%m-%d");
+  let chartWidth = 500;
+  const chartHeight = 80;
 
-	let thecities = [];
-	let charts = []; // to hold chart data for each city
-	let sortedCharts = []; // to hold the sorted charts
+  const marginTop = 0;
+  const marginRight = 5;
+  const marginBottom = 0;
+  const marginLeft = 5;
 
+  const parseDate = timeParse("%m/%d/%Y");
 
-	$: filteredCities = cities
-		.filter(item => $selectedRegions.includes(item.region))
-		.map(item => item.city);
+  let thecities = [];
+  let charts = []; // to hold chart data for each city
+  let sortedCharts = []; // to hold the sorted charts
 
-	// function createCharts(data) {
+  $: filteredCities = cities
+    .filter((item) => $selectedRegions.includes(item.region))
+    .map((item) => item.city);
 
-	$: charts = thecities.map(city => {
+  // function createCharts(data) {
 
-			if (filteredCities.includes(city)) {
+  // Helper function to generate chart data for a specific activity filter
+  function generateChartForCity(city, activityFilter = null) {
+    // ===== FILTER DATA BY YEAR (and optionally by activity) =====
+    const filterByYearAndActivity = (item, year) => {
+      const date = parseDate(item.date);
+      const yearMatch =
+        date && date.getFullYear() === year && item.city === city;
+      if (activityFilter) {
+        return yearMatch && item.ACTIVITY === activityFilter;
+      }
+      return yearMatch;
+    };
 
-				const cityData = data.filter(
-					item => {
-						const date = new Date(item.date);
-						const day1 = new Date(selection.day1);
-						const day2 = new Date(selection.day2);
-						return item.city === city && date >= day1 && date <= day2
-					}
-				);
+    const cityData2023 = data.filter((item) =>
+      filterByYearAndActivity(item, 2023),
+    );
+    const cityData2024 = data.filter((item) =>
+      filterByYearAndActivity(item, 2024),
+    );
+    const cityData2025 = data.filter((item) =>
+      filterByYearAndActivity(item, 2025),
+    );
 
-				if (cityData.length > 0) {
+    if (
+      cityData2023.length < 3 ||
+      cityData2024.length < 3 ||
+      cityData2025.length < 3
+    ) {
+      return undefined;
+    }
 
-					console.log("cityData");
+    // ===== CALCULATE SEPTEMBER AVERAGES FOR 3 YEARS =====
+    const sept2023avg = mean(cityData2023, (d) =>
+      parseFloat(d.normalized_distinct_clean),
+    );
+    const sept2024avg = mean(cityData2024, (d) =>
+      parseFloat(d.normalized_distinct_clean),
+    );
+    const sept2025avg = mean(cityData2025, (d) =>
+      parseFloat(d.normalized_distinct_clean),
+    );
 
-					const normalizedDistinctCleanValues = cityData.map(item => parseFloat(item.normalized_distinct_clean));
+    // ===== CALCULATE PERCENTAGE CHANGES =====
+    const percentageChange2025vs2023 = sept2023avg
+      ? ((sept2025avg - sept2023avg) / sept2023avg) * 100
+      : 0;
+    const percentageChange2025vs2024 = sept2024avg
+      ? ((sept2025avg - sept2024avg) / sept2024avg) * 100
+      : 0;
 
-					// Filter data for first month for the current city
-					const month1data = data.filter(item => {
-						const date = new Date(item.date);
-						return date.getFullYear() === selection.year1 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
-					});
+    // ===== REGRESSION FOR EACH YEAR =====
+    const regressionGenerator = regressionLoess()
+      .x((d) => parseDate(d.date).getDate())
+      .y((d) => parseFloat(d.normalized_distinct_clean))
+      .bandwidth(0.3);
 
-					// Calculate mean for first month for the current city
-					const month1 = mean(month1data, d => parseFloat(d.normalized_distinct_clean));
-					
-					// Filter data for last month for the current city
-					const month2data = data.filter(item => {
-						const date = new Date(item.date);
-						return date.getFullYear() === selection.year2 && date.getMonth() === (selection.monthNumber - 1) && item.city === city;
-					});
+    const regression2023 = regressionGenerator(cityData2023);
+    const regression2024 = regressionGenerator(cityData2024);
+    const regression2025 = regressionGenerator(cityData2025);
 
-					// Calculate mean for last month for the current city
-					const month2 = mean(month2data, d => parseFloat(d.normalized_distinct_clean));
+    if (
+      !regression2023?.length ||
+      !regression2024?.length ||
+      !regression2025?.length
+    ) {
+      return undefined;
+    }
 
-					const regressionGenerator = regressionLoess()
-						.x((d) => parseDate(d.date))
-						.y((d) => parseFloat(d.normalized_distinct_clean))
-						.bandwidth(0.028);
+    // ===== SCALES =====
+    const allValues = [
+      ...regression2023.map((d) => d[1]),
+      ...regression2024.map((d) => d[1]),
+      ...regression2025.map((d) => d[1]),
+    ];
 
-					// Calculate min and max for the current city
-					const cityMin = Math.min(...regressionGenerator(cityData).map(subarray => subarray[1]), min(normalizedDistinctCleanValues));
-					const cityMax = Math.max(...regressionGenerator(cityData).map(subarray => subarray[1]), max(normalizedDistinctCleanValues));
-		
-					const xScale = scaleTime()
-						.domain([new Date(selection.day1), new Date(selection.day2)])
-						.range([marginLeft, chartWidth - marginRight]);
+    const cityMin = Math.min(...allValues);
+    const cityMax = Math.max(...allValues);
+    const yRange = cityMax - cityMin;
+    const yPadding = yRange * 0.5;
 
-					const yScale = scaleLinear()
-						.domain([cityMin, cityMax])
-						.range([chartHeight - marginBottom, marginTop]);
+    const yScale = scaleLinear()
+      .domain([cityMin - yPadding, cityMax + yPadding])
+      .range([chartHeight - marginBottom, marginTop]);
 
-					
-					const lineGenerator = line()
-						.x(d => xScale(d[0]))
-						.y(d => yScale(d[1]));
+    const yearWidth = chartWidth / 3;
+    const dayScale = scaleLinear()
+      .domain([1, 30])
+      .range([0, yearWidth - 10]);
 
-					const regressionLine = lineGenerator(regressionGenerator(cityData));
+    // ===== CREATE LINE PATHS FOR EACH YEAR =====
+    const lineGen2023 = line()
+      .x((d) => 5 + dayScale(d[0]))
+      .y((d) => yScale(d[1]));
+    const lineGen2024 = line()
+      .x((d) => yearWidth + 5 + dayScale(d[0]))
+      .y((d) => yScale(d[1]));
+    const lineGen2025 = line()
+      .x((d) => 2 * yearWidth + 5 + dayScale(d[0]))
+      .y((d) => yScale(d[1]));
 
-					if (city === "Quebec") {
-						console.log(cityData);
-						console.log(regressionGenerator(cityData));
-						console.log(cityMax);
-					}
+    const regressionLine2023 = lineGen2023(regression2023);
+    const regressionLine2024 = lineGen2024(regression2024);
+    const regressionLine2025 = lineGen2025(regression2025);
 
-					const percentageChange = (((month2 - month1) / month1)*100);
-					const perChangeDisplay = percentageChange.toFixed(1) + "%";
+    // ===== CIRCLES FOR START AND END POINTS =====
+    const startCircle2023 = {
+      cx: 5 + dayScale(regression2023[0][0]),
+      cy: yScale(regression2023[0][1]),
+    };
+    const endCircle2023 = {
+      cx: 5 + dayScale(regression2023[regression2023.length - 1][0]),
+      cy: yScale(regression2023[regression2023.length - 1][1]),
+    };
+    const startCircle2024 = {
+      cx: yearWidth + 5 + dayScale(regression2024[0][0]),
+      cy: yScale(regression2024[0][1]),
+    };
+    const endCircle2024 = {
+      cx:
+        yearWidth + 5 + dayScale(regression2024[regression2024.length - 1][0]),
+      cy: yScale(regression2024[regression2024.length - 1][1]),
+    };
+    const startCircle2025 = {
+      cx: 2 * yearWidth + 5 + dayScale(regression2025[0][0]),
+      cy: yScale(regression2025[0][1]),
+    };
+    const endCircle2025 = {
+      cx:
+        2 * yearWidth +
+        5 +
+        dayScale(regression2025[regression2025.length - 1][0]),
+      cy: yScale(regression2025[regression2025.length - 1][1]),
+    };
 
-					// Start circle
-					const startPoint = regressionGenerator(cityData)[0];
-					const startCircle = {
-						cx: xScale(startPoint[0]),
-						cy: yScale(startPoint[1]), 
-						radius: 6,
-						fill: "red",
-						stroke: "red",
-						"stroke-width": 2
-					};
+    const yearBreak2024 = yearWidth;
+    const yearBreak2025 = 2 * yearWidth;
+    const meanLine = sept2023avg ? yScale(sept2023avg) : chartHeight / 2;
 
-					// End circle
-					const endPoint = regressionGenerator(cityData)[393]; // total length = 367
-					const endCircle = {
-						cx: xScale(endPoint[0]),
-						cy: yScale(endPoint[1]),
-						radius: 6,
-						fill: "red",
-						stroke: "#6aa687",
-						"stroke-width": 2
-					};
+    return {
+      city,
+      activity: activityFilter,
+      isBreakdown: false,
+      regressionLine2023,
+      regressionLine2024,
+      regressionLine2025,
+      startCircle2023,
+      endCircle2023,
+      startCircle2024,
+      endCircle2024,
+      startCircle2025,
+      endCircle2025,
+      yearBreak2024,
+      yearBreak2025,
+      meanLine,
+      percentageChange2025vs2023,
+      percentageChange2025vs2024,
+      perChange2025Display: percentageChange2025vs2023.toFixed(2) + "%",
+      perChange2024Display: percentageChange2025vs2024.toFixed(2) + "%",
+    };
+  }
 
-					const meanLine = yScale(month1);
+  $: charts = thecities
+    .map((city) => {
+      if (filteredCities.includes(city)) {
+        if (viewMode === "overall") {
+          const chart = generateChartForCity(city, null);
+          return chart;
+        } else {
+          // Breakdown mode - generate chart for each activity type
+          const activityCharts = activityTypes
+            .map((activity) => generateChartForCity(city, activity))
+            .filter((c) => c !== undefined);
 
-					return {
-						city: city,
-						regressionLine: regressionLine,
-						meanLine: meanLine,
-						startCircle: startCircle,
-						endCircle: endCircle,
-						perChangeDisplay: perChangeDisplay,
-						percentageChange: percentageChange,
-					};
-				}
-			
-			}
-		// });
+          if (activityCharts.length === 0) return undefined;
 
-		
-	}).filter(value => value !== undefined);
+          // Get overall percentage change for consistent sorting with overall view
+          const overallChart = generateChartForCity(city, null);
 
-	// Sort charts based on percentageChange descending order
-	$: sortedCharts = charts.slice().sort((a,b) => b.percentageChange - a.percentageChange);
+          // Return a combined object with all activity data
+          return {
+            city,
+            isBreakdown: true,
+            activities: activityCharts,
+            // Use overall data for sorting (same as overall view)
+            percentageChange2025vs2024:
+              overallChart?.percentageChange2025vs2024 || 0,
+          };
+        }
+      }
+    })
+    .filter((value) => value !== undefined);
 
-	// Get the region colour for each city
-	function getRegionColor(city) {
-		const cityData = cities.filter(item => item.city === city);
-		if (cityData) {
-			const regionName = cityData[0].region;
-			const regionData = regionColours.find(region => region.name === regionName);
-			if (regionData) {
-				return regionData.colour;
-			}
-		}       
-		else {
-			return 'white'
-		};
-	}
+  // Sort by 2025 vs 2024 change (greatest positive change first)
+  $: sortedCharts = charts
+    .slice()
+    .sort(
+      (a, b) => b.percentageChange2025vs2024 - a.percentageChange2025vs2024,
+    );
 
-	// $: {
-	// 	createCharts(data);
-	// }
-	
+  // Get the region colour for each city
+  function getRegionColor(city) {
+    const cityData = cities.filter((item) => item.city === city);
+    if (cityData) {
+      const regionName = cityData[0].region;
+      const regionData = regionColours.find(
+        (region) => region.name === regionName,
+      );
+      if (regionData) {
+        return regionData.colour;
+      }
+    } else {
+      return "white";
+    }
+  }
+
+  // $: {
+  // 	createCharts(data);
+  // }
 </script>
-
-
-
-
 
 <Header />
 
 <main>
-	<div class="text">
+  <div class="text">
+    <h1>Recovery Trends</h1>
+    <p>
+      By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/"
+        >Karen Chapple</a
+      >,
+      <a href="https://www.urbandisplacement.org/team/julia-greenberg/"
+        >Julia Greenberg</a
+      >,
+      <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/"
+        >Jeff Allen</a
+      >, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>
+    </p>
+    <p>
+      <i>Updated {selection.update_date}</i>
+    </p>
+    <p>
+      Data on cell phone activity (a.k.a. footfall) trends provide a picture of
+      how downtowns are faring. We look here at year-over-year trends comparing {selection.monthName}
+      {selection.year3} vs. {selection.year2}
+      and {selection.monthName}
+      {selection.year3} vs. {selection.year1}.
+    </p>
+    <p>
+      The solid line represents the number of daily unique visitors in the
+      downtown area from September to November across 2023, 2024, and 2025. The
+      dotted line provides a baseline of the average level of activity in {selection.monthName}
+      2023, allowing for comparison to subsequent periods. When the solid line extends
+      above the dotted baseline, downtown activity is greater compared to {selection.monthName}
+      2023. When it dips below the dotted line, activity is on a downswing.
+    </p>
+    <h5>Key Findings:</h5>
+    <p>
+      Comparing {selection.monthName} 2024 to {selection.monthName} 2025:
+      <br />
 
-		<h1>
-			Recovery Trends
-		</h1>
-		<p>
-			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/">Karen Chapple</a>, <a href="https://www.urbandisplacement.org/team/julia-greenberg/">Julia Greenberg</a>, <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/">Jeff Allen</a>, <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a> 
-		</p>
-		<p>
-			<i>Updated {selection.day2}</i>
-		</p>
-		<p>
-			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
-		</p>
-		<p>
-			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
-		</p>
-		<h5>
-			Key Findings:
-		</h5>
-		<p>
-			Comparing {selection.monthName} 2023 to {selection.monthName} 2024:
-			<br>
-	
-			‣ <span class="bold">27</span> downtowns are in an upward trajectory, while <span class="bold">37</span> are trending downwards. 
-			<br>
-			‣ The median rate of change is <span class="bold">-3.1%</span>.
-		</p>
-		<p>
-			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
-		</p>
-		<p>
-			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
-		</p>
+      ‣ <span class="bold">32</span> downtowns are in an upward trajectory,
+      while <span class="bold">31</span> are trending downwards.
+      <br />
+      ‣ The median rate of change is <span class="bold">-0.63%</span>, the mean
+      is <span class="bold">-2.23%</span>.
+    </p>
+    <p>
+      In general, the downtowns that are seeing the highest rates of activity
+      increase are the downtowns where recovery was lagging in our <a
+        href="/charts/rankings">2023 rankings</a
+      >.
+    </p>
+    <p>
+      Note: Trends are based on data from Spectus, but use different cell phone
+      data providers from our rankings analysis. The trendlines measure the
+      average level of activity over the course of the year, while the ranking
+      metric shows the percent difference in the average number of unique
+      visitors in {selection.year3} versus the same month in {selection.year1}
+      & {selection.year3} versus {selection.year1}.
+    </p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
+    <h4>
+      Visits to Downtown ({selection.monthName}
+      {selection.year1}, {selection.year2}, {selection.year3})
+    </h4>
 
-		<p>
-			Select Regions:
-		</p>
+    <p>View Mode:</p>
+    <div class="toggle-container">
+      <button
+        class="toggle-btn"
+        class:active={viewMode === "overall"}
+        on:click={() => (viewMode = "overall")}
+      >
+        Overall
+      </button>
+      <button
+        class="toggle-btn"
+        class:active={viewMode === "breakdown"}
+        on:click={() => (viewMode = "breakdown")}
+      >
+        By Activity
+      </button>
+    </div>
 
-		<SelectRegions europe={"no"} canada={"yes"}/>
+    <p>Select Regions:</p>
 
-		<p style="padding-top: 10px; padding-bottom: 10px;">
-			<svg height="10" width="50">
-				<line x1="0" y1="5" x2="50" y2="5" stroke="white" stroke-width="1" stroke-dasharray="4"/>
-			</svg>
-			{selection.monthName} {selection.year1} average
-		</p>
+    <SelectRegions europe={"no"} canada={"yes"} />
 
+    <div
+      style="display: flex; align-items: center; gap: 20px; padding: 10px 0;"
+    >
+      {#if viewMode === "breakdown"}
+        <!-- Activity legend for breakdown view -->
+        <div style="display: flex; align-items: center; gap: 5px;">
+          <span
+            style="width: 12px; height: 12px; background: {activityColors.WORK}; border-radius: 2px;"
+          ></span>
+          <span style="font-size: 14px; color: white;">Work</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+          <span
+            style="width: 12px; height: 12px; background: {activityColors.HOME}; border-radius: 2px;"
+          ></span>
+          <span style="font-size: 14px; color: white;">Home</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 5px;">
+          <span
+            style="width: 12px; height: 12px; background: {activityColors.NEITHER}; border-radius: 2px;"
+          ></span>
+          <span style="font-size: 14px; color: white;">Neither</span>
+        </div>
+      {:else}
+        <!-- Overall view legend -->
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg height="10" width="50">
+            <line
+              x1="0"
+              y1="5"
+              x2="50"
+              y2="5"
+              stroke="white"
+              stroke-width="1"
+              stroke-dasharray="3"
+            />
+          </svg>
+          {selection.monthName}
+          {selection.year1} average
+        </div>
 
-	</div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg height="10" width="50">
+            <line
+              x1="0"
+              y1="5"
+              x2="50"
+              y2="5"
+              stroke="#4ECDC4"
+              stroke-width="2"
+            />
+          </svg>
+          {selection.monthName} trend
+        </div>
+      {/if}
 
-		<div class="chart-wrapper">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <svg height="10" width="30">
+          <line x1="0" y1="5" x2="30" y2="5" stroke="#666" stroke-width="1" />
+        </svg>
+        Year break
+      </div>
+    </div>
+  </div>
 
-			<div class="left">
+  <div class="chart-wrapper">
+    <div class="left">
+      <svg width="760" height={chartHeight} class="region-bar">
+        <text x="12" y="35" class="textCity">City</text>
 
-				<svg width="760" height="{chartHeight}" class="region-bar">
-					
-					<text
-						x="12"
-						y="35"
-						class="textCity"
-					>City</text>
+        <text x="235" y="15" class="textLabel">Percent Change in Visits</text>
 
-					<text
-						x="235"
-						y="15"
-						class="textLabel"
-					>Percent Change in Visits</text>
+        <text x="235" y="35" class="textLabel"
+          >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year2},
+        </text>
 
-					<text
-						x="235"
-						y="35"
-						class="textLabel"
-					>{selection.monthNumber}/{selection.year2} vs. {selection.monthNumber}/{selection.year1}</text>
+        <text x="235" y="55" class="textLabelSmall"
+          >{selection.monthNumber}/{selection.year3} vs. {selection.monthNumber}/{selection.year1}</text
+        >
 
-					<text
-						x="{260 + ((13 - selection.monthNumber) / 2) * chartWidth / 13}"
-						y="15"
-						class="textMonth"
-					>{selection.year1}</text>
+        <line
+          x1="260"
+          y1={45}
+          x2={260 + chartWidth}
+          y2={45}
+          stroke="white"
+          stroke-width="1"
+        />
 
-					<text
-						x="{260 + (((13 - selection.monthNumber)) * chartWidth / 13) + ((selection.monthNumber) / 2) * chartWidth / 13}"
-						y="15"
-						class="textMonth"
-					>{selection.year2}</text>
+        <!-- Year labels for 2023, 2024, 2025 -->
+        {#each [2023, 2024, 2025] as year, i}
+          <!-- Year section background label -->
+          <text
+            x={260 + (i * chartWidth) / 3 + chartWidth / 6}
+            y="40"
+            class="textMonth">{year}</text
+          >
 
-					<line x1="260" y1={45} x2={260 + chartWidth} y2={45} stroke="white" stroke-width="1" />
+          <!-- Year break lines (between years) -->
+          {#if i > 0}
+            <line
+              x1={260 + (i * chartWidth) / 3}
+              y1={5}
+              x2={260 + (i * chartWidth) / 3}
+              y2={50}
+              stroke="white"
+              stroke-width="1"
+            />
+          {/if}
+        {/each}
+      </svg>
+    </div>
+  </div>
 
-					{#each [5,6,7,8,9,10,11,12,1,2,3,4,5] as l, i}
-						<line x1={260 + i * chartWidth / 13} y1={45} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
+  {#each sortedCharts as chartData, i}
+    <div class="chart-wrapper" bind:clientWidth={width}>
+      <div class="left">
+        <svg width="150" height={chartHeight} class="region-bar">
+          <line
+            x1="5"
+            y1="15"
+            x2="5"
+            y2={chartHeight - 45}
+            stroke={getRegionColor(chartData.city)}
+            stroke-width="5"
+          />
 
-						{#if l === 1}
+          <text x="12" y="31" class="textCity">{i + 1}. {chartData.city}</text>
+        </svg>
+      </div>
 
-							<line x1={260 + i * chartWidth / 13} y1={5} x2={260 + i * chartWidth / 13} y2={40} stroke="white" stroke-width="1" />
+      {#if !chartData.isBreakdown}
+        <!-- OVERALL VIEW -->
+        <div class="arrow">
+          {#if chartData.percentageChange2025vs2024 > 0}
+            <img src={upArrow} alt="Up arrow" class="arrow-icon" />
+          {:else if chartData.percentageChange2025vs2024 < 0}
+            <img src={downArrow} alt="Down arrow" class="arrow-icon" />
+          {/if}
+        </div>
 
-						{/if}
+        <div class="number">
+          <span class="percent-main">{chartData.perChange2024Display},</span>
+          <span class="percent-secondary">{chartData.perChange2025Display}</span
+          >
+        </div>
 
-						<text
-							x="{260 + i * chartWidth / 13 + 0.5 * chartWidth / 13}"
-							y="40"
-							class="textMonth"
-						>{l}</text>
-					{/each}
+        <div class="chart-container" style="width: {chartWidth};">
+          <svg height={chartHeight} width={chartWidth} class="chart">
+            <!-- Year break lines -->
+            <line
+              x1={chartData.yearBreak2024}
+              y1={5}
+              x2={chartData.yearBreak2024}
+              y2={50}
+              stroke="#666666"
+              stroke-width="1"
+            />
+            <line
+              x1={chartData.yearBreak2025}
+              y1={5}
+              x2={chartData.yearBreak2025}
+              y2={50}
+              stroke="#666666"
+              stroke-width="1"
+            />
 
-					<line x1={259 + chartWidth} y1={45} x2={259 + chartWidth} y2={40} stroke="white" stroke-width="1" />
+            <!-- Baseline (Sept 2023 average) -->
+            <line
+              x1="0"
+              y1={chartData.meanLine}
+              x2={chartWidth}
+              y2={chartData.meanLine}
+              stroke="#D0D1C9"
+              stroke-width="1"
+              stroke-dasharray="4"
+            />
 
-				</svg>
-								
-			</div>
+            <!-- Regression lines -->
+            <path
+              d={chartData.regressionLine2023}
+              stroke="#4ECDC4"
+              stroke-width="2"
+              fill="none"
+            />
+            <path
+              d={chartData.regressionLine2024}
+              stroke="#4ECDC4"
+              stroke-width="2"
+              fill="none"
+            />
+            <path
+              d={chartData.regressionLine2025}
+              stroke="#4ECDC4"
+              stroke-width="2"
+              fill="none"
+            />
 
-		</div>
+            <!-- Start and end circles -->
+            <circle
+              cx={chartData.startCircle2023.cx}
+              cy={chartData.startCircle2023.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+            <circle
+              cx={chartData.endCircle2023.cx}
+              cy={chartData.endCircle2023.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+            <circle
+              cx={chartData.startCircle2024.cx}
+              cy={chartData.startCircle2024.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+            <circle
+              cx={chartData.endCircle2024.cx}
+              cy={chartData.endCircle2024.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+            <circle
+              cx={chartData.startCircle2025.cx}
+              cy={chartData.startCircle2025.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+            <circle
+              cx={chartData.endCircle2025.cx}
+              cy={chartData.endCircle2025.cy}
+              r="2"
+              fill="#4ECDC4"
+            />
+          </svg>
+        </div>
+      {:else}
+        <!-- BREAKDOWN VIEW -->
+        <div class="arrow">
+          <!-- No arrow in breakdown view -->
+        </div>
 
-		{#each sortedCharts as { city, regressionLine, startCircle, endCircle, meanLine, perChangeDisplay, percentageChange }, i}
-			<div class="chart-wrapper" bind:clientWidth={width}>
-				<div class="left">
-					<svg width="150" height="{chartHeight}" class="region-bar">
-						
-						<line x1="5" y1="15" x2="5" y2="{chartHeight - 15}" stroke={getRegionColor(city)} stroke-width= "5"/>
-						
-						<text
-							x="12"
-							y="31"
-							class="textCity"
-						>{i + 1}. {city}</text>
+        <div class="number breakdown-number">
+          {#each chartData.activities as act}
+            <span
+              class="percent-activity"
+              style="color: {activityColors[act.activity]};"
+            >
+              {act.activity}: {act.perChange2025Display}
+            </span>
+          {/each}
+        </div>
 
-					</svg>
-					
-					<!-- <div class="arrow-indicator">
-						{#if percentageChange > 0}
-							<img src={upArrow} alt="Up arrow" class="arrow-icon"/>
-						{:else if percentageChange < 0}
-							<img src={downArrow} alt="Down arrow" class="arrow-icon"/>
-						{/if}
-					</div>
-					<h5>{perChangeDisplay}</h5> -->
-				</div>
+        <div class="chart-container" style="width: {chartWidth};">
+          <svg height={chartHeight} width={chartWidth} class="chart">
+            <!-- Year break lines -->
+            <line
+              x1={chartData.activities[0].yearBreak2024}
+              y1={5}
+              x2={chartData.activities[0].yearBreak2024}
+              y2={50}
+              stroke="#666666"
+              stroke-width="1"
+            />
+            <line
+              x1={chartData.activities[0].yearBreak2025}
+              y1={5}
+              x2={chartData.activities[0].yearBreak2025}
+              y2={50}
+              stroke="#666666"
+              stroke-width="1"
+            />
 
-				<div class="arrow">
-					{#if percentageChange > 0}
-						<img src={upArrow} alt="Up arrow" class="arrow-icon"/>
-					{:else if percentageChange < 0}
-						<img src={downArrow} alt="Down arrow" class="arrow-icon"/>
-					{/if}
-				</div>
-				
-				<div class="number">
-					<svg width="50" height="{chartHeight}" class="region-bar">
-						<text
-							x="50"
-							y="45"
-							class="textPercent"
-						>{perChangeDisplay}</text>
-					
-					</svg>
-					<!-- <h5>{perChangeDisplay}</h5> -->
-				</div>
-				
-				<div class="chart-container" style="width: {chartWidth};">
-					<svg height={chartHeight} width={chartWidth} class="chart">
+            <!-- Regression lines for each activity -->
+            {#each chartData.activities as act}
+              <path
+                d={act.regressionLine2023}
+                stroke={activityColors[act.activity]}
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d={act.regressionLine2024}
+                stroke={activityColors[act.activity]}
+                stroke-width="2"
+                fill="none"
+              />
+              <path
+                d={act.regressionLine2025}
+                stroke={activityColors[act.activity]}
+                stroke-width="2"
+                fill="none"
+              />
+            {/each}
+          </svg>
+        </div>
+      {/if}
+    </div>
+  {/each}
 
-						{#each [1,2,3,4,5,6,7,8,9,10,11,12] as l, i}
-						
-						<line x1={l * chartWidth / 13} y1={5} x2={l * chartWidth / 13} y2={45} stroke="#333333" stroke-width="1" />
+  <div class="text">
+    <br />
+    <br />
 
-						{/each}
-						
-						<!-- Top line -->
-						<!-- <line x1="0" y1="0" x2={chartWidth} y2="0" stroke="gray" stroke-width="1"/>  -->
-						<!-- Middle line -->
-						<line x1="0" y1={meanLine} x2={chartWidth} y2={meanLine} stroke="#D0D1C9" stroke-width="1" stroke-dasharray="4"/>
-						<!-- Bottom line -->
-						<!-- <line x1="0" y1={chartHeight} x2={chartWidth} y2={chartHeight} stroke="gray" stroke-width="1"/> -->
-						<!-- <path d={regressionLine} stroke={getRegionColor(city)} stroke-width="2" fill="none"/> -->
-						<path d={regressionLine} stroke="white" stroke-width="2" fill="none"/>
-						<!-- First point -->
-						<circle cx={startCircle.cx} cy={startCircle.cy} r="2" fill="white"/>
-						<!-- Last point -->
-						<circle cx={endCircle.cx} cy={endCircle.cy} r="2" fill="white" stroke="white" />
+    <h4>More Information</h4>
 
-						
-					</svg>
-				</div>
+    <p>
+      The trend lines are fit from daily data via a <a
+        href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a
+      >
+      curve. You can download the raw daily data shown to fit these curves
+      <a href="/SONmonths.csv">from this link</a>. The data on the charts are
+      based on the `normalized_distinct_clean` column, which pertains to the
+      number of unique daily visitors normalized by the total number in the
+      metro area. The trend-line and summary statistics shown are calculated in
+      JavaScript (code is on
+      <a
+        href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte"
+        target="_blank">GitHub</a
+      >)
+    </p>
 
-				
-				
-			</div>
-		{/each}
+    <br />
 
-	<div class="text">
-
-		<br>
-		<br>
-		
-
-		<h4>
-			More Information
-		</h4>
-
-		<p>
-			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trends.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">GitHub</a>)
-			</p>
-
-		<br>
-
-		<br>
-
-	</div>
+    <br />
+  </div>
 </main>
 
 <style>
-	.chart-wrapper {
-		display: flex;
-		/* vertical-align: top; */
-		margin: 0 auto;
-		padding-left: 5px;
-		padding-right: 5px;
-		margin-bottom: 0px;
-		max-width: 760px;
-		height: 53px;
-		background-color: var(--brandGray90);
-		border-bottom: solid 1px var(--brandDarkBlue);
-	}
+  .chart-wrapper {
+    display: flex;
+    /* vertical-align: top; */
+    margin: 0 auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 0px;
+    max-width: 760px;
+    height: 53px;
+    background-color: var(--brandGray90);
+    border-bottom: solid 1px var(--brandDarkBlue);
+    padding-bottom: 6px;
+  }
 
-	.textLabel {
-		font-family: Roboto;
-		font-size: 15px;
-		text-anchor: end;
-		fill: var(--brandWhite);
-	}
+  .textLabel {
+    font-family: Roboto;
+    font-size: 15px;
+    text-anchor: end;
+    fill: var(--brandWhite);
+  }
 
-	.textMonth {
-		font-family: Roboto;
-		font-size: 14px;
-		text-anchor: middle;
-		fill: var(--brandWhite);
-	}
+  .textLabelSmall {
+    font-family: Roboto;
+    font-size: 13px;
+    text-anchor: end;
+    fill: var(--brandWhite);
+  }
 
-	.left {
-		width: 150px;
-		/* background-color: var(--brandPurple); */
-	}
-	.textCity {
-		font-family: Roboto;
-		font-size: 15px;
-		text-anchor: start;
-		fill: var(--brandWhite);
-	}
+  .textMonth {
+    font-family: Roboto;
+    font-size: 14px;
+    text-anchor: middle;
+    fill: var(--brandWhite);
+  }
 
-	.chart-container {
-		width: 400px;
-		/* background-color: var(--brandMedBlue); */
-	}
-	.chart {
-		margin-left:20px;
-	}
+  .left {
+    width: 150px;
+    /* background-color: var(--brandPurple); */
+  }
+  .textCity {
+    font-family: Roboto;
+    font-size: 15px;
+    text-anchor: start;
+    fill: var(--brandWhite);
+  }
 
-	.number {
-		width: 50px;
-		margin-top: -12px;
-		/* background-color: var(--brandDarkBlue); */
-	}
-	.textPercent {
-		font-family: Roboto;
-		font-size: 16px;
-		text-anchor: end;
-		fill: var(--brandWhite);
-	}
+  .chart-container {
+    width: 400px;
+    /* background-color: var(--brandMedBlue); */
+  }
+  .chart {
+    margin-left: 10px; /* tighter to match header composite offset */
+  }
 
-	.arrow {
-		margin: auto 0;
-		width: 40px;
-		height: 40px;
-		align-items: center;
-		/* background-color: var(--brandDarkGreen); */
-	}
-	.arrow-icon{
-		margin: auto 0;
-		width: 40px;
-		height: 40px;
-		align-items: center;
-	}
-	/* @media (max-width: 490px) {
+  .number {
+    width: 65px;
+    margin-top: -12px;
+    margin-right: 0px;
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+  }
+  .percent-main {
+    font-family: Roboto;
+    font-size: 16px;
+    color: var(--brandWhite);
+    line-height: 1.2;
+    margin-right: 15px;
+    padding-top: 15px;
+  }
+  .percent-secondary {
+    font-family: Roboto;
+    font-size: 13px;
+    color: var(--brandWhite);
+    line-height: 1.2;
+    margin-right: 15px;
+  }
+
+  .arrow {
+    margin: auto 4px auto -13px;
+    width: 32px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(7px);
+    flex-shrink: 0;
+  }
+  .arrow-icon {
+    margin: auto 0;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+  }
+  /* @media (max-width: 490px) {
 		.chart-wrapper {
 			flex-direction: column; 
 			align-items: center;
@@ -502,12 +821,56 @@
 			margin-top: 0;
 		}
 	} */
-	
-	.text {
-		border-bottom: none;
-	}
-	
-	/* h5 {
+
+  .text {
+    border-bottom: none;
+  }
+
+  /* Toggle button styles */
+  .toggle-container {
+    display: flex;
+    gap: 0;
+    margin-bottom: 15px;
+  }
+  .toggle-btn {
+    padding: 8px 20px;
+    font-family: Roboto;
+    font-size: 14px;
+    border: 1px solid var(--brandWhite);
+    background: transparent;
+    color: var(--brandWhite);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .toggle-btn:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+  .toggle-btn:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+  }
+  .toggle-btn.active {
+    background: var(--brandWhite);
+    color: var(--brandDarkBlue);
+  }
+  .toggle-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Breakdown view number styles */
+  .breakdown-number {
+    width: 90px;
+    gap: 1px;
+    padding-top: 5px;
+  }
+  .percent-activity {
+    font-family: Roboto;
+    font-size: 11px;
+    line-height: 1.1;
+    margin-right: 10px;
+  }
+
+  /* h5 {
 		font-size: 18px;
 		text-align: right;
 		font-family: Roboto;
