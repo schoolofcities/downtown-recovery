@@ -2,7 +2,6 @@
     import Header from "../lib/Header.svelte";
     import "../assets/global.css";
 
-
     import cardDoomLoop from "../assets/card-img/card-img-doom-loop.png";
     import cardFlightToQuality from "../assets/card-img/card-flight-to-quality.png";
     import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
@@ -35,24 +34,20 @@
     </div>
 
     <div id="cards-wrapper">
-
         <a href="/blog/doom-loop">
             <div class="card">
-
-                <div class="card-img"> 
-                    <img src={cardDoomLoop}>
+                <div class="card-img">
+                    <img src={cardDoomLoop} />
                 </div>
 
-                <h2>
-                    Want to Prevent a Doom Loop?
-                </h2>
+                <h2>Want to Prevent a Doom Loop?</h2>
 
                 <p>
-                    Maps and comparative local economic analysis of U.S. and Canadian cities.
+                    Maps and comparative local economic analysis of U.S. and
+                    Canadian cities.
                 </p>
-
             </div>
-        </a>  
+        </a>
 
         <a href="/blog/flight-to-quality">
             <div class="card">
@@ -108,8 +103,8 @@
                 <h2>U.S. Recovery Trends</h2>
 
                 <p>
-                    Charting downtown recovery across the U.S. from September,
-                    October, November, December 2023 to 2025.
+                    Charting downtown recovery across the U.S. from September to
+                    December 2023 to 2025.
                 </p>
             </div>
         </a>
@@ -146,15 +141,16 @@
 
         <a href="/charts/patterns">
             <div class="card">
-
-                <div class="card-img"> 
-                    <img src={cardImgPatterns}>
+                <div class="card-img">
+                    <img src={cardImgPatterns} />
                 </div>
 
                 <h2>Recovery Patterns</h2>
 
-                <p>Explore weekly activity levels during different phases of the pandemic for different cities.</p>
-
+                <p>
+                    Explore weekly activity levels during different phases of
+                    the pandemic for different cities.
+                </p>
             </div>
         </a>
 
