@@ -79,21 +79,6 @@
             </div>
         </a>
 
-        <a href="/charts/canada_trends">
-            <div class="card">
-                <div class="card-img">
-                    <img src={cardImgCanadaTrends} />
-                </div>
-
-                <h2>Canada Recovery Trends</h2>
-
-                <p>
-                    Charting downtown recovery across Canada from February, 2024
-                    through February, 2025
-                </p>
-            </div>
-        </a>
-
         <a href="/charts/us_trends">
             <div class="card">
                 <div class="card-img">
@@ -105,6 +90,21 @@
                 <p>
                     Charting downtown recovery across the U.S. from September to
                     December 2023 to 2025.
+                </p>
+            </div>
+        </a>
+
+        <a href="/charts/canada_trends">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgCanadaTrends} />
+                </div>
+
+                <h2>Canada Recovery Trends</h2>
+
+                <p>
+                    Charting downtown recovery across Canada from February, 2024
+                    through February, 2025
                 </p>
             </div>
         </a>
