@@ -609,7 +609,8 @@
       <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/"
         >Jeff Allen</a
       >,
-      <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>
+      <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>,
+      <a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/">Yihoi Jung</a>
     </p>
     <p>
       <i>Updated {selection.update_date}</i>
@@ -657,7 +658,6 @@
       ranking metric shows the percent difference in the average number of
       unique stops in {selection.year3} versus the same month in {selection.year2}.
     </p>
-    <br />
     <p>
       Note 2: Baltimore's data is cut off at 2023 due to data privacy
       restrictions <a
