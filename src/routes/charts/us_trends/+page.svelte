@@ -28,16 +28,16 @@
     year1: 2023,
     year2: 2024,
     year3: 2025,
-    update_date: "2026-01-06", // change this to whenever website is updated
+    update_date: "2026-01-30", // change this to whenever website is updated
   };
 
   // Toggle between Overall and Breakdown view
   let viewMode = "overall"; // "overall" or "breakdown"
   const activityTypes = ["WORK", "HOME", "NEITHER"];
   const activityColors = {
-    WORK: "#FF6B6B", // red
-    HOME: "#4ECDC4", // teal
-    NEITHER: "#FFE66D", // yellow
+    WORK: "var(--brandLightBlue)",
+    HOME: "var(--brandYellow)",
+    NEITHER: "var(--brandLightGreen)",
   };
   const activityLabels = {
     WORK: "Work",
@@ -106,9 +106,9 @@
   let chartWidth = 500;
   const chartHeight = 80;
 
-  const marginTop = 0;
+  const marginTop = 5;
   const marginRight = 5;
-  const marginBottom = 0;
+  const marginBottom = 10;
   const marginLeft = 5;
 
   const parseDate = timeParse("%m/%d/%Y");
@@ -568,14 +568,30 @@
   $: sortedCharts = charts.slice().sort((a, b) => {
     const aChange =
       compareMode === "2025vs2023"
-        ? a.percentageChange2025vs2023
-        : a.percentageChange2025vs2024;
+        ? (a.percentageChange2025vs2023 ?? 0)
+        : (a.percentageChange2025vs2024 ?? 0);
     const bChange =
       compareMode === "2025vs2023"
-        ? b.percentageChange2025vs2023
-        : b.percentageChange2025vs2024;
+        ? (b.percentageChange2025vs2023 ?? 0)
+        : (b.percentageChange2025vs2024 ?? 0);
     return bChange - aChange;
   });
+
+  // Calculate statistics for key findings
+  $: citiesRising2024 = overallCharts.filter(
+    (c) => c.percentageChange2025vs2024 > 0,
+  ).length;
+  $: totalCities = overallCharts.length;
+  $: mean2024Change = mean(
+    overallCharts.map((c) => c.percentageChange2025vs2024),
+  );
+
+  $: citiesRising2023 = overallCharts.filter(
+    (c) => c.percentageChange2025vs2023 > 0,
+  ).length;
+  $: mean2023Change = mean(
+    overallCharts.map((c) => c.percentageChange2025vs2023),
+  );
 </script>
 
 <Header />
@@ -615,29 +631,39 @@
       line, activity is on a downswing.
     </p>
     <p>
-      There are 2 toggles at the top, one for view mode (Overall vs. By
-      Activity) and one for the percent change comparison. When by activity is
-      selected, you can also select which activity types to show/hide using the
-      buttons in the legend.
+      There are 2 interactive toggle views at the top, one for view mode
+      (Overall vs. By Activity) and one for the percent change comparison. When
+      "By Activity" is selected, you can select which activity types to
+      show/hide using the buttons in the legend.
     </p>
-    <!-- <h5>
-			Key Findings:
-		</h5> -->
-    <!-- <p>
-			Comparing {selection.monthName} {selection.year1} to {selection.monthName} {selection.year2}:
-			<br>
-	
-			‣ <span class="bold">All 10</span> downtowns are in an upward trajectory.  -->
-    <!-- , while <span class="bold">???</span> are trending downwards.  -->
-    <!-- <br>
-			‣ The median rate of change is <span class="bold">???%</span>.
-		</p> -->
+    <h5>Key Findings:</h5>
     <p>
-      Note: Trends are based on data from Spectus, but use different cell phone
-      data providers from our rankings analysis. The trendlines measure the
-      average level of activity over the course of the year, while the ranking
-      metric shows the percent difference in the average number of unique stops
-      in {selection.year3} versus the same month in {selection.year2}.
+      ‣ <span class="bold">{citiesRising2024}</span> out of
+      <span class="bold">{totalCities}</span>
+      US cities rose in activity in 2025 compared to 2024, with a mean increase of
+      <span class="bold">{mean2024Change?.toFixed(1) ?? "..."}%</span>.
+      <br />
+      ‣ Compared to 2023, <span class="bold">{citiesRising2023}</span> out of
+      <span class="bold">{totalCities}</span>
+      cities saw increases, with a mean increase of
+      <span class="bold">{mean2023Change?.toFixed(1) ?? "..."}%</span>,
+      indicating that most downtowns are up from their {selection.year1}
+      activity levels.
+    </p>
+    <p>
+      Note 1: Trends are based on data from Spectus, but use different cell
+      phone data providers from our rankings analysis. The trendlines measure
+      the average level of activity over the course of the year, while the
+      ranking metric shows the percent difference in the average number of
+      unique stops in {selection.year3} versus the same month in {selection.year2}.
+    </p>
+    <br />
+    <p>
+      Note 2: Baltimore's data is cut off at 2023 due to data privacy
+      restrictions <a
+        href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf"
+        >as seen here</a
+      >.
     </p>
   </div>
 
@@ -703,14 +729,28 @@
 
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg height="10" width="50">
-            <line x1="0" y1="5" x2="50" y2="5" stroke="blue" stroke-width="2" />
+            <line
+              x1="0"
+              y1="5"
+              x2="50"
+              y2="5"
+              stroke="var(--brandPink)"
+              stroke-width="2"
+            />
           </svg>
           {selection.year1}
         </div>
 
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg height="10" width="50">
-            <line x1="0" y1="5" x2="50" y2="5" stroke="red" stroke-width="2" />
+            <line
+              x1="0"
+              y1="5"
+              x2="50"
+              y2="5"
+              stroke="var(--brandMedGreen)"
+              stroke-width="2"
+            />
           </svg>
           {selection.year2}
         </div>
@@ -722,7 +762,7 @@
               y1="5"
               x2="50"
               y2="5"
-              stroke="orange"
+              stroke="var(--brandRed)"
               stroke-width="2"
             />
           </svg>
@@ -955,7 +995,7 @@
             <!-- 2023 regression line (blue) -->
             <path
               d={chartData.regressionLine2023}
-              stroke="blue"
+              stroke="var(--brandPink)"
               stroke-width="2"
               fill="none"
             />
@@ -963,7 +1003,7 @@
             <!-- 2024 regression line (red) -->
             <path
               d={chartData.regressionLine2024}
-              stroke="red"
+              stroke="var(--brandMedGreen)"
               stroke-width="2"
               fill="none"
             />
@@ -971,7 +1011,7 @@
             <!-- 2025 regression line (orange) -->
             <path
               d={chartData.regressionLine2025}
-              stroke="orange"
+              stroke="var(--brandRed)"
               stroke-width="2"
               fill="none"
             />
@@ -981,16 +1021,16 @@
               cx={chartData.startCircle2023.cx}
               cy={chartData.startCircle2023.cy}
               r="1"
-              fill="blue"
-              stroke="blue"
+              fill="var(--brandPink)"
+              stroke="var(--brandPink)"
               stroke-width="2"
             />
             <circle
               cx={chartData.endCircle2023.cx}
               cy={chartData.endCircle2023.cy}
               r="1"
-              fill="blue"
-              stroke="blue"
+              fill="var(--brandPink)"
+              stroke="var(--brandPink)"
               stroke-width="2"
             />
 
@@ -999,16 +1039,16 @@
               cx={chartData.startCircle2024.cx}
               cy={chartData.startCircle2024.cy}
               r="1"
-              fill="red"
-              stroke="red"
+              fill="var(--brandMedGreen)"
+              stroke="var(--brandMedGreen)"
               stroke-width="2"
             />
             <circle
               cx={chartData.endCircle2024.cx}
               cy={chartData.endCircle2024.cy}
               r="1"
-              fill="red"
-              stroke="red"
+              fill="var(--brandMedGreen)"
+              stroke="var(--brandMedGreen)"
               stroke-width="2"
             />
 
@@ -1017,16 +1057,16 @@
               cx={chartData.startCircle2025.cx}
               cy={chartData.startCircle2025.cy}
               r="1"
-              fill="orange"
-              stroke="orange"
+              fill="var(--brandRed)"
+              stroke="var(--brandRed)"
               stroke-width="2"
             />
             <circle
               cx={chartData.endCircle2025.cx}
               cy={chartData.endCircle2025.cy}
               r="1"
-              fill="orange"
-              stroke="orange"
+              fill="var(--brandRed)"
+              stroke="var(--brandRed)"
               stroke-width="2"
             />
           {:else}
@@ -1266,9 +1306,9 @@
     font-family: Roboto;
     font-size: 14px;
     padding: 8px 16px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #ccc;
+    border: 1px solid var(--brandGray70);
+    background-color: var(--brandGray80);
+    color: var(--brandWhite);
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.2s ease;
@@ -1279,9 +1319,9 @@
   }
 
   .toggle-btn.active {
-    background-color: var(--brandLightBlue, #4a90d9);
+    background-color: var(--brandDarkBlue);
     color: white;
-    border-color: var(--brandLightBlue, #4a90d9);
+    border-color: var(--brandDarkBlue);
   }
 
   /* Activity legend button styles */
@@ -1292,9 +1332,9 @@
     font-family: Roboto;
     font-size: 14px;
     padding: 6px 12px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #ccc;
+    border: 1px solid var(--brandGray70);
+    background-color: var(--brandGray80);
+    color: var(--brandWhite);
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.2s ease;
@@ -1302,7 +1342,7 @@
   }
 
   .activity-legend-btn:hover {
-    background-color: #444;
+    background-color: var(--brandGray70);
   }
 
   .activity-legend-btn.active {
@@ -1316,17 +1356,17 @@
     font-family: Roboto;
     font-size: 12px;
     padding: 4px 10px;
-    border: 1px solid #666;
-    background-color: #444;
-    color: #ddd;
+    border: 1px solid var(--brandGray70);
+    background-color: var(--brandGray80);
+    color: var(--brandWhite);
     cursor: pointer;
     border-radius: 3px;
     transition: all 0.2s ease;
   }
 
   .filter-btn:hover {
-    background-color: #555;
-    border-color: #888;
+    background-color: var(--brandGray70);
+    border-color: var(--brandGray70);
   }
 
   .arrow {
@@ -1351,7 +1391,7 @@
   }
 
   :global(.maplibregl-popup-content) {
-    background: #fff;
+    background: var(--brandWhite);
     padding: 10px 15px;
     border-radius: 6px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
