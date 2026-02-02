@@ -45,12 +45,14 @@ h2 {
     font-family: TradeGothicBold;
     font-size: 24px;
     color: var(--brandWhite);
+    font-weight: normal;
     /* text-decoration: underline; */
 }
 
 h3 {
     font-family: TradeGothicBold;
     font-size: 27px;
+    font-weight: normal;
     color: var(--brandWhite);
     text-decoration: none;
     padding-bottom: 5px;

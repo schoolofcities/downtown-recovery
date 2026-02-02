@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="740"
+   height="560"
+   viewBox="0 0 195.79166 148.16667"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (1:1.4.2+202505120738+ebf0e940d0)"
+   sodipodi:docname="doom-loop-schematic.svg"
+   inkscape:export-filename="doom-loop-schematic.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="412.95035"
+     inkscape:cy="229.10259"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2"
+     showgrid="false">
+    <inkscape:grid
+       id="grid2"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2.6458333"
+       spacingy="2.6458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="ArrowWideHeavy"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Wide, heavy arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="m 1,0 -3,3 h -2 l 3,-3 -3,-3 h 2 z"
+         id="path3" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     sodipodi:insensitive="true">
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#939598;stroke-width:0.254;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect1"
+       width="195.79167"
+       height="147.88844"
+       x="0"
+       y="0" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#3d3846;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-08"
+       width="82.020836"
+       height="50.270832"
+       x="58.208332"
+       y="87.312492"
+       rx="3.0563576"
+       ry="3.0563576" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#3d3846;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-08-4"
+       width="44.848972"
+       height="39.429581"
+       x="18.651026"
+       y="37.041664"
+       rx="3.0563576"
+       ry="3.0563576" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#3d3846;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-08-4-7"
+       width="44.848972"
+       height="39.429581"
+       x="134.9375"
+       y="37.299587"
+       rx="3.0563576"
+       ry="3.0563576" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#3d3846;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-08-1"
+       width="82.020821"
+       height="15.875001"
+       x="58.208332"
+       y="10.583333"
+       rx="3.0563576"
+       ry="3.0563576" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2"
+       width="76.729179"
+       height="10.583334"
+       x="60.854168"
+       y="13.229166" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0"
+       width="39.6875"
+       height="15.874999"
+       x="21.166668"
+       y="39.557308" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-5"
+       width="39.6875"
+       height="15.874999"
+       x="21.036476"
+       y="58.208332" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:0.8;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="99.055977"
+       y="19.967773"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29167px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="99.055977"
+         y="19.967773">Exodus of downtown activity</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;line-height:1.2;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="100.4147"
+       y="54.60281"
+       id="text2-7"><tspan
+         sodipodi:role="line"
+         id="tspan2-9"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;line-height:1.2;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="100.4147"
+         y="54.60281">DOOM</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;line-height:1.2;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="100.4147"
+         y="65.046204"
+         id="tspan14">LOOP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="40.677696"
+       y="46.718952"
+       id="text2-2"><tspan
+         sodipodi:role="line"
+         id="tspan2-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="40.677696"
+         y="46.718952">Newly remote</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="40.677696"
+         y="52.18774"
+         id="tspan3">workers</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59"
+       width="37.041668"
+       height="15.875"
+       x="60.854164"
+       y="89.958328" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-4"
+       width="36.911472"
+       height="26.458338"
+       x="60.854168"
+       y="108.47916" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-0"
+       width="37.041672"
+       height="15.875002"
+       x="100.54166"
+       y="89.958328" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-59-0-0"
+       width="37.041672"
+       height="15.875002"
+       x="100.54166"
+       y="108.47916" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="79.45768"
+       y="97.119972"
+       id="text2-2-9"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="79.45768"
+         y="97.119972"
+         id="tspan3-7">Declining</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="79.45768"
+         y="102.58876"
+         id="tspan9">rents</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="119.15034"
+       y="115.771"
+       id="text2-2-9-3"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="119.15034"
+         y="115.771"
+         id="tspan9-9">Retail</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="119.15034"
+         y="121.23979"
+         id="tspan10">vacancies</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="78.671204"
+       y="115.45126"
+       id="text2-2-9-3-5"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="78.671204"
+         y="115.45126"
+         id="tspan10-4">Decrease in </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="78.671204"
+         y="120.92005"
+         id="tspan11">commercial</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="78.671204"
+         y="126.38884"
+         id="tspan12">property tax</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="78.671204"
+         y="131.85764"
+         id="tspan13">base</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="119.0625"
+       y="97.119972"
+       id="text2-2-9-6"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="119.0625"
+         y="97.119972"
+         id="tspan3-7-9">Declining</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="119.0625"
+         y="102.58876"
+         id="tspan9-1">land values</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="39.712059"
+       y="65.266617"
+       id="text2-2-7"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="39.712059"
+         y="65.266617"
+         id="tspan3-3">Vacant</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="39.712059"
+         y="70.735405"
+         id="tspan4">offices</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.260382;stroke-linecap:round;paint-order:markers fill stroke"
+       id="rect2-0-1"
+       width="39.6875"
+       height="22.703632"
+       x="137.58333"
+       y="44.979164" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.29167px;line-height:1;font-family:OpenSans, 'Open Sans';-inkscape-font-specification:'OpenSans, Open Sans, Normal';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="157.09435"
+       y="52.140808"
+       id="text2-2-3"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="157.09435"
+         y="52.140808"
+         id="tspan6">Reductions</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="157.09435"
+         y="57.609596"
+         id="tspan7">in public</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.29167px;line-height:1;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="157.09435"
+         y="63.078388"
+         id="tspan8">services</tspan></text>
+    <path
+       style="fill:none;stroke:#dc4633;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ArrowWideHeavy)"
+       d="m 94.804742,32.584 c 0,0 -7.416163,0.769846 -13.348768,8.132289 -9.121923,11.320436 -5.198624,26.319779 3.592447,33.403558 15.220479,12.264544 30.590289,1.180694 33.574819,-2.971747 0.43309,-0.602571 -0.1909,0.164487 -0.1909,0.164487 7.14442,-8.866332 7.63707,-25.228368 -3.49351,-34.197283 -4.12043,-3.320211 -8.96032,-4.472926 -8.96032,-4.472926"
+       id="path14"
+       sodipodi:nodetypes="cssscsc" />
+  </g>
+</svg>
