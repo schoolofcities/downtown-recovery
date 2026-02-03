@@ -1186,12 +1186,12 @@
         href="https://en.wikipedia.org/wiki/Local_regression" target="_blank">LOESS</a
       >
       curve. You can download the raw daily data shown to fit these curves
-      <a href="/trend_sep_to_dec_2023_23_24_25_activity_deduped.csv" target="_blank"
-        >from this link for the activity page</a
+      <a href="/trend_sep_to_dec_23_24_25_activity_deduped.csv" target="_blank"
+        >from this link for the data by visitor type</a
       >
       and
       <a href="/trend_sep_to_dec_agg_only.csv" target="_blank"
-        >from this link for the overall page</a
+        >from this link for the overall trends data</a
       >. The data on the charts are based on the `normalized_distinct_clean`
       column, which pertains to the number of unique daily visitors normalized
       by the total number in the metro area. The trend-line and summary
