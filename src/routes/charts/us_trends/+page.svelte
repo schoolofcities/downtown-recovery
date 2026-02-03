@@ -598,33 +598,37 @@
 
 <main>
   <div class="text">
-    <h1>US Recovery Trends</h1>
+    <h1>US Downtown Recovery Trends</h1>
     <p>
-      By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/"
+      By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/" target="_blank"
         >Karen Chapple</a
       >,
-      <a href="https://www.urbandisplacement.org/team/julia-greenberg/"
+       <a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/" target="_blank">Yihoi Jung</a>
+      <!-- <a href="https://www.urbandisplacement.org/team/julia-greenberg/"
         >Julia Greenberg</a
-      >,
-      <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/"
+      >, -->
+      <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/" target="_blank"
         >Jeff Allen</a
       >,
-      <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>,
-      <a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/">Yihoi Jung</a>
+      <!-- <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>, -->
+     
     </p>
     <p>
       <i>Updated {selection.update_date}</i>
     </p>
     <p>
       Data on cell phone activity (a.k.a. footfall) trends for the last two
-      years provide a picture of how US downtowns are faring. We look here at
-      year-over-year trends comparing September to December {selection.year3} vs.
+      years can provide a picture of how US downtowns are faring post-pandemic. 
+    </p>
+    <p> 
+      On this page, we provide an update from <a href="trends">our previous trends analysis (2023-2024)</a>, specifically looking at
+      year-over-year trends comparing September to December {selection.year3} to the same period in
       {selection.year2}
-      vs. {selection.year1}.
+      and {selection.year1}.
     </p>
     <p>
-      The solid lines represent the number of daily unique stops in the downtown
-      area, split by the 3 years for comparison. The dotted line provides a
+      The solid lines on the charts below represent the number of daily unique stops in the downtown
+      area, split by the three years for comparison. The dotted lines provide a
       baseline of the average level of activity in
       {selection.year1}, allowing for comparison to the following years. When
       the solid lines extend above the dotted baseline, downtown activity is
@@ -632,12 +636,11 @@
       line, activity is on a downswing.
     </p>
     <p>
-      There are 2 interactive toggle views at the top, one for view mode
-      (Overall vs. By Activity) and one for the percent change comparison. When
-      "By Activity" is selected, you can select which activity types to
-      show/hide using the buttons in the legend.
+      There are two interactive toggle views at the top, one for view mode
+      (Overall vs. By visitor) and one for the percent change comparison. When
+      "By visitor" is selected, you can view by trends by those who A) work downtown B) live downtown and C) neither work nor live downtown.
     </p>
-    <h5>Key Findings:</h5>
+    <h5>Key findings:</h5>
     <p>
       ‣ <span class="bold">{citiesRising2024}</span> out of
       <span class="bold">{totalCities}</span>
@@ -652,29 +655,29 @@
       activity levels.
     </p>
     <p>
-      Note 1: Trends are based on data from Spectus, but use different cell
-      phone data providers from our rankings analysis. The trendlines measure
+      Note 1: Trends are based on a sample of data from <a href="https://cuebiq.com/social-impact/" target="_blank">cuebiq</a>, but use different cell
+      phone data providers from our previous rankings analysis. The trendlines measure
       the average level of activity over the course of the year, while the
       ranking metric shows the percent difference in the average number of
-      unique stops in {selection.year3} versus the same month in {selection.year2}.
+      unique stops in {selection.year3} versus the same set of months in {selection.year2}.
     </p>
     <p>
-      Note 2: Baltimore's data is cut off at 2023 due to data privacy
-      restrictions <a
-        href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf"
-        >as seen here</a
+      Note 2: Baltimore's data is cut off at 2023 <a
+        href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf" target="_blank"
+        >due to data privacy
+      restrictions </a
       >.
     </p>
   </div>
 
   <div class="text">
     <h4>
-      Stops to Downtown (September to December from {selection.year1} to {selection.year3})
+      Stops to downtown (September to December from {selection.year1} to {selection.year3})
     </h4>
 
     <!-- View Mode Toggle -->
     <div class="view-toggle">
-      <span class="toggle-label">View Mode:</span>
+      <span class="toggle-label">View mode:</span>
       <button
         class="toggle-btn"
         class:active={viewMode === "overall"}
@@ -687,7 +690,7 @@
         class:active={viewMode === "breakdown"}
         on:click={() => (viewMode = "breakdown")}
       >
-        By Activity
+        By visitor
       </button>
 
       <span class="toggle-label" style="margin-left: 20px;">Compare:</span>
@@ -813,6 +816,12 @@
         <button class="filter-btn" on:click={selectAllActivities}>All</button>
         <button class="filter-btn" on:click={clearAllActivities}>Clear</button>
         <h2 class="textLabelTiny">
+          Work = residents who work downtown
+          <br>
+          Home = residents who live downtown
+          <br>
+          Visitor = residents who neither work nor live downtown
+          <br><br>
           Note: Activity percentages do not add up to the overall percentage as
           activities are weighted equally.
         </h2>
@@ -833,7 +842,7 @@
               : `${selection.year3} vs. ${selection.year2}`}</text
           >
         {:else}
-          <text x="235" y="20" class="textLabel">% Change by Activity</text>
+          <text x="235" y="20" class="textLabel">% Change by visitor</text>
           <text x="235" y="38" class="textLabelSmall"
             >{compareMode === "2025vs2023"
               ? `${selection.year3} vs. ${selection.year1}`
@@ -1170,18 +1179,18 @@
     <br />
     <br />
 
-    <h4>More Information</h4>
+    <h4>More information</h4>
 
     <p>
       The trend lines are fit from daily data via a <a
-        href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a
+        href="https://en.wikipedia.org/wiki/Local_regression" target="_blank">LOESS</a
       >
       curve. You can download the raw daily data shown to fit these curves
-      <a href="/trend_sep_to_dec_2023_23_24_25_activity_deduped.csv"
+      <a href="/trend_sep_to_dec_2023_23_24_25_activity_deduped.csv" target="_blank"
         >from this link for the activity page</a
       >
       and
-      <a href="/trend_sep_to_dec_agg_only.csv"
+      <a href="/trend_sep_to_dec_agg_only.csv" target="_blank"
         >from this link for the overall page</a
       >. The data on the charts are based on the `normalized_distinct_clean`
       column, which pertains to the number of unique daily visitors normalized
