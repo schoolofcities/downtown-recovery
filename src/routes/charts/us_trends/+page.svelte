@@ -1,6 +1,6 @@
 <script>
   import Header from "../../../lib/Header.svelte";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import { csvParse } from "d3-dsv";
   import {
     scaleTime,
@@ -31,8 +31,14 @@
     update_date: "2026-01-30", // change this to whenever website is updated
   };
 
+
   // Toggle between Overall and Breakdown view
   let viewMode = "overall"; // "overall" or "breakdown"
+  
+  // Loading states
+  let isLoadingOverall = true;
+  let isLoadingActivity = false;
+  
   const activityTypes = ["WORK", "HOME", "NEITHER"];
   const activityColors = {
     WORK: "var(--brandLightBlue)",
@@ -71,6 +77,8 @@
   let activityData = []; // activity-level data for breakdown view
 
   async function loadData() {
+    isLoadingOverall = true;
+    const start = performance.now();
     try {
       // Load aggregated data (one row per city/date with agg_norm_distinct)
       const response = await fetch("/trend_sep_to_dec_agg_only.csv");
@@ -80,9 +88,14 @@
     } catch (error) {
       console.error("Error loading aggregated CSV data:", error);
     }
+    const end = performance.now();
+    const duration = end - start;
+    //console.log(`⏱️ Data Loading: ${duration.toFixed(2)}ms`);
   }
 
   async function loadActivityData() {
+    isLoadingActivity = true;
+    const start = performance.now();
     try {
       // Load activity-level data for breakdown view (kept for later)
       const response = await fetch(
@@ -93,14 +106,28 @@
     } catch (error) {
       console.error("Error loading activity CSV data:", error);
     }
+    const end = performance.now();
+    const duration = end - start;
+    //console.log(`⏱️ Activity Data Loading: ${duration.toFixed(2)}ms`);
+    isLoadingActivity = false;
   }
+  
 
   onMount(async () => {
-    await loadData();
-    loadActivityData();
+    const overallStart = performance.now();
+    
+    // Set filteredCities FIRST (before loading data) to prevent double chart generation
     filteredCities = cities
       .filter((item) => item.region !== "Canada")
       .map((item) => item.city);
+    
+    await loadData();
+    // Don't load activity data initially - only load when switching to breakdown view
+    // isLoadingOverall will be set to false after charts generate
+
+    const overallEnd = performance.now();
+    const overallDuration = overallEnd - overallStart;
+    //console.log(`⏱️ Overall Mount Time: ${overallDuration.toFixed(2)}ms`);
   });
 
   let chartWidth = 500;
@@ -116,12 +143,15 @@
   let charts = []; // to hold chart data for each city
   let sortedCharts = []; // to hold the sorted charts
   let thecities = []; // to hold unique city names from data
+  let filteredCities = []; // US cities only (no Canada)
   let width; // for binding chart wrapper width
+  
+  // Cache for generated charts to avoid regeneration when switching views
+  let overallChartsCache = null;
+  let activityChartsCache = null;
 
-  // Filter out Canadian cities
-  $: filteredCities = cities
-    .filter((item) => item.region !== "Canada")
-    .map((item) => item.city);
+  // filteredCities is set in onMount - no reactive statement needed
+  // (reactive statement was causing double chart generation)
 
   // Get the value column based on view mode
   function getValue(item) {
@@ -135,7 +165,21 @@
   }
 
   // ===== OVERALL VIEW CHARTS =====
-  $: overallCharts = thecities
+  $: overallCharts = (() => {
+    // Only generate if in overall view mode and we have data
+    if (viewMode !== "overall" || thecities.length === 0 || data.length === 0) {
+      return [];
+    }
+    
+    // Return cached charts if available
+    if (overallChartsCache !== null) {
+      //console.log("returning overall charts")
+      isLoadingOverall = false;
+      return overallChartsCache;
+    }
+    
+    const chartsGenStart = performance.now();
+    const overall = thecities
     .map((city) => {
       if (filteredCities.includes(city)) {
         // ===== FILTER DATA BY CITY AND DATE RANGE =====
@@ -348,43 +392,115 @@
       }
     })
     .filter((value) => value !== undefined);
+    
+    const chartsGenEnd = performance.now();
+    const chartsGenDuration = chartsGenEnd - chartsGenStart;
+    if (overall.length > 0) {
+      //console.log(`⏱️ Overall Charts Generation (${overall.length} cities): ${chartsGenDuration.toFixed(2)}ms`);
+      //console.log(`   ├─ Avg per city: ${(chartsGenDuration / overall.length).toFixed(2)}ms`);
+      overallChartsCache = overall;
+      // Defer setting loading to false to ensure spinner renders
+      setTimeout(() => { isLoadingOverall = false; }, 0);
+    }
+
+    return overall;
+  })();
 
   // ===== ACTIVITY BREAKDOWN CHARTS =====
-  $: activityCharts = thecities
+  $: activityCharts = (() => {
+    // Only generate if in breakdown view mode
+    if (viewMode !== "breakdown" || thecities.length === 0) {
+      return [];
+    }
+    
+    // Load activity data if not already loaded
+    if (activityData.length === 0) {
+      loadActivityData();
+      return [];
+    }
+    
+    // Return cached charts if available
+    if (activityChartsCache !== null) {
+      isLoadingActivity = false;
+      return activityChartsCache;
+    }
+    
+    const activityChartsStart = performance.now();
+    
+    // ===== OPTIMIZATION: Pre-index data by city -> activity -> year =====
+    // This avoids filtering the entire array 9 times per city (477 scans → 1 scan)
+    const indexStart = performance.now();
+    const dataIndex = new Map();
+    
+    // Date boundaries for filtering
+    const yearRanges = {
+      2023: { start: new Date("2023-09-01"), end: new Date("2023-12-31") },
+      2024: { start: new Date("2024-09-01"), end: new Date("2024-12-31") },
+      2025: { start: new Date("2025-09-01"), end: new Date("2025-12-31") },
+    };
+    
+    // Building index for activity
+    for (const item of activityData) { // for each row in activity data
+      const date = new Date(item.date);
+      let year = null;
+      
+      // Determine which year bucket this item belongs to using the yearRanges 
+      for (const [y, range] of Object.entries(yearRanges)) {
+        // if date is in between the ranges, assign it to that year
+        if (date >= range.start && date <= range.end) { 
+          year = y;
+          break;
+        }
+      }
+      
+      if (year === null) continue; // Skip items outside our date ranges
+      
+      const city = item.city;
+      const activity = item.ACTIVITY;
+      
+      // Build nested index: city -> activity -> year -> items[]
+      if(!dataIndex.has(city)) {
+        dataIndex.set(city, new Map()); // key value
+      }
+      const cityMap = dataIndex.get(city); // makes key value reference
+      
+      if (!cityMap.has(activity)) {
+        cityMap.set(activity, { 2023: [], 2024: [], 2025: [] });
+      }
+      cityMap.get(activity)[year].push(item); // key = activity, value = year returning empty array, then pushing it onto that row
+
+      // const activityData = cityMap.get(activity);  // { 2023: [], 2024: [], 2025: [] }
+      // const yearArray = activityData[year];        // [] (array for specific year)
+      // yearArray.push(item);                        // Add item to that year's array
+    }
+    
+    const indexEnd = performance.now();
+    //console.log(`Data indexing: ${(indexEnd - indexStart).toFixed(2)}ms`);
+    
+    // Create regression generator once and reuse for each data point d (d to exist later with the thecities mapping)
+    const regressionGenerator = regressionLoess()
+      .x((d) => parseDate(d.date)) // accessor arrow function -> x coordinate (indepedent variable)
+      .y((d) => getActivityValue(d)) // accessor to y coordinate which is 
+      .bandwidth(0.2);
+    
+    const activity = thecities
     .map((city) => {
-      if (filteredCities.includes(city) && activityData.length > 0) {
-        const filterByActivityAndDate = (activity, startDate, endDate) => {
-          return activityData.filter((item) => {
-            const date = new Date(item.date);
-            return (
-              item.city === city &&
-              item.ACTIVITY === activity &&
-              date >= startDate &&
-              date <= endDate
-            );
-          });
-        };
+      if (filteredCities.includes(city)) {
+        // Use pre-indexed data (O(1) lookup instead of O(n) filter)
+        const cityData = dataIndex.get(city);
+        if (!cityData) return undefined;
 
         // Get data for each activity and year
         const activityResults = {};
         let allRegressionValues = [];
 
-        for (const activity of activityTypes) {
-          const data2023 = filterByActivityAndDate(
-            activity,
-            new Date("2023-09-01"),
-            new Date("2023-12-31"),
-          );
-          const data2024 = filterByActivityAndDate(
-            activity,
-            new Date("2024-09-01"),
-            new Date("2024-12-31"),
-          );
-          const data2025 = filterByActivityAndDate(
-            activity,
-            new Date("2025-09-01"),
-            new Date("2025-12-31"),
-          );
+        for (const activityType of activityTypes) {
+          const activityYearData = cityData.get(activityType);
+          if (!activityYearData) continue;
+          
+          const data2023 = activityYearData["2023"];
+          const data2024 = activityYearData["2024"];
+          const data2025 = activityYearData["2025"];
 
           if (
             data2023.length > 0 &&
@@ -400,12 +516,7 @@
             const percentChange2025vs2024 =
               ((avg2025 - avg2024) / avg2024) * 100;
 
-            // Generate regression for each year
-            const regressionGenerator = regressionLoess()
-              .x((d) => parseDate(d.date))
-              .y((d) => getActivityValue(d))
-              .bandwidth(0.2);
-
+            // Reuse regression generator (reconfigure and run)
             const regression2023 = regressionGenerator(data2023);
             const regression2024 = regressionGenerator(data2024);
             const regression2025 = regressionGenerator(data2025);
@@ -417,7 +528,7 @@
               ...regression2025.map((d) => d[1]),
             ];
 
-            activityResults[activity] = {
+            activityResults[activityType] = {
               avg2023,
               avg2024,
               avg2025,
@@ -560,22 +671,40 @@
       }
     })
     .filter((value) => value !== undefined);
+    
+    const activityChartsEnd = performance.now();
+    const activityChartsDuration = activityChartsEnd - activityChartsStart;
+    if (activity.length > 0) {
+      //console.log(`⏱️ Activity Charts Generation (${activity.length} cities): ${activityChartsDuration.toFixed(2)}ms`);
+      //console.log(`   ├─ Avg per city: ${(activityChartsDuration / (activity.length || 1)).toFixed(2)}ms`);
+      isLoadingActivity = false;
+      activityChartsCache = activity;
+    }
+    
+    return activity;
+  })();
 
   // Choose which charts to display based on viewMode
   $: charts = viewMode === "overall" ? overallCharts : activityCharts;
 
   // Sort by selected compare mode (greatest positive change first)
-  $: sortedCharts = charts.slice().sort((a, b) => {
-    const aChange =
-      compareMode === "2025vs2023"
-        ? (a.percentageChange2025vs2023 ?? 0)
-        : (a.percentageChange2025vs2024 ?? 0);
-    const bChange =
-      compareMode === "2025vs2023"
-        ? (b.percentageChange2025vs2023 ?? 0)
-        : (b.percentageChange2025vs2024 ?? 0);
-    return bChange - aChange;
-  });
+  $: {
+    const sortStart = performance.now();
+    sortedCharts = charts.slice().sort((a, b) => {
+      const aChange =
+        compareMode === "2025vs2023"
+          ? (a.percentageChange2025vs2023 ?? 0)
+          : (a.percentageChange2025vs2024 ?? 0);
+      const bChange =
+        compareMode === "2025vs2023"
+          ? (b.percentageChange2025vs2023 ?? 0)
+          : (b.percentageChange2025vs2024 ?? 0);
+      return bChange - aChange;
+    });
+    const sortEnd = performance.now();
+    const sortDuration = sortEnd - sortStart;
+    //console.log(`⏱️ Chart Sorting: ${sortDuration.toFixed(2)}ms`);
+  }
 
   // Calculate statistics for key findings
   $: citiesRising2024 = overallCharts.filter(
@@ -655,7 +784,7 @@
       activity levels.
     </p>
     <p>
-      Note 1: Trends are based on a sample of data from <a href="https://cuebiq.com/social-impact/" target="_blank">cuebiq</a>, but use different cell
+      Note 1: Trends are based on a sample of data from <a href="https://cuebiq.com/social-impact/" target="_blank">Cuebiq</a>, but use different cell
       phone data providers from our previous rankings analysis. The trendlines measure
       the average level of activity over the course of the year, while the
       ranking metric shows the percent difference in the average number of
@@ -665,10 +794,9 @@
       Note 2: Baltimore's data is cut off at 2023 <a
         href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf" target="_blank"
         >due to data privacy
-      restrictions </a
-      >. 
-      <!-- Portland's data is cut off at mid-December 2025, due to 
-      <a href="https://www.portland.gov/council/documents/resolution/resolution-privacy-and-data-protection"> the establishment of a new City Data and Privacy Office</a> -->
+      restrictions</a
+      >. Portland's data is cut off at mid-December 2025, due to 
+      <a href="https://olis.oregonlegislature.gov/liz/2025R1/Measures/Overview/HB2008">Oregon's Consumer Privacy Act.</a>
     </p>
   </div>
 
@@ -684,14 +812,20 @@
         <button
           class="toggle-btn"
           class:active={viewMode === "overall"}
-          on:click={() => (viewMode = "overall")}
+          on:click={() => {
+            viewMode = "overall";
+            isLoadingOverall = true;
+          }}
         >
           Overall
         </button>
         <button
           class="toggle-btn"
           class:active={viewMode === "breakdown"}
-          on:click={() => (viewMode = "breakdown")}
+          on:click={() => {
+            viewMode = "breakdown";
+            isLoadingActivity = true;
+          }}
         >
           By Visitor
         </button>
@@ -912,7 +1046,20 @@
     </div>
   </div>
 
-  {#each sortedCharts as chartData, i}
+  <!-- Loading spinner -->
+  {#if isLoadingOverall || isLoadingActivity}
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">
+        {#if isLoadingOverall}
+          Loading overall data...
+        {:else if isLoadingActivity}
+          Loading activity data (this may take a moment)...
+        {/if}
+      </p>
+    </div>
+  {:else}
+    {#each sortedCharts as chartData, i}
     <div class="chart-wrapper" bind:clientWidth={width}>
       <div class="left">
         <svg width="150" height={chartHeight} class="region-bar">
@@ -1182,6 +1329,7 @@
       </div>
     </div>
   {/each}
+  {/if}
     </div>
   </div>
 
@@ -1426,6 +1574,37 @@
 
   .text {
     border-bottom: none;
+  }
+
+  /* Loading spinner styles */
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    min-height: 200px;
+  }
+
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--brandGray90);
+    border-top: 4px solid var(--brandLightBlue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .loading-text {
+    margin-top: 15px;
+    font-family: Roboto;
+    font-size: 14px;
+    color: var(--brandWhite);
   }
 
   :global(.maplibregl-popup-content) {
