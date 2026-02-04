@@ -226,7 +226,7 @@
 			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how Canadian downtowns are faring. We look here at year-over-year ({selection.year2} vs. {selection.year1}) trends.
 		</p>
 		<p>
-			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} {selection.year1}, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} {selection.year1}. When it dips below the dotted line, activity is on a downswing.
+			The solid line represents the number of daily unique devices in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} {selection.year1}, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} {selection.year1}. When it dips below the dotted line, activity is on a downswing.
 		</p>
 		<!-- <h5>
 			Key Findings:
@@ -241,10 +241,10 @@
 			‣ The median rate of change is <span class="bold">???%</span>.
 		</p> -->
 		<p>
-			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in {selection.year2} versus the same month in {selection.year1}.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique devices in {selection.year2} versus the same month in {selection.year1}.
 		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} {selection.day1_num}, {selection.year1} to {selection.monthName} {selection.day2_num}, {selection.year2})</h4>
+		<h4>Unique Devices Downtown ({selection.monthName} {selection.day1_num}, {selection.year1} to {selection.monthName} {selection.day2_num}, {selection.year2})</h4>
 
 		<p style="padding-top: 10px; padding-bottom: 10px;">
 			<svg height="10" width="50">
@@ -256,11 +256,13 @@
 
 	</div>
 
-		<div class="chart-wrapper">
+	<div class="charts-scroll-container">
+		<div class="charts-inner">
+			<div class="chart-wrapper">
 
-			<div class="left">
+				<div class="left">
 
-				<svg width="760" height="{chartHeight}" class="region-bar">
+					<svg width="760" height="{chartHeight}" class="region-bar">
 					
 					<text
 						x="12"
@@ -272,7 +274,7 @@
 						x="235"
 						y="15"
 						class="textLabel"
-					>Percent Change in Visits</text>
+					>Percent Change in Unique Devices</text>
 
 					<text
 						x="235"
@@ -380,9 +382,10 @@
 				</div>
 
 				
-				
 			</div>
 		{/each}
+		</div>
+	</div>
 
 	<div class="text">
 
@@ -395,7 +398,7 @@
 		</h4>
 
 		<p>
-			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trend_canada_feb1_2024_to_feb28_2025.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte" target="_blank">GitHub</a>)
+			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trend_canada_feb1_2024_to_feb28_2025.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily devices normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/canada_trends/%2Bpage.svelte" target="_blank">GitHub</a>)
 			</p>
 
 		<br>
@@ -406,6 +409,16 @@
 </main>
 
 <style>
+	.charts-scroll-container {
+		overflow-x: auto;
+		margin: 0 auto;
+		max-width: 100%;
+	}
+
+	.charts-inner {
+		min-width: 760px;
+	}
+
 	.chart-wrapper {
 		display: flex;
 		/* vertical-align: top; */
@@ -477,15 +490,6 @@
 		height: 40px;
 		align-items: center;
 	}
-	/* @media (max-width: 490px) {
-		.chart-wrapper {
-			flex-direction: column; 
-			align-items: center;
-		}
-		.chart-container {
-			margin-top: 0;
-		}
-	} */
 	
 	.text {
 		border-bottom: none;

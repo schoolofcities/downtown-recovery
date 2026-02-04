@@ -603,13 +603,13 @@
       By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/" target="_blank"
         >Karen Chapple</a
       >,
-       <a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/" target="_blank">Yihoi Jung</a>
+       <a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/" target="_blank">Yihoi Jung</a>,
       <!-- <a href="https://www.urbandisplacement.org/team/julia-greenberg/"
         >Julia Greenberg</a
       >, -->
       <a href="https://schoolofcities.utoronto.ca/people/jeff-allen/" target="_blank"
         >Jeff Allen</a
-      >,
+      >
       <!-- <a href="https://www.linkedin.com/in/irene-kcc/">Irene Chang</a>, -->
      
     </p>
@@ -637,8 +637,8 @@
     </p>
     <p>
       There are two interactive toggle views at the top, one for view mode
-      (Overall vs. By visitor) and one for the percent change comparison. When
-      "By visitor" is selected, you can view by trends by those who A) work downtown B) live downtown and C) neither work nor live downtown.
+      (Overall vs. By Visitor) and one for the percent change comparison. When
+      "By Visitor" is selected, you can view by trends by those who A) work downtown B) live downtown and C) neither work nor live downtown.
     </p>
     <h5>Key findings:</h5>
     <p>
@@ -659,7 +659,7 @@
       phone data providers from our previous rankings analysis. The trendlines measure
       the average level of activity over the course of the year, while the
       ranking metric shows the percent difference in the average number of
-      unique stops in {selection.year3} versus the same set of months in {selection.year2}.
+      unique devices in {selection.year3} versus the same set of months in {selection.year2}.
     </p>
     <p>
       Note 2: Baltimore's data is cut off at 2023 <a
@@ -672,48 +672,52 @@
 
   <div class="text">
     <h4>
-      Stops to downtown (September to December from {selection.year1} to {selection.year3})
+      Unique Devices Downtown (September to December from {selection.year1} to {selection.year3})
     </h4>
 
     <!-- View Mode Toggle -->
     <div class="view-toggle">
-      <span class="toggle-label">View mode:</span>
-      <button
-        class="toggle-btn"
-        class:active={viewMode === "overall"}
-        on:click={() => (viewMode = "overall")}
-      >
-        Overall
-      </button>
-      <button
-        class="toggle-btn"
-        class:active={viewMode === "breakdown"}
-        on:click={() => (viewMode = "breakdown")}
-      >
-        By visitor
-      </button>
+      <div class="toggle-group">
+        <span class="toggle-label">View mode:</span>
+        <button
+          class="toggle-btn"
+          class:active={viewMode === "overall"}
+          on:click={() => (viewMode = "overall")}
+        >
+          Overall
+        </button>
+        <button
+          class="toggle-btn"
+          class:active={viewMode === "breakdown"}
+          on:click={() => (viewMode = "breakdown")}
+        >
+          By Visitor
+        </button>
+      </div>
 
-      <span class="toggle-label" style="margin-left: 20px;">Compare:</span>
-      <button
-        class="toggle-btn"
-        class:active={compareMode === "2025vs2023"}
-        on:click={() => (compareMode = "2025vs2023")}
-      >
-        2025 vs 2023
-      </button>
-      <button
-        class="toggle-btn"
-        class:active={compareMode === "2025vs2024"}
-        on:click={() => (compareMode = "2025vs2024")}
-      >
-        2025 vs 2024
-      </button>
+      <div class="toggle-group">
+        <span class="toggle-label">Compare:</span>
+        <button
+          class="toggle-btn"
+          class:active={compareMode === "2025vs2023"}
+          on:click={() => (compareMode = "2025vs2023")}
+        >
+          2025 vs 2023
+        </button>
+        <button
+          class="toggle-btn"
+          class:active={compareMode === "2025vs2024"}
+          on:click={() => (compareMode = "2025vs2024")}
+        >
+          2025 vs 2024
+        </button>
+      </div>
     </div>
 
     <!-- Legend for Overall mode -->
     {#if viewMode === "overall"}
       <div
-        style="display: flex; align-items: center; gap: 20px; padding: 10px 0;"
+        style="display: flex; align-items: center; gap: 20px; padding: 10px 0; flex-wrap: wrap;"
       >
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg height="10" width="50">
@@ -829,21 +833,23 @@
     {/if}
   </div>
 
-  <div class="chart-wrapper">
-    <div class="left">
-      <svg width="760" height={chartHeight} class="region-bar">
-        <text x="12" y="35" class="textCity">City</text>
+  <div class="charts-scroll-container">
+    <div class="charts-inner">
+      <div class="chart-wrapper">
+        <div class="left">
+          <svg width="760" height={chartHeight} class="region-bar">
+            <text x="12" y="35" class="textCity">City</text>
 
-        {#if viewMode === "overall"}
-          <text x="235" y="15" class="textLabel">Percent Change in Visits</text>
-          <text x="235" y="38" class="textLabelSmall">
-            {compareMode === "2025vs2023"
-              ? `${selection.year3} vs. ${selection.year1}`
+            {#if viewMode === "overall"}
+              <text x="235" y="15" class="textLabel">Percent Change in Unique Devices</text>
+              <text x="235" y="38" class="textLabel">
+                {compareMode === "2025vs2023"
+                  ? `${selection.year3} vs. ${selection.year1}`
               : `${selection.year3} vs. ${selection.year2}`}</text
           >
         {:else}
-          <text x="235" y="20" class="textLabel">% Change by visitor</text>
-          <text x="235" y="38" class="textLabelSmall"
+          <text x="235" y="20" class="textLabel">% Change by Visitor</text>
+          <text x="235" y="38" class="textLabel"
             >{compareMode === "2025vs2023"
               ? `${selection.year3} vs. ${selection.year1}`
               : `${selection.year3} vs. ${selection.year2}`}</text
@@ -1174,6 +1180,8 @@
       </div>
     </div>
   {/each}
+    </div>
+  </div>
 
   <div class="text">
     <br />
@@ -1193,7 +1201,7 @@
       <a href="/trend_sep_to_dec_agg_only.csv" target="_blank"
         >from this link for the overall trends data</a
       >. The data on the charts are based on the `normalized_distinct_clean`
-      column, which pertains to the number of unique daily visitors normalized
+      column, which pertains to the number of unique daily devices normalized
       by the total number in the metro area. The trend-line and summary
       statistics shown are calculated in JavaScript (code is on
       <a
@@ -1209,6 +1217,16 @@
 </main>
 
 <style>
+  .charts-scroll-container {
+    overflow-x: auto;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .charts-inner {
+		min-width: 760px;
+	}
+
   .chart-wrapper {
     display: flex;
     /* vertical-align: top; */
@@ -1216,7 +1234,7 @@
     padding-left: 5px;
     padding-right: 5px;
     margin-bottom: 0px;
-    max-width: 760px;
+    width: 760px;
     height: 53px;
     background-color: var(--brandGray90);
     border-bottom: solid 1px var(--brandDarkBlue);
@@ -1300,9 +1318,17 @@
   /* Toggle button styles */
   .view-toggle {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px;
     margin: 15px 0;
+  }
+
+  .toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .toggle-label {

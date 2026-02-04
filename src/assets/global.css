@@ -34,6 +34,13 @@ body {
     background-color: var(--brandGray90);
 }
 
+main {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
 h1 {
     font-family: TradeGothicBold;
     font-size: 36px;
@@ -110,8 +117,18 @@ h3 a {
     padding-right: 10px;
     margin-bottom: 10px;
     max-width: 760px;
+    width: 100%;
+    box-sizing: border-box;
     color: white;
     border-bottom: solid 1px var(--brandDarkBlue);
+}
+
+@media screen and (max-width: 480px) {
+    .text {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 .bold {
