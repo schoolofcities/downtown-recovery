@@ -666,7 +666,9 @@
         href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf" target="_blank"
         >due to data privacy
       restrictions </a
-      >.
+      >. 
+      <!-- Portland's data is cut off at mid-December 2025, due to 
+      <a href="https://www.portland.gov/council/documents/resolution/resolution-privacy-and-data-protection"> the establishment of a new City Data and Privacy Office</a> -->
     </p>
   </div>
 
@@ -841,7 +843,7 @@
             <text x="12" y="35" class="textCity">City</text>
 
             {#if viewMode === "overall"}
-              <text x="235" y="15" class="textLabel">Percent Change in Unique Devices</text>
+              <text x="235" y="15" class="textLabelSmall">% Change in Unique Devices</text>
               <text x="235" y="38" class="textLabel">
                 {compareMode === "2025vs2023"
                   ? `${selection.year3} vs. ${selection.year1}`
@@ -1219,13 +1221,14 @@
 <style>
   .charts-scroll-container {
     overflow-x: auto;
+    overflow-y: hidden;
     margin: 0 auto;
     max-width: 100%;
   }
 
   .charts-inner {
-		min-width: 760px;
-	}
+    min-width: 760px;
+  }
 
   .chart-wrapper {
     display: flex;
