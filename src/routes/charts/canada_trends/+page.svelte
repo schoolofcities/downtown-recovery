@@ -24,7 +24,11 @@
 		"update_date": "2025-03-24" // change this to whenever website is updated
 	}
 
+	let isLoadingOverall = true;
+	let overallChartsCache = null;
+
 	async function loadData() {
+		isLoadingOverall = true;
 		try {
 			const response = await fetch('/trend_canada_feb1_2024_to_feb28_2025.csv');
 			const csvData = await response.text();
@@ -69,8 +73,13 @@
     // Log the filteredCities reactively
     $: console.log('filteredCities: ', filteredCities);
 
-	$: charts = thecities.map(city => {
+	$: charts = (() => {
+		// Return cached charts if available
+		if (overallChartsCache !== null) {
+			return overallChartsCache;
+		}
 
+		const generatedCharts = thecities.map(city => {
 			if (filteredCities.includes(city)) {
 
 				const cityData = data.filter(
@@ -195,10 +204,16 @@
 				}
 			
 			}
-		// });
+		}).filter(value => value !== undefined);
 
-		
-	}).filter(value => value !== undefined);
+		// Cache the generated charts and update loading state
+		if (generatedCharts.length > 0) {
+			overallChartsCache = generatedCharts;
+			setTimeout(() => { isLoadingOverall = false; }, 0);
+		}
+
+		return generatedCharts;
+	})();
 
 	console.log('thecities: ', thecities);
 
@@ -256,13 +271,20 @@
 
 	</div>
 
-	<div class="charts-scroll-container">
-		<div class="charts-inner">
-			<div class="chart-wrapper">
+	<!-- Loading spinner -->
+	{#if isLoadingOverall}
+		<div class="loading-container">
+			<div class="loading-spinner"></div>
+			<p class="loading-text">Loading data...</p>
+		</div>
+	{:else}
+		<div class="charts-scroll-container">
+			<div class="charts-inner">
+				<div class="chart-wrapper">
 
-				<div class="left">
+					<div class="left">
 
-					<svg width="760" height="{chartHeight}" class="region-bar">
+						<svg width="760" height="{chartHeight}" class="region-bar">
 					
 					<text
 						x="12"
@@ -386,6 +408,7 @@
 		{/each}
 		</div>
 	</div>
+	{/if}
 
 	<div class="text">
 
@@ -493,6 +516,37 @@
 	
 	.text {
 		border-bottom: none;
+	}
+
+	/* Loading spinner styles */
+	.loading-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 60px 20px;
+		min-height: 200px;
+	}
+
+	.loading-spinner {
+		width: 50px;
+		height: 50px;
+		border: 4px solid var(--brandGray90);
+		border-top: 4px solid var(--brandLightBlue);
+		border-radius: 50%;
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
+	.loading-text {
+		margin-top: 15px;
+		font-family: Roboto;
+		font-size: 14px;
+		color: var(--brandWhite);
 	}
 	
 	/* h5 {

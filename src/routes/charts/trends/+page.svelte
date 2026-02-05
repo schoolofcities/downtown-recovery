@@ -24,7 +24,11 @@
 		"day2": "2024-05-28"
 	}
 
+	let isLoadingOverall = true;
+	let overallChartsCache = null;
+
 	async function loadData() {
+		isLoadingOverall = true;
 		try {
 			const response = await fetch('/trends.csv');
 			const csvData = await response.text();
@@ -67,8 +71,13 @@
 
 	// function createCharts(data) {
 
-	$: charts = thecities.map(city => {
+	$: charts = (() => {
+		// Return cached charts if available
+		if (overallChartsCache !== null) {
+			return overallChartsCache;
+		}
 
+		const generatedCharts = thecities.map(city => {
 			if (filteredCities.includes(city)) {
 
 				const cityData = data.filter(
@@ -173,10 +182,16 @@
 				}
 			
 			}
-		// });
+		}).filter(value => value !== undefined);
 
-		
-	}).filter(value => value !== undefined);
+		// Cache the generated charts and update loading state
+		if (generatedCharts.length > 0) {
+			overallChartsCache = generatedCharts;
+			setTimeout(() => { isLoadingOverall = false; }, 0);
+		}
+
+		return generatedCharts;
+	})();
 
 	// Sort charts based on percentageChange descending order
 	$: sortedCharts = charts.slice().sort((a,b) => b.percentageChange - a.percentageChange);
@@ -246,6 +261,8 @@
 
 		<h4>Unique Devices Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
 
+		<div class="view-toggle"></div>
+
 		<p>
 			Select Regions:
 		</p>
@@ -262,13 +279,20 @@
 
 	</div>
 
-	<div class="charts-scroll-container">
-		<div class="charts-inner">
-			<div class="chart-wrapper">
+	<!-- Loading spinner -->
+	{#if isLoadingOverall}
+		<div class="loading-container">
+			<div class="loading-spinner"></div>
+			<p class="loading-text">Loading data...</p>
+		</div>
+	{:else}
+		<div class="charts-scroll-container">
+			<div class="charts-inner">
+				<div class="chart-wrapper">
 
-				<div class="left">
+					<div class="left">
 
-					<svg width="760" height="{chartHeight}" class="region-bar">
+						<svg width="760" height="{chartHeight}" class="region-bar">
 					
 					<text
 						x="12"
@@ -402,6 +426,7 @@
 		{/each}
 		</div>
 	</div>
+	{/if}
 
 	<div class="text">
 
@@ -509,6 +534,37 @@
 	
 	.text {
 		border-bottom: none;
+	}
+
+	  /* Loading spinner styles */
+	.loading-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 60px 20px;
+		min-height: 200px;
+	}
+
+	.loading-spinner {
+		width: 50px;
+		height: 50px;
+		border: 4px solid var(--brandGray90);
+		border-top: 4px solid var(--brandLightBlue);
+		border-radius: 50%;
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
+	.loading-text {
+		margin-top: 15px;
+		font-family: Roboto;
+		font-size: 14px;
+		color: var(--brandWhite);
 	}
 	
 	/* h5 {
