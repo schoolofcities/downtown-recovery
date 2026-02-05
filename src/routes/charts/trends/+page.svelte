@@ -12,8 +12,8 @@
 
 	import upArrow from '../../../assets/green-arrow.svg';
 	import downArrow from '../../../assets/red-arrow.svg';
-	// import upArrow from '/src/assets/green-arrow-circle.svg';
-	// import downArrow from '/src/assets/red-arrow-circle.svg';
+
+	import "../../../assets/global.css";
 
 	let selection = {
 		"monthName": "May",
@@ -24,7 +24,11 @@
 		"day2": "2024-05-28"
 	}
 
+	let isLoadingOverall = true;
+	let overallChartsCache = null;
+
 	async function loadData() {
+		isLoadingOverall = true;
 		try {
 			const response = await fetch('/trends.csv');
 			const csvData = await response.text();
@@ -67,8 +71,13 @@
 
 	// function createCharts(data) {
 
-	$: charts = thecities.map(city => {
+	$: charts = (() => {
+		// Return cached charts if available
+		if (overallChartsCache !== null) {
+			return overallChartsCache;
+		}
 
+		const generatedCharts = thecities.map(city => {
 			if (filteredCities.includes(city)) {
 
 				const cityData = data.filter(
@@ -173,10 +182,16 @@
 				}
 			
 			}
-		// });
+		}).filter(value => value !== undefined);
 
-		
-	}).filter(value => value !== undefined);
+		// Cache the generated charts and update loading state
+		if (generatedCharts.length > 0) {
+			overallChartsCache = generatedCharts;
+			setTimeout(() => { isLoadingOverall = false; }, 0);
+		}
+
+		return generatedCharts;
+	})();
 
 	// Sort charts based on percentageChange descending order
 	$: sortedCharts = charts.slice().sort((a,b) => b.percentageChange - a.percentageChange);
@@ -224,7 +239,7 @@
 			Data on cell phone activity (a.k.a. footfall) trends for the last year provide a picture of how downtowns are faring since our last rankings update in the summer of 2023. We look here at year-over-year (2024 vs. 2023) trends, updated monthly.
 		</p>
 		<p>
-			The solid line represents the number of daily unique visitors in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
+			The solid line represents the number of daily unique devices in the downtown area. The dotted line provides a baseline of the average level of activity in {selection.monthName} 2023, allowing for comparison to subsequent months. When the solid line extends above the dotted baseline, downtown activity is greater compared to in {selection.monthName} 2023. When it dips below the dotted line, activity is on a downswing. For most cities, there is an increase in month 6 or 7; this is expected since these are the summer months of June and July. The fall months see decreasing activity on average, with almost all downtowns losing activity by November. However, some cities stay above the {selection.monthName} baseline, suggesting gradual recovery, while others dip well below it, i.e., stagnating recovery.
 		</p>
 		<h5>
 			Key Findings:
@@ -241,10 +256,12 @@
 			In general, the downtowns that are seeing the highest rates of activity increase are the downtowns where recovery was lagging in our <a href="/charts/rankings">2023 rankings</a>.
 		</p>
 		<p>
-			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique visitors in 2024 versus the same month in 2023.
+			Note: Trends are based on data from Spectus, but use different cell phone data providers from our rankings analysis. The trendlines measure the average level of activity over the course of the year, while the ranking metric shows the percent difference in the average number of unique devices in 2024 versus the same month in 2023.
 		</p>
 
-		<h4>Visits to Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
+		<h4>Unique Devices Downtown ({selection.monthName} 1, 2023 to {selection.monthName} 28, 2024)</h4>
+
+		<div class="view-toggle"></div>
 
 		<p>
 			Select Regions:
@@ -262,11 +279,20 @@
 
 	</div>
 
-		<div class="chart-wrapper">
+	<!-- Loading spinner -->
+	{#if isLoadingOverall}
+		<div class="loading-container">
+			<div class="loading-spinner"></div>
+			<p class="loading-text">Loading data...</p>
+		</div>
+	{:else}
+		<div class="charts-scroll-container">
+			<div class="charts-inner">
+				<div class="chart-wrapper">
 
-			<div class="left">
+					<div class="left">
 
-				<svg width="760" height="{chartHeight}" class="region-bar">
+						<svg width="760" height="{chartHeight}" class="region-bar">
 					
 					<text
 						x="12"
@@ -278,7 +304,7 @@
 						x="235"
 						y="15"
 						class="textLabel"
-					>Percent Change in Visits</text>
+					>Percent Change in Unique Devices</text>
 
 					<text
 						x="235"
@@ -396,9 +422,11 @@
 				</div>
 
 				
-				
 			</div>
 		{/each}
+		</div>
+	</div>
+	{/if}
 
 	<div class="text">
 
@@ -411,7 +439,7 @@
 		</h4>
 
 		<p>
-			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trends.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily visitors normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">GitHub</a>)
+			The trend lines are fit from daily data via a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> curve. You can download the raw daily data shown to fit these curves <a href="/trends.csv">from this link</a>. The data on the charts are based on the `normalized_distinct_clean` column, which pertains to the number of unique daily devices normalized by the total number in the metro area. The trend-line and summary statistics shown are calculated in JavaScript (code is on <a href="https://github.com/schoolofcities/downtown-recovery/blob/main/src/routes/charts/trends/%2Bpage.svelte" target="_blank">GitHub</a>)
 			</p>
 
 		<br>
@@ -422,6 +450,16 @@
 </main>
 
 <style>
+	.charts-scroll-container {
+		overflow-x: auto;
+		margin: 0 auto;
+		max-width: 100%;
+	}
+
+	.charts-inner {
+		min-width: 760px;
+	}
+
 	.chart-wrapper {
 		display: flex;
 		/* vertical-align: top; */
@@ -493,18 +531,40 @@
 		height: 40px;
 		align-items: center;
 	}
-	/* @media (max-width: 490px) {
-		.chart-wrapper {
-			flex-direction: column; 
-			align-items: center;
-		}
-		.chart-container {
-			margin-top: 0;
-		}
-	} */
 	
 	.text {
 		border-bottom: none;
+	}
+
+	  /* Loading spinner styles */
+	.loading-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 60px 20px;
+		min-height: 200px;
+	}
+
+	.loading-spinner {
+		width: 50px;
+		height: 50px;
+		border: 4px solid var(--brandGray90);
+		border-top: 4px solid var(--brandLightBlue);
+		border-radius: 50%;
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
+	.loading-text {
+		margin-top: 15px;
+		font-family: Roboto;
+		font-size: 14px;
+		color: var(--brandWhite);
 	}
 	
 	/* h5 {
