@@ -24,6 +24,7 @@
 <Header />
 
 <main>
+
     <div class="text">
         <h1>Death of Downtown?</h1>
         <h2>
@@ -34,6 +35,22 @@
     </div>
 
     <div id="cards-wrapper">
+        
+        <a href="/charts/us_trends">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgUSTrends} />
+                </div>
+
+                <h2>U.S. Recovery Trends</h2>
+
+                <p>
+                    Charting downtown recovery across the U.S. from September to
+                    December 2023 to 2025.
+                </p>
+            </div>
+        </a>
+
         <a href="/blog/doom-loop">
             <div class="card">
                 <div class="card-img">
@@ -75,21 +92,6 @@
                 <p>
                     Transit-oriented communities and post-pandemic urban
                     resilience in Toronto
-                </p>
-            </div>
-        </a>
-
-        <a href="/charts/us_trends">
-            <div class="card">
-                <div class="card-img">
-                    <img src={cardImgUSTrends} />
-                </div>
-
-                <h2>U.S. Recovery Trends</h2>
-
-                <p>
-                    Charting downtown recovery across the U.S. from September to
-                    December 2023 to 2025.
                 </p>
             </div>
         </a>
