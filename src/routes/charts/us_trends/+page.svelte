@@ -166,8 +166,8 @@
 
   // ===== OVERALL VIEW CHARTS =====
   $: overallCharts = (() => {
-    // Only generate if in overall view mode and we have data
-    if (viewMode !== "overall" || thecities.length === 0 || data.length === 0) {
+    // Only generate if we have data (always keep generated for stats)
+    if (thecities.length === 0 || data.length === 0) {
       return [];
     }
     
@@ -791,12 +791,12 @@
       unique devices in {selection.year3} versus the same set of months in {selection.year2}.
     </p>
     <p>
-      Note 2: Baltimore's data is cut off at 2023 <a
+      Note 2: Baltimore's data is cut off at 2023 due to <a
         href="https://mgaleg.maryland.gov/2024RS/Chapters_noln/CH_454_hb0567e.pdf" target="_blank"
-        >due to data privacy
+        >Maryland's data privacy
       restrictions</a
-      >. Portland's data is cut off at mid-December 2025, due to 
-      <a href="https://olis.oregonlegislature.gov/liz/2025R1/Measures/Overview/HB2008">Oregon's Consumer Privacy Act.</a>
+      >, and Portland's data is cut off at mid-December 2025, due to
+      <a href="https://olis.oregonlegislature.gov/liz/2025R1/Measures/Overview/HB2008">Oregon's Consumer Privacy Act</a>.
     </p>
   </div>
 
