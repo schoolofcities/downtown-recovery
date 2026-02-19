@@ -687,19 +687,33 @@
   // Choose which charts to display based on viewMode
   $: charts = viewMode === "overall" ? overallCharts : activityCharts;
 
+  // Helper to get percentages per city
+  // based on viewMode, compareMode, and selectedActivities
+  function getEffectiveChange(chartData) {
+    // if the view is activity breakdown
+    if (viewMode === "breakdown" && selectedActivities.length > 0 && chartData.activityLines) {
+      return selectedActivities.reduce(
+        (sum, a) =>
+          sum +
+          (compareMode === "2025vs2023"
+            ? chartData.activityLines[a].percentChange2025vs2023
+            : chartData.activityLines[a].percentChange2025vs2024),
+        0,
+      ) / selectedActivities.length;
+    }
+    return compareMode === "2025vs2023"
+      ? (chartData.percentageChange2025vs2023 ?? 0)
+      : (chartData.percentageChange2025vs2024 ?? 0);
+  }
+
   // Sort by selected compare mode (greatest positive change first)
+  // Re-sort when compareMode, viewMode, or selectedActivities change
   $: {
+    // Touch reactive dependencies
+    compareMode; viewMode; selectedActivities;
     const sortStart = performance.now();
     sortedCharts = charts.slice().sort((a, b) => {
-      const aChange =
-        compareMode === "2025vs2023"
-          ? (a.percentageChange2025vs2023 ?? 0)
-          : (a.percentageChange2025vs2024 ?? 0);
-      const bChange =
-        compareMode === "2025vs2023"
-          ? (b.percentageChange2025vs2023 ?? 0)
-          : (b.percentageChange2025vs2024 ?? 0);
-      return bChange - aChange;
+      return getEffectiveChange(b) - getEffectiveChange(a);
     });
     const sortEnd = performance.now();
     const sortDuration = sortEnd - sortStart;
@@ -962,8 +976,8 @@
           <br>
           Visitor = residents who neither work nor live downtown
           <br><br>
-          Note: Activity percentages do not add up to the overall percentage as
-          activities are weighted equally.
+          Note: Resident percentages do not add up to the overall percentage as
+          all resident types are weighted equally.
         </h2>
       </div>
     {/if}
@@ -1077,13 +1091,7 @@
       </div>
 
       <div class="arrow">
-        {#if compareMode === "2025vs2023"}
-          {#if chartData.percentageChange2025vs2023 >= 0}
-            <img src={upArrow} alt="Up arrow" class="arrow-icon" />
-          {:else}
-            <img src={downArrow} alt="Down arrow" class="arrow-icon" />
-          {/if}
-        {:else if chartData.percentageChange2025vs2024 >= 0}
+        {#if getEffectiveChange(chartData) >= 0}
           <img src={upArrow} alt="Up arrow" class="arrow-icon" />
         {:else}
           <img src={downArrow} alt="Down arrow" class="arrow-icon" />
