@@ -35,6 +35,20 @@
     </div>
 
     <div id="cards-wrapper">
+
+        <a href="/charts/canada_trends_update">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgUSTrends} />
+                </div>
+
+                <h2>Canada Recovery Trends</h2>
+
+                <p>
+                    Charting downtown recovery across Canada from 2023 to 2025.
+                </p>
+            </div>
+        </a>
         
         <a href="/charts/us_trends">
             <div class="card">
