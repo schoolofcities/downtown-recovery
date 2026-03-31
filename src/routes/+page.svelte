@@ -36,6 +36,20 @@
 
     <div id="cards-wrapper">
 
+        <a href="/charts/canada_us_trips">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgUSTrends} />
+                </div>
+
+                <h2>Canadian Trips to U.S.</h2>
+
+                <p>
+                    Analyzing Canadian travel to U.S. metros from March 2024 to March 2026.
+                </p>
+            </div>
+        </a>
+
         <a href="/charts/canada_trends_update">
             <div class="card">
                 <div class="card-img">
