@@ -734,7 +734,7 @@
 
 <main>
 	<div class="text">
-		<h1>Canadian Trips to the U.S.</h1>
+		<h1>Trips from Canada to the U.S.</h1>
 		<p>
 			By <a href="https://schoolofcities.utoronto.ca/people/karen-chapple/" target="_blank">Karen Chapple</a>,
 			<a href="https://www.linkedin.com/in/yihoi-jung-0b95351b5/" target="_blank">Yihoi Jung</a>,
@@ -835,7 +835,7 @@
 	{#if viewMode === "map"}
 	<div class="map-section">
 		<div class="text">
-			<h4>Canadian Trips to U.S. Metro Areas (Year-over-Year Change)</h4>
+			<h4>Canada to U.S. Trip Metro Areas (Year-over-Year Change)</h4>
 			
 			<!-- Color Legend -->
 			<div class="color-legend">
@@ -1154,13 +1154,13 @@
 		height: 100%;
 		background: linear-gradient(
 			to right,
-			#7D0011 0%,
-			#b2182b 16.6%,
-			#E57D40 33.3%,
-			#f1c500 50%,
-			#90CC7E 66.6%,
-			#3E9126 83.3%,
-			#166101 100%
+			#9C2F2F 0%,
+			#CC3A35 16.6%,
+			#F08B5F 33.3%,
+			#FFE066 50%,
+			#A5D88C 66.6%,
+			#5FBB58 83.3%,
+			#2F8F3A 100%
 		);
 	}
 

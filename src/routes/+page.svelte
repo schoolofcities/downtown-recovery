@@ -7,7 +7,9 @@
     import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
     import cardImgCanadaTrends from "../assets/card-img/card-img-canada-trends.png";
+    import cardImgCanadaTrendsUpdate from "../assets/card-img/card-img-canada-trends-update.png";
     import cardImgUSTrends from "../assets/card-img/card-img-us-trends.png";
+    import cardImgCanadaUSTrips from "../assets/card-img/card-img-canada-us-trips.png";
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
@@ -39,10 +41,10 @@
         <a href="/charts/canada_us_trips">
             <div class="card">
                 <div class="card-img">
-                    <img src={cardImgUSTrends} />
+                    <img src={cardImgCanadaUSTrips} />
                 </div>
 
-                <h2>Canadian Trips to U.S.</h2>
+                <h2>Trips from Canada to the U.S.</h2>
 
                 <p>
                     Analyzing Canadian travel to U.S. metros from March 2024 to March 2026.
@@ -53,7 +55,7 @@
         <a href="/charts/canada_trends_update">
             <div class="card">
                 <div class="card-img">
-                    <img src={cardImgUSTrends} />
+                    <img src={cardImgCanadaTrendsUpdate} />
                 </div>
 
                 <h2>Canada Recovery Trends</h2>
@@ -124,7 +126,7 @@
             </div>
         </a>
 
-        <a href="/charts/canada_trends">
+        <!-- <a href="/charts/canada_trends">
             <div class="card">
                 <div class="card-img">
                     <img src={cardImgCanadaTrends} />
@@ -137,7 +139,7 @@
                     through February, 2025
                 </p>
             </div>
-        </a>
+        </a> -->
 
         <a href="/charts/trends">
             <div class="card">

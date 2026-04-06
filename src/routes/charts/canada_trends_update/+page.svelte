@@ -152,8 +152,10 @@
 						return xPadding + columnIndex * columnWidth + positionInColumn * columnWidth;
 					};
 
+					// Add vertical padding to make trends easier to read and avoid clipping at top/bottom
+					const yPadding = (cityMax - cityMin) * 0.1; // 10% padding
 					const yScale = scaleLinear()
-						.domain([cityMin, cityMax])
+						.domain([cityMin - yPadding, cityMax + yPadding])
 						.range([chartHeight - marginBottom, marginTop]);
 
 					// Create one continuous line path
