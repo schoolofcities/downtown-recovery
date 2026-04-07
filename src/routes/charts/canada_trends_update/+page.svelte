@@ -1,3 +1,6 @@
+
+<Password/>
+
 <script>
 	import Header from "../../../lib/Header.svelte";
 	import { onMount } from 'svelte';
@@ -6,6 +9,7 @@
 	import { regressionLoess } from "d3-regression";
 	import { min, max, mean} from 'd3-array';
 	import { cities } from '../../../lib/stores.js';
+	import Password from '$lib/Password.svelte';
 
 	import upArrow from '../../../assets/green-arrow.svg';
 	import downArrow from '../../../assets/red-arrow.svg';
@@ -258,6 +262,11 @@
 		<p>
 			The solid lines on the charts below represent the number of daily unique devices in the downtown area, split by the three years for comparison. The dotted lines provide a baseline of the average level of activity in {selection.year1}, allowing for comparison to the following years. When the solid lines extend above the dotted baseline, downtown activity is greater compared to {selection.year1}. When they dip below the dotted line, activity is on a downswing.
 		</p>
+
+		<p>
+			Note: The unique devices in these metro areas are by Census Subdivisions. Those devices are then normalized by the Census Metropolitan Areas.
+		</p>
+
 		<h5>Key findings:</h5>
 		<p>
 			‣ <span class="bold">{citiesRising2024}</span> out of

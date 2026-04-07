@@ -38,7 +38,7 @@
 
     <div id="cards-wrapper">
 
-        <a href="/charts/canada_us_trips">
+        <!-- <a href="/charts/canada_us_trips">
             <div class="card">
                 <div class="card-img">
                     <img src={cardImgCanadaUSTrips} />
@@ -50,9 +50,9 @@
                     Analyzing Canadian travel to U.S. metros from March 2024 to March 2026.
                 </p>
             </div>
-        </a>
+        </a> -->
 
-        <a href="/charts/canada_trends_update">
+        <!-- <a href="/charts/canada_trends_update">
             <div class="card">
                 <div class="card-img">
                     <img src={cardImgCanadaTrendsUpdate} />
@@ -64,7 +64,7 @@
                     Charting downtown recovery across Canada from 2023 to 2025.
                 </p>
             </div>
-        </a>
+        </a> -->
         
         <a href="/charts/us_trends">
             <div class="card">
@@ -126,7 +126,9 @@
             </div>
         </a>
 
-        <!-- <a href="/charts/canada_trends">
+        <!-- Comment out when the update version is ready to go -->
+
+        <a href="/charts/canada_trends">
             <div class="card">
                 <div class="card-img">
                     <img src={cardImgCanadaTrends} />
@@ -139,7 +141,7 @@
                     through February, 2025
                 </p>
             </div>
-        </a> -->
+        </a>
 
         <a href="/charts/trends">
             <div class="card">

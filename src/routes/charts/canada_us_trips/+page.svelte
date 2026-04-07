@@ -1,3 +1,5 @@
+<Password/>
+
 <script>
 	import Header from "../../../lib/Header.svelte";
 	import SelectRegions from "../../../lib/SelectRegions.svelte";
@@ -8,6 +10,7 @@
 	import { mean, sum, max as d3Max } from 'd3-array';
 	import maplibregl from 'maplibre-gl';
 	import 'maplibre-gl/dist/maplibre-gl.css';
+	import Password from '$lib/Password.svelte';
 
 	// Import regions and selectedRegions for color coding
 	import { regions, selectedRegions } from '../../../lib/stores.js';
