@@ -31,11 +31,11 @@
 		year1: 2024,
 		year2: 2025,
 		year3: 2026,
-		period1Start: "2024-03-13",
-		period1End: "2025-03-13",
-		period2Start: "2025-03-13",
-		period2End: "2026-03-13",
-		update_date: "2026-03-30"
+		period1Start: "2024-04-01",
+		period1End: "2025-03-31",
+		period2Start: "2025-04-01",
+		period2End: "2026-03-31",
+		update_date: "2026-04-08"
 	}
 
 	// Canadian province codes to filter out
@@ -344,11 +344,11 @@
 	}
 
 	// Parse date from YYYYMMDD format
-	function parseDate(dateNum) {
-		const dateStr = String(dateNum);
-		const year = parseInt(dateStr.substring(0, 4));
-		const month = parseInt(dateStr.substring(4, 6)) - 1;
-		const day = parseInt(dateStr.substring(6, 8));
+	function parseDate(dateValue) {
+		const dateStr = String(dateValue).trim();
+		const year = parseInt(dateStr.substring(0, 4), 10);
+		const month = parseInt(dateStr.substring(4, 6), 10) - 1;
+		const day = parseInt(dateStr.substring(6, 8), 10);
 		return new Date(year, month, day);
 	}
 
@@ -361,7 +361,7 @@
 		isLoading = true;
 		try {
 			// Load normalized data directly
-			const response = await fetch('/us_can_normalized_trips.csv');
+			const response = await fetch('/us_normalized_trips.csv');
 			const csv = await response.text();
 			const normalizedDataRaw = csvParse(csv);
 
@@ -376,20 +376,26 @@
 	function processData(normalizedDataRaw) {
 		const normalizedData = [];
 		normalizedDataRaw.forEach(row => {
-			const dateNum = row.dateNum;
-			const date = parseDate(dateNum);
+			const metro = row.METRO || row.metro;
+			const dateValue = row.DATE || row.date || row.dateNum;
+			const normalizedValue = row.normalized ?? row.NORMALIZED;
+			if (!metro || !dateValue) return;
+
+			const date = parseDate(dateValue);
+			if (Number.isNaN(date.getTime())) return;
+
 			normalizedData.push({
-				metro: row.metro,
+				metro,
 				date,
 				dateStr: formatDate(date),
-				dateNum,
-				normalized: parseFloat(row.normalized)
+				dateNum: dateValue,
+				normalized: parseFloat(normalizedValue)
 			});
 		});
 
-		// Filter to our date range (March 13, 2024 to March 13, 2026)
-		const startDate = new Date("2024-03-13");
-		const endDate = new Date("2026-03-13");
+		// Filter to our date range (April 1, 2024 to March 31, 2026)
+		const startDate = new Date("2024-04-01");
+		const endDate = new Date("2026-03-31");
 		
 		processedData = normalizedData.filter(d => d.date >= startDate && d.date <= endDate);
 		
@@ -516,13 +522,13 @@
 				'circle-color': [
 					'interpolate', ['linear'],
 					['get', 'percentChange'],
-					-60, '#7D0011',  // Dark red
-					-30, '#b2182b',  // red
+					-70, '#7D0011',  // Dark red
+					-35, '#b2182b',  // red
 					-10, '#E57D40',  // Very light red
 					0, '#f1c500',    // Yellow (neutral)
 					10, '#90CC7E',   // Very light green
-					30, '#3E9126',   // green
-					60, '#166101'    // Dark green
+					35, '#3E9126',   // green
+					70, '#166101'    // Dark green
 				],
 				'circle-opacity': 0.75,
 				'circle-stroke-width': 0
@@ -613,9 +619,9 @@
 		return metros.map(metro => {
 			const metroData = processedData.filter(d => d.metro === metro);
 			
-			// Period 1: March 13, 2024 - March 13, 2025
-			const period1Data = metroData.filter(d => d.date >= period1Start && d.date < period1End);
-			// Period 2: March 13, 2025 - March 13, 2026
+			// Period 1: April 1, 2024 - March 31, 2025
+			const period1Data = metroData.filter(d => d.date >= period1Start && d.date <= period1End);
+			// Period 2: April 1, 2025 - March 31, 2026
 			const period2Data = metroData.filter(d => d.date >= period2Start && d.date <= period2End);
 			
 			if (period1Data.length < 10 || period2Data.length < 10) return null;
@@ -838,17 +844,19 @@
 	{#if viewMode === "map"}
 	<div class="map-section">
 		<div class="text">
-			<h4>Canada to U.S. Trip Metro Areas (Year-over-Year Change)</h4>
+			<h4>Canada to U.S. Trip Map</h4>
 			
 			<!-- Color Legend -->
+			 
 			<div class="color-legend">
+			<span>Year-over-Year Change</span>
 				<div class="legend-bar">
 					<div class="legend-gradient"></div>
 				</div>
 				<div class="legend-labels">
-					<span>-60% (Large Decline)</span>
+					<span>-70% (Large Decline)</span>
 					<span>0% (Neutral)</span>
-					<span>+60% (Large Increase)</span>
+					<span>+70% (Large Increase)</span>
 				</div>
 			</div>
 			
@@ -865,8 +873,8 @@
 	<div class="text">
 		<h4>
 			{viewMode === "rankings" 
-				? `Year-over-Year Change: Mar 2024-2025 vs Mar 2025-2026`
-				: `Normalized Trips Trend (Mar 2024 - Mar 2026)`}
+				? `Year-over-Year Change`
+				: `Trips to the U.S.`}
 		</h4>
 	</div>
     
@@ -884,7 +892,9 @@
 						<span class="header-text">% Change</span>
 					</div>
 					<div class="bar-container">
-						<!-- Empty header for bar chart area -->
+						<div class="chart-header">
+							<span class="header-text">04/2024-03/2025 vs 04/2025-03/2026</span>
+						</div>
 					</div>
 				</div>
 
@@ -958,7 +968,36 @@
 						<span class="header-text">% Change</span>
 					</div>
 					<div class="bar-container">
-						<!-- Empty header for bar chart area -->
+						<svg height="45" width={chartWidth} class="chart">
+							<text x={chartWidth / 4} y="15" class="textYear">2024 / 2025</text>
+							<text x={chartWidth * 3/4} y="15" class="textYear">2025 / 2026</text>
+							
+							<line x1={chartWidth / 2} y1="0" x2={chartWidth / 2} y2="45" stroke="#555555" stroke-width="2"/>
+							
+							{#each [0, 1] as yearIndex}
+								{#each [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3] as month, i}
+									<text 
+										x={yearIndex * (chartWidth / 2) + i * (chartWidth / 24) + (chartWidth / 48)} 
+										y="35" 
+										class="textLabelSmall" 
+										style="text-anchor: middle;"
+									>{month}</text>
+									
+									{#if !(yearIndex === 0 && i === 0)}
+										<line 
+											x1={yearIndex * (chartWidth / 2) + i * (chartWidth / 24)} 
+											y1="40" 
+											x2={yearIndex * (chartWidth / 2) + i * (chartWidth / 24)} 
+											y2="45" 
+											stroke="#555555" 
+											stroke-width="1"
+										/>
+									{/if}
+								{/each}
+							{/each}
+							
+							<line x1="0" y1="45" x2={chartWidth} y2="45" stroke="#555555" stroke-width="1"/>
+						</svg>
 					</div>
 				</div>
 
@@ -985,7 +1024,7 @@
 							</span>
 						</div>
 
-						<div class="chart-container" style="width: {chartWidth}px;">
+						<div class="bar-container">
 							<svg height={chartHeight} width={chartWidth} class="chart">
 								<!-- Grid lines -->
 								{#each [0, 1] as yearIndex}
@@ -1140,7 +1179,7 @@
 	/* Color legend styles */
 	.color-legend {
 		margin: 15px auto;
-		max-width: 500px;
+		max-width: 900px;
 	}
 
 	.legend-bar {
@@ -1298,6 +1337,14 @@
 
 	.chart {
 		margin-left: 10px;
+	}
+
+	.chart-header {
+		width: 520px;
+		margin-left: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	/* Search styles */

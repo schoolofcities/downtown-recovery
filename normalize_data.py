@@ -13,7 +13,7 @@ us_trips = trips[~is_can].copy()
 
 # Group by METRO and DATE and sum UNIQUESTOPS
 us_trips['UNIQUESTOPS'] = pd.to_numeric(us_trips['UNIQUESTOPS'], errors='coerce').fillna(0)
-agg_trips = us_trips.groupby(['METRO', 'DATE'])['UNIQUESTOPS'].sum().reset_str() #.reset_index()
+agg_trips = us_trips.groupby(['METRO', 'DATE'])['UNIQUESTOPS'].sum().reset_index()
 
 # Merge with norm data
 norm['SNAPSHOT_EVENT_DATE'] = norm['SNAPSHOT_EVENT_DATE'].astype(str)
