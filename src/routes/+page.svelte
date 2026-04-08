@@ -7,7 +7,9 @@
     import cardTransitResilience from "../assets/card-img/card-img-transit-resilience.png";
     import cardImgTrends from "../assets/card-img/card-img-trends.png";
     import cardImgCanadaTrends from "../assets/card-img/card-img-canada-trends.png";
+    import cardImgCanadaTrendsUpdate from "../assets/card-img/card-img-canada-trends-update.png";
     import cardImgUSTrends from "../assets/card-img/card-img-us-trends.png";
+    import cardImgCanadaUSTrips from "../assets/card-img/card-img-canada-us-trips.png";
     import cardImgRankings from "../assets/card-img/card-img-rankings.png";
     import cardImgPatterns from "../assets/card-img/card-img-patterns.png";
     import cardImgCorrelations from "../assets/card-img/card-img-correlations.png";
@@ -35,6 +37,34 @@
     </div>
 
     <div id="cards-wrapper">
+
+        <!-- <a href="/charts/canada_us_trips">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgCanadaUSTrips} />
+                </div>
+
+                <h2>Trips from Canada to the U.S.</h2>
+
+                <p>
+                    Analyzing Canadian travel to U.S. metros from March 2024 to March 2026.
+                </p>
+            </div>
+        </a> -->
+
+        <!-- <a href="/charts/canada_trends_update">
+            <div class="card">
+                <div class="card-img">
+                    <img src={cardImgCanadaTrendsUpdate} />
+                </div>
+
+                <h2>Canada Recovery Trends</h2>
+
+                <p>
+                    Charting downtown recovery across Canada from 2023 to 2025.
+                </p>
+            </div>
+        </a> -->
         
         <a href="/charts/us_trends">
             <div class="card">
@@ -95,6 +125,8 @@
                 </p>
             </div>
         </a>
+
+        <!-- Comment out when the update version is ready to go -->
 
         <a href="/charts/canada_trends">
             <div class="card">
